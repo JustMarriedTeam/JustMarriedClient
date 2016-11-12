@@ -86,6 +86,15 @@ const config = {
 
   // Options affecting the normal modules
   module: {
+    preLoaders: [
+      {
+        loader: 'eslint-loader',
+        test: /\.js[x]?$/,
+        include: [
+          path.join(__dirname, 'core'),
+        ]
+      }
+    ],
     loaders: [
       {
         test: /\.jsx?$/,
