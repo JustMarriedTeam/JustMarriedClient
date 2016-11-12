@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "version": "0.0.0",
+  "name": "JustWedding",
+  "version": "1.0.0",
   "private": true,
   "engines": {
     "node": ">=6",
