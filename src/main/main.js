@@ -4,7 +4,7 @@ import 'whatwg-fetch';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import FastClick from 'fastclick';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 
 import store from './core/store';
 import router from './core/router';
@@ -14,15 +14,15 @@ let routes = require('./routes.json'); // Loaded with utils/routes-loader.js
 const container = document.getElementById('container');
 
 function renderComponent(component) {
-  ReactDOM.render(<Provider store={store}>{component}</Provider>, container);
+    ReactDOM.render(<Provider store={store}>{component}</Provider>, container);
 }
 
 // Find and render a web page matching the current URL path,
 // if such page is not found then render an error page (see routes.json, core/router.js)
 function render(location) {
-  router.resolve(routes, location)
-    .then(renderComponent)
-    .catch(error => router.resolve(routes, { ...location, error }).then(renderComponent));
+    router.resolve(routes, location)
+        .then(renderComponent)
+        .catch(error => router.resolve(routes, {...location, error}).then(renderComponent));
 }
 
 // Handle client-side navigation by using HTML5 History API
@@ -37,8 +37,8 @@ FastClick.attach(document.body);
 
 // Enable Hot Module Replacement (HMR)
 if (module.hot) {
-  module.hot.accept('./routes.json', () => {
-    routes = require('./routes.json'); // eslint-disable-line global-require
-    render(history.getCurrentLocation());
-  });
+    module.hot.accept('./routes.json', () => {
+        routes = require('./routes.json'); // eslint-disable-line global-require
+        render(history.getCurrentLocation());
+    });
 }
