@@ -1,14 +1,16 @@
 import React from 'react';
-import Link from '../Link';
+import Link from '../../Link';
 
 function Footer() {
     return (
         <footer className="mdl-mini-footer">
             <div className="mdl-mini-footer__left-section">
-                <div className="mdl-logo">© Company Name</div>
+                <div className="mdl-logo">© Just Married</div>
                 <ul className="mdl-mini-footer__link-list">
-                    <li><Link to="/privacy">Privacy & Terms</Link></li>
-                    <li><Link to="/not-found">Not Found</Link></li>
+                    <li><Link to="/privacy">Warunki</Link></li>
+                    <li><Link to="/privacy">Realizacje</Link></li>
+                    <li><Link to="/privacy">O Nas</Link></li>
+                    <li><Link to="/privacy">Kontakt</Link></li>
                 </ul>
             </div>
             <div className="mdl-mini-footer__right-section">

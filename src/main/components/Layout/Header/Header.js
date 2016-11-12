@@ -1,6 +1,6 @@
 import React from 'react';
-import Navigation from './Navigation';
-import Link from '../Link';
+import Navigation from '../Navigation/Navigation';
+import Link from '../../Link';
 import s from './Header.css';
 
 class Header extends React.Component {
@@ -21,7 +21,7 @@ class Header extends React.Component {
             >
                 <div className={`mdl-layout__header-row ${s.row}`}>
                     <Link className={`mdl-layout-title ${s.title}`} to="/">
-                        React Static Boilerplate
+                        JustWedding.pl
                     </Link>
                     <div className="mdl-layout-spacer"></div>
                     <Navigation />

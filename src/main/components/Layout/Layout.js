@@ -1,8 +1,9 @@
 import React, {PropTypes} from 'react';
 import cx from 'classnames';
-import Header from './Header';
-import Footer from '../Footer';
-import s from './Layout.css';
+import Header from './Header/Header';
+import Footer from './Footer/Footer';
+import Background from './Background/Background';
+import styles from './Layout.css';
 
 class Layout extends React.Component {
 
@@ -20,14 +21,15 @@ class Layout extends React.Component {
 
     render() {
         return (
-            <div className="mdl-layout mdl-js-layout" ref={node => (this.root = node)}>
+            <div className="mdl-layout mdl-layout__body mdl-js-layout" ref={node => (this.root = node)}>
                 <div className="mdl-layout__inner-container">
                     <Header />
                     <main className="mdl-layout__content">
-                        <div {...this.props} className={cx(s.content, this.props.className)}/>
-                        <Footer />
+                        <div {...this.props} className={cx(styles.content, this.props.className)}/>
                     </main>
+                    <Footer />
                 </div>
+                <Background />
             </div>
         );
     }
