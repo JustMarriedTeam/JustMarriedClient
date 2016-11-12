@@ -44,7 +44,7 @@ tasks.set('html', () => {
 // Generate sitemap.xml
 // -----------------------------------------------------------------------------
 tasks.set('sitemap', () => {
-  const urls = require('./routes.json')
+  const urls = require('./src/main/routes.json')
     .filter(x => !x.path.includes(':'))
     .map(x => ({ loc: x.path }));
   const template = fs.readFileSync('./public/sitemap.ejs', 'utf8');

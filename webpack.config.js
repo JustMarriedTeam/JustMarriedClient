@@ -28,7 +28,7 @@ const babelConfig = Object.assign({}, pkg.babel, {
 const config = {
 
   // The base directory for resolving the entry option
-  context: __dirname,
+  context: path.join(__dirname, 'src/main'),
 
   // The entry point for the bundle
   entry: [
@@ -91,19 +91,15 @@ const config = {
         loader: 'eslint-loader',
         test: /\.js[x]?$/,
         include: [
-          path.join(__dirname, 'core'),
+          path.join(__dirname, 'src'),
         ]
       }
     ],
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.js[x]?$/,
         include: [
-          path.resolve(__dirname, './actions'),
-          path.resolve(__dirname, './components'),
-          path.resolve(__dirname, './core'),
-          path.resolve(__dirname, './pages'),
-          path.resolve(__dirname, './main.js'),
+          path.resolve(__dirname, './src')
         ],
         loader: `babel-loader?${JSON.stringify(babelConfig)}`,
       },
@@ -119,20 +115,20 @@ const config = {
             // CSS Nano http://cssnano.co/options/
             minimize: !isDebug,
           })}`,
-          'postcss-loader',
+          'postcss-loader'
         ],
       },
       {
         test: /\.json$/,
         exclude: [
-          path.resolve(__dirname, './routes.json'),
+          path.resolve(__dirname, './src/main/routes.json'),
         ],
         loader: 'json-loader',
       },
       {
         test: /\.json$/,
         include: [
-          path.resolve(__dirname, './routes.json'),
+          path.resolve(__dirname, './src/main/routes.json'),
         ],
         loaders: [
           `babel-loader?${JSON.stringify(babelConfig)}`,
