@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../../components/Layout';
+import layout from '../../layout/layout';
 import s from './styles.css';
 import {title, html} from './index.md';
 
@@ -11,10 +11,10 @@ class AboutPage extends React.Component {
 
     render() {
         return (
-            <Layout className={s.content}>
+            <layout className={s.content}>
                 <h1>{title}</h1>
                 <div dangerouslySetInnerHTML={{__html: html}}/>
-            </Layout>
+            </layout>
         );
     }
 

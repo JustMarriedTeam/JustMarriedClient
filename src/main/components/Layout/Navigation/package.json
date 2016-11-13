@@ -1,6 +1,0 @@
-{
-  "name": "LayoutNavigation",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./Navigation.js"
-}
