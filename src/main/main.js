@@ -2,6 +2,7 @@ import "babel-polyfill";
 import "whatwg-fetch";
 import React from "react";
 import ReactDOM from "react-dom";
+import classNames from 'classnames'
 import {Router, Route, browserHistory} from "react-router";
 import {Provider} from "react-redux";
 import Store from "./core/store";
@@ -13,13 +14,19 @@ import AboutPage from "./pages/about/about";
 import Tasks from "./pages/tasks/tasks";
 import Task from "./pages/task/task";
 
+import styles from './styles/main.css'
+
+let cx = classNames.bind(styles);
+
 injectTapEventPlugin();
 
 class App extends React.Component {
     render() {
         return (
             <MuiThemeProvider>
-                <Provider store={Store}>{this.props.children}</Provider>
+                <Provider store={Store}>
+                    <div className={cx('root')}>{this.props.children}</div>
+                </Provider>
             </MuiThemeProvider>
         )
     }
