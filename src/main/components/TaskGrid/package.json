@@ -1,0 +1,6 @@
+{
+  "name": "TaskGrid",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./TaskGrid.js"
+}
