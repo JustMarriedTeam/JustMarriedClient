@@ -29,7 +29,7 @@ export default class TaskGrid extends Component {
             return {
                 i: task.id,
                 x: i++,
-                y: 0,
+                y: i,
                 w: 1,
                 h: 1
             }
