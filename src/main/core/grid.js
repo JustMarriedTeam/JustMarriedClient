@@ -46,12 +46,12 @@ export function createLayouts(ids) {
 function generateLayout(ids, size) {
     var layout = [];
     for(var i = 0; i < ids.length; i++) {
-        let id = ids[i];
-        let cols = gridMeta[size].cols;
+        var id = ids[i];
+        var cols = gridMeta[size].cols;
         layout.push({
             i: id,
             x: i % cols,
-            y: Math.floor((i + 1) / cols)
+            y: Math.floor(i / cols)
         });
     }
     return layout;
