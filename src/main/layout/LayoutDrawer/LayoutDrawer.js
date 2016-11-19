@@ -31,26 +31,18 @@ export default class LayoutDrawer extends Component {
                         leftIcon={<Assignment />}
                     />
 
-                    <Link to={'/timeline'}>
-                        <ListItem
-                            primaryText="Timeline"
-                            leftIcon={<Timeline />}
-                        />
-                    </Link>
+                    <ListItemLink
+                        to={'/timeline'}
+                        primaryText="Timeline"
+                        leftIcon={<Timeline />}
+                    />
 
-                    <Link to={'/expenses'}>
-                        <ListItem
-                            primaryText="Expenses"
-                            leftIcon={<Payment />}
-                        />
-                    </Link>
 
-                    <Link to={'/about'}>
-                        <ListItem
-                            primaryText="About"
-                            leftIcon={<Payment />}
-                        />
-                    </Link>
+                    <ListItemLink
+                        to={'/expenses'}
+                        primaryText="Tasks"
+                        leftIcon={<Payment />}
+                    />
 
                 </List>
             </Drawer>
