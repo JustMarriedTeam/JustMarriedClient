@@ -1,6 +1,8 @@
-import React, {Component, PropTypes} from 'react'
-import {Responsive, WidthProvider} from 'react-grid-layout';
-import _ from 'lodash/fp'
+import React, {Component, PropTypes} from "react";
+import {Responsive, WidthProvider} from "react-grid-layout";
+import _ from "lodash/fp";
+import Task from "../task/Task";
+
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 export default class TaskGrid extends Component {
@@ -29,10 +31,11 @@ export default class TaskGrid extends Component {
             return {
                 i: task.id,
                 x: i++,
-                y: i,
+                y: 0,
                 w: 1,
                 h: 1
-            }
+            };
+
         })(this.props.tasks);
     };
 
@@ -45,13 +48,19 @@ export default class TaskGrid extends Component {
     render() {
         return (
             <ResponsiveReactGridLayout
-                layouts={this.state.layouts}
-                breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
-                cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}}>
+                rowHeight={50}
+                margin={[50, 50]}
+                isDraggable={false}
+                isResizable={false}
+                layouts={this.state.layouts}>
 
                 {
                     _.map((task) => {
-                        return <div key={task.id}>{task.name}</div>
+                        return (
+                            <div key={task.id} style={ {width: "50px", height: "50px", backgroundColor: "red"} }>
+                                <Task name={task.name}/>
+                            </div>
+                        );
                     })(this.props.tasks)
                 }
 

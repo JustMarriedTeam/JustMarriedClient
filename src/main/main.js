@@ -14,7 +14,7 @@ import AboutPage from "./pages/about/about";
 import Tasks from "./pages/tasks/tasks";
 import Task from "./pages/task/task";
 
-import styles from './styles/main.css'
+import styles from './styles/main.css';
 
 let cx = classNames.bind(styles);
 
