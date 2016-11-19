@@ -1,4 +1,4 @@
-import _ from "lodash/fp";
+import {transform} from "lodash/fp/object";
 
 export const gridTypes = ['lg','md','sm','xs','xxs'];
 export const gridMeta = {
@@ -24,9 +24,13 @@ export const gridMeta = {
     }
 };
 export function createGridBreakpoints() {
-    return _.transform((result, type) => { return result[type] = gridMeta[type].minWidth })(gridTypes);
+    return transform((result, type) => {
+        result[type] = gridMeta[type].minWidth;
+    })({})(gridTypes);
 }
 export function createGridCols() {
-    return _.transform((result, type) => { return result[type] = gridMeta[type].cols })(gridTypes);
+    return transform((result, type) => {
+        result[type] = gridMeta[type].cols;
+    })({})(gridTypes);
 }
 
