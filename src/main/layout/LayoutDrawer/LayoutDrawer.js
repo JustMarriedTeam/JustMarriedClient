@@ -7,12 +7,10 @@ import Payment from "material-ui/svg-icons/action/payment";
 
 export default class LayoutDrawer extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {open: false};
-    }
-
-    handleToggle = (open) => this.setState({open: open});
+    static propTypes = {
+        onToggle: PropTypes.func.isRequired,
+        open: PropTypes.bool.isRequired
+    };
 
     render() {
         return (
@@ -20,8 +18,8 @@ export default class LayoutDrawer extends Component {
                 docked={false}
                 width={300}
                 zDepth={4}
-                open={this.state.open}
-                onRequestChange={this.handleToggle}>
+                open={this.props.open}
+                onRequestChange={this.props.onToggle}>
 
                 <List>
                     <ListItem
