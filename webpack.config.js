@@ -117,6 +117,10 @@ const config = {
           })}`,
           'postcss-loader'
         ],
+        include: [
+            /flexboxgrid/,
+            path.resolve(__dirname, "src/main")
+        ]
       },
       {
         test: /\.json$/,

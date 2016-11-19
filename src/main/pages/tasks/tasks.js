@@ -11,8 +11,9 @@ export default class TasksPage extends Component {
                 <Tabs>
                     <Tab
                         icon={<FontIcon className="material-icons">view_compact</FontIcon>}
-                        label="All"
-                    />
+                        label="All">
+
+                    </Tab>
                     <Tab
                         icon={<FontIcon className="material-icons">schedule</FontIcon>}
                         label="Todo"
