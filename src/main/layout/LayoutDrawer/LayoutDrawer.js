@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from "react";
-import {Link} from "react-router";
-import ListItemLink from '../../components/ListItemLink/ListItemLink'
+import ListItemLink from "../../components/ListItemLink/ListItemLink";
 import Drawer from "material-ui/Drawer";
-import {List, ListItem} from "material-ui/List";
+import {List} from "material-ui/List";
 import Assignment from "material-ui/svg-icons/action/assessment";
 import Timeline from "material-ui/svg-icons/action/timeline";
 import Payment from "material-ui/svg-icons/action/payment";
@@ -40,7 +39,7 @@ export default class LayoutDrawer extends Component {
 
                     <ListItemLink
                         to={'/expenses'}
-                        primaryText="Tasks"
+                        primaryText="Expenses"
                         leftIcon={<Payment />}
                     />
 
