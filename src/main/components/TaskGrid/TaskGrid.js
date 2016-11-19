@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from "react";
 import {Responsive, WidthProvider} from "react-grid-layout";
 import _ from "lodash/fp";
 import Task from "../task/Task";
+import {createGridCols, createGridBreakpoints} from "../../core/grid";
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -14,7 +15,9 @@ export default class TaskGrid extends Component {
     constructor() {
         super();
         this.state = {
-            layouts: {}
+            layouts: {},
+            breakpoints: createGridBreakpoints(),
+            cols: createGridCols()
         };
     }
 
@@ -48,8 +51,10 @@ export default class TaskGrid extends Component {
     render() {
         return (
             <ResponsiveReactGridLayout
+                breakpoints={this.state.breakpoints}
+                cols={this.state.cols}
                 rowHeight={50}
-                margin={[50, 50]}
+                margin={[15, 15]}
                 isDraggable={false}
                 isResizable={false}
                 layouts={this.state.layouts}>
