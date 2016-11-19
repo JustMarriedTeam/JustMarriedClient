@@ -1,5 +1,5 @@
 import React from 'react';
-import layout from '../../layout/layout';
+import layout from '../../layout/Layout';
 import s from './styles.css';
 import {title, html} from './index.md';
 

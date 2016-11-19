@@ -1,35 +1,15 @@
-import React, {PropTypes} from 'react';
-import Layout from '../../layout/layout';
-import s from './styles.css';
-import {title, html} from './index.md';
+import React, {PropTypes} from "react";
+import Layout from "../../layout/Layout";
+import {title, html} from "./index.md";
 
-class HomePage extends React.Component {
-
-    static propTypes = {
-        articles: PropTypes.array.isRequired,
-    };
-
-    componentDidMount() {
-        document.title = title;
-    }
+export default class HomePage extends React.Component {
 
     render() {
         return (
-            <Layout className={s.content}>
-                <div dangerouslySetInnerHTML={{__html: html}}/>
-                <h4>Articles</h4>
-                <ul>
-                    {this.props.articles.map((article, i) =>
-                        <li key={i}><a href={article.url}>{article.title}</a> by {article.author}</li>
-                    )}
-                </ul>
-                <p>
-                    <br /><br />
-                </p>
+            <Layout>
+abc
             </Layout>
         );
     }
 
 }
-
-export default HomePage;
