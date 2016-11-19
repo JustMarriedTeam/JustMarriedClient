@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from "react";
 import {Link} from "react-router";
+import ListItemLink from '../../components/ListItemLink/ListItemLink'
 import Drawer from "material-ui/Drawer";
 import {List, ListItem} from "material-ui/List";
 import Assignment from "material-ui/svg-icons/action/assessment";
@@ -23,12 +24,12 @@ export default class LayoutDrawer extends Component {
                 onRequestChange={this.props.onToggle}>
 
                 <List>
-                    <Link to={'/tasks'}>
-                        <ListItem
-                            primaryText="Tasks"
-                            leftIcon={<Assignment />}
-                        />
-                    </Link>
+
+                    <ListItemLink
+                        to={'/tasks'}
+                        primaryText="Tasks"
+                        leftIcon={<Assignment />}
+                    />
 
                     <Link to={'/timeline'}>
                         <ListItem
