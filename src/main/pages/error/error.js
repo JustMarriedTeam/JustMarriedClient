@@ -1,9 +1,7 @@
-import React from 'react';
-import history from '../../core/history';
-import Link from '../../components/Link';
-import s from './styles.css';
+import React, {Component} from "react";
+import s from "./styles.css";
 
-class ErrorPage extends React.Component {
+export default class ErrorPage extends Component {
 
     static propTypes = {
         error: React.PropTypes.object,
@@ -16,7 +14,6 @@ class ErrorPage extends React.Component {
 
     goBack = event => {
         event.preventDefault();
-        history.goBack();
     };
 
     render() {
@@ -46,5 +43,3 @@ class ErrorPage extends React.Component {
     }
 
 }
-
-export default ErrorPage;
