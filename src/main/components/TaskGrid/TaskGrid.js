@@ -35,6 +35,7 @@ export default class TaskGrid extends Component {
                 breakpoints={this.state.breakpoints}
                 cols={this.state.cols}
                 margin={[15, 15]}
+                rowHeight={250}
                 isDraggable={false}
                 isResizable={false}
                 layouts={this.state.layouts}>

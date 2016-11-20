@@ -11,11 +11,11 @@ export const gridMeta = {
         cols: 4
     },
     sm: {
-        minWidth: 768,
+        minWidth: 750,
         cols: 3
     },
     xs: {
-        minWidth: 425,
+        minWidth: 420,
         cols: 2
     },
     xxs: {
