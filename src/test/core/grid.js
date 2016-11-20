@@ -61,4 +61,112 @@ describe('grid', () => {
         ]);
     });
 
+    it('creates md layout', () => {
+        let layouts = createLayouts([1, 2, 3, 4, 5, 6]);
+        expect(layouts.md).to.be.eql([
+            {
+                "i": 1,
+                "x": 0,
+                "y": 0
+            },
+            {
+                "i": 2,
+                "x": 1,
+                "y": 0
+            },
+            {
+                "i": 3,
+                "x": 2,
+                "y": 0
+            },
+            {
+                "i": 4,
+                "x": 3,
+                "y": 0
+            },
+            {
+                "i": 5,
+                "x": 0,
+                "y": 1
+            },
+            {
+                "i": 6,
+                "x": 1,
+                "y": 1
+            }
+        ]);
+    });
+
+    it('creates sm layout', () => {
+        let layouts = createLayouts([1, 2, 3, 4, 5, 6]);
+        expect(layouts.sm).to.be.eql([
+            {
+                "i": 1,
+                "x": 0,
+                "y": 0
+            },
+            {
+                "i": 2,
+                "x": 1,
+                "y": 0
+            },
+            {
+                "i": 3,
+                "x": 2,
+                "y": 0
+            },
+            {
+                "i": 4,
+                "x": 0,
+                "y": 1
+            },
+            {
+                "i": 5,
+                "x": 1,
+                "y": 1
+            },
+            {
+                "i": 6,
+                "x": 2,
+                "y": 1
+            }
+        ]);
+    });
+
+    it('creates xs layout', () => {
+        let layouts = createLayouts([1, 2, 3, 4, 5, 6]);
+        expect(layouts.xs).to.be.eql([
+            {
+                "i": 1,
+                "x": 0,
+                "y": 0
+            },
+            {
+                "i": 2,
+                "x": 1,
+                "y": 0
+            },
+            {
+                "i": 3,
+                "x": 0,
+                "y": 1
+            },
+            {
+                "i": 4,
+                "x": 1,
+                "y": 1
+            },
+            {
+                "i": 5,
+                "x": 0,
+                "y": 2
+            },
+            {
+                "i": 6,
+                "x": 1,
+                "y": 2
+            }
+        ]);
+    });
+
 });
