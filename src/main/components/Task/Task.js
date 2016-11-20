@@ -17,7 +17,6 @@ export default class Task extends Component {
                 >
                     <img src="http://meetingking.com/wp-content/images/meetingking_tasks.png"/>
                 </CardMedia>
-                <CardTitle title="Card title" subtitle="Card subtitle"/>
             </Card>
         );
     }
