@@ -169,4 +169,40 @@ describe('grid', () => {
         ]);
     });
 
+    it('creates xxs layout', () => {
+        let layouts = createLayouts([1, 2, 3, 4, 5, 6]);
+        expect(layouts.xxs).to.be.eql([
+            {
+                "i": 1,
+                "x": 0,
+                "y": 0
+            },
+            {
+                "i": 2,
+                "x": 0,
+                "y": 1
+            },
+            {
+                "i": 3,
+                "x": 0,
+                "y": 2
+            },
+            {
+                "i": 4,
+                "x": 0,
+                "y": 3
+            },
+            {
+                "i": 5,
+                "x": 0,
+                "y": 4
+            },
+            {
+                "i": 6,
+                "x": 0,
+                "y": 5
+            }
+        ]);
+    });
+
 });

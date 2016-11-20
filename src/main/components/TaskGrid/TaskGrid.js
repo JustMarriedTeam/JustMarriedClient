@@ -21,9 +21,11 @@ export default class TaskGrid extends Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        var layouts = createLayouts(_.times((i) => { return i; })(this.props.tasks.length));
+        console.log(JSON.stringify(layouts));
         this.setState({
-            layouts: createLayouts(Array.from(this.props.tasks.length))
+            layouts: layouts
         });
     }
 
@@ -38,10 +40,12 @@ export default class TaskGrid extends Component {
                 layouts={this.state.layouts}>
 
                 {
-                    _.map((task) => {
+                    _.map.convert({ 'cap': false })((task, idx) => {
+                        console.log(task.name + ', ' + idx + "\n");
                         return (
-                            <div key={task.id} style={ {width: "50px", height: "50px", backgroundColor: "red"} }>
-                                <Task name={task.name}/>
+                            <div key={`${idx}`}>
+                                {/*<Task name={task.name}/>*/}
+                                abc
                             </div>
                         );
                     })(this.props.tasks)

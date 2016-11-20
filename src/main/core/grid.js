@@ -49,9 +49,11 @@ function generateLayout(ids, size) {
         var id = ids[i];
         var cols = gridMeta[size].cols;
         layout.push({
-            i: id,
+            i: '' + id,
             x: i % cols,
-            y: Math.floor(i / cols)
+            y: Math.floor(i / cols),
+            w: 1,
+            h: 1
         });
     }
     return layout;
