@@ -2,7 +2,7 @@ import "babel-polyfill";
 import "whatwg-fetch";
 import React from "react";
 import ReactDOM from "react-dom";
-import classNames from 'classnames'
+import classNames from 'classnames/bind'
 import {Router, Route, browserHistory} from "react-router";
 import {Provider} from "react-redux";
 import Store from "./core/store";
