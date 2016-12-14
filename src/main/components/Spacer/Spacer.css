@@ -6,9 +6,9 @@
     height: 100%;
 }
 
-@each $icon in sm, md, lg {
-    .v-$(icon) {
-        height: map(spacer, vertical, $(icon));
+@each $size in xs, sm, md, lg, hg {
+    .v-$(size) {
+        height: map(spacer, vertical, $(size));
     }
 }
 
