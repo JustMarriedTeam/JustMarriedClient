@@ -213,7 +213,9 @@ const config = {
             require('autoprefixer')(),
             // Resolve variables to put in css
             // https://github.com/pascalduez/postcss-map
-            require('postcss-map')(cssMapOpts)
+            require('postcss-map')(cssMapOpts),
+            // Mixins
+            require('postcss-mixins')()
         ];
     },
 
