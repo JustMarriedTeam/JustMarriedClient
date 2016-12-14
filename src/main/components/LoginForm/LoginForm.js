@@ -4,6 +4,7 @@ import FontIcon from "material-ui/FontIcon";
 import TextField from "material-ui/TextField";
 import Spacer from "../Spacer/Spacer";
 import Paper from "material-ui/Paper";
+import SeparatingLine from "../SeparatingLine/SeparatingLine";
 import classNames from "classnames/bind";
 import styles from "./LoginForm.css";
 
@@ -18,6 +19,8 @@ export default class LoginForm extends Component {
             <Paper zDepth={3} className={cx('login-form')}>
 
                 <h2>Login with</h2>
+
+                <SeparatingLine marginTop="-20px" marginBottom="20px" />
 
                 <RaisedButton
                     href="http://localhost:2701/api/auth/facebook"
@@ -38,7 +41,7 @@ export default class LoginForm extends Component {
                 />
 
                 <Spacer weight="sm"/>
-                <h4 className={cx('login-method-or')}>- or -</h4>
+                <h5 className={cx('login-method-or')}>- or -</h5>
                 <Spacer weight="sm"/>
 
                 <TextField
