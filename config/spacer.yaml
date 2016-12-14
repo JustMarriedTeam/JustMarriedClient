@@ -1,8 +1,8 @@
 vertical:
-  xs: 10px
-  sm: 20px
-  md: 30px
-  lg: 50px
+  xs: 5px
+  sm: 10px
+  md: 20px
+  lg: 40px
   hg: 100px
 
 horizontal:

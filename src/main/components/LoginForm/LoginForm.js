@@ -1,59 +1,63 @@
 import React, {Component, PropTypes} from "react";
-import { Grid, Row, Col } from 'react-flexbox-grid'
-import RaisedButton from 'material-ui/RaisedButton';
-import FontIcon from 'material-ui/FontIcon';
-import TextField from 'material-ui/TextField'
-import Spacer from '../Spacer/Spacer'
+import RaisedButton from "material-ui/RaisedButton";
+import FontIcon from "material-ui/FontIcon";
+import TextField from "material-ui/TextField";
+import Spacer from "../Spacer/Spacer";
+import Paper from "material-ui/Paper";
+import classNames from "classnames/bind";
+import styles from "./LoginForm.css";
+
+let cx = classNames.bind(styles);
+
 
 export default class LoginForm extends Component {
 
 
     render() {
         return (
-            <div>
-                <Grid>
-                    <Row>
+            <Paper zDepth={3} className={cx('login-form')}>
 
-                        <Col xs={12} md={6}>
-                            <RaisedButton
-                                href="http://localhost:2701/api/auth/facebook"
-                                target="_blank"
-                                label="Login with facebook"
-                                icon={<FontIcon className="fa fa-facebook-square" />}
-                            />
-                            <RaisedButton
-                                href="http://localhost:2701/api/auth/google"
-                                target="_blank"
-                                label="Login with google"
-                                icon={<FontIcon className="fa fa-facebook-square" />}
-                            />
-                        </Col>
+                <h2>Login with</h2>
 
-                        <Col xs={12} md={6}>
-                            <Grid>
-                                <Row>
-                                    <Col xs={6} md={3}>
-                                        <TextField
-                                            hintText="Login"/>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col xs={6} md={3}>
-                                        <TextField
-                                            hintText="Password"/>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col xs={6} md={3}>
-                                        <RaisedButton label="Login"/>
-                                    </Col>
-                                </Row>
-                            </Grid>
-                        </Col>
+                <RaisedButton
+                    href="http://localhost:2701/api/auth/facebook"
+                    target="_blank"
+                    backgroundColor="#3B5998"
+                    fullWidth={true}
+                    label="Login with facebook"
+                    icon={<FontIcon className="fa fa-facebook-square"/>}
+                />
+                <Spacer weight="xs"/>
+                <RaisedButton
+                    href="http://localhost:2701/api/auth/google"
+                    target="_blank"
+                    backgroundColor="#a4c639"
+                    fullWidth={true}
+                    label="Login with google"
+                    icon={<FontIcon className="fa fa-google-plus-square"/>}
+                />
 
-                    </Row>
-                </Grid>
-            </div>
+                <Spacer weight="sm"/>
+                <h4 className={cx('login-method-or')}>- or -</h4>
+                <Spacer weight="sm"/>
+
+                <TextField
+                    fullWidth={true}
+                    hintText="Login"/>
+
+                <Spacer weight="xs"/>
+
+                <TextField
+                    fullWidth={true}
+                    hintText="Password"/>
+
+                <Spacer weight="md"/>
+
+                <div className={cx('local-login-btn-section')}>
+                    <RaisedButton primary={true} label="Login"/>
+                </div>
+
+            </Paper>
         );
     }
 

@@ -1,0 +1,12 @@
+.login-form {
+    max-width: 350px;
+    padding: 20px;
+}
+
+.login-method-or {
+    text-align: center;
+}
+
+.local-login-btn-section {
+    text-align: right;
+}
