@@ -23,6 +23,11 @@ const babelConfig = Object.assign({}, pkg.babel, {
     cacheDirectory: useHMR,
 });
 
+const cssMapOpts = {
+    basePath: 'config/',
+    maps: ['spacer.yaml']
+};
+
 // Webpack configuration (main.js => public/dist/main.{hash}.js)
 // http://webpack.github.io/docs/configuration.html
 const config = {
@@ -182,6 +187,12 @@ const config = {
             // W3C color() function, e.g. div { background: color(red alpha(90%)); }
             // https://github.com/postcss/postcss-color-function
             require('postcss-color-function')(),
+            // Iterate through array values
+            // https://github.com/outpunk/postcss-each
+            require('postcss-each')(),
+            // Conditionals
+            // https://github.com/andyjansson/postcss-conditionals
+            require('postcss-conditionals')(),
             // Convert CSS shorthand filters to SVG equivalent, e.g. .blur { filter: blur(4px); }
             // https://github.com/iamvdo/pleeease-filters
             require('pleeease-filters')(),
@@ -200,6 +211,9 @@ const config = {
             // Add vendor prefixes to CSS rules using values from caniuse.com
             // https://github.com/postcss/autoprefixer
             require('autoprefixer')(),
+            // Resolve variables to put in css
+            // https://github.com/pascalduez/postcss-map
+            require('postcss-map')(cssMapOpts)
         ];
     },
 

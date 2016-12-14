@@ -1,0 +1,13 @@
+vertical:
+  xs: 10px
+  sm: 20px
+  md: 30px
+  lg: 50px
+  hg: 100px
+
+horizontal:
+  xs: 10px
+  sm: 20px
+  md: 30px
+  lg: 50px
+  hg: 100px

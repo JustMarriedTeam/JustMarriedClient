@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from "react";
-import {Card, CardActions, CardMedia, CardTitle, CardText} from "material-ui/Card";
-import FlatButton from "material-ui/FlatButton";
+import {Card, CardMedia, CardTitle} from "material-ui/Card";
 
 
 export default class Task extends Component {
