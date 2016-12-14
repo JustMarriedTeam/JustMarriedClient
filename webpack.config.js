@@ -41,6 +41,7 @@ const config = {
         '!!style!css!react-mdl/extra/material.min.css',
         '!!style!css!react-grid-layout/css/styles.css',
         '!!style!css!react-resizable/css/styles.css',
+        '!!style!css!font-awesome/css/font-awesome.css',
         'react-mdl/extra/material.min.js',
         /* The main entry point of your JavaScript application */
         './main.js',
@@ -156,6 +157,27 @@ const config = {
                 test: /\.(eot|ttf|wav|mp3)$/,
                 loader: 'file-loader',
             },
+
+            {
+                test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=application/font-woff"
+            },
+            {
+                test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=application/font-woff"
+            },
+            {
+                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=application/octet-stream"
+            },
+            {
+                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "file"
+            },
+            {
+                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=image/svg+xml"
+            }
         ],
     },
 
