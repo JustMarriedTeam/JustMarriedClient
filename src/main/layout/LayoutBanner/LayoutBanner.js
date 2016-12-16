@@ -4,7 +4,9 @@ import Slider from 'react-slick';
 import Banner from './Banner/Banner.js';
 import styles from './LayoutBanner.pcss'
 
-import image from '../../assets/background.jpg';
+import pair from '../../assets/background.jpg';
+import rings from '../../assets/rings.jpg';
+import glasses from '../../assets/glasses.jpg';
 
 const cx = classnames.bind(styles);
 
@@ -32,10 +34,13 @@ export default class LayoutBanner extends Component {
                 <Slider className={cx('layout-banner__slider')} {...slickConfig}>
 
                     <div style={coverStyle}>
-                        <Banner img={image} />
+                        <Banner img={pair} />
                     </div>
                     <div style={coverStyle}>
-                        <Banner img={image}/>
+                        <Banner img={rings}/>
+                    </div>
+                    <div style={coverStyle}>
+                        <Banner img={glasses}/>
                     </div>
 
                 </Slider>
