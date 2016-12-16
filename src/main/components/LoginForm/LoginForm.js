@@ -7,7 +7,7 @@ import Spacer from "../Spacer/Spacer";
 import SeparatingLine from "../SeparatingLine/SeparatingLine";
 import MediaQuery from 'react-responsive';
 import classNames from "classnames/bind";
-import styles from "./LoginForm.css";
+import styles from "./LoginForm.pcss";
 
 let cx = classNames.bind(styles);
 
@@ -17,17 +17,17 @@ export default class LoginForm extends Component {
 
     render() {
         return (
-            <Flex wrap className={cx('login-form')} align='center'>
+            <Flex wrap className={cx('login-form')} align="stretch" justify="space-around">
 
 
                 <Box sm={12}>
                     <h2>Login into JustMarried</h2>
-                    <div>Enter login details or <a href="/href">create an account</a></div>
+                    <div className={cx('login-form__description')}>Enter login details or <a href="/href">create an account</a></div>
                     <SeparatingLine marginBottom="40px"/>
                 </Box>
 
 
-                <Box sm={12} md={6}>
+                <Box sm={12} md={6} p={2}>
                     <TextField
                         fullWidth={true}
                         hintText="Login"/>
@@ -46,17 +46,15 @@ export default class LoginForm extends Component {
                 </Box>
 
 
-                <Box sm={12} md={1}>
-                    <MediaQuery maxWidth="48em">
-                        <SeparatingLine type="horizontal" text="or"/>
-                    </MediaQuery>
-                    <MediaQuery minWidth="48em">
-                        <SeparatingLine type="vertical" text="or"/>
-                    </MediaQuery>
-                </Box>
+                <MediaQuery maxWidth="767px">
+                    <SeparatingLine flex col={12} type="horizontal" text="or"/>
+                </MediaQuery>
 
+                <MediaQuery minWidth="768px">
+                    <SeparatingLine flex col={1} type="vertical" text="or"/>
+                </MediaQuery>
 
-                <Box sm={12} md={5}>
+                <Box sm={12} md={5} p={2}>
 
                     <RaisedButton
                         href="http://localhost:2701/api/auth/facebook"

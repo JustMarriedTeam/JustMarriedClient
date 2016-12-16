@@ -2,7 +2,7 @@ import "babel-polyfill";
 import "whatwg-fetch";
 import React from "react";
 import ReactDOM from "react-dom";
-import classNames from 'classnames/bind'
+import classNames from "classnames/bind";
 import {Router, Route, browserHistory} from "react-router";
 import {Provider} from "react-redux";
 import Store from "./core/store";
@@ -13,8 +13,7 @@ import HomePage from "./pages/home/home";
 import AboutPage from "./pages/about/about";
 import Tasks from "./pages/tasks/tasks";
 import Task from "./pages/task/task";
-
-import styles from './styles/main.css';
+import styles from "./styles/main.css";
 
 let cx = classNames.bind(styles);
 
@@ -31,9 +30,9 @@ class App extends React.Component {
             reflexbox: {
                 degug: true,
                 breakpoints: {
-                    sm: '(min-width: 30em)',
-                    md: '(min-width: 48em)',
-                    lg: '(min-width: 60em)'
+                    sm: '(min-width: 320px)',
+                    md: '(min-width: 768px)',
+                    lg: '(min-width: 1024px)'
                 }
             }
         }
