@@ -47,11 +47,15 @@ export default class LoginForm extends Component {
 
 
                 <MediaQuery maxWidth="767px">
-                    <SeparatingLine flex col={12} type="horizontal" text="or"/>
+                    <Box col={12} p={1}>
+                        <SeparatingLine type="horizontal" text="or"/>
+                    </Box>
                 </MediaQuery>
 
                 <MediaQuery minWidth="768px">
-                    <SeparatingLine flex col={1} type="vertical" text="or"/>
+                    <Box col={1} p={1}>
+                        <SeparatingLine type="vertical" text="or"/>
+                    </Box>
                 </MediaQuery>
 
                 <Box sm={12} md={5} p={2}>

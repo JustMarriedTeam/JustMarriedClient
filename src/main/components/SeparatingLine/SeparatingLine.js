@@ -20,7 +20,9 @@ class SeparatingLine extends Component {
                 <div className={cx('separating-line__stroke')}/>
                 <div className={cx('separating-line__text', {
                     'separating-line__text--hidden': !this.props.text
-                })}>{ this.props.text }</div>
+                })}>
+                    <div>{ this.props.text }</div>
+                </div>
                 <div className={cx('separating-line__stroke')}/>
             </div>
         );
