@@ -112,7 +112,7 @@ const config = {
                 loader: `babel-loader?${JSON.stringify(babelConfig)}`,
             },
             {
-                test: /\.css$/,
+                test: /\.[p]?css$/,
                 loaders: [
                     'style-loader',
                     `css-loader?${JSON.stringify({
@@ -203,8 +203,8 @@ const config = {
             // https://github.com/postcss/postcss-calc
             require('postcss-calc')(),
             // Allows you to nest one style rule inside another
-            // https://github.com/jonathantneal/postcss-nesting
-            require('postcss-nesting')(),
+            // https://github.com/postcss/postcss-nested
+            require('postcss-nested')(),
             // W3C color() function, e.g. div { background: color(red alpha(90%)); }
             // https://github.com/postcss/postcss-color-function
             require('postcss-color-function')(),

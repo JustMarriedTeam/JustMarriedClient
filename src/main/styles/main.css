@@ -18,11 +18,18 @@ body {
 
 }
 
-h2 {
+h1 {
     font-weight: 300;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-size: 35px;
     line-height: 38px;
+}
+
+h2 {
+    font-weight: 300;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 30px;
+    line-height: 32px;
 }
 
 h3 {

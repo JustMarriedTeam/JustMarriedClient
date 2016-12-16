@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import classNames from "classnames";
+import classNames from "classnames/bind";
 import LayoutBar from "./LayoutBar/LayoutBar";
 import LayoutDrawer from "./LayoutDrawer/LayoutDrawer";
 import styles from "./Layout.css";
