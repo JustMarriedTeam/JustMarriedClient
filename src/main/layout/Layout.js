@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import classNames from "classnames/bind";
 import LayoutBar from "./LayoutBar/LayoutBar";
 import LayoutDrawer from "./LayoutDrawer/LayoutDrawer";
+import LayoutBanner from "./LayoutBanner/LayoutBanner"
 import LayoutFooter from './LayoutFooter/LayoutFooter'
 import styles from "./Layout.css";
 
@@ -35,7 +36,7 @@ export default class Layout extends Component {
 
                 <LayoutBar onMenuAction={() => this.toggleDrawer()}/>
                 <LayoutDrawer open={this.state.drawer.open} onToggle={this.toggleDrawer}/>
-
+                <LayoutBanner />
                 <main className={cx('content')}>
                     { this.props.children }
                 </main>
