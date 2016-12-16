@@ -50,7 +50,7 @@ export default class LoginForm extends Component {
                     </Col>
 
                     <Col xs={12}>
-
+                        <SeparatingLine type="horizontal" text="or via" />
                     </Col>
 
                     <Col xs={12}>

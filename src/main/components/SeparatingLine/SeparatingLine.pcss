@@ -1,19 +1,59 @@
 .separating-line {
-  width: 100%;
-  height: 2px;
-  background-color: #eeeeee;
-}
 
-.separating-line-inner {
-  margin-top: 1px;
-  height: 100%;
-  background-color: #cccccc;
-}
+  &--vertical {
+    height: 100%;
+  }
 
-.separating-line-text {
+  &--horizontal {
+    width: 100%;
+  }
 
-  &--hidden {
-    display: none;
+  &__stroke, &__text {
+
+    .separating-line--horizontal & {
+      display: inline-block;
+      line-height: 20px;
+      vertical-align: middle;
+    }
+
+    .separating-line--vertical & {
+      display: block;
+    }
+
+  }
+
+  &__stroke {
+    background-color: #cccccc;
+
+    .separating-line--horizontal & {
+      width: 40%;
+      height: 1px;
+    }
+
+    .separating-line--vertical & {
+      display: block;
+      height: 40%;
+      width: 1px;
+    }
+
+  }
+
+  &__text {
+    font-size: 14px;
+
+    .separating-line--horizontal & {
+      width: 20%;
+      text-align: center;
+    }
+
+    .separating-line--vertical & {
+      height: 20%;
+    }
+
+    &--hidden {
+      display: none;
+    }
+
   }
 
 }
