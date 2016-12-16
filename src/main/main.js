@@ -13,6 +13,7 @@ import HomePage from "./pages/home/home";
 import AboutPage from "./pages/about/about";
 import Tasks from "./pages/tasks/tasks";
 import Task from "./pages/task/task";
+import Theme from './theme/theme';
 import styles from "./styles/main.css";
 
 let cx = classNames.bind(styles);
@@ -40,7 +41,7 @@ class App extends React.Component {
 
     render() {
         return (
-            <MuiThemeProvider>
+            <MuiThemeProvider muiTheme={Theme}>
                 <Provider store={Store}>
                     <div className={cx('root')}>{this.props.children}</div>
                 </Provider>
