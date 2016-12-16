@@ -21,6 +21,24 @@ let cx = classNames.bind(styles);
 injectTapEventPlugin();
 
 class App extends React.Component {
+
+    static childContextTypes = {
+        reflexbox: React.PropTypes.object
+    };
+
+    getChildContext = () => {
+        return {
+            reflexbox: {
+                degug: true,
+                breakpoints: {
+                    sm: '(min-width: 30em)',
+                    md: '(min-width: 48em)',
+                    lg: '(min-width: 60em)'
+                }
+            }
+        }
+    };
+
     render() {
         return (
             <MuiThemeProvider>

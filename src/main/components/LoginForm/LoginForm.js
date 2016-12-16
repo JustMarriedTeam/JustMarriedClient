@@ -1,11 +1,11 @@
 import React, {Component, PropTypes} from "react";
 import RaisedButton from "material-ui/RaisedButton";
-import {Grid, Row, Col} from 'react-flexbox-grid';
+import {Flex, Box} from 'reflexbox'
 import FontIcon from "material-ui/FontIcon";
 import TextField from "material-ui/TextField";
 import Spacer from "../Spacer/Spacer";
-import Paper from "material-ui/Paper";
 import SeparatingLine from "../SeparatingLine/SeparatingLine";
+import MediaQuery from 'react-responsive';
 import classNames from "classnames/bind";
 import styles from "./LoginForm.css";
 
@@ -17,69 +17,71 @@ export default class LoginForm extends Component {
 
     render() {
         return (
-            <Grid className={cx('login-form')}>
+            <Flex wrap className={cx('login-form')} align='center'>
 
-                <Row>
 
-                    <Col xs={12}>
-                        <h2>Login into JustMarried</h2>
-                        <div>Enter login details or <a href="/href">create an account</a></div>
-                        <SeparatingLine marginBottom="40px" />
-                    </Col>
+                <Box sm={12}>
+                    <h2>Login into JustMarried</h2>
+                    <div>Enter login details or <a href="/href">create an account</a></div>
+                    <SeparatingLine marginBottom="40px"/>
+                </Box>
 
-                </Row>
 
-                <Row>
+                <Box sm={12} md={6}>
+                    <TextField
+                        fullWidth={true}
+                        hintText="Login"/>
 
-                    <Col xs={12}>
-                        <TextField
-                            fullWidth={true}
-                            hintText="Login"/>
+                    <Spacer weight="xs"/>
 
-                        <Spacer weight="xs"/>
+                    <TextField
+                        fullWidth={true}
+                        hintText="Password"/>
 
-                        <TextField
-                            fullWidth={true}
-                            hintText="Password"/>
+                    <Spacer weight="md"/>
 
-                        <Spacer weight="md"/>
+                    <div className={cx('local-login-btn-section')}>
+                        <RaisedButton primary={true} label="Login"/>
+                    </div>
+                </Box>
 
-                        <div className={cx('local-login-btn-section')}>
-                            <RaisedButton primary={true} label="Login"/>
-                        </div>
-                    </Col>
 
-                    <Col xs={12}>
-                        <SeparatingLine type="horizontal" text="or via" />
-                    </Col>
+                <Box sm={12} md={1}>
+                    <MediaQuery maxWidth="48em">
+                        <SeparatingLine type="horizontal" text="or"/>
+                    </MediaQuery>
+                    <MediaQuery minWidth="48em">
+                        <SeparatingLine type="vertical" text="or"/>
+                    </MediaQuery>
+                </Box>
 
-                    <Col xs={12}>
 
-                        <RaisedButton
-                            href="http://localhost:2701/api/auth/facebook"
-                            target="_blank"
-                            backgroundColor="#3B5998"
-                            fullWidth={true}
-                            label="Login with facebook"
-                            icon={<FontIcon className="fa fa-facebook-square"/>}
-                        />
+                <Box sm={12} md={5}>
 
-                        <Spacer weight="xs"/>
+                    <RaisedButton
+                        href="http://localhost:2701/api/auth/facebook"
+                        target="_blank"
+                        backgroundColor="#3B5998"
+                        fullWidth={true}
+                        label="Login with facebook"
+                        icon={<FontIcon className="fa fa-facebook-square"/>}
+                    />
 
-                        <RaisedButton
-                            href="http://localhost:2701/api/auth/google"
-                            target="_blank"
-                            backgroundColor="#a4c639"
-                            fullWidth={true}
-                            label="Login with google"
-                            icon={<FontIcon className="fa fa-google-plus-square"/>}
-                        />
+                    <Spacer weight="xs"/>
 
-                    </Col>
+                    <RaisedButton
+                        href="http://localhost:2701/api/auth/google"
+                        target="_blank"
+                        backgroundColor="#a4c639"
+                        fullWidth={true}
+                        label="Login with google"
+                        icon={<FontIcon className="fa fa-google-plus-square"/>}
+                    />
 
-                </Row>
+                </Box>
 
-            </Grid>
+
+            </Flex>
         );
     }
 
