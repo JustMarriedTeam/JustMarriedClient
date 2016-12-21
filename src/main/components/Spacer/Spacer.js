@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from "react";
 import classNames from "classnames/bind";
-import styles from "./Spacer.css";
+import styles from "./Spacer.pcss";
 
 let cx = classNames.bind(styles);
 

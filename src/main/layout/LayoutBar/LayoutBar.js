@@ -16,8 +16,13 @@ export default class LayoutBar extends Component {
         return (
             <AppBar
                 className={cx('layout-bar')}
+                style={{
+                    position: 'fixed',
+                    top: 0
+                }}
                 onLeftIconButtonTouchTap={this.props.onMenuAction}
                 title="JustMarried"
+                zDepth={0}
             />
         );
 

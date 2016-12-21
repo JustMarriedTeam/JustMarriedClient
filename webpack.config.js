@@ -25,7 +25,7 @@ const babelConfig = Object.assign({}, pkg.babel, {
 
 const cssMapOpts = {
     basePath: 'config/',
-    maps: ['spacer.yaml']
+    maps: ['spacer.yaml', 'layout.yaml']
 };
 
 // Webpack configuration (main.js => public/dist/main.{hash}.js)

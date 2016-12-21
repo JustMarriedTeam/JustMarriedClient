@@ -1,7 +1,5 @@
 import {
     cyan500,
-    blueGrey900,
-    grey50,
     cyan700,
     pinkA200,
     grey100,
@@ -23,7 +21,7 @@ export default getMuiTheme({
     spacing: spacing,
     fontFamily: 'Roboto, sans-serif',
     palette: {
-        primary1Color: grey50,
+        primary1Color: cyan500,
         primary2Color: cyan700,
         primary3Color: grey400,
         accent1Color: pinkA200,

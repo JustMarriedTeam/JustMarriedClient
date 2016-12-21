@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import LayoutBar from "./LayoutBar/LayoutBar";
 import LayoutDrawer from "./LayoutDrawer/LayoutDrawer";
 import LayoutFooter from "./LayoutFooter/LayoutFooter";
-import styles from "./Layout.css";
+import styles from "./Layout.pcss";
 
 let cx = classNames.bind(styles);
 
@@ -31,11 +31,11 @@ export default class Layout extends Component {
     render() {
 
         return (
-            <div className={cx('root')}>
+            <div className={cx('layout__root')}>
 
                 <LayoutBar onMenuAction={() => this.toggleDrawer()}/>
                 <LayoutDrawer open={this.state.drawer.open} onToggle={this.toggleDrawer}/>
-                <main className={cx('content')}>
+                <main className={cx('layout__content')}>
                     { this.props.children }
                 </main>
 

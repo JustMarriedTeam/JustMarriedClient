@@ -1,0 +1,19 @@
+@define-mixin weights $prefix, $dim {
+    @each $size in xs, sm, md, lg, hg {
+        .$(prefix)-$(size) {
+            height: map(spacer, vertical, $(size));
+        }
+    }
+}
+
+.v {
+    width: 100%;
+}
+
+.h {
+    height: 100%;
+}
+
+@mixin weights v, height;
+@mixin weights h, width;
+

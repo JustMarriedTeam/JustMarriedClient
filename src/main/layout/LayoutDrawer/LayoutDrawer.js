@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from "react";
 import ListItemLink from "../../components/ListItemLink/ListItemLink";
 import Drawer from "material-ui/Drawer";
 import {List} from "material-ui/List";
+import Home from "material-ui/svg-icons/action/home";
 import Assignment from "material-ui/svg-icons/action/assessment";
 import Timeline from "material-ui/svg-icons/action/timeline";
 import Payment from "material-ui/svg-icons/action/payment";
@@ -23,6 +24,12 @@ export default class LayoutDrawer extends Component {
                 onRequestChange={this.props.onToggle}>
 
                 <List>
+
+                    <ListItemLink
+                        to={'/home'}
+                        primaryText="Home"
+                        leftIcon={<Home />}
+                    />
 
                     <ListItemLink
                         to={'/tasks'}

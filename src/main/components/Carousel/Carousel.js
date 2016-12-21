@@ -3,9 +3,6 @@ import classnames from "classnames/bind";
 import Slider from "react-slick";
 import CarouselItem from "./CarouselItem/CarouselItem";
 import styles from "./Carousel.pcss";
-import pair from "../../assets/a.jpg";
-import rings from "../../assets/2.jpg";
-import calendar from "../../assets/calendar.jpg";
 
 const cx = classnames.bind(styles);
 
@@ -35,13 +32,7 @@ export default class Carousel extends Component {
                 <Slider className={cx('layout-banner__slider')} {...slickConfig}>
 
                     <div style={coverStyle}>
-                        <CarouselItem img={pair} />
-                    </div>
-                    <div style={coverStyle}>
-                        <CarouselItem img={calendar}/>
-                    </div>
-                    <div style={coverStyle}>
-                        <CarouselItem img={rings}/>
+                        <CarouselItem img='abc' />
                     </div>
 
                 </Slider>
