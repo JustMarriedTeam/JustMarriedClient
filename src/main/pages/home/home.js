@@ -13,11 +13,11 @@ export default class HomePage extends React.Component {
         return (
             <Layout>
                 <div className={cx('home__banner')}>
+                    <div className={cx('home__logo')} />
                     <div className={cx('home__slogan')}>
 
-                        <h2>Let us plan</h2>
-                        <h1>A great wedding</h1>
-                        <h2>for you</h2>
+                        <h1>Just Married</h1>
+                        <h4>We know how to plan a perfect wedding!</h4>
 
                     </div>
                 </div>
