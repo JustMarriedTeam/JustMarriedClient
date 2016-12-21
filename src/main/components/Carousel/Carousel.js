@@ -1,15 +1,17 @@
 import React, {Component, PropTypes} from "react";
 import classnames from "classnames/bind";
 import Slider from "react-slick";
-import BannerSlide from "./BannerSlide/BannerSlide";
-import styles from "./Banner.pcss";
-import pair from "../../assets/background.jpg";
-import rings from "../../assets/rings.jpg";
+import CarouselItem from "./CarouselItem/CarouselItem";
+import styles from "./Carousel.pcss";
+import pair from "../../assets/a.jpg";
+import rings from "../../assets/2.jpg";
 import calendar from "../../assets/calendar.jpg";
 
 const cx = classnames.bind(styles);
 
-export default class LayoutBanner extends Component {
+// http://www.bucketlistly.com/
+
+export default class Carousel extends Component {
 
     render() {
 
@@ -25,7 +27,7 @@ export default class LayoutBanner extends Component {
 
         const coverStyle = {
             width: '100%',
-            height: '400px',
+            height: '875px',
         };
 
         return (
@@ -33,13 +35,13 @@ export default class LayoutBanner extends Component {
                 <Slider className={cx('layout-banner__slider')} {...slickConfig}>
 
                     <div style={coverStyle}>
-                        <BannerSlide img={pair} />
+                        <CarouselItem img={pair} />
                     </div>
                     <div style={coverStyle}>
-                        <BannerSlide img={calendar}/>
+                        <CarouselItem img={calendar}/>
                     </div>
                     <div style={coverStyle}>
-                        <BannerSlide img={rings}/>
+                        <CarouselItem img={rings}/>
                     </div>
 
                 </Slider>

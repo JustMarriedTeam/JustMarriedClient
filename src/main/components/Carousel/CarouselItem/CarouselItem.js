@@ -1,10 +1,10 @@
 import React, {Component, PropTypes} from "react";
 import classnames from "classnames/bind";
-import styles from "./BannerSlide.pcss";
+import styles from "./CarouselItem.pcss";
 
 const cx = classnames.bind(styles);
 
-export default class BannerSlide extends Component {
+export default class CarouselItem extends Component {
 
     static propTypes = {
         img: PropTypes.string.isRequired
