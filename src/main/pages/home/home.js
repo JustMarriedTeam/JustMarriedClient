@@ -2,6 +2,7 @@ import React, {PropTypes} from "react";
 import Layout from "../../layout/Layout";
 import classnames from "classnames/bind";
 import LayoutContainer from "../../layout/LayoutContainer";
+import RaisedButton from 'material-ui/RaisedButton';
 import styles from "./home.pcss";
 import {html} from "./index.md";
 
@@ -17,7 +18,9 @@ export default class HomePage extends React.Component {
                     <div className={cx('home__slogan')}>
 
                         <h1>Just Married</h1>
-                        <h4>We know how to plan a perfect wedding!</h4>
+                        <h4>Let's plan your wedding!</h4>
+
+                        <RaisedButton label="Start here" secondary href={'#start'} />
 
                     </div>
                 </div>
