@@ -5,6 +5,7 @@ import LayoutContainer from "../../layout/LayoutContainer";
 import LoginForm from "../../components/LoginForm";
 import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
+import Spacer from '../../components/Spacer'
 import styles from "./home.pcss";
 import {html} from "./index.md";
 
@@ -56,7 +57,11 @@ export default class HomePage extends React.Component {
                                         label="or sign in" href={'#continue'}/>
 
                         </div>
+
+                        <Spacer />
+
                         <LoginPane isVisible={this.state.loginForm.shown}/>
+
                     </div>
                 </div>
 
