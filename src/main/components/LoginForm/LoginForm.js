@@ -19,14 +19,6 @@ export default class LoginForm extends Component {
         return (
             <Flex wrap className={cx('login-form')} align="stretch" justify="space-around">
 
-
-                <Box sm={12}>
-                    <h2>Login into JustMarried</h2>
-                    <div className={cx('login-form__description')}>Enter login details or <a href="/href">create an account</a></div>
-                    <SeparatingLine marginBottom="40px"/>
-                </Box>
-
-
                 <Box sm={12} md={6} p={2}>
                     <TextField
                         fullWidth={true}
