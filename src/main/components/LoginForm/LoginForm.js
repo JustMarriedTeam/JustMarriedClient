@@ -19,7 +19,7 @@ export default class LoginForm extends Component {
         return (
             <Flex wrap className={cx('login-form')} align="stretch" justify="space-around">
 
-                <Box sm={12} md={6} p={2}>
+                <Box sm={12} md={5} p={1}>
                     <TextField
                         fullWidth={true}
                         hintText="Login"/>
@@ -45,12 +45,12 @@ export default class LoginForm extends Component {
                 </MediaQuery>
 
                 <MediaQuery minWidth="768px">
-                    <Box col={1} p={1}>
+                    <Box col={2} p={1}>
                         <SeparatingLine type="vertical" text="or"/>
                     </Box>
                 </MediaQuery>
 
-                <Box sm={12} md={5} p={2}>
+                <Box sm={12} md={5} p={1}>
 
                     <RaisedButton
                         href="http://localhost:2701/api/auth/facebook"

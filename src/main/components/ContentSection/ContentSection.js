@@ -7,7 +7,7 @@ const cx = classnames.bind(styles);
 export default class ContentSection extends Component {
 
     static propTypes = {
-        alternate: PropTypes.boolean
+        alternate: PropTypes.bool
     };
 
     render() {
