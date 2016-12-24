@@ -15,6 +15,7 @@ import styles from "./home.pcss";
 import {html} from "./index.md";
 
 import whyNeedUs from '../../assets/whyneedus.jpg'
+import registrationBg from '../../assets/registrationbg.jpg'
 
 const cx = classnames.bind(styles);
 
@@ -93,12 +94,9 @@ def
 
                     </ContentSection>
 
-                    <ParallaxContent img={whyNeedUs}>
+                    <ParallaxContent img={registrationBg}>
 
-                        <RegistrationForm style={{
-                            width: '100%',
-                            maxWidth: '986px'
-                        }} />
+                        <RegistrationForm />
 
                     </ParallaxContent>
 

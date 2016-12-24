@@ -17,7 +17,7 @@ export default class RegistrationForm extends Component {
 
     render() {
         return (
-            <Flex wrap className={cx('registration-form')} align="stretch" justify="space-around">
+            <Flex wrap className={cx('registration-form')} align="stretch" justify="space-around" {...this.props}>
 
                 <Box sm={12} md={5} p={1}>
                     <TextField
