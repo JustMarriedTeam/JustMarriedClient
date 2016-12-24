@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from "react";
+import ResponsiveBox from '../ResponsiveBox'
 import classnames from "classnames/bind";
 import styles from "./ParallaxContent.pcss";
 
@@ -18,7 +19,9 @@ export default class ParallaxContent extends Component {
                 backgroundImage: `url(${this.props.img})`
             }}>
                 <div className={cx('parallax-content__content-placeholder')}>
-                    <div className={cx('parallax-content__content')}>{ this.props.children }</div>
+                    <ResponsiveBox>
+                        <div className={cx('parallax-content__content')}>{ this.props.children }</div>
+                    </ResponsiveBox>
                 </div>
             </div>
         );

@@ -1,0 +1,6 @@
+{
+  "name": "ResponsiveBox",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ResponsiveBox.js"
+}

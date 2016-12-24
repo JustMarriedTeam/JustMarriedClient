@@ -76,7 +76,10 @@ export default class HomePage extends React.Component {
                 <LayoutContainer>
 
                     <ParallaxContent img={whyNeedUs}>
-                        <h2>Want to do this all by yourself?</h2>
+                        <h2 style={{
+                            padding: '120px 0',
+                            textAlign: 'center'
+                        }}>Want to do this all by yourself?</h2>
                     </ParallaxContent>
 
                     <ContentSection alternate header={<h2>Hell no! Let us help you.</h2>}>
@@ -96,7 +99,10 @@ def
 
                     <ParallaxContent img={registrationBg}>
 
-                        <RegistrationForm />
+                        <RegistrationForm style={{
+                            padding: '120px 0',
+                            textAlign: 'center'
+                        }} />
 
                     </ParallaxContent>
 
