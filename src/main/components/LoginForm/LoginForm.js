@@ -33,7 +33,7 @@ export default class LoginForm extends Component {
                     <Spacer weight="md"/>
 
                     <div className={cx('local-login-btn-section')}>
-                        <RaisedButton primary={true} label="Login"/>
+                        <RaisedButton primary label="Login"/>
                     </div>
                 </Box>
 
@@ -55,7 +55,7 @@ export default class LoginForm extends Component {
                     <RaisedButton
                         href="http://localhost:2701/api/auth/facebook"
                         target="_blank"
-                        backgroundColor="#3B5998"
+                        backgroundColor="#27cbe0"
                         fullWidth={true}
                         label="Login with facebook"
                         icon={<FontIcon className="fa fa-facebook-square"/>}
@@ -66,7 +66,7 @@ export default class LoginForm extends Component {
                     <RaisedButton
                         href="http://localhost:2701/api/auth/google"
                         target="_blank"
-                        backgroundColor="#a4c639"
+                        backgroundColor="#27cbe0"
                         fullWidth={true}
                         label="Login with google"
                         icon={<FontIcon className="fa fa-google-plus-square"/>}
