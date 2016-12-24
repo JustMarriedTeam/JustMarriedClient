@@ -6,6 +6,7 @@ import LoginForm from "../../components/LoginForm";
 import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
 import Spacer from '../../components/Spacer'
+import ContentSection from '../../components/ContentSection'
 import styles from "./home.pcss";
 import {html} from "./index.md";
 
@@ -67,8 +68,25 @@ export default class HomePage extends React.Component {
 
 
                 <LayoutContainer>
-                    <div dangerouslySetInnerHTML={{__html: html}}/>
+
+                    <ContentSection>
+                        <h1>Let us do sth</h1>
+                        <p>Blablalbalblabl</p>
+                    </ContentSection>
+
+                    <ContentSection alternate>
+                        <h1>Let us do sth else</h1>
+                        <p>Blablalbalblabl</p>
+                    </ContentSection>
+
+                    <ContentSection>
+                        <h1>Let us do sth else 2</h1>
+                        <p>Blablalbalblabl</p>
+                    </ContentSection>
+
                 </LayoutContainer>
+
+
             </Layout>
         );
     }
