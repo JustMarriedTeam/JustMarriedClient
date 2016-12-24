@@ -3,11 +3,14 @@ import Layout from "../../layout/Layout";
 import classnames from "classnames/bind";
 import LayoutContainer from "../../layout/LayoutContainer";
 import LoginForm from "../../components/LoginForm";
+import RegistrationForm from '../../components/RegistrationForm'
 import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
 import Spacer from '../../components/Spacer'
 import ContentSection from '../../components/ContentSection'
 import ParallaxContent from '../../components/ParallaxContent'
+import Carousel from '../../components/Carousel'
+import CarouselItem from '../../components/Carousel/CarouselItem'
 import styles from "./home.pcss";
 import {html} from "./index.md";
 
@@ -69,9 +72,6 @@ export default class HomePage extends React.Component {
                     </div>
                 </div>
 
-                <Spacer weight='lg' />
-
-
                 <LayoutContainer>
 
                     <ParallaxContent img={whyNeedUs}>
@@ -79,12 +79,28 @@ export default class HomePage extends React.Component {
                     </ParallaxContent>
 
                     <ContentSection alternate header={<h2>Hell no! Let us help you.</h2>}>
-                        <p>Blablalbalblabl</p>
+
+                        <Carousel style={{
+                            height: '600px'
+                        }}>
+                            <CarouselItem key={1} img={'https://placeholdit.imgix.net/~text?txtsize=90&txt=960%C3%97500&w=960&h=500'}>
+                                abc
+                            </CarouselItem>
+                            <CarouselItem key={2} img={'https://placeholdit.imgix.net/~text?txtsize=90&txt=960%C3%97500&w=960&h=500'}>
+def
+                            </CarouselItem>
+                        </Carousel>
+
                     </ContentSection>
 
-                    <ContentSection header={<h2>Every journey begins with the first step...</h2>}>
-                        <p>Blablalbalblabl</p>
-                    </ContentSection>
+                    <ParallaxContent img={whyNeedUs}>
+
+                        <RegistrationForm style={{
+                            width: '100%',
+                            maxWidth: '986px'
+                        }} />
+
+                    </ParallaxContent>
 
                 </LayoutContainer>
 

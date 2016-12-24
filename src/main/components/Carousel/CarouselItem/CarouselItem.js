@@ -7,13 +7,13 @@ const cx = classnames.bind(styles);
 export default class CarouselItem extends Component {
 
     static propTypes = {
-        img: PropTypes.string.isRequired
+        img: PropTypes.any
     };
 
     render() {
 
         return (
-            <div className={cx('banner')} style={{
+            <div className={cx('carousel-item')} style={{
                 backgroundImage: `url(${this.props.img})`
             }}/>
         );

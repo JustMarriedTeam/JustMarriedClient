@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from "react";
 import classnames from "classnames/bind";
 import Slider from "react-slick";
-import CarouselItem from "./CarouselItem/CarouselItem";
+import map from "lodash/fp/map";
 import styles from "./Carousel.pcss";
 
 const cx = classnames.bind(styles);
@@ -22,21 +22,16 @@ export default class Carousel extends Component {
             centerPadding: '0'
         };
 
-        const coverStyle = {
-            width: '100%',
-            height: '875px',
-        };
-
         return (
-            <div className={cx('layout-banner')}>
-                <Slider className={cx('layout-banner__slider')} {...slickConfig}>
+            <Slider className={cx('carousel')} {...slickConfig}>
 
-                    <div style={coverStyle}>
-                        <CarouselItem img='abc' />
-                    </div>
+                { map((element) => {
+                    return <div key={element.key} style={{
+                        height: '500px'
+                    }}  className={cx('carousel--item-wrapper')}>{element}</div>
+                })(this.props.children) }
 
-                </Slider>
-            </div>
+            </Slider>
         );
 
 
