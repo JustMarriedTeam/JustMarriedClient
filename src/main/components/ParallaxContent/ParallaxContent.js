@@ -17,8 +17,8 @@ export default class ParallaxContent extends Component {
             <div className={cx('parallax-content')} style={{
                 backgroundImage: `url(${this.props.img})`
             }}>
-                <div className={cx('parallax-content__content')}>
-                    { this.props.children }
+                <div className={cx('parallax-content__content-placeholder')}>
+                    <div className={cx('parallax-content__content')}>{ this.props.children }</div>
                 </div>
             </div>
         );
