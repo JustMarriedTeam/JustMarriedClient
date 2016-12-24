@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 import classNames from "classnames/bind";
 import {Router, Route, browserHistory} from "react-router";
 import {Provider} from "react-redux";
-import Store from "./core/store";
+import store from "./core/store";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import injectTapEventPlugin from "react-tap-event-plugin";
 import ErrorPage from "./pages/error/error";
@@ -13,12 +13,13 @@ import HomePage from "./pages/home/home";
 import AboutPage from "./pages/about/about";
 import Tasks from "./pages/tasks/tasks";
 import Task from "./pages/task/task";
-import Theme from './theme/theme';
+import Theme from "./theme/theme";
 import styles from "./styles/main.css";
 
 let cx = classNames.bind(styles);
 
 injectTapEventPlugin();
+
 
 class App extends React.Component {
 
@@ -42,7 +43,7 @@ class App extends React.Component {
     render() {
         return (
             <MuiThemeProvider muiTheme={Theme}>
-                <Provider store={Store}>
+                <Provider store={store}>
                     <div className={cx('root')}>{this.props.children}</div>
                 </Provider>
             </MuiThemeProvider>

@@ -13,6 +13,7 @@
     "flexboxgrid": "^6.3.1",
     "font-awesome": "^4.7.0",
     "history": "^3.0.0",
+    "immutable": "^3.8.1",
     "lodash": "^4.17.2",
     "material-ui": "^0.16.1",
     "react": "^15.2.1",
@@ -25,6 +26,7 @@
     "react-slick": "^0.14.5",
     "react-tap-event-plugin": "^2.0.0",
     "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0",
     "reflexbox": "^2.2.3",
     "robox": "^1.0.0-beta.8",
     "whatwg-fetch": "^1.0.0"

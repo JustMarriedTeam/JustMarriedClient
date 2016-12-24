@@ -1,19 +1,28 @@
 import React, {Component, PropTypes} from "react";
 import RaisedButton from "material-ui/RaisedButton";
-import {Flex, Box} from 'reflexbox'
+import {Flex, Box} from "reflexbox";
 import FontIcon from "material-ui/FontIcon";
 import TextField from "material-ui/TextField";
 import Spacer from "../Spacer/Spacer";
 import SeparatingLine from "../SeparatingLine/SeparatingLine";
-import MediaQuery from 'react-responsive';
+import MediaQuery from "react-responsive";
 import classNames from "classnames/bind";
 import styles from "./LoginForm.pcss";
+import {connect} from "react-redux";
+import {signInViaFacebook} from "../../core/actions/account";
 
 let cx = classNames.bind(styles);
 
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
 
+    static propTypes = {
+        account: PropTypes.object.isRequired,
+        signInViaFacebook: PropTypes.func.isRequired,
+        isSigningIn: PropTypes.bool.isRequired,
+        signInSuccessful: PropTypes.bool.isRequired,
+        signInFailed: PropTypes.bool.isRequired
+    };
 
     render() {
         return (
@@ -53,7 +62,7 @@ export default class LoginForm extends Component {
                 <Box sm={12} md={5} p={1}>
 
                     <RaisedButton
-                        href="http://localhost:2701/api/auth/facebook"
+                        onClick={this.props.signInViaFacebook}
                         target="_blank"
                         backgroundColor="#27cbe0"
                         fullWidth={true}
@@ -80,3 +89,16 @@ export default class LoginForm extends Component {
     }
 
 }
+
+export default connect((state) => {
+    return {
+        account: state.account,
+        isSigningIn: state.account.isSigningIn,
+        signInSuccessful: state.account.signInSuccess,
+        signInFailed: state.account.signInFailure
+    };
+}, (dispatch) => {
+    return {
+        signInViaFacebook: () => dispatch(signInViaFacebook())
+    };
+})(LoginForm);
