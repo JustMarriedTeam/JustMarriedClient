@@ -7,8 +7,11 @@ import RaisedButton from "material-ui/RaisedButton";
 import FlatButton from "material-ui/FlatButton";
 import Spacer from '../../components/Spacer'
 import ContentSection from '../../components/ContentSection'
+import ParallaxContent from '../../components/ParallaxContent'
 import styles from "./home.pcss";
 import {html} from "./index.md";
+
+import whyNeedUs from '../../assets/whyneedus.jpg'
 
 const cx = classnames.bind(styles);
 
@@ -66,21 +69,20 @@ export default class HomePage extends React.Component {
                     </div>
                 </div>
 
+                <Spacer weight='lg' />
+
 
                 <LayoutContainer>
 
-                    <ContentSection>
-                        <h1>Let us do sth</h1>
+                    <ParallaxContent img={whyNeedUs}>
+                        <h2>Want to do this all by yourself?</h2>
+                    </ParallaxContent>
+
+                    <ContentSection alternate header={<h2>Hell no! Let us help you.</h2>}>
                         <p>Blablalbalblabl</p>
                     </ContentSection>
 
-                    <ContentSection alternate>
-                        <h1>Let us do sth else</h1>
-                        <p>Blablalbalblabl</p>
-                    </ContentSection>
-
-                    <ContentSection>
-                        <h1>Let us do sth else 2</h1>
+                    <ContentSection header={<h2>Every journey begins with the first step...</h2>}>
                         <p>Blablalbalblabl</p>
                     </ContentSection>
 

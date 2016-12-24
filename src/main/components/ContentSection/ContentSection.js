@@ -7,7 +7,8 @@ const cx = classnames.bind(styles);
 export default class ContentSection extends Component {
 
     static propTypes = {
-        alternate: PropTypes.bool
+        alternate: PropTypes.bool,
+        header: PropTypes.any
     };
 
     render() {
@@ -16,6 +17,8 @@ export default class ContentSection extends Component {
             <div className={cx('content-section', {
                 'content-section--alternate': this.props.alternate
             })}>
+                <div className={cx('content-section__header')}>{this.props.header}</div>
+                <div className={cx('content-section__separator')} />
                 <div className={cx('content-section__content')}>
                     { this.props.children }
                 </div>
