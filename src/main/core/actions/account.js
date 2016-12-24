@@ -18,7 +18,11 @@ export const signInViaFacebook = () => {
     return (dispatch) => {
         dispatch(signingIn(true));
 
-        fetch("http://localhost:2701/api/auth/facebook")
+        window.open('http://localhost:2701/api/auth/facebook');
+
+        fetch("http://localhost:2701/api/auth/facebook", {
+            mode: 'no-cors'
+        })
             .then((response) => {
                 if (!response.ok) {
                     throw Error(response.statusText);
