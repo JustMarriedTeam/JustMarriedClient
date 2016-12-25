@@ -6,6 +6,7 @@ import classNames from "classnames/bind";
 import {Router, Route, browserHistory} from "react-router";
 import {Provider} from "react-redux";
 import store from "./core/store";
+import cookie from 'react-cookie';
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import injectTapEventPlugin from "react-tap-event-plugin";
 import ErrorPage from "./pages/error/error";
@@ -20,6 +21,7 @@ let cx = classNames.bind(styles);
 
 injectTapEventPlugin();
 
+console.log(cookie.load('authToken'));
 
 class App extends React.Component {
 

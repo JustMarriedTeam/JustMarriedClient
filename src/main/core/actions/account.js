@@ -1,3 +1,5 @@
+import {openInPopup} from "../../utils/popupManager";
+
 export const SIGNING_IN = 'SIGNING_IN';
 export const SIGNED_IN_SUCCESSFULLY = 'SIGNED_IN_SUCCES';
 export const COULD_NOT_SIGN_IN = 'SIGNED_IN_ERROR';
@@ -18,20 +20,13 @@ export const signInViaFacebook = () => {
     return (dispatch) => {
         dispatch(signingIn(true));
 
-        window.open('http://localhost:2701/api/auth/facebook');
-
-        fetch("http://localhost:2701/api/auth/facebook", {
-            mode: 'no-cors'
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                }
-                dispatch(signingIn(false));
-                return response;
-            })
-            .then((response) => response.json())
-            .then((user) => dispatch(signedInSuccessfully(user)))
-            .catch(() => dispatch(couldNotSignIn(true)));
+        // window.location.href = "?backTo=http://localhost:3000/home";
+        openInPopup('http://localhost:2701/api/auth/facebook', () => {
+            console.log('came back!');
+            dispatch(signingIn(false));
+            dispatch(signedInSuccessfully({
+                token: 'xyz'
+            }));
+        });
     };
 };
