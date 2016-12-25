@@ -24,6 +24,7 @@ export const signInViaFacebook = () => {
         openInPopup('http://localhost:2701/api/auth/facebook', () => {
             console.log('came back!');
             dispatch(signingIn(false));
+            // refactor for enums (loginState='LOGGING_IN', 'LOGGED_IN' etc., signedIn -> token do sth with it
             dispatch(signedInSuccessfully({
                 token: 'xyz'
             }));

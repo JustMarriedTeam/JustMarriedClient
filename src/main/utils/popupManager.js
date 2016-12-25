@@ -32,9 +32,12 @@ function openInPopup(url, callback, customSpec) {
     leftPosition = (window.screen.width / 2) - ((popupSpec.width / 2) + 10);
     topPosition = (window.screen.height / 2) - ((popupSpec.height / 2) + 50);
 
-    window.open(`${url}?redirectTo=/redirect.html`, '_blank',
+    let win = window.open(`${url}?redirectTo=/redirect.html`, '_blank',
         `${parseStaticConfig(popupSpec)},left=${leftPosition},top=${topPosition},screenX=${leftPosition},screenY=${topPosition}`
     );
+    win.onload = function () {
+        callback(win.retrieveAuthentication());
+    }
 }
 
 export {openInPopup}
