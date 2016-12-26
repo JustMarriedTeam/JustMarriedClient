@@ -19,6 +19,7 @@ class LoginForm extends PureComponent {
 
   static propTypes = {
     account: PropTypes.instanceOf(Account).isRequired,
+    signInViaGoogle: PropTypes.func.isRequired,
     signInViaFacebook: PropTypes.func.isRequired,
   };
 
@@ -62,23 +63,23 @@ class LoginForm extends PureComponent {
         <Box sm={12} md={5} p={1}>
 
           <RaisedButton
+            onClick={this.props.signInViaGoogle}
+            target="_blank"
+            backgroundColor="#27cbe0"
+            fullWidth
+            label="Login with google"
+            icon={<FontIcon className="fa fa-google-plus-square" />}
+          />
+
+          <Spacer weight="xs" />
+
+          <RaisedButton
             onClick={this.props.signInViaFacebook}
             target="_blank"
             backgroundColor="#27cbe0"
             fullWidth
             label="Login with facebook"
             icon={<FontIcon className="fa fa-facebook-square" />}
-          />
-
-          <Spacer weight="xs" />
-
-          <RaisedButton
-            href="http://localhost:2701/api/auth/google"
-            target="_blank"
-            backgroundColor="#27cbe0"
-            fullWidth
-            label="Login with google"
-            icon={<FontIcon className="fa fa-google-plus-square" />}
           />
 
         </Box>

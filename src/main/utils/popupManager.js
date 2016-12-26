@@ -31,12 +31,15 @@ function openInPopup(url, customSpec) {
   const topPosition = (window.screen.height / 2) - ((popupSpec.height / 2) + 50);
 
   return new Promise((resolve) => {
-    const win = window.open(`${url}?redirectTo=/redirect.html`, '_blank',
+    window.open(`${url}?redirectTo=/redirect.html`, '_blank',
       `${parseStaticConfig(popupSpec)},left=${leftPosition},
         top=${topPosition},screenX=${leftPosition},screenY=${topPosition}`
     );
-    win.onload = () => resolve(win.retrieveAuthentication());
+    window.retrieveAuthentication = (token) => {
+      resolve(token);
+      delete window.retrieveAuthentication;
+    };
   });
 }
 
-export {openInPopup};
+export { openInPopup };
