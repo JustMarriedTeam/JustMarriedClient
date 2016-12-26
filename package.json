@@ -14,7 +14,7 @@
     "test:watch": "mocha --compilers js:babel-register --opts .mocharc --reporter min --watch",
     "clean": "node run clean",
     "build": "node run build",
-    "build:debug": "node run build --debug",
+    "build:debug": "node run build --debug -- --verbose",
     "publish": "node run publish",
     "publish:debug": "node run publish --debug",
     "start": "node run"

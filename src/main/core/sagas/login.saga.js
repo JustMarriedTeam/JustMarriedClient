@@ -1,5 +1,9 @@
 import { take, call, put, fork, race } from 'redux-saga/effects';
-import { accountStateChanged, authenticateWithToken, SIGN_IN_VIA_FACEBOOK, SIGN_OUT } from '../actions/account.actions';
+import {
+  accountStateChanged,
+  authenticateWithToken,
+  SIGN_IN_VIA_FACEBOOK,
+  SIGN_OUT } from '../actions/account.actions';
 import { sendingRequest, notifyRequestFailed } from '../actions/server.actions';
 import { ACCOUNT_STATE } from '../models/account.model';
 import { navigateToDashboard, navigateToHome } from '../actions/navigation.actions';
@@ -15,6 +19,7 @@ export function * loginViaFacebook() {
   } finally {
     yield put(sendingRequest(false));
   }
+  return false;
 }
 
 export function * logout() {
@@ -28,6 +33,7 @@ export function * logout() {
   } finally {
     yield put(sendingRequest(false));
   }
+  return false;
 }
 
 export function * loginViaFacebookFlow() {
@@ -52,7 +58,6 @@ export function * loginViaFacebookFlow() {
 export function * logoutFlow() {
   while (true) {
     yield take(SIGN_OUT);
-    console.log('signing out!');
   }
 }
 
