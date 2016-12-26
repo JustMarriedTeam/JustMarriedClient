@@ -1,11 +1,12 @@
 import {ACCOUNT_CHANGE_STATE, ACCOUNT_STATE} from "../actions/account";
+import {Map} from "immutable";
 
-let INITIAL_ACCOUNT = {
+let INITIAL_ACCOUNT = Map({
     state: ACCOUNT_STATE.SIGNED_OUT
-};
+});
 
 function stateChanged(account, action) {
-    return Object.assign({}, account, {
+    return account.merge({
         state: action.state
     });
 }

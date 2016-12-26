@@ -9,6 +9,7 @@ import MediaQuery from "react-responsive";
 import classNames from "classnames/bind";
 import styles from "./LoginForm.pcss";
 import {connect} from "react-redux";
+import Immutable from "immutable";
 import {signInViaFacebook} from "../../core/actions/account";
 
 let cx = classNames.bind(styles);
@@ -17,9 +18,8 @@ let cx = classNames.bind(styles);
 class LoginForm extends Component {
 
     static propTypes = {
-        account: PropTypes.object.isRequired,
+        account: PropTypes.instanceOf(Immutable.Map).isRequired,
         signInViaFacebook: PropTypes.func.isRequired,
-        accountState: PropTypes.string.isRequired,
     };
 
     render() {
@@ -90,11 +90,10 @@ class LoginForm extends Component {
 
 export default connect((state) => {
     return {
-        account: state.account,
-        accountState: state.account.state
+        account: state.account
     };
 }, (dispatch) => {
     return {
-        signInViaFacebook: () => dispatch(signInViaFacebook())
+        signInViaFacebook: () => dispatch(signInViaFacebook)
     };
 })(LoginForm);
