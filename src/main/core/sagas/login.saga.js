@@ -46,7 +46,7 @@ export function * loginViaFacebookFlow() {
     });
 
     if (winner.auth) {
-      put(authenticateWithToken);
+      put(authenticateWithToken(winner.auth));
       put(navigateToDashboard);
     } else {
       yield call(logout);
