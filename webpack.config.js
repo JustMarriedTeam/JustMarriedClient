@@ -25,7 +25,7 @@ const babelConfig = Object.assign({}, pkg.babel, {
 
 const cssMapOpts = {
     basePath: 'config/',
-    maps: ['spacer.yaml', 'layout.yaml']
+    maps: ['spacer.yaml', 'layout.yaml'],
 };
 
 // Webpack configuration (main.js => public/dist/main.{hash}.js)
@@ -43,6 +43,7 @@ const config = {
         '!!style!css!react-resizable/css/styles.css',
         '!!style!css!font-awesome/css/font-awesome.css',
         'react-mdl/extra/material.min.js',
+        'babel-polyfill',
         /* The main entry point of your JavaScript application */
         './main.js',
     ],
@@ -94,20 +95,20 @@ const config = {
 
     // Options affecting the normal modules
     module: {
-        preLoaders: [
-            {
-                loader: 'eslint-loader',
-                test: /\.js[x]?$/,
-                include: [
-                    path.join(__dirname, 'src'),
-                ]
-            }
-        ],
+        // preLoaders: [
+        //   {
+        //     loader: 'eslint-loader',
+        //     test: /\.js[x]?$/,
+        //     include: [
+        //       path.join(__dirname, 'src'),
+        //     ],
+        //   },
+        // ],
         loaders: [
             {
                 test: /\.js[x]?$/,
                 include: [
-                    path.resolve(__dirname, './src')
+                    path.resolve(__dirname, './src'),
                 ],
                 loader: `babel-loader?${JSON.stringify(babelConfig)}`,
             },
@@ -121,11 +122,11 @@ const config = {
                         localIdentName: isDebug ? '[name]_[local]_[hash:base64:3]' : '[hash:base64:4]',
                         minimize: !isDebug,
                     })}`,
-                    'postcss-loader'
+                    'postcss-loader',
                 ],
                 include: [
-                    path.resolve(__dirname, "src/main")
-                ]
+                    path.resolve(__dirname, 'src/main'),
+                ],
             },
             {
                 test: /\.json$/,
@@ -158,25 +159,25 @@ const config = {
             },
             {
                 test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "url?limit=10000&mimetype=application/font-woff"
+                loader: 'url?limit=10000&mimetype=application/font-woff',
             },
             {
                 test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "url?limit=10000&mimetype=application/font-woff"
+                loader: 'url?limit=10000&mimetype=application/font-woff',
             },
             {
                 test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "url?limit=10000&mimetype=application/octet-stream"
+                loader: 'url?limit=10000&mimetype=application/octet-stream',
             },
             {
                 test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "file"
+                loader: 'file',
             },
             {
                 test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "url?limit=10000&mimetype=image/svg+xml"
-            }
-        ]
+                loader: 'url?limit=10000&mimetype=image/svg+xml',
+            },
+        ],
     },
 
     // The list of plugins for PostCSS
@@ -235,7 +236,7 @@ const config = {
             // https://github.com/pascalduez/postcss-map
             require('postcss-map')(cssMapOpts),
             // Mixins
-            require('postcss-mixins')()
+            require('postcss-mixins')(),
         ];
     },
 

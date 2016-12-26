@@ -1,29 +1,29 @@
-import React, {Component} from "react";
-import s from "./styles.css";
+import React, { Component } from 'react';
+import s from './styles.css';
 
 export default class ErrorPage extends Component {
 
-    static propTypes = {
-        error: React.PropTypes.object,
-    };
+  static propTypes = {
+    error: React.PropTypes.object,
+  };
 
-    componentDidMount() {
-        document.title = this.props.error && this.props.error.status === 404 ?
+  componentDidMount() {
+    document.title = this.props.error && this.props.error.status === 404 ?
             'Page Not Found' : 'Error';
-    }
+  }
 
-    goBack = event => {
-        event.preventDefault();
-    };
+  goBack = event => {
+    event.preventDefault();
+  };
 
-    render() {
-        if (this.props.error) console.error(this.props.error); // eslint-disable-line no-console
+  render() {
+    if (this.props.error) console.error(this.props.error); // eslint-disable-line no-console
 
-        const [code, title] = this.props.error && this.props.error.status === 404 ?
+    const [code, title] = this.props.error && this.props.error.status === 404 ?
             ['404', 'Page not found'] :
             ['Error', 'Oups, something went wrong'];
 
-        return (
+    return (
             <div className={s.container}>
                 <main className={s.content}>
                     <h1 className={s.code}>{code}</h1>
@@ -39,7 +39,7 @@ export default class ErrorPage extends Component {
                     </p>
                 </main>
             </div>
-        );
-    }
+    );
+  }
 
 }

@@ -1,95 +1,95 @@
-import React, {Component, PropTypes} from "react";
-import RaisedButton from "material-ui/RaisedButton";
-import {Flex, Box} from "reflexbox";
-import FontIcon from "material-ui/FontIcon";
-import TextField from "material-ui/TextField";
-import Spacer from "../Spacer/Spacer";
-import SeparatingLine from "../SeparatingLine/SeparatingLine";
-import MediaQuery from "react-responsive";
-import classNames from "classnames/bind";
-import styles from "./LoginForm.pcss";
-import {connect} from "react-redux";
-import Account from "../../core/models/account.model";
-import * as accountActions from "../../core/actions/account.actions";
+import React, { Component, PropTypes } from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
+import { Flex, Box } from 'reflexbox';
+import FontIcon from 'material-ui/FontIcon';
+import TextField from 'material-ui/TextField';
+import Spacer from '../Spacer/Spacer';
+import SeparatingLine from '../SeparatingLine/SeparatingLine';
+import MediaQuery from 'react-responsive';
+import classNames from 'classnames/bind';
+import styles from './LoginForm.pcss';
+import { connect } from 'react-redux';
+import Account from '../../core/models/account.model';
+import * as accountActions from '../../core/actions/account.actions';
 
-let cx = classNames.bind(styles);
+const cx = classNames.bind(styles);
 
 
 class LoginForm extends Component {
 
-    static propTypes = {
-        account: PropTypes.instanceOf(Account).isRequired,
-        signInViaFacebook: PropTypes.func.isRequired,
-    };
+  static propTypes = {
+    account: PropTypes.instanceOf(Account).isRequired,
+    signInViaFacebook: PropTypes.func.isRequired,
+  };
 
-    render() {
-        return (
+  render() {
+    return (
             <Flex wrap className={cx('login-form')} align="stretch" justify="space-around">
 
                 <Box sm={12} md={5} p={1}>
                     <TextField
-                        fullWidth={true}
-                        hintText="Login"/>
+                      fullWidth
+                      hintText="Login"
+                    />
 
-                    <Spacer weight="xs"/>
+                    <Spacer weight="xs" />
 
                     <TextField
-                        fullWidth={true}
-                        hintText="Password"/>
+                      fullWidth
+                      hintText="Password"
+                    />
 
-                    <Spacer weight="md"/>
+                    <Spacer weight="md" />
 
                     <div className={cx('local-login-btn-section')}>
-                        <RaisedButton primary label="Login"/>
+                        <RaisedButton primary label="Login" />
                     </div>
                 </Box>
 
 
                 <MediaQuery maxWidth="767px">
                     <Box col={12} p={1}>
-                        <SeparatingLine type="horizontal" text="or"/>
+                        <SeparatingLine type="horizontal" text="or" />
                     </Box>
                 </MediaQuery>
 
                 <MediaQuery minWidth="768px">
                     <Box col={2} p={1}>
-                        <SeparatingLine type="vertical" text="or"/>
+                        <SeparatingLine type="vertical" text="or" />
                     </Box>
                 </MediaQuery>
 
                 <Box sm={12} md={5} p={1}>
 
                     <RaisedButton
-                        onClick={this.props.signInViaFacebook}
-                        target="_blank"
-                        backgroundColor="#27cbe0"
-                        fullWidth={true}
-                        label="Login with facebook"
-                        icon={<FontIcon className="fa fa-facebook-square"/>}
+                      onClick={this.props.signInViaFacebook}
+                      target="_blank"
+                      backgroundColor="#27cbe0"
+                      fullWidth
+                      label="Login with facebook"
+                      icon={<FontIcon className="fa fa-facebook-square" />}
                     />
 
-                    <Spacer weight="xs"/>
+                    <Spacer weight="xs" />
 
                     <RaisedButton
-                        href="http://localhost:2701/api/auth/google"
-                        target="_blank"
-                        backgroundColor="#27cbe0"
-                        fullWidth={true}
-                        label="Login with google"
-                        icon={<FontIcon className="fa fa-google-plus-square"/>}
+                      href="http://localhost:2701/api/auth/google"
+                      target="_blank"
+                      backgroundColor="#27cbe0"
+                      fullWidth
+                      label="Login with google"
+                      icon={<FontIcon className="fa fa-google-plus-square" />}
                     />
 
                 </Box>
 
 
             </Flex>
-        );
-    }
+    );
+  }
 
 }
 
-export default connect((state) => {
-    return {
-        account: state.account
-    };
-}, accountActions)(LoginForm);
+export default connect((state) => ({
+  account: state.account,
+}), accountActions)(LoginForm);
