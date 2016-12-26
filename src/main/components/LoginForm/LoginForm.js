@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Flex, Box } from 'reflexbox';
 import FontIcon from 'material-ui/FontIcon';
@@ -15,7 +15,7 @@ import * as accountActions from '../../core/actions/account.actions';
 const cx = classNames.bind(styles);
 
 
-class LoginForm extends Component {
+class LoginForm extends PureComponent {
 
   static propTypes = {
     account: PropTypes.instanceOf(Account).isRequired,
@@ -24,67 +24,67 @@ class LoginForm extends Component {
 
   render() {
     return (
-            <Flex wrap className={cx('login-form')} align="stretch" justify="space-around">
+      <Flex wrap className={cx('login-form')} align="stretch" justify="space-around">
 
-                <Box sm={12} md={5} p={1}>
-                    <TextField
-                      fullWidth
-                      hintText="Login"
-                    />
+        <Box sm={12} md={5} p={1}>
+          <TextField
+            fullWidth
+            hintText="Login"
+          />
 
-                    <Spacer weight="xs" />
+          <Spacer weight="xs" />
 
-                    <TextField
-                      fullWidth
-                      hintText="Password"
-                    />
+          <TextField
+            fullWidth
+            hintText="Password"
+          />
 
-                    <Spacer weight="md" />
+          <Spacer weight="md" />
 
-                    <div className={cx('local-login-btn-section')}>
-                        <RaisedButton primary label="Login" />
-                    </div>
-                </Box>
-
-
-                <MediaQuery maxWidth="767px">
-                    <Box col={12} p={1}>
-                        <SeparatingLine type="horizontal" text="or" />
-                    </Box>
-                </MediaQuery>
-
-                <MediaQuery minWidth="768px">
-                    <Box col={2} p={1}>
-                        <SeparatingLine type="vertical" text="or" />
-                    </Box>
-                </MediaQuery>
-
-                <Box sm={12} md={5} p={1}>
-
-                    <RaisedButton
-                      onClick={this.props.signInViaFacebook}
-                      target="_blank"
-                      backgroundColor="#27cbe0"
-                      fullWidth
-                      label="Login with facebook"
-                      icon={<FontIcon className="fa fa-facebook-square" />}
-                    />
-
-                    <Spacer weight="xs" />
-
-                    <RaisedButton
-                      href="http://localhost:2701/api/auth/google"
-                      target="_blank"
-                      backgroundColor="#27cbe0"
-                      fullWidth
-                      label="Login with google"
-                      icon={<FontIcon className="fa fa-google-plus-square" />}
-                    />
-
-                </Box>
+          <div className={cx('local-login-btn-section')}>
+            <RaisedButton primary label="Login" />
+          </div>
+        </Box>
 
 
-            </Flex>
+        <MediaQuery maxWidth="767px">
+          <Box col={12} p={1}>
+            <SeparatingLine type="horizontal" text="or" />
+          </Box>
+        </MediaQuery>
+
+        <MediaQuery minWidth="768px">
+          <Box col={2} p={1}>
+            <SeparatingLine type="vertical" text="or" />
+          </Box>
+        </MediaQuery>
+
+        <Box sm={12} md={5} p={1}>
+
+          <RaisedButton
+            onClick={this.props.signInViaFacebook}
+            target="_blank"
+            backgroundColor="#27cbe0"
+            fullWidth
+            label="Login with facebook"
+            icon={<FontIcon className="fa fa-facebook-square" />}
+          />
+
+          <Spacer weight="xs" />
+
+          <RaisedButton
+            href="http://localhost:2701/api/auth/google"
+            target="_blank"
+            backgroundColor="#27cbe0"
+            fullWidth
+            label="Login with google"
+            icon={<FontIcon className="fa fa-google-plus-square" />}
+          />
+
+        </Box>
+
+
+      </Flex>
     );
   }
 
