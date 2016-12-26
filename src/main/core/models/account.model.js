@@ -11,17 +11,10 @@ export const ACCOUNT_STATE = {
 
 const AccountRecord = Immutable.Record({
   state: ACCOUNT_STATE.SIGNED_OUT,
+  token: null,
 });
 
 class Account extends AccountRecord {
-
-  isDone() {
-    return this.get('done');
-  }
-
-  getLabel() {
-    return this.get('label') || 'New Task';
-  }
 
 }
 

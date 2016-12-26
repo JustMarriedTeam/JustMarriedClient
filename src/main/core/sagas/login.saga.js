@@ -46,11 +46,11 @@ export function * loginViaFacebookFlow() {
     });
 
     if (winner.auth) {
-      put(authenticateWithToken(winner.auth));
-      put(navigateToDashboard);
+      yield put(authenticateWithToken(winner.auth));
+      yield put(navigateToDashboard);
     } else {
       yield call(logout);
-      put(navigateToHome);
+      yield put(navigateToHome);
     }
   }
 }
