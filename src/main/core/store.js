@@ -1,9 +1,13 @@
-import {createStore, applyMiddleware} from "redux";
+import {createStore, combineReducers, applyMiddleware} from "redux";
+import {routerReducer} from "react-router-redux";
 import thunk from "redux-thunk";
-import reducers from "./reducers";
+import accountReducer from "./reducers/account.reducer";
 
 export default createStore(
-    reducers,
+    combineReducers({
+        account: accountReducer,
+        routing: routerReducer
+    }),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     applyMiddleware(thunk)
 );

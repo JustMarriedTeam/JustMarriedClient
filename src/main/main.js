@@ -4,9 +4,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import classNames from "classnames/bind";
 import {Router, Route, browserHistory} from "react-router";
+import {syncHistoryWithStore} from "react-router-redux";
 import {Provider} from "react-redux";
 import store from "./core/store";
-import cookie from 'react-cookie';
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import injectTapEventPlugin from "react-tap-event-plugin";
 import ErrorPage from "./pages/error/error";
@@ -21,7 +21,7 @@ let cx = classNames.bind(styles);
 
 injectTapEventPlugin();
 
-console.log(cookie.load('authToken'));
+const history = syncHistoryWithStore(browserHistory, store);
 
 class App extends React.Component {
 
@@ -54,7 +54,7 @@ class App extends React.Component {
 }
 
 ReactDOM.render(
-    <Router history={browserHistory}>
+    <Router history={history}>
         <Route path="/" component={App}>
             <Route path="/home" component={HomePage}/>
             <Route path="/about" component={AboutPage}/>
