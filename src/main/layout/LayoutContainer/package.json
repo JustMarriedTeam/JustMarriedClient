@@ -1,0 +1,6 @@
+{
+  "name": "LayoutContainer",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./LayoutContainer.js"
+}

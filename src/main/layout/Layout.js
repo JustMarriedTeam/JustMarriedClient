@@ -1,47 +1,45 @@
-import React, {Component} from "react";
-import classNames from "classnames";
-import LayoutBar from "./LayoutBar/LayoutBar";
-import LayoutDrawer from "./LayoutDrawer/LayoutDrawer";
-import styles from "./Layout.css";
+import React, { Component } from 'react';
+import classNames from 'classnames/bind';
+import LayoutBar from './LayoutBar/LayoutBar';
+import LayoutDrawer from './LayoutDrawer/LayoutDrawer';
+import LayoutFooter from './LayoutFooter/LayoutFooter';
+import styles from './Layout.pcss';
 
-let cx = classNames.bind(styles);
+const cx = classNames.bind(styles);
 
 export default class Layout extends Component {
 
-    constructor() {
-        super();
-        this.state = {
-            drawer: {
-                open: false
-            }
-        };
-    }
-
-    toggleDrawer = () => {
-        this.setState((prevState) => {
-            return {
-                drawer: {
-                    open: !prevState.drawer.open
-                }
-            }
-        })
+  constructor() {
+    super();
+    this.state = {
+      drawer: {
+        open: false,
+      },
     };
+  }
 
-    render() {
+  toggleDrawer = () => {
+    this.setState((prevState) => ({
+      drawer: {
+        open: !prevState.drawer.open,
+      },
+    }));
+  };
 
-        return (
-            <div className={cx('root')}>
+  render() {
+    return (
+            <div className={cx('layout__root')}>
 
-                <LayoutBar onMenuAction={() => this.toggleDrawer()}/>
-                <LayoutDrawer open={this.state.drawer.open} onToggle={this.toggleDrawer}/>
-
-                <main className={cx('content')}>
-                    { this.props.children }
+                <LayoutBar onMenuAction={() => this.toggleDrawer()} />
+                <LayoutDrawer open={this.state.drawer.open} onToggle={this.toggleDrawer} />
+                <main className={cx('layout__content')}>
+                    {this.props.children}
                 </main>
 
-            </div>
-        );
+                <LayoutFooter />
 
-    }
+            </div>
+    );
+  }
 
 }

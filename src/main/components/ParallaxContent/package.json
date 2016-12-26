@@ -1,0 +1,6 @@
+{
+  "name": "ParallaxContent",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ParallaxContent.js"
+}

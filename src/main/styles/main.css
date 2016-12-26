@@ -4,6 +4,57 @@ a {
     text-decoration: inherit;
 }
 
+html {
+    height: 100%;
+}
+body {
+    min-height: 100%;
+
+
+    background: -moz-linear-gradient(214deg, #FAFAFA 0%, #f3f3f3 100%); /* ff3.6+ */
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%, #f3f3f3), color-stop(100%, #FAFAFA)); /* safari4+,chrome */
+    background: -webkit-linear-gradient(214deg, #FAFAFA 0%, #f3f3f3 100%); /* safari5.1+,chrome10+ */
+    background: -o-linear-gradient(214deg, #FAFAFA 0%, #f3f3f3 100%); /* opera 11.10+ */
+    background: -ms-linear-gradient(214deg, #FAFAFA 0%, #f3f3f3 100%); /* ie10+ */
+    background: linear-gradient(236deg, #FAFAFA 0%, #f3f3f3 100%); /* w3c */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3f3f3', endColorstr='#FAFAFA',GradientType=1 ); /* ie6-9 */
+}
+
 .root {
 
+}
+
+h1 {
+    font-weight: 300;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 35px;
+    line-height: 38px;
+}
+
+h2 {
+    font-weight: 300;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 30px;
+    line-height: 32px;
+}
+
+h3 {
+    font-weight: 300;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 30px;
+    line-height: 32px;
+}
+
+h4 {
+    font-weight: 300;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 25px;
+    line-height: 27px;
+}
+
+h5 {
+    font-weight: 300;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 20px;
+    line-height: 22px;
 }
