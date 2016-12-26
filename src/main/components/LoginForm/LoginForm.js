@@ -19,9 +19,7 @@ class LoginForm extends Component {
     static propTypes = {
         account: PropTypes.object.isRequired,
         signInViaFacebook: PropTypes.func.isRequired,
-        isSigningIn: PropTypes.bool.isRequired,
-        signInSuccessful: PropTypes.bool.isRequired,
-        signInFailed: PropTypes.bool.isRequired
+        accountState: PropTypes.string.isRequired,
     };
 
     render() {
@@ -93,9 +91,7 @@ class LoginForm extends Component {
 export default connect((state) => {
     return {
         account: state.account,
-        isSigningIn: state.account.isSigningIn,
-        signInSuccessful: state.account.signInSuccess,
-        signInFailed: state.account.signInFailure
+        accountState: state.account.state
     };
 }, (dispatch) => {
     return {

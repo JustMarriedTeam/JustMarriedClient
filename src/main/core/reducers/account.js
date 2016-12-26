@@ -1,37 +1,19 @@
-import {SIGNING_IN, SIGNED_IN_SUCCESSFULLY, COULD_NOT_SIGN_IN} from "../actions/account";
+import {ACCOUNT_CHANGE_STATE, ACCOUNT_STATE} from "../actions/account";
 
 let INITIAL_ACCOUNT = {
-    isSigningIn: false,
-    signInSuccess: false,
-    signInFailure: false
+    state: ACCOUNT_STATE.SIGNED_OUT
 };
 
-function signingIn(account, action) {
+function stateChanged(account, action) {
     return Object.assign({}, account, {
-        isSigningIn: action.bool
-    });
-}
-
-function signedInSuccessfully(account, action) {
-    return Object.assign({}, account, {
-        signInSuccess: action.bool
-    });
-}
-
-function couldNotSignIn(account, action) {
-    return Object.assign({}, account, {
-        signInFailure: action.bool
+        state: action.state
     });
 }
 
 export default function (account = INITIAL_ACCOUNT, action) {
     switch (action.type) {
-        case SIGNING_IN:
-            return signingIn(account, action);
-        case SIGNED_IN_SUCCESSFULLY:
-            return signedInSuccessfully(account, action);
-        case COULD_NOT_SIGN_IN:
-            return couldNotSignIn(account, action);
+        case ACCOUNT_CHANGE_STATE:
+            return stateChanged(account, action);
         default:
             return account;
     }
