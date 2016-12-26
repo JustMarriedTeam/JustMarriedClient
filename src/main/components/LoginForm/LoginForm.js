@@ -10,7 +10,7 @@ import classNames from "classnames/bind";
 import styles from "./LoginForm.pcss";
 import {connect} from "react-redux";
 import Account from "../../core/models/account.model";
-import {signInViaFacebook} from "../../core/actions/account.actions";
+import * as accountActions from "../../core/actions/account.actions";
 
 let cx = classNames.bind(styles);
 
@@ -92,8 +92,4 @@ export default connect((state) => {
     return {
         account: state.account
     };
-}, (dispatch) => {
-    return {
-        signInViaFacebook: () => dispatch(signInViaFacebook)
-    };
-})(LoginForm);
+}, accountActions)(LoginForm);
