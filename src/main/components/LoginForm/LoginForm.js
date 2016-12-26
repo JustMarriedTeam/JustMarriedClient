@@ -9,8 +9,8 @@ import MediaQuery from "react-responsive";
 import classNames from "classnames/bind";
 import styles from "./LoginForm.pcss";
 import {connect} from "react-redux";
-import Immutable from "immutable";
-import {signInViaFacebook} from "../../core/actions/account";
+import Account from "../../core/models/account.model";
+import {signInViaFacebook} from "../../core/actions/account.actions";
 
 let cx = classNames.bind(styles);
 
@@ -18,7 +18,7 @@ let cx = classNames.bind(styles);
 class LoginForm extends Component {
 
     static propTypes = {
-        account: PropTypes.instanceOf(Immutable.Map).isRequired,
+        account: PropTypes.instanceOf(Account).isRequired,
         signInViaFacebook: PropTypes.func.isRequired,
     };
 
