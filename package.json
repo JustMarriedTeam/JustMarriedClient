@@ -7,6 +7,7 @@
     "npm": ">=3.8"
   },
   "scripts": {
+    "postinstall": "node run build",
     "eslint": "eslint components core pages test utils main.js run.js webpack.config.js",
     "stylelint": "stylelint \"components/**/*.css\" \"pages/**/*.css\"",
     "lint": "npm run eslint && npm run stylelint",
