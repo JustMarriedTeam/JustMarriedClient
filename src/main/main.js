@@ -51,15 +51,15 @@ class App extends React.Component {
 }
 
 ReactDOM.render(
-    <Router history={history}>
-        <Route path="/" component={App}>
-            <Route path="/home" component={HomePage} />
-            <Route path="/about" component={AboutPage} />
-            <Route path="/tasks" component={Tasks}>
-                <Route path="/tasks/:taskId" component={Task} />
-            </Route>
-            <Route path="*" component={ErrorPage} />
-        </Route>
-    </Router>,
-    document.getElementById('container')
+  <Router history={history}>
+    <Route path="/" component={App}>
+      <Route path="/home" component={HomePage} />
+      <Route path="/about" component={AboutPage} />
+      <Route path="/tasks" component={Tasks}>
+        <Route path="/tasks/:taskId" component={Task} />
+      </Route>
+      <Route path="*" component={ErrorPage} />
+    </Route>
+  </Router>,
+  document.getElementById('container')
 );

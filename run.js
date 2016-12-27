@@ -1,6 +1,7 @@
 /* eslint-disable no-console, global-require */
 
 const fs = require('fs');
+const path = require('path');
 const del = require('del');
 const ejs = require('ejs');
 const webpack = require('webpack');
@@ -41,6 +42,16 @@ tasks.set('html', () => {
 });
 
 //
+// Generate sitemap.xml
+// -----------------------------------------------------------------------------
+tasks.set('sitemap', () => {
+  fs.writeFileSync('./public/sitemap.xml',
+    require('./utils/sitemap-generator')({
+      url: config.url
+    }), 'utf8');
+});
+
+//
 // Bundle JavaScript, CSS and image files with Webpack
 // -----------------------------------------------------------------------------
 tasks.set('bundle', () => {
@@ -67,20 +78,6 @@ tasks.set('build', () => {
     .then(() => run('bundle'))
     .then(() => run('html'))
     .then(() => run('sitemap'));
-});
-
-//
-// Build and publish the website
-// -----------------------------------------------------------------------------
-tasks.set('publish', () => {
-  const firebase = require('firebase-tools');
-  return run('build')
-    .then(() => firebase.login({ nonInteractive: false }))
-    .then(() => firebase.deploy({
-      project: config.project,
-      cwd: __dirname,
-    }))
-    .then(() => { setTimeout(() => process.exit()); });
 });
 
 //
