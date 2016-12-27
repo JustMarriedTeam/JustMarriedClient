@@ -16,8 +16,6 @@
     "clean": "node run clean",
     "build": "node run build",
     "build:debug": "node run build --debug -- --verbose",
-    "publish": "node run publish",
-    "publish:debug": "node run publish --debug",
     "start": "echo 'Will not start as this application is pure static one. Serve content from public/ directory.'"
   },
   "dependencies": {
