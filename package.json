@@ -18,7 +18,7 @@
     "build:debug": "node run build --debug -- --verbose",
     "publish": "node run publish",
     "publish:debug": "node run publish --debug",
-    "start": "node run"
+    "start": "echo 'Will not start as this application is pure static one. Serve content from public/ directory.'"
   },
   "dependencies": {
     "babel-polyfill": "^6.9.1",
