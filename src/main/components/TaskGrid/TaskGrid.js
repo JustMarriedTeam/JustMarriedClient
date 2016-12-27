@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import _ from 'lodash/fp';
-import Task from '../task/Task';
+import Task from '../Task/Task';
 import { createGridCols, createGridBreakpoints, createLayouts } from '../../core/grid';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
