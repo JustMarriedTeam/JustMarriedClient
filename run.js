@@ -1,7 +1,6 @@
 /* eslint-disable no-console, global-require */
 
 const fs = require('fs');
-const path = require('path');
 const del = require('del');
 const ejs = require('ejs');
 const webpack = require('webpack');
@@ -11,10 +10,10 @@ const config = {
   title: 'JustWedding',
   url: 'http://www.justwedding.pl',
   project: 'justwedding-76fa3',
-  trackingID: 'UA-XXXXX-Y',                 // Google Analytics Site's ID
+  trackingID: 'UA-XXXXX-Y',
 };
 
-const tasks = new Map(); // The collection of automation tasks ('clean', 'build', 'publish', etc.)
+const tasks = new Map();
 
 function run(task) {
   const start = new Date();
