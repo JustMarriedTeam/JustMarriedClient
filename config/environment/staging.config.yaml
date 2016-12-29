@@ -2,7 +2,7 @@ build:
   debug: false
   compress: true
   secure: true
-  devtool: 'source-map',
+  devtool: 'source-map'
   cssSourceMaps: true
   cssLocalName: '[hash:base64:4]'
   verbose: false
