@@ -7,14 +7,17 @@ const webpack = require('webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
 const pkg = require('./package.json');
 const merge = require('lodash/merge');
+const mapValues = require('lodash/mapValues');
 
 
 const envProfile = process.env.NODE_ENV || 'development';
 const envDescriptorPath = path.join(__dirname, `config/environment/${envProfile}.config.yaml`);
 const envDescriptor = yaml.load(fs.readFileSync(envDescriptorPath, 'UTF-8'));
 const envBuildDescriptor = envDescriptor.build;
+const envPropertiesDescriptor = envDescriptor.environment;
 
-console.log(`Using '${envProfile}' env build descriptor properties:\n${JSON.stringify(envBuildDescriptor)}`);
+console.log(`Using '${envProfile}' env build features:\n${JSON.stringify(envBuildDescriptor)}`);
+console.log(`Using '${envProfile}' env properties:\n${JSON.stringify(envPropertiesDescriptor)}`);
 
 const babelConfig = Object.assign({}, pkg.babel, {
   babelrc: false,
@@ -47,15 +50,11 @@ const config = {
   devtool: envBuildDescriptor.devtool,
   stats: envBuildDescriptor.stats,
 
-  // The list of plugins for Webpack compiler
   plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': envBuildDescriptor.debug ? '"development"' : '"production"',
+    new webpack.DefinePlugin(merge({
+      'process.env.NODE_ENV': process.env.NODE_ENV,
       __DEV__: envBuildDescriptor.debug,
-    }),
-    // Emit a JSON file with assets paths
-    // https://github.com/sporto/assets-webpack-plugin#options
+    }, mapValues(envPropertiesDescriptor, (value) => (`'${value}'`)))),
     new AssetsPlugin({
       path: path.resolve(__dirname, './public/dist'),
       filename: 'assets.json',
@@ -65,11 +64,12 @@ const config = {
 
 };
 
-if (envBuildDescriptor.minify) {
+if (envBuildDescriptor.compress) {
+  config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
   config.plugins.push(new webpack.optimize.DedupePlugin());
   config.plugins.push(new webpack.optimize.AggressiveMergingPlugin());
 }
-if (envBuildDescriptor.uglify) {
+if (envBuildDescriptor.secure) {
   config.plugins.push(new webpack.optimize.UglifyJsPlugin({
     compress: { warnings: envBuildDescriptor.verbose },
   }));
@@ -85,7 +85,7 @@ module.exports = merge(config,
   require('./webpack.loaders.config')({
     babelConfig,
     cssLocalName: envBuildDescriptor.cssLocalName,
-    minify: envBuildDescriptor.minify,
+    minify: envBuildDescriptor.compress,
     cssSourceMaps: envBuildDescriptor.cssSourceMaps,
   }),
   require('./webpack.postcss.config')

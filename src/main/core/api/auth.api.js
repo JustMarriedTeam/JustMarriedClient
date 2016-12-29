@@ -1,8 +1,10 @@
 import { openInPopup } from '../../utils/popupManager';
 
-export const signInViaFacebook = () => openInPopup('http://localhost:2701/api/auth/facebook');
+const apiUrl = process.env.serverApiUrl;
 
-export const signInViaGoogle = () => openInPopup('http://localhost:2701/api/auth/google');
+export const signInViaFacebook = () => openInPopup(`${apiUrl}/auth/facebook`);
+
+export const signInViaGoogle = () => openInPopup(`${apiUrl}/auth/google`);
 
 export const signOut = () =>
     // invalidate token

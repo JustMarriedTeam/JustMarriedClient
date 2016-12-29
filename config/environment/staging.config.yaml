@@ -1,7 +1,7 @@
 build:
   debug: false
-  minify: true
-  uglify: true
+  compress: true
+  secure: true
   devtool: 'source-map',
   cssSourceMaps: true
   cssLocalName: '[hash:base64:4]'
@@ -20,3 +20,7 @@ build:
     chunkModules: true
     cached: false
     cachedAssets: fals
+
+environment:
+  server:
+    apiUrl: https://just-married-sta-server.herokuapp.com/api
