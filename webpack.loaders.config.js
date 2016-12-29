@@ -25,10 +25,10 @@ module.exports = (cfg) => ({
         loaders: [
           'style-loader',
           `css-loader?${JSON.stringify({
-            sourceMap: cfg.sourceMaps,
+            sourceMap: cfg.cssSourceMaps,
             modules: true,
             localIdentName: cfg.cssLocalName,
-            minimize: cfg.minimize,
+            minimize: cfg.minify,
           })}`,
           'postcss-loader',
         ],

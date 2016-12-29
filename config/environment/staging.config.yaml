@@ -1,0 +1,22 @@
+build:
+  debug: false
+  minify: true
+  uglify: true
+  devtool: 'source-map',
+  cssSourceMaps: true
+  cssLocalName: '[hash:base64:4]'
+  verbose: false
+  useHMR: false
+  output:
+    filename: '[name].[hash].js'
+    chunkFilename: '[id].[chunkhash].js'
+  stats:
+    colors: true
+    reasons: false
+    hash: true
+    version: true
+    timings: true
+    chunks: true
+    chunkModules: true
+    cached: false
+    cachedAssets: fals
