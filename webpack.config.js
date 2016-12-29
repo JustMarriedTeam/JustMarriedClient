@@ -52,7 +52,7 @@ const config = {
 
   plugins: [
     new webpack.DefinePlugin(merge({
-      'process.env.NODE_ENV': process.env.NODE_ENV,
+      'process.env.NODE_ENV': `'${process.env.NODE_ENV}`,
       __DEV__: envBuildDescriptor.debug,
     }, mapValues(envPropertiesDescriptor, (value) => (`'${value}'`)))),
     new AssetsPlugin({
