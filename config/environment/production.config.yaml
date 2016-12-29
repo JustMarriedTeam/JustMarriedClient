@@ -22,5 +22,4 @@ build:
     cachedAssets: false
 
 environment:
-  server:
-    apiUrl: https://just-married-sta-client.herokuapp.com/
+  process.env.serverApiUrl: 'http://localhost:2701/api'

@@ -22,5 +22,4 @@ build:
     cachedAssets: fals
 
 environment:
-  server:
-    apiUrl: https://just-married-sta-server.herokuapp.com/api
+  process.env.serverApiUrl: 'https://just-married-sta-server.herokuapp.com/api'
