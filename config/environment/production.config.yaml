@@ -12,12 +12,12 @@ build:
     chunkFilename: '[id].[chunkhash].js'
   stats:
     colors: true
-    reasons: false
-    hash: true
-    version: true
-    timings: true
-    chunks: true
-    chunkModules: true
+    reasons: true
+    hash: false
+    version: false
+    timings: false
+    chunks: false
+    chunkModules: false
     cached: false
     cachedAssets: false
 

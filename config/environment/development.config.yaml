@@ -11,15 +11,15 @@ build:
     filename: '[name].js?[hash]'
     chunkFilename: '[id].js?[chunkhash]'
   stats:
-    colors: true,
-    reasons: true,
-    hash: false,
-    version: false,
-    timings: true,
-    chunks: false,
-    chunkModules: false,
-    cached: true,
-    cachedAssets: true
+    colors: true
+    reasons: true
+    hash: false
+    version: false
+    timings: false
+    chunks: false
+    chunkModules: false
+    cached: false
+    cachedAssets: false
 
 environment:
   process.env.serverApiUrl: 'http://localhost:2701/api'

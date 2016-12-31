@@ -12,14 +12,14 @@ build:
     chunkFilename: '[id].[chunkhash].js'
   stats:
     colors: true
-    reasons: false
-    hash: true
-    version: true
-    timings: true
-    chunks: true
-    chunkModules: true
+    reasons: true
+    hash: false
+    version: false
+    timings: false
+    chunks: false
+    chunkModules: false
     cached: false
-    cachedAssets: fals
+    cachedAssets: false
 
 environment:
   process.env.serverApiUrl: 'https://just-married-sta-server.herokuapp.com/api'
