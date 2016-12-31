@@ -19,28 +19,28 @@ export default class TasksPage extends Component {
 
   render() {
     return (
-            <Layout>
-                <Tabs>
-                    <Tab
-                      icon={<FontIcon className="material-icons">view_compact</FontIcon>}
-                      label="All"
-                    >
+      <Layout>
+        <Tabs>
+          <Tab
+            icon={<FontIcon className="material-icons">view_compact</FontIcon>}
+            label="All"
+          >
 
-                        <TaskGrid
-                          tasks={this.state.items}
-                        />
+            <TaskGrid
+              tasks={this.state.items}
+            />
 
-                    </Tab>
-                    <Tab
-                      icon={<FontIcon className="material-icons">schedule</FontIcon>}
-                      label="Todo"
-                    />
-                    <Tab
-                      icon={<FontIcon className="material-icons">next_week</FontIcon>}
-                      label="Upcoming"
-                    />
-                </Tabs>
-            </Layout>
+          </Tab>
+          <Tab
+            icon={<FontIcon className="material-icons">schedule</FontIcon>}
+            label="Todo"
+          />
+          <Tab
+            icon={<FontIcon className="material-icons">next_week</FontIcon>}
+            label="Upcoming"
+          />
+        </Tabs>
+      </Layout>
     );
   }
 

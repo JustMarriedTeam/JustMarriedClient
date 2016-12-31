@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Layout from '../../layout/Layout';
 
-export default class Task extends Component {
+export default class Task extends PureComponent {
 
   render() {
     return (
-            <Layout>
-                particular task
-            </Layout>
+      <Layout>
+        particular task
+      </Layout>
     );
   }
 

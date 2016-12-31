@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { withReflex } from 'reflexbox';
 import Robox from 'robox';
 import classNames from 'classnames/bind';
@@ -6,7 +6,7 @@ import styles from './SeparatingLine.pcss';
 
 const cx = classNames.bind(styles);
 
-class SeparatingLine extends Component {
+class SeparatingLine extends PureComponent {
 
   static propTypes = {
     type: PropTypes.string,
@@ -15,19 +15,21 @@ class SeparatingLine extends Component {
 
   render() {
     return (
-            <div className={cx('separating-line', `separating-line--${this.props.type}`)}>
-                <div className={cx('separating-line__stroke')} />
-                <div className={cx('separating-line__text', {
-                  'separating-line__text--hidden': !this.props.text,
-                })}>
-                    <div>{this.props.text}</div>
-                </div>
-                <div className={cx('separating-line__stroke')} />
-            </div>
+      <div className={cx('separating-line', `separating-line--${this.props.type}`)}>
+        <div className={cx('separating-line__stroke')} />
+        <div
+          className={cx('separating-line__text', {
+            'separating-line__text--hidden': !this.props.text,
+          })}
+        >
+          <div>{this.props.text}</div>
+        </div>
+        <div className={cx('separating-line__stroke')} />
+      </div>
     );
   }
 
 }
 
-export default withReflex()(Robox(SeparatingLine));
+export default withReflex()(new Robox(SeparatingLine));
 

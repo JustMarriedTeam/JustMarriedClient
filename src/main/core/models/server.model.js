@@ -1,7 +1,6 @@
 import Immutable from 'immutable';
 
-
-const ServerRecord = Immutable.Record({
+const ServerRecord = new Immutable.Record({
   isAwaitingResponse: false,
 });
 

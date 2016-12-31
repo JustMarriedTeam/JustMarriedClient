@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import Layout from '../../layout/Layout';
 import classnames from 'classnames/bind';
 import LayoutContainer from '../../layout/LayoutContainer';
@@ -12,7 +12,6 @@ import ParallaxContent from '../../components/ParallaxContent';
 import Carousel from '../../components/Carousel';
 import CarouselItem from '../../components/Carousel/CarouselItem';
 import styles from './home.pcss';
-import { html } from './index.md';
 
 import whyNeedUs from '../../assets/whyneedus.jpg';
 import registrationBg from '../../assets/registrationbg.jpg';
@@ -43,71 +42,81 @@ export default class HomePage extends React.Component {
     function LoginPane(props) {
       if (props.isVisible) {
         return <LoginForm />;
-      } else return null;
+      }
+      return null;
     }
 
 
     return (
-            <Layout>
-                <div className={cx('home__banner')}>
-                    <div className={cx('home__banner-content')}>
-                        <div className={cx('home__logo')} />
-                        <div className={cx('home__slogan')}>
+      <Layout>
+        <div className={cx('home__banner')}>
+          <div className={cx('home__banner-content')}>
+            <div className={cx('home__logo')} />
+            <div className={cx('home__slogan')}>
 
-                            <h1>Just Married</h1>
-                            <h4>Let's plan your wedding!</h4>
+              <h1>Just Married</h1>
+              <h4>Let's plan your wedding!</h4>
 
-                            <RaisedButton label="Start here" secondary href={'#start'} />
-                            <FlatButton onClick={this.toggleLoginForm} disabled={this.state.loginForm.shown}
-                              label="or sign in" href={'#continue'}
-                            />
+              <RaisedButton label="Start here" secondary href={'#start'} />
+              <FlatButton
+                onClick={this.toggleLoginForm}
+                disabled={this.state.loginForm.shown}
+                label="or sign in"
+                href={'#continue'}
+              />
 
-                        </div>
+            </div>
 
-                        <Spacer />
+            <Spacer />
 
-                        <LoginPane isVisible={this.state.loginForm.shown} />
+            <LoginPane isVisible={this.state.loginForm.shown} />
 
-                    </div>
-                </div>
+          </div>
+        </div>
 
-                <LayoutContainer>
+        <LayoutContainer>
 
-                    <ParallaxContent img={whyNeedUs}>
-                        <h2 style={{
-                          padding: '120px 0',
-                          textAlign: 'center',
-                        }}>Want to do this all by yourself?</h2>
-                    </ParallaxContent>
+          <ParallaxContent img={whyNeedUs}>
+            <h2
+              style={{
+                padding: '120px 0',
+                textAlign: 'center',
+              }}
+            >Want to do this all by yourself?</h2>
+          </ParallaxContent>
 
-                    <ContentSection alternate header={<h2>Hell no! Let us help you.</h2>}>
+          <ContentSection alternate header={<h2>Hell no! Let us help you.</h2>}>
 
-                        <Carousel style={{
-                          height: '600px',
-                        }}>
-                            <CarouselItem key={1} img={'https://placeholdit.imgix.net/~text?txtsize=90&txt=960%C3%97500&w=960&h=500'}>
-                                abc
-                            </CarouselItem>
-                            <CarouselItem key={2} img={'https://placeholdit.imgix.net/~text?txtsize=90&txt=960%C3%97500&w=960&h=500'}>
-def
-                            </CarouselItem>
-                        </Carousel>
+            <Carousel
+              style={{
+                height: '600px',
+              }}
+            >
+              <CarouselItem key={1} img={'https://placeholdit.imgix.net/~text?txtsize=90&txt=960%C3%97500&w=960&h=500'}>
+                abc
+              </CarouselItem>
+              <CarouselItem key={2} img={'https://placeholdit.imgix.net/~text?txtsize=90&txt=960%C3%97500&w=960&h=500'}>
+                def
+              </CarouselItem>
+            </Carousel>
 
-                    </ContentSection>
+          </ContentSection>
 
-                    <ParallaxContent img={registrationBg}>
+          <ParallaxContent img={registrationBg}>
 
-                        <RegistrationForm style={{
-                          padding: '120px 0',
-                          textAlign: 'center',
-                        }} />
+            <RegistrationForm
+              style={{
+                padding: '120px 0',
+                textAlign: 'center',
+              }}
+            />
 
-                    </ParallaxContent>
+          </ParallaxContent>
 
-                </LayoutContainer>
+        </LayoutContainer>
 
 
-            </Layout>
+      </Layout>
     );
   }
 

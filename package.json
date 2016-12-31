@@ -8,7 +8,7 @@
   },
   "scripts": {
     "postinstall": "node run build",
-    "eslint": "eslint components core pages test utils main.js run.js webpack.config.js",
+    "eslint": "eslint \"src/main/**/*.{js,jsx}\"",
     "stylelint": "stylelint \"src/main/**/*.pcss\"",
     "lint": "npm run eslint && npm run stylelint",
     "test": "mocha --opts .mocharc",

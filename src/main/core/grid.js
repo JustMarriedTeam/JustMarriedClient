@@ -24,6 +24,23 @@ export const gridMeta = {
   },
 };
 
+function generateLayout(ids, size) {
+  const layout = [];
+  for (let i = 0; i < ids.length; i++) {
+    const id = ids[i];
+    const cols = gridMeta[size].cols;
+    layout.push({
+      i: `${id}`,
+      x: i % cols,
+      y: Math.floor(i / cols),
+      w: 1,
+      h: 1,
+    });
+  }
+  return layout;
+}
+
+/* eslint-disable */
 export function createGridBreakpoints() {
   return transform((result, type) => {
     result[type] = gridMeta[type].minWidth;
@@ -42,20 +59,4 @@ export function createLayouts(ids) {
     return result;
   })({})(gridTypes);
 }
-
-function generateLayout(ids, size) {
-  const layout = [];
-  for (let i = 0; i < ids.length; i++) {
-    const id = ids[i];
-    const cols = gridMeta[size].cols;
-    layout.push({
-      i: `${id}`,
-      x: i % cols,
-      y: Math.floor(i / cols),
-      w: 1,
-      h: 1,
-    });
-  }
-  return layout;
-}
-
+/* eslint-enable */

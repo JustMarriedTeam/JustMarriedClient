@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import history from '../../core/history';
 
 class Link extends React.Component {
 
@@ -13,7 +12,7 @@ class Link extends React.Component {
       this.props.onClick(event);
     }
 
-    if (event.button !== 0 /* left click */) {
+    if (event.button !== 0) {
       return;
     }
 
@@ -27,14 +26,7 @@ class Link extends React.Component {
 
     event.preventDefault();
 
-    if (this.props.to) {
-      history.push(this.props.to);
-    } else {
-      history.push({
-        pathname: event.currentTarget.pathname,
-        search: event.currentTarget.search,
-      });
-    }
+    /* navigate to - publish event */
   };
 
   render() {

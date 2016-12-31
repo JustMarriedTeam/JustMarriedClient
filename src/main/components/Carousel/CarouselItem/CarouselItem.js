@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import classnames from 'classnames/bind';
 import styles from './CarouselItem.pcss';
 
 const cx = classnames.bind(styles);
 
-export default class CarouselItem extends Component {
+export default class CarouselItem extends PureComponent {
 
   static propTypes = {
     img: PropTypes.any,
@@ -12,9 +12,12 @@ export default class CarouselItem extends Component {
 
   render() {
     return (
-            <div className={cx('carousel-item')} style={{
-              backgroundImage: `url(${this.props.img})`,
-            }} />
+      <div
+        className={cx('carousel-item')}
+        style={{
+          backgroundImage: `url(${this.props.img})`,
+        }}
+      />
     );
   }
 }

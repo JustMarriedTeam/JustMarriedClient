@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent } from 'react';
 import classnames from 'classnames/bind';
 import Slider from 'react-slick';
 import map from 'lodash/fp/map';
@@ -8,7 +8,7 @@ const cx = classnames.bind(styles);
 
 // http://www.bucketlistly.com/
 
-export default class Carousel extends Component {
+export default class Carousel extends PureComponent {
 
   render() {
     const slickConfig = {
@@ -22,14 +22,17 @@ export default class Carousel extends Component {
     };
 
     return (
-            <Slider className={cx('carousel')} {...slickConfig}>
+      <Slider className={cx('carousel')} {...slickConfig}>
 
-                {map((element) => <div key={element.key} style={{
-                  height: '500px',
-                }} className={cx('carousel--item-wrapper')}
-                >{element}</div>)(this.props.children)}
+        {map((element) => <div
+          key={element.key}
+          className={cx('carousel--item-wrapper')}
+          style={{
+            height: '500px',
+          }}
+        >{element}</div>)(this.props.children)}
 
-            </Slider>
+      </Slider>
     );
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 import { take, call, put, fork, race } from 'redux-saga/effects';
 import {
   accountStateChanged,
@@ -59,9 +60,7 @@ function * loginViaGoogleFlow() {
       logout: take(SIGN_OUT),
     });
 
-    console.log(JSON.stringify(winner));
     if (winner.auth) {
-      console.log('in');
       yield put(authenticateWithToken(winner.auth));
       yield put(navigateToDashboard);
     } else {

@@ -4,7 +4,7 @@ import _ from 'lodash/fp';
 import Task from '../Task/Task';
 import { createGridCols, createGridBreakpoints, createLayouts } from '../../core/grid';
 
-const ResponsiveReactGridLayout = WidthProvider(Responsive);
+const ResponsiveReactGridLayout = new WidthProvider(Responsive);
 
 export default class TaskGrid extends Component {
 
@@ -23,7 +23,6 @@ export default class TaskGrid extends Component {
 
   componentWillMount() {
     const layouts = createLayouts(_.times((i) => i)(this.props.tasks.length));
-    console.log(JSON.stringify(layouts));
     this.setState({
       layouts,
     });
@@ -31,28 +30,25 @@ export default class TaskGrid extends Component {
 
   render() {
     return (
-            <ResponsiveReactGridLayout
-              breakpoints={this.state.breakpoints}
-              cols={this.state.cols}
-              margin={[15, 15]}
-              rowHeight={320}
-              isDraggable={false}
-              isResizable={false}
-              layouts={this.state.layouts}
-            >
+      <ResponsiveReactGridLayout
+        breakpoints={this.state.breakpoints}
+        cols={this.state.cols}
+        margin={[15, 15]}
+        rowHeight={320}
+        isDraggable={false}
+        isResizable={false}
+        layouts={this.state.layouts}
+      >
 
-                {
-                    _.map.convert({ cap: false })((task, idx) => {
-                      console.log(`${task.name}, ${idx}\n`);
-                      return (
-                            <div key={`${idx}`}>
-                                <Task name={task.name} />
-                            </div>
-                      );
-                    })(this.props.tasks)
-                }
+        {
+          _.map.convert({ cap: false })((task, idx) => (
+            <div key={`${idx}`}>
+              <Task name={task.name} />
+            </div>
+          ))(this.props.tasks)
+        }
 
-            </ResponsiveReactGridLayout>
+      </ResponsiveReactGridLayout>
     );
   }
 

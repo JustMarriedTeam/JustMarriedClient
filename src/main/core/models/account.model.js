@@ -9,7 +9,7 @@ export const ACCOUNT_STATE = {
   SIGNED_IN_FAILED: 'SIGNED_IN_FAILED',
 };
 
-const AccountRecord = Immutable.Record({
+const AccountRecord = new Immutable.Record({
   state: ACCOUNT_STATE.SIGNED_OUT,
   token: null,
 });
