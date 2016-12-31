@@ -1,3 +1,11 @@
 language: node_js
 node_js:
-  - "6.9"
+- '6.9'
+script: npm run build && npm run test
+deploy:
+  provider: heroku
+  api_key:
+    secure: eI+/VEx3U1hiLpxTGI0caoPvfThfZjhRyjN0jp+ww681R+5QFlDpqZY9mgnuZUQgQGwtPVcc3xqZf/H6j3YNEL3aqfZh5omaZWl3hzlxYbfs7ZW+o9fB4pA7kAHaYLsAxRVyojWNO8a1HRbXRUDFYWfSgKok8xN60MjKuwA+3gFM3rqArHCXbTWikRqc8m6sTxOmLXTx/Bt1zV4uivzqIAsJS+jDWEG6ylbkKqNPPyQ7N8W4W6YcezgZ/ELhop/n3IWXktB04+itEzFa+9kl0f9Ecbw5wCMyrPPGhI7LCWdZ4v4C5g86larsyrt61R9ncMZgKLe8cR2pgH+9oqLL1LFHIi1yzJASVoTcyxcWEc1dil0WXw/97lBBpGW7ukuU5Ha17+/ts7jWTApHI4RUr6+CJziaafLD/EuS0BCfLrgU/y80IWkIhFCU1d88lWl073QS0QSfayTJYA+/M6oWHxFopQrRZnsvdmLrF75STLCi4nGjlnJASHIakPwfC9qgUbOBvijZ8NupIEttJnkW5+y8hduYW5P4UgCjUe1A4vXgqSlfPPtb5ShJgCtKWBMHcGng0ys7rm8wNrxv52XqUYYYt80ee5dPnobDauw8rJTwz/xdv/faNg1NwOp4OiI6NouV8kwuMSlpvl3ExyWRZBunqknBx2bL3S085s4wLRg=
+  app:
+    master: just-married-client
+    development: just-married-sta-client

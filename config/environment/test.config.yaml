@@ -1,0 +1,25 @@
+build:
+  debug: true
+  compress: false
+  secure: false
+  devtool: 'source-map'
+  cssSourceMaps: true
+  cssLocalName: '[name]_[local]_[hash:base64:3]'
+  verbose: true
+  useHMR: true
+  output:
+    filename: '[name].js?[hash]'
+    chunkFilename: '[id].js?[chunkhash]'
+  stats:
+    colors: true,
+    reasons: true,
+    hash: false,
+    version: false,
+    timings: true,
+    chunks: false,
+    chunkModules: false,
+    cached: true,
+    cachedAssets: true
+
+environment:
+  process.env.serverApiUrl: 'http://localhost:2701/api'
