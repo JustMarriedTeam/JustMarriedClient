@@ -112,16 +112,5 @@
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2"
-  },
-  "babel": {
-    "presets": [
-      "react",
-      "es2015",
-      "stage-1"
-    ],
-    "plugins": [
-      "transform-runtime",
-      "transform-object-rest-spread"
-    ]
   }
 }

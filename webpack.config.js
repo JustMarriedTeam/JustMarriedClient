@@ -19,8 +19,8 @@ const envPropertiesDescriptor = envDescriptor.environment;
 console.log(`Using '${envProfile}' env build features:\n${JSON.stringify(envBuildDescriptor)}`);
 console.log(`Using '${envProfile}' env properties:\n${JSON.stringify(envPropertiesDescriptor)}`);
 
-const babelConfig = Object.assign({}, pkg.babel, {
-  babelrc: false,
+const babelConfig = merge({}, JSON.parse(fs.readFileSync('.babelrc', 'utf8')), {
+  babelrc: false, // needs to be dynamic
   cacheDirectory: envBuildDescriptor.useHMR,
 });
 
