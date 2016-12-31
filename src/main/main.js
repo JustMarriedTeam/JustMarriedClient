@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames/bind';
-import { Router, Route, Redirect, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import store from './core/store';
@@ -59,13 +59,13 @@ class App extends React.Component {
 ReactDOM.render(
   <Router history={history}>
     <Route path="/" component={App}>
+      <IndexRoute component={HomePage} />
       <Route path="/home" component={HomePage} />
       <Route path="/tasks" component={Tasks}>
         <Route path="/tasks/:taskId" component={Task} />
       </Route>
       <Route path="*" component={ErrorPage} />
     </Route>
-    <Redirect from="/" to="home" />
   </Router>,
   document.getElementById('container')
 );
