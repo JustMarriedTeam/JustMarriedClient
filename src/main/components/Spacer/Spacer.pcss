@@ -1,17 +1,19 @@
+/* stylelint-disable */
 @define-mixin weights $prefix, $dim {
-    @each $size in xs, sm, md, lg, hg {
-        .$(prefix)-$(size) {
-            height: map(spacer, vertical, $(size));
-        }
+  @each $size in xs, sm, md, lg, hg {
+    .$(prefix)-$(size) {
+      height: map(spacer, vertical, $(size));
     }
+  }
 }
+/* stylelint-enable */
 
 .v {
-    width: 100%;
+  width: 100%;
 }
 
 .h {
-    height: 100%;
+  height: 100%;
 }
 
 @mixin weights v, height;

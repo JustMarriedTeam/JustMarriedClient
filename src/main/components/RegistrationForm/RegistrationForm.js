@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Flex, Box } from 'reflexbox';
 import FontIcon from 'material-ui/FontIcon';
@@ -6,18 +6,13 @@ import TextField from 'material-ui/TextField';
 import Spacer from '../Spacer/Spacer';
 import SeparatingLine from '../SeparatingLine/SeparatingLine';
 import MediaQuery from 'react-responsive';
-import classNames from 'classnames/bind';
-import styles from './RegistrationForm.pcss';
-
-const cx = classNames.bind(styles);
-
 
 export default class RegistrationForm extends Component {
 
 
   render() {
     return (
-            <Flex wrap className={cx('registration-form')} align="stretch" justify="space-around" {...this.props}>
+            <Flex wrap align="stretch" justify="space-around" {...this.props}>
 
                 <Box sm={12} md={5} p={1}>
                     <TextField
@@ -48,7 +43,7 @@ export default class RegistrationForm extends Component {
 
                     <Spacer weight="md" />
 
-                    <div className={cx('local-login-btn-section')}>
+                    <div>
                         <RaisedButton primary label="Login" />
                     </div>
                 </Box>

@@ -9,7 +9,7 @@
   "scripts": {
     "postinstall": "node run build",
     "eslint": "eslint components core pages test utils main.js run.js webpack.config.js",
-    "stylelint": "stylelint \"components/**/*.css\" \"pages/**/*.css\"",
+    "stylelint": "stylelint \"src/main/**/*.pcss\"",
     "lint": "npm run eslint && npm run stylelint",
     "test": "mocha --opts .mocharc",
     "test:watch": "mocha --opts .mocharc --reporter min --watch",
@@ -23,6 +23,7 @@
     "babel-polyfill": "^6.9.1",
     "bluebird": "^3.4.7",
     "classnames": "^2.2.5",
+    "debug": "2.6.0",
     "fastclick": "^1.0.6",
     "flexboxgrid": "^6.3.1",
     "font-awesome": "^4.7.0",

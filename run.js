@@ -46,7 +46,7 @@ tasks.set('html', () => {
 tasks.set('sitemap', () => {
   fs.writeFileSync('./public/sitemap.xml',
     require('./utils/sitemap-generator')({
-      url: config.url
+      url: config.url,
     }), 'utf8');
 });
 

@@ -5,10 +5,9 @@ const fs = require('fs');
 const yaml = require('js-yaml');
 const webpack = require('webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
-const pkg = require('./package.json');
 const merge = require('lodash/merge');
 const mapValues = require('lodash/mapValues');
-
+const debug = require('debug')('debug:webpack.config');
 
 const envProfile = process.env.NODE_ENV || 'development';
 const envDescriptorPath = path.join(__dirname, `config/environment/${envProfile}.config.yaml`);
@@ -16,8 +15,8 @@ const envDescriptor = yaml.load(fs.readFileSync(envDescriptorPath, 'UTF-8'));
 const envBuildDescriptor = envDescriptor.build;
 const envPropertiesDescriptor = envDescriptor.environment;
 
-console.log(`Using '${envProfile}' env build features:\n${JSON.stringify(envBuildDescriptor)}`);
-console.log(`Using '${envProfile}' env properties:\n${JSON.stringify(envPropertiesDescriptor)}`);
+debug(`Using '${envProfile}' env build features:\n${JSON.stringify(envBuildDescriptor)}`);
+debug(`Using '${envProfile}' env properties:\n${JSON.stringify(envPropertiesDescriptor)}`);
 
 const babelConfig = merge({}, JSON.parse(fs.readFileSync('.babelrc', 'utf8')), {
   babelrc: false, // needs to be dynamic
