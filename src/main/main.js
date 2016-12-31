@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames/bind';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, Redirect, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import store from './core/store';
@@ -65,6 +65,7 @@ ReactDOM.render(
       </Route>
       <Route path="*" component={ErrorPage} />
     </Route>
+    <Redirect from="/" to="home" />
   </Router>,
   document.getElementById('container')
 );
