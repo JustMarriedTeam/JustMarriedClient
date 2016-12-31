@@ -11,7 +11,7 @@ export const gridMeta = {
     cols: 4,
   },
   sm: {
-    minWidth: 750,
+    minWidth: 768,
     cols: 3,
   },
   xs: {
