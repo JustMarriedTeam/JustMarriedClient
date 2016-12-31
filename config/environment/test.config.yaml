@@ -5,7 +5,7 @@ build:
   devtool: false
   cssSourceMaps: false
   cssLocalName: '[name]_[local]_[hash:base64:3]'
-  verbose: true
+  verbose: false
   useHMR: false
   output:
     filename: '[name].js?[hash]'
