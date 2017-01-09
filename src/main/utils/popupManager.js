@@ -1,8 +1,10 @@
 import extend from 'lodash/extend';
 import pick from 'lodash/pick';
+import get from 'lodash/get';
 import map from 'lodash/map';
 import keys from 'lodash/keys';
-// import Promise from 'bluebird';
+import store from '../core/store';
+
 
 const defaultPopupSpec = {
   width: 300,
@@ -30,8 +32,13 @@ function openInPopup(url, customSpec) {
   const leftPosition = (window.screen.width / 2) - ((popupSpec.width / 2) + 10);
   const topPosition = (window.screen.height / 2) - ((popupSpec.height / 2) + 50);
 
+  function appendTokenIfPresent() {
+    const token = get(store.getState(), 'account.token');
+    return token ? `&token=${token}` : '';
+  }
+
   return new Promise((resolve) => {
-    window.open(`${url}?redirectTo=/redirect.html`, '_blank',
+    window.open(`${url}?redirectTo=/redirect.html` + appendTokenIfPresent(), '_blank',
       `${parseStaticConfig(popupSpec)},left=${leftPosition},
         top=${topPosition},screenX=${leftPosition},screenY=${topPosition}`
     );
