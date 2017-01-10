@@ -12,14 +12,26 @@ export const GOOGLE_ACCOUNT_BOUND = 'GOOGLE_ACCOUNT_BOUND';
 
 export const SIGN_OUT = 'SIGN_OUT';
 
-export const accountStateChanged = (state) => ({ type: ACCOUNT_CHANGE_STATE, state });
+/*
+  Passive
+ */
 
 export const facebookAccountBound = (state) => ({ type: FACEBOOK_ACCOUNT_BOUND, state });
 
 export const googleAccountBound = (state) => ({ type: GOOGLE_ACCOUNT_BOUND, state });
 
+export const accountStateChanged = (state) => ({ type: ACCOUNT_CHANGE_STATE, state });
+
 export const authenticateWithToken = (token) => ({ type: AUTHENTICATE_WITH_TOKEN, token });
+
+/*
+  Active
+ */
 
 export const signInViaFacebook = () => (dispatch) => dispatch({ type: SIGN_IN_VIA_FACEBOOK });
 
+export const bindFacebookAccount = () => (dispatch) => dispatch({ type: BIND_FACEBOOK_ACCOUNT });
+
 export const signInViaGoogle = () => (dispatch) => dispatch({ type: SIGN_IN_VIA_GOOGLE });
+
+export const bindGoogleAccount = () => (dispatch) => dispatch({ type: BIND_GOOGLE_ACCOUNT });

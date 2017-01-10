@@ -16,6 +16,10 @@ const AccountRecord = new Immutable.Record({
 
 class Account extends AccountRecord {
 
+  isSignedIn() {
+    return this.state === ACCOUNT_STATE.SIGNED_IN;
+  }
+
 }
 
 export default Account;
