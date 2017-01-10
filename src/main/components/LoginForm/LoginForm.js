@@ -65,7 +65,8 @@ class LoginForm extends PureComponent {
         <Box sm={12} md={5} p={1}>
 
           <RaisedButton
-            onClick={this.props.account.isSignedIn() ? this.props.bindFacebookAccount : this.props.signInViaFacebook}
+            onClick={this.props.account.isSignedIn() ? this.props.bindFacebookAccount
+              : this.props.signInViaFacebook}
             target="_blank"
             backgroundColor="#27cbe0"
             fullWidth
@@ -76,7 +77,8 @@ class LoginForm extends PureComponent {
           <Spacer weight="xs" />
 
           <RaisedButton
-            onClick={this.props.account.isSignedIn() ? this.props.bindGoogleAccount : this.props.signInViaGoogle}
+            onClick={this.props.account.isSignedIn() ? this.props.bindGoogleAccount
+              : this.props.signInViaGoogle}
             target="_blank"
             backgroundColor="#27cbe0"
             fullWidth

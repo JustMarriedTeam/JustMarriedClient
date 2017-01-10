@@ -38,7 +38,7 @@ function openInPopup(url, customSpec) {
   }
 
   return new Promise((resolve) => {
-    window.open(`${url}?redirectTo=/redirect.html` + appendTokenIfPresent(), '_blank',
+    window.open(`${url}?redirectTo=/redirect.html${appendTokenIfPresent()}`, '_blank',
       `${parseStaticConfig(popupSpec)},left=${leftPosition},
         top=${topPosition},screenX=${leftPosition},screenY=${topPosition}`
     );
