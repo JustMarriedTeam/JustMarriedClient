@@ -6,6 +6,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import store from './core/store';
+import { tryCookieAuthentication } from './core/cookies';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import ErrorPage from './pages/error/error';
@@ -44,6 +45,10 @@ class App extends React.Component {
       },
     },
   });
+
+  componentWillMount() {
+    tryCookieAuthentication();
+  }
 
   render() {
     return (

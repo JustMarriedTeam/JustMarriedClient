@@ -20,7 +20,9 @@ class LoginForm extends PureComponent {
   static propTypes = {
     account: PropTypes.instanceOf(Account).isRequired,
     signInViaGoogle: PropTypes.func.isRequired,
+    bindGoogleAccount: PropTypes.func.isRequired,
     signInViaFacebook: PropTypes.func.isRequired,
+    bindFacebookAccount: PropTypes.func.isRequired,
   };
 
   render() {
@@ -63,23 +65,25 @@ class LoginForm extends PureComponent {
         <Box sm={12} md={5} p={1}>
 
           <RaisedButton
-            onClick={this.props.signInViaGoogle}
+            onClick={this.props.account.isSignedIn() ? this.props.bindFacebookAccount
+              : this.props.signInViaFacebook}
             target="_blank"
             backgroundColor="#27cbe0"
             fullWidth
-            label="Login with google"
-            icon={<FontIcon className="fa fa-google-plus-square" />}
+            label={this.props.account.isSignedIn() ? 'Bind facebook' : 'Continue with facebook'}
+            icon={<FontIcon className="fa fa-facebook-square" />}
           />
 
           <Spacer weight="xs" />
 
           <RaisedButton
-            onClick={this.props.signInViaFacebook}
+            onClick={this.props.account.isSignedIn() ? this.props.bindGoogleAccount
+              : this.props.signInViaGoogle}
             target="_blank"
             backgroundColor="#27cbe0"
             fullWidth
-            label="Login with facebook"
-            icon={<FontIcon className="fa fa-facebook-square" />}
+            label={this.props.account.isSignedIn() ? 'Bind google' : 'Continue with goole'}
+            icon={<FontIcon className="fa fa-google-plus-square" />}
           />
 
         </Box>
