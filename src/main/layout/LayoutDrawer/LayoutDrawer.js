@@ -33,6 +33,12 @@ export default class LayoutDrawer extends PureComponent {
           />
 
           <ListItemLink
+            to={'/wedding'}
+            primaryText="My wedding"
+            leftIcon={<Assignment />}
+          />
+
+          <ListItemLink
             to={'/tasks'}
             primaryText="Tasks"
             leftIcon={<Assignment />}

@@ -11,6 +11,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import ErrorPage from './pages/error/error';
 import HomePage from './pages/home/home';
+import WeddingPage from './pages/wedding/wedding';
 import Tasks from './pages/tasks/tasks';
 import Task from './pages/task/task';
 import Theme from './theme/theme';
@@ -66,6 +67,7 @@ ReactDOM.render(
     <Route path="/" component={App}>
       <IndexRoute component={HomePage} />
       <Route path="/home" component={HomePage} />
+      <Route path="/wedding" component={WeddingPage} />
       <Route path="/tasks" component={Tasks}>
         <Route path="/tasks/:taskId" component={Task} />
       </Route>
