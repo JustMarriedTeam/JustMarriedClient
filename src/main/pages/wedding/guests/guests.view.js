@@ -10,6 +10,7 @@ import {
 } from 'material-ui/Table';
 import GuestsMenu from './guests.menu';
 import { Menu, MainButton, ChildButton } from 'react-mfb';
+import { animateScroll } from 'react-scroll';
 import Spacer from '../../../components/Spacer';
 import classNames from 'classnames/bind';
 import styles from './guests.view.pcss';
@@ -70,18 +71,24 @@ class GuestsView extends Component {
     });
   };
 
-  handleAddingGuest = () => {
-    this.props.guests.push({
-      id: '111',
-      firstName: '',
-      lastName: '',
-    });
+  handleRowSelection = (selectedGuests) => {
+    if (selectedGuests === 'all') {
+      this.setState({
+        selectedGuests: Array.from({ length: this.props.guests.length }, (v, k) => k),
+      });
+    } else {
+      this.setState({
+        selectedGuests,
+      });
+    }
   };
 
-  handleRowSelection = (selectedGuests) => {
-    this.setState({
-      selectedGuests,
+  handleAddingGuest = () => {
+    this.props.weddingActions.addGuest({
+      firstName: undefined,
+      lastName: undefined,
     });
+    animateScroll.scrollToBottom();
   };
 
   render() {
@@ -118,7 +125,7 @@ class GuestsView extends Component {
 
             {this.props.guests.map((guest, rowNumber) => (
               <TableRow
-                key={guest.id}
+                key={rowNumber}
                 rowNumber={rowNumber}
                 selected={includes(this.state.selectedGuests, rowNumber)}
               >
@@ -157,7 +164,7 @@ class GuestsView extends Component {
         </Menu>
 
 
-        <Spacer weight="hg" />
+        <Spacer name="endOfList" weight="hg" />
 
       </div>
     );
