@@ -3,11 +3,13 @@ import Layout from '../../layout/Layout';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
 import ParticipantsView from './participants/participants.view';
+import GuestsView from './guests/guests.view';
 import FeaturesView from './features/features.view';
 
 const TAB_KEYS = {
   PARTICIPANTS: 0,
-  FEATURES: 1,
+  GUESTS: 1,
+  FEATURES: 2,
 };
 
 export default class WeddingPage extends Component {
@@ -35,10 +37,18 @@ export default class WeddingPage extends Component {
 
           <Tab
             value={TAB_KEYS.PARTICIPANTS}
-            icon={<FontIcon className="material-icons">people</FontIcon>}
+            icon={<FontIcon className="material-icons">star</FontIcon>}
             label="PARTICIPANTS"
           >
             <ParticipantsView />
+          </Tab>
+
+          <Tab
+            value={TAB_KEYS.GUESTS}
+            icon={<FontIcon className="material-icons">people</FontIcon>}
+            label="GUESTS"
+          >
+            <GuestsView />
           </Tab>
 
 
