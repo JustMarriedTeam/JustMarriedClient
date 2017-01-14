@@ -1,4 +1,4 @@
-import React, { PropTypes, PureComponent } from 'react';
+import React, { PropTypes, Component } from 'react';
 import {
   Table,
   TableBody,
@@ -8,22 +8,18 @@ import {
   TableRowColumn,
   TableFooter,
 } from 'material-ui/Table';
+import GuestsMenu from './guests.menu';
 import { Menu, MainButton, ChildButton } from 'react-mfb';
 import Spacer from '../../../components/Spacer';
 import classNames from 'classnames/bind';
 import styles from './guests.view.pcss';
 import reduce from 'lodash/reduce';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import ContentFilter from 'material-ui/svg-icons/content/filter-list';
 import * as actionBarActions from '../../../core/actions/actionbar.actions';
 import { connect } from 'react-redux';
 
 const cx = classNames.bind(styles);
 
-class GuestsView extends PureComponent {
+class GuestsView extends Component {
 
   static propTypes = {
     displayContextMenu: PropTypes.func.isRequired,
@@ -84,33 +80,10 @@ class GuestsView extends PureComponent {
 
   componentDidMount() {
     this.props.displayContextMenu(
-      <div>
-        <IconMenu
-          iconButtonElement={<IconButton><ContentFilter /></IconButton>}
-          onChange={this.handleFilter}
-          value={this.state.activeFilters}
-          multiple
-        >
-          <MenuItem value="1" primaryText="Already invited" />
-          <MenuItem value="2" primaryText="Invitation pending" />
-          <MenuItem value="3" primaryText="Rejected invitation" />
-        </IconMenu>
-
-        <IconMenu
-          iconButtonElement={
-            <IconButton><MoreVertIcon /></IconButton>
-          }
-          targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-        >
-          <MenuItem primaryText="Select" onTouchTap={this.handleSelect} />
-          <MenuItem
-            disabled={!this.state.isSelectable}
-            primaryText="Remove selected"
-            onTouchTap={this.handleRemove}
-          />
-        </IconMenu>
-      </div>
+      <GuestsMenu
+        handleSelect={this.handleSelect}
+        handleFilter={this.handleFilter}
+      />
     );
   }
 
