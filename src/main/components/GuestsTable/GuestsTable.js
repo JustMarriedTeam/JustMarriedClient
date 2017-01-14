@@ -8,6 +8,8 @@ import {
   TableRowColumn,
   TableFooter,
 } from 'material-ui/Table';
+import { Menu, MainButton, ChildButton } from 'react-mfb';
+import Spacer from '../Spacer';
 import classNames from 'classnames/bind';
 import styles from './GuestsTable.pcss';
 import reduce from 'lodash/reduce';
@@ -52,9 +54,8 @@ export default class GuestsTable extends PureComponent {
 
   render() {
     return (
+      <div>
       <Table
-        height={'300px'}
-        fixedHeader={true}
         selectable={this.state.isSelectable}
         multiSelectable={this.state.isSelectable}
       >
@@ -97,11 +98,36 @@ export default class GuestsTable extends PureComponent {
         >
           <TableRow>
             <TableRowColumn colSpan="2" style={{ textAlign: 'center' }}>
-              Super Footer
+
             </TableRowColumn>
           </TableRow>
         </TableFooter>
       </Table>
+
+
+        <Menu effect="zoomin" method="click" position="br">
+          <MainButton iconResting="ion-plus-round" iconActive="ion-close-round" />
+          <ChildButton
+            icon="ion-social-github"
+            label="View on Github"
+            href="https://github.com/nobitagit/react-material-floating-button/"
+          />
+          <ChildButton
+            icon="ion-social-octocat"
+            label="Follow me on Github"
+            href="https://github.com/nobitagit"
+          />
+          <ChildButton
+            icon="ion-social-twitter"
+            label="Share on Twitter"
+            href="http://twitter.com/share?text=Amazing Google Inbox style material floating menu as a React component!&url=http://nobitagit.github.io/react-material-floating-button/&hashtags=material,menu,reactjs,react,component"
+          />
+        </Menu>
+
+
+        <Spacer weight="hg" />
+
+      </div>
     );
   }
 

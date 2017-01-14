@@ -32,6 +32,7 @@ const config = {
     '!!style!css!react-grid-layout/css/styles.css',
     '!!style!css!react-resizable/css/styles.css',
     '!!style!css!font-awesome/css/font-awesome.css',
+    '!!style!css!react-mfb/mfb.css',
     'react-mdl/extra/material.min.js',
     'babel-polyfill',
     './main.js',
