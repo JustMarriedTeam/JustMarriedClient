@@ -105,7 +105,7 @@ class GuestsView extends Component {
               >
                 <TableRowColumn
                   className={cx('guests-view__position-row')}
-                >{rowNumber}</TableRowColumn>
+                >{rowNumber + 1}</TableRowColumn>
                 <TableRowColumn>{guest.lastName}</TableRowColumn>
                 <TableRowColumn>{guest.firstName}</TableRowColumn>
               </TableRow>
