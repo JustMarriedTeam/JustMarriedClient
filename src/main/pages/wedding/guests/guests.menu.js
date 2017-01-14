@@ -10,6 +10,7 @@ export default class GuestsMenu extends Component {
   static propTypes = {
     handleFilter: PropTypes.func.isRequired,
     handleSelect: PropTypes.func.isRequired,
+    handleRemove: PropTypes.func.isRequired,
   };
 
   constructor() {
@@ -42,7 +43,7 @@ export default class GuestsMenu extends Component {
         <MenuItem primaryText="Select" onTouchTap={this.props.handleSelect} />
         <MenuItem
           primaryText="Remove selected"
-          onTouchTap={this.handleRemove}
+          onTouchTap={this.props.handleRemove}
         />
       </IconMenu>
     </div>);

@@ -17,6 +17,8 @@ import { bindActionCreators } from 'redux';
 import * as actionBarActions from '../../../core/actions/actionbar.actions';
 import * as weddingActions from '../../../core/actions/wedding.actions';
 import { connect } from 'react-redux';
+import remove from 'lodash/remove';
+import find from 'lodash/find';
 
 const cx = classNames.bind(styles);
 
@@ -53,10 +55,10 @@ class GuestsView extends Component {
   };
 
   handleRemove = () => {
-    // const guestsToRemove = filter(this.state.guestCursor, { isSelected: true });
-    // this.setState({
-    //   isSelectable: false,
-    // });
+    remove(this.props.guests, (guest) => find(this.props.guests, { id: guest.id }).isSelected);
+    this.setState({
+      isSelectable: false,
+    });
   };
 
   handleFilter = (filters) => {
@@ -64,8 +66,6 @@ class GuestsView extends Component {
       activeFilters: filters,
     });
   };
-
-  isSelected = () => false;
 
   render() {
     return (
@@ -82,6 +82,9 @@ class GuestsView extends Component {
           >
 
             <TableRow>
+              <TableHeaderColumn
+                className={cx('guests-view__position-header')}
+              >Pos.</TableHeaderColumn>
               <TableHeaderColumn>Name</TableHeaderColumn>
               <TableHeaderColumn>Surname</TableHeaderColumn>
             </TableRow>
@@ -89,12 +92,19 @@ class GuestsView extends Component {
           </TableHeader>
 
           <TableBody
+            stripedRows
             displayRowCheckbox={this.state.isSelectable}
             showRowHover={this.state.isSelectable}
           >
 
-            {this.props.guests.map((guest) => (
-              <TableRow key={guest.id} selected={this.isSelected(guest.id)}>
+            {this.props.guests.map((guest, rowNumber) => (
+              <TableRow
+                key={guest.id}
+                selected={find(this.props.guests, { id: guest.id }).isSelected}
+              >
+                <TableRowColumn
+                  className={cx('guests-view__position-row')}
+                >{rowNumber}</TableRowColumn>
                 <TableRowColumn>{guest.firstName}</TableRowColumn>
                 <TableRowColumn>{guest.lastName}</TableRowColumn>
               </TableRow>
@@ -106,7 +116,7 @@ class GuestsView extends Component {
             adjustForCheckbox={this.state.isSelectable}
           >
             <TableRow>
-              <TableRowColumn colSpan="2" style={{ textAlign: 'center' }}>
+              <TableRowColumn colSpan="3" style={{ textAlign: 'center' }}>
 
               </TableRowColumn>
             </TableRow>
