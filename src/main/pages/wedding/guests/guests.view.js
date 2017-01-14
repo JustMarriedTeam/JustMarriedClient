@@ -157,7 +157,7 @@ class GuestsView extends Component {
             iconActive="ion-close-round"
           />
           <ChildButton
-            icon="ion-social-github"
+            icon="ion-person-add"
             label="Add new guest"
             onClick={this.handleAddingGuest}
           />
