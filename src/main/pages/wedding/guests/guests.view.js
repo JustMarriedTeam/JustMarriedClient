@@ -76,6 +76,7 @@ class GuestsView extends Component {
         >
 
           <TableHeader
+            className={cx('guests-view__header')}
             displaySelectAll={this.state.isSelectable}
             adjustForCheckbox={this.state.isSelectable}
             enableSelectAll={this.state.isSelectable}
@@ -85,8 +86,8 @@ class GuestsView extends Component {
               <TableHeaderColumn
                 className={cx('guests-view__position-header')}
               >Pos.</TableHeaderColumn>
-              <TableHeaderColumn>Name</TableHeaderColumn>
               <TableHeaderColumn>Surname</TableHeaderColumn>
+              <TableHeaderColumn>Name</TableHeaderColumn>
             </TableRow>
 
           </TableHeader>
@@ -105,8 +106,8 @@ class GuestsView extends Component {
                 <TableRowColumn
                   className={cx('guests-view__position-row')}
                 >{rowNumber}</TableRowColumn>
-                <TableRowColumn>{guest.firstName}</TableRowColumn>
                 <TableRowColumn>{guest.lastName}</TableRowColumn>
+                <TableRowColumn>{guest.firstName}</TableRowColumn>
               </TableRow>
             ))}
 
