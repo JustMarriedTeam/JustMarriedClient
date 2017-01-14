@@ -17,8 +17,8 @@ import { bindActionCreators } from 'redux';
 import * as actionBarActions from '../../../core/actions/actionbar.actions';
 import * as weddingActions from '../../../core/actions/wedding.actions';
 import { connect } from 'react-redux';
-import remove from 'lodash/remove';
-import find from 'lodash/find';
+import includes from 'lodash/includes';
+import filter from 'lodash/filter';
 
 const cx = classNames.bind(styles);
 
@@ -34,6 +34,7 @@ class GuestsView extends Component {
     super();
     this.state = {
       isSelectable: false,
+      selectedGuests: [],
     };
   }
 
@@ -55,7 +56,9 @@ class GuestsView extends Component {
   };
 
   handleRemove = () => {
-    remove(this.props.guests, (guest) => find(this.props.guests, { id: guest.id }).isSelected);
+    this.props.weddingActions.removeGuests(
+      filter(this.props.guests, (item, index) => includes(this.state.selectedGuests, index))
+    );
     this.setState({
       isSelectable: false,
     });
@@ -67,12 +70,27 @@ class GuestsView extends Component {
     });
   };
 
+  handleAddingGuest = () => {
+    this.props.guests.push({
+      id: '111',
+      firstName: '',
+      lastName: '',
+    });
+  };
+
+  handleRowSelection = (selectedGuests) => {
+    this.setState({
+      selectedGuests,
+    });
+  };
+
   render() {
     return (
       <div>
         <Table
           selectable={this.state.isSelectable}
           multiSelectable={this.state.isSelectable}
+          onRowSelection={this.handleRowSelection}
         >
 
           <TableHeader
@@ -101,7 +119,8 @@ class GuestsView extends Component {
             {this.props.guests.map((guest, rowNumber) => (
               <TableRow
                 key={guest.id}
-                selected={find(this.props.guests, { id: guest.id }).isSelected}
+                rowNumber={rowNumber}
+                selected={includes(this.state.selectedGuests, rowNumber)}
               >
                 <TableRowColumn
                   className={cx('guests-view__position-row')}
@@ -126,21 +145,14 @@ class GuestsView extends Component {
 
 
         <Menu effect="zoomin" method="click" position="br">
-          <MainButton iconResting="ion-plus-round" iconActive="ion-close-round" />
+          <MainButton
+            iconResting="ion-plus-round"
+            iconActive="ion-close-round"
+          />
           <ChildButton
             icon="ion-social-github"
-            label="View on Github"
-            href="https://github.com/nobitagit/react-material-floating-button/"
-          />
-          <ChildButton
-            icon="ion-social-octocat"
-            label="Follow me on Github"
-            href="https://github.com/nobitagit"
-          />
-          <ChildButton
-            icon="ion-social-twitter"
-            label="Share on Twitter"
-            href="http://twitter.com/share?text=Amazing Google Inbox style material floating menu as a React component!&url=http://nobitagit.github.io/react-material-floating-button/&hashtags=material,menu,reactjs,react,component"
+            label="Add new guest"
+            onClick={this.handleAddingGuest}
           />
         </Menu>
 

@@ -2,6 +2,9 @@ import { getGuests } from '../api/guests.api';
 import { sendingRequest, notifyRequestFailed } from './server.actions';
 
 export const GUESTS_FETCHED = 'GUESTS_FETCHED';
+export const REMOVE_GUESTS = 'GUESTS_REMOVED';
+
+export const removeGuests = (guestsToRemove) => ({ type: REMOVE_GUESTS, guests: guestsToRemove });
 
 export const fetchGuests = (query) => (dispatch) => {
   dispatch(sendingRequest(true));
