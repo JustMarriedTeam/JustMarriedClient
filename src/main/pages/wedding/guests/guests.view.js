@@ -17,6 +17,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import ContentFilter from 'material-ui/svg-icons/content/filter-list';
 import * as actionBarActions from '../../../core/actions/actionbar.actions';
 import { connect } from 'react-redux';
 
@@ -32,6 +33,7 @@ class GuestsView extends PureComponent {
     super();
     this.state = {
       isSelectable: false,
+      activeFilters: [],
       guestRegistry: {
         guests: [
           { id: 'a', firstName: 'Grzegorz', lastName: 'Gurgul' },
@@ -64,22 +66,51 @@ class GuestsView extends PureComponent {
 
   handleSelect = () => {
     this.setState({
+      isSelectable: true,
+    });
+  };
 
+  handleRemove = () => {
+    this.setState({
+      isSelectable: false,
+    });
+  };
+
+  handleFilter = (filters) => {
+    this.setState({
+      activeFilters: filters,
     });
   };
 
   componentDidMount() {
     this.props.displayContextMenu(
-      <IconMenu
-        iconButtonElement={
-          <IconButton><MoreVertIcon /></IconButton>
-        }
-        targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-      >
-        <MenuItem primaryText="Select" onTouchTap={this.handleSelect} />
-        <MenuItem primaryText="Sign out" />
-      </IconMenu>
+      <div>
+        <IconMenu
+          iconButtonElement={<IconButton><ContentFilter /></IconButton>}
+          onChange={this.handleFilter}
+          value={this.state.activeFilters}
+          multiple
+        >
+          <MenuItem value="1" primaryText="Already invited" />
+          <MenuItem value="2" primaryText="Invitation pending" />
+          <MenuItem value="3" primaryText="Rejected invitation" />
+        </IconMenu>
+
+        <IconMenu
+          iconButtonElement={
+            <IconButton><MoreVertIcon /></IconButton>
+          }
+          targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+        >
+          <MenuItem primaryText="Select" onTouchTap={this.handleSelect} />
+          <MenuItem
+            disabled={!this.state.isSelectable}
+            primaryText="Remove selected"
+            onTouchTap={this.handleRemove}
+          />
+        </IconMenu>
+      </div>
     );
   }
 
