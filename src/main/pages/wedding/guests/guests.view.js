@@ -13,8 +13,9 @@ import { Menu, MainButton, ChildButton } from 'react-mfb';
 import Spacer from '../../../components/Spacer';
 import classNames from 'classnames/bind';
 import styles from './guests.view.pcss';
-import reduce from 'lodash/reduce';
+import { bindActionCreators } from 'redux';
 import * as actionBarActions from '../../../core/actions/actionbar.actions';
+import * as weddingActions from '../../../core/actions/wedding.actions';
 import { connect } from 'react-redux';
 
 const cx = classNames.bind(styles);
@@ -22,42 +23,27 @@ const cx = classNames.bind(styles);
 class GuestsView extends Component {
 
   static propTypes = {
-    displayContextMenu: PropTypes.func.isRequired,
+    actionBarActions: PropTypes.object.isRequired,
+    weddingActions: PropTypes.object.isRequired,
+    guests: PropTypes.array.isRequired,
   };
 
   constructor() {
     super();
     this.state = {
       isSelectable: false,
-      activeFilters: [],
-      guestRegistry: {
-        guests: [
-          { id: 'a', firstName: 'Grzegorz', lastName: 'Gurgul' },
-          { id: 'b', firstName: 'Agata', lastName: 'Nowakiewicz' },
-          { id: 'c', firstName: 'Django', lastName: 'Szynszyl' },
-          { id: 'd', firstName: 'Java', lastName: 'Szynszyl' },
-          { id: 'e', firstName: 'Java', lastName: 'Szynszyl' },
-          { id: 'f', firstName: 'Java', lastName: 'Szynszyl' },
-          { id: 'g', firstName: 'Java', lastName: 'Szynszyl' },
-          { id: 'h', firstName: 'Java', lastName: 'Szynszyl' },
-          { id: 'i', firstName: 'Java', lastName: 'Szynszyl' },
-          { id: 'j', firstName: 'Java', lastName: 'Szynszyl' },
-          { id: 'k', firstName: 'Java', lastName: 'Szynszyl' },
-          { id: 'l', firstName: 'Java', lastName: 'Szynszyl' },
-          { id: 'm', firstName: 'Java', lastName: 'Szynszyl' },
-          { id: 'n', firstName: 'Java', lastName: 'Szynszyl' },
-          { id: 'o', firstName: 'Java', lastName: 'Szynszyl' },
-          { id: 'p', firstName: 'Java', lastName: 'Szynszyl' },
-        ],
-      },
     };
+  }
 
-    this.state.guestCursor = reduce(this.state.guestRegistry.guests, (result, guest) => {
-      result[guest.id] = {
-        isSelected: false,
-      };
-      return result;
-    }, {});
+  componentDidMount() {
+    this.props.weddingActions.fetchGuests();
+    this.props.actionBarActions.displayContextMenu(
+      <GuestsMenu
+        handleSelect={this.handleSelect}
+        handleFilter={this.handleFilter}
+        handleRemove={this.handleRemove}
+      />
+    );
   }
 
   handleSelect = () => {
@@ -67,9 +53,10 @@ class GuestsView extends Component {
   };
 
   handleRemove = () => {
-    this.setState({
-      isSelectable: false,
-    });
+    // const guestsToRemove = filter(this.state.guestCursor, { isSelected: true });
+    // this.setState({
+    //   isSelectable: false,
+    // });
   };
 
   handleFilter = (filters) => {
@@ -78,14 +65,7 @@ class GuestsView extends Component {
     });
   };
 
-  componentDidMount() {
-    this.props.displayContextMenu(
-      <GuestsMenu
-        handleSelect={this.handleSelect}
-        handleFilter={this.handleFilter}
-      />
-    );
-  }
+  isSelected = () => false;
 
   render() {
     return (
@@ -113,8 +93,8 @@ class GuestsView extends Component {
             showRowHover={this.state.isSelectable}
           >
 
-            {this.state.guestRegistry.guests.map((guest) => (
-              <TableRow key={guest.id} selected={this.state.guestCursor[guest.id].isSelected}>
+            {this.props.guests.map((guest) => (
+              <TableRow key={guest.id} selected={this.isSelected(guest.id)}>
                 <TableRowColumn>{guest.firstName}</TableRowColumn>
                 <TableRowColumn>{guest.lastName}</TableRowColumn>
               </TableRow>
@@ -162,6 +142,11 @@ class GuestsView extends Component {
 
 }
 
-export default connect(() => ({
-}), actionBarActions)(GuestsView);
+// https://github.com/reactjs/react-redux/blob/master/docs/api.md
+export default connect((state) => ({
+  guests: state.wedding.guests,
+}), (dispatch) => ({
+  actionBarActions: bindActionCreators(actionBarActions, dispatch),
+  weddingActions: bindActionCreators(weddingActions, dispatch),
+}))(GuestsView);
 
