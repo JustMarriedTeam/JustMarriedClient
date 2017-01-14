@@ -1,14 +1,18 @@
 import React, { PureComponent, PropTypes } from 'react';
 import AppBar from 'material-ui/AppBar';
+import * as actionBarActions from '../../core/actions/actionbar.actions';
+import { connect } from 'react-redux';
+
 import classNames from 'classnames/bind';
 import styles from './LayoutBar.css';
 
 const cx = classNames.bind(styles);
 
-export default class LayoutBar extends PureComponent {
+class LayoutBar extends PureComponent {
 
   static propTypes = {
-    onMenuAction: PropTypes.func.isRequired,
+    actionBar: PropTypes.object.isRequired,
+    onMenuAction: PropTypes.func.isRequired
   };
 
   render() {
@@ -20,6 +24,7 @@ export default class LayoutBar extends PureComponent {
           top: 0,
         }}
         onLeftIconButtonTouchTap={this.props.onMenuAction}
+        iconElementRight={this.props.actionBar.menu || <div />}
         title="JustMarried"
         zDepth={0}
       />
@@ -27,3 +32,7 @@ export default class LayoutBar extends PureComponent {
   }
 
 }
+
+export default connect((state) => ({
+  actionBar: state.actionBar,
+}), actionBarActions)(LayoutBar);

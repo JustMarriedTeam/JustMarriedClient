@@ -67,12 +67,6 @@ export default class GuestsTable extends PureComponent {
         >
 
           <TableRow>
-            <TableHeaderColumn colSpan="2" tooltip="Super Header" style={{ textAlign: 'center' }}>
-              Super Header
-            </TableHeaderColumn>
-          </TableRow>
-
-          <TableRow>
             <TableHeaderColumn>Name</TableHeaderColumn>
             <TableHeaderColumn>Surname</TableHeaderColumn>
           </TableRow>
