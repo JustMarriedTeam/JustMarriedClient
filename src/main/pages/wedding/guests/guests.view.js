@@ -9,6 +9,7 @@ import {
   TableFooter,
 } from 'material-ui/Table';
 import GuestsMenu from './guests.menu';
+import GuestDetails from './guests.details';
 import { Menu, MainButton, ChildButton } from 'react-mfb';
 import { animateScroll } from 'react-scroll';
 import IconMenu from 'material-ui/IconMenu';
@@ -42,6 +43,10 @@ class GuestsView extends Component {
     this.state = {
       isSelectable: false,
       selectedGuests: [],
+      details: {
+        isOpen: false,
+        guest: null,
+      },
       snackbar: {
         open: false,
         message: '',
@@ -132,6 +137,24 @@ class GuestsView extends Component {
     });
   };
 
+  handleOpeningDetails = (guest) => {
+    this.setState({
+      details: {
+        isOpen: true,
+        guest,
+      },
+    });
+  };
+
+  handleClosingDetails = () => {
+    this.setState({
+      details: {
+        isOpen: false,
+        guest: null,
+      },
+    });
+  };
+
   render() {
     return (
       <div>
@@ -189,6 +212,7 @@ class GuestsView extends Component {
                   >
                     <MenuItem
                       primaryText="Details"
+                      onTouchTap={() => this.handleOpeningDetails(guest)}
                     />
                     <MenuItem
                       primaryText="Remove"
@@ -235,6 +259,12 @@ class GuestsView extends Component {
           autoHideDuration={5000}
           onActionTouchTap={this.handleUndoingOperation}
           onRequestClose={this.handleComitingOperation}
+        />
+
+        <GuestDetails
+          onClose={this.handleClosingDetails}
+          isOpen={this.state.details.isOpen}
+          guest={this.state.details.guest}
         />
 
       </div>
