@@ -14,6 +14,7 @@ import { animateScroll } from 'react-scroll';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
+import Snackbar from 'material-ui/Snackbar';
 import FlatButton from 'material-ui/FlatButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Spacer from '../../../components/Spacer';
@@ -41,6 +42,10 @@ class GuestsView extends Component {
     this.state = {
       isSelectable: false,
       selectedGuests: [],
+      snackbar: {
+        open: false,
+        message: '',
+      },
     };
   }
 
@@ -67,6 +72,16 @@ class GuestsView extends Component {
     );
     this.setState({
       isSelectable: false,
+    });
+  };
+
+  handleRemovingItem = (guest) => {
+    this.props.weddingActions.removeGuests([guest]);
+    this.setState({
+      snackbar: {
+        open: true,
+        message: 'Removed guest',
+      },
     });
   };
 
@@ -98,6 +113,23 @@ class GuestsView extends Component {
 
   handleScrollTop = () => {
     animateScroll.scrollToTop();
+  };
+
+  handleUndoingOperation = () => {
+    this.closeSnackbar();
+  };
+
+  handleComitingOperation = () => {
+    this.closeSnackbar();
+  };
+
+  closeSnackbar = () => {
+    this.setState({
+      snackbar: {
+        open: false,
+        message: '',
+      },
+    });
   };
 
   render() {
@@ -155,8 +187,13 @@ class GuestsView extends Component {
                     anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
                     targetOrigin={{ horizontal: 'left', vertical: 'top' }}
                   >
-                    <MenuItem primaryText="Details" />
-                    <MenuItem primaryText="Remove" />
+                    <MenuItem
+                      primaryText="Details"
+                    />
+                    <MenuItem
+                      primaryText="Remove"
+                      onTouchTap={() => this.handleRemovingItem(guest)}
+                    />
                   </IconMenu>
                 </TableRowColumn>
               </TableRow>
@@ -190,6 +227,15 @@ class GuestsView extends Component {
 
 
         <Spacer name="endOfList" weight="hg" />
+
+        <Snackbar
+          open={this.state.snackbar.open}
+          message={this.state.snackbar.message}
+          action="undo"
+          autoHideDuration={5000}
+          onActionTouchTap={this.handleUndoingOperation}
+          onRequestClose={this.handleComitingOperation}
+        />
 
       </div>
     );
