@@ -14,6 +14,7 @@ import { animateScroll } from 'react-scroll';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
+import FlatButton from 'material-ui/FlatButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Spacer from '../../../components/Spacer';
 import classNames from 'classnames/bind';
@@ -95,6 +96,10 @@ class GuestsView extends Component {
     animateScroll.scrollToBottom();
   };
 
+  handleScrollTop = () => {
+    animateScroll.scrollToTop();
+  };
+
   render() {
     return (
       <div>
@@ -145,6 +150,7 @@ class GuestsView extends Component {
                   className={cx('guests-view__actions-row')}
                 >
                   <IconMenu
+                    useLayerForClickAway
                     iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
                     anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
                     targetOrigin={{ horizontal: 'left', vertical: 'top' }}
@@ -162,8 +168,8 @@ class GuestsView extends Component {
             adjustForCheckbox={this.state.isSelectable}
           >
             <TableRow>
-              <TableRowColumn colSpan="3" style={{ textAlign: 'center' }}>
-
+              <TableRowColumn colSpan="4" style={{ textAlign: 'center' }}>
+                <FlatButton onClick={this.handleScrollTop} label="Scroll to top" />
               </TableRowColumn>
             </TableRow>
           </TableFooter>
