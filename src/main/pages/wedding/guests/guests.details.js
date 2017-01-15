@@ -1,6 +1,7 @@
 import React, { PropTypes, PureComponent } from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 
 export default class GuestDetails extends PureComponent {
 
@@ -18,18 +19,31 @@ export default class GuestDetails extends PureComponent {
     return (
       <Dialog
         title="Dialog With Date Picker"
-        actions={<FlatButton
-          label="Close"
-          primary
-          keyboardFocused
-          onTouchTap={this.handleClose}
-        />}
+        actions={<div>
+          <FlatButton
+            label="Cancel"
+            keyboardFocused
+            onTouchTap={this.handleClose}
+          />
+          <FlatButton
+            label="Save"
+            primary
+            keyboardFocused
+            onTouchTap={this.handleClose}
+          />
+        </div>}
         modal={false}
         open={this.props.isOpen}
         onRequestClose={this.handleClose}
       >
-        Open a Date Picker dialog from within a dialog.
-
+        <TextField
+          hintText="First name"
+          floatingLabelText="First name"
+        /><br />
+        <TextField
+          hintText="Last name"
+          floatingLabelText="Last name"
+        /><br />
       </Dialog>
     );
   }
