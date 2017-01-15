@@ -11,6 +11,10 @@ import {
 import GuestsMenu from './guests.menu';
 import { Menu, MainButton, ChildButton } from 'react-mfb';
 import { animateScroll } from 'react-scroll';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Spacer from '../../../components/Spacer';
 import classNames from 'classnames/bind';
 import styles from './guests.view.pcss';
@@ -113,6 +117,9 @@ class GuestsView extends Component {
               >Pos.</TableHeaderColumn>
               <TableHeaderColumn>Surname</TableHeaderColumn>
               <TableHeaderColumn>Name</TableHeaderColumn>
+              <TableHeaderColumn
+                className={cx('guests-view__actions-header')}
+              />
             </TableRow>
 
           </TableHeader>
@@ -134,6 +141,18 @@ class GuestsView extends Component {
                 >{rowNumber + 1}</TableRowColumn>
                 <TableRowColumn>{guest.lastName}</TableRowColumn>
                 <TableRowColumn>{guest.firstName}</TableRowColumn>
+                <TableRowColumn
+                  className={cx('guests-view__actions-row')}
+                >
+                  <IconMenu
+                    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                    anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+                    targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+                  >
+                    <MenuItem primaryText="Details" />
+                    <MenuItem primaryText="Remove" />
+                  </IconMenu>
+                </TableRowColumn>
               </TableRow>
             ))}
 
