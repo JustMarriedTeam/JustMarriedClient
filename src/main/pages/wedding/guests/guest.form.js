@@ -39,14 +39,14 @@ const renderRadioGroup = ({ input, ...rest }) => (
 class GuestForm extends PureComponent {
 
   static propTypes = {
-    guestId: PropTypes.string,
-    loadGuest: PropTypes.func.isRequired,
+    guest: PropTypes.object,
   };
 
-  componentDidMount() {
-    if (this.props.guestId) {
-      this.props.loadGuest(this.props.guestId);
-    }
+  constructor(props) {
+    super();
+    this.state = {
+      initialValues: props.guest,
+    };
   }
 
   render() {
@@ -81,7 +81,7 @@ class GuestForm extends PureComponent {
 
 export default connect(
   (state) => ({
-    initialValues: state.guest,
+
   }),
   guestActions
 )(
