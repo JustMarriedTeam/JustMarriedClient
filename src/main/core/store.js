@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { routerReducer } from 'react-router-redux';
+import { reducer as formReducer } from 'redux-form'
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import accountReducer from './reducers/account.reducer';
@@ -13,6 +14,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 export default createStore(
   combineReducers({
+    form: formReducer,
     account: accountReducer,
     server: serverReducer,
     tasks: tasksReducer,

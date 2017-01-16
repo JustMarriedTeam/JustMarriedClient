@@ -1,5 +1,16 @@
 import Promise from 'bluebird';
 
+function getGuest(guestId) {
+  if (guestId) {
+    return Promise.resolve({
+      firstName: 'Grzegorz',
+      lastName: 'Gurgul',
+    });
+  }
+
+  return Promise.reject();
+}
+
 function getGuests() {
   return Promise.resolve([
     { id: 'a', firstName: 'Grzegorz', lastName: 'Gurgul' },
@@ -21,4 +32,4 @@ function getGuests() {
   ]).then(response => response);
 }
 
-export { getGuests };
+export { getGuests, getGuest };
