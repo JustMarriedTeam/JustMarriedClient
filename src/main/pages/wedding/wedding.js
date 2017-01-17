@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import Layout from '../../layout/Layout';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
 import ParticipantsView from './participants/participants.view';
 import GuestsView from './guests/guests.view';
 import FeaturesView from './features/features.view';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as weddingActions from '../../core/actions/wedding.actions';
 
 const TAB_KEYS = {
   PARTICIPANTS: 0,
@@ -12,13 +15,22 @@ const TAB_KEYS = {
   FEATURES: 2,
 };
 
-export default class WeddingPage extends Component {
+class WeddingPage extends Component {
+
+  static propTypes = {
+    weddingActions: PropTypes.object.isRequired,
+    wedding: PropTypes.object.isRequired,
+  };
 
   constructor(props) {
     super(props);
     this.state = {
       activeTab: TAB_KEYS.PARTICIPANTS,
     };
+  }
+
+  componentDidMount() {
+    this.props.weddingActions.fetchWedding();
   }
 
   activateTab = (tabToActivate) => {
@@ -28,6 +40,7 @@ export default class WeddingPage extends Component {
   };
 
   render() {
+    const { wedding } = this.props;
     return (
       <Layout>
         <Tabs
@@ -48,7 +61,7 @@ export default class WeddingPage extends Component {
             icon={<FontIcon className="material-icons">people</FontIcon>}
             label="GUESTS"
           >
-            <GuestsView />
+            <GuestsView guests={wedding.guests} />
           </Tab>
 
 
@@ -66,3 +79,9 @@ export default class WeddingPage extends Component {
   }
 
 }
+
+export default connect((state) => ({
+  wedding: state.wedding,
+}), (dispatch) => ({
+  weddingActions: bindActionCreators(weddingActions, dispatch),
+}))(WeddingPage);

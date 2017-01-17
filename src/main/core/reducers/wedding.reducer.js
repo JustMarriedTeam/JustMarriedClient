@@ -1,5 +1,5 @@
 import {
-  GUESTS_FETCHED,
+  WEDDING_FETCHED,
   ADD_GUEST,
   UPDATE_GUEST,
   REMOVE_GUESTS,
@@ -8,8 +8,8 @@ import Wedding from '../models/wedding.model';
 
 export default function (wedding = new Wedding(), action) {
   switch (action.type) {
-    case GUESTS_FETCHED:
-      return wedding.set('guests', action.guests);
+    case WEDDING_FETCHED:
+      return new Wedding(action.wedding);
     case REMOVE_GUESTS:
       return wedding.removeGuests(action.guests);
     case ADD_GUEST:

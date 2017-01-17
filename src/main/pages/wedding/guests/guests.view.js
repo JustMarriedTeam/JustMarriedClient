@@ -56,7 +56,6 @@ class GuestsView extends Component {
   }
 
   componentDidMount() {
-    this.props.weddingActions.fetchGuests();
     this.props.actionBarActions.displayContextMenu(
       <GuestsMenu
         handleSelect={this.handleSelect}
