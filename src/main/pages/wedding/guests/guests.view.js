@@ -109,11 +109,14 @@ class GuestsView extends Component {
   };
 
   handleAddingGuest = () => {
-    this.props.weddingActions.addGuest({
+    const newGuest = {
+      id: 'sdfsdf',
       firstName: undefined,
       lastName: undefined,
-    });
+    };
+    this.props.weddingActions.addGuest(newGuest);
     animateScroll.scrollToBottom();
+    this.openGuestDetails(newGuest);
   };
 
   handleScrollTop = () => {
@@ -137,14 +140,16 @@ class GuestsView extends Component {
     });
   };
 
-  handleOpeningDetails = (guest) => {
+  handleOpeningDetails = (guest) => this.openGuestDetails(guest);
+
+  openGuestDetails(guest) {
     this.setState({
       details: {
         isOpen: true,
         guest,
       },
     });
-  };
+  }
 
   handleClosingDetails = (savedGuest) => {
     if (savedGuest) {
