@@ -113,6 +113,7 @@ class GuestsView extends Component {
       id: 'sdfsdf',
       firstName: undefined,
       lastName: undefined,
+      sex: 'male',
     };
     this.props.weddingActions.addGuest(newGuest);
     animateScroll.scrollToBottom();
