@@ -1,7 +1,7 @@
 import React, { PropTypes, PureComponent } from 'react';
 import { connect } from 'react-redux';
 import store from '../../../core/store';
-import { submit } from 'redux-form';
+import { submit, isInvalid } from 'redux-form';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import GuestForm from './guest.form';
@@ -24,6 +24,7 @@ class GuestDetails extends PureComponent {
   };
 
   render() {
+    const { valid } = this.props;
     return (
       <Dialog
         title="User details"
@@ -37,6 +38,7 @@ class GuestDetails extends PureComponent {
             label="Save"
             primary
             keyboardFocused
+            disabled={!valid}
             onTouchTap={() => store.dispatch(submit('GuestForm'))}
           />
         </div>}
@@ -54,4 +56,8 @@ class GuestDetails extends PureComponent {
 
 }
 
-export default connect()(GuestDetails);
+export default connect(
+  state => ({
+    invalid: isInvalid('GuestForm')(state),
+  })
+)(GuestDetails);
