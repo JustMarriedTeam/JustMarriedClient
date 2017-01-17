@@ -40,6 +40,14 @@ export default class PrimaryParticipant extends PureComponent {
             />
           </Box>
 
+          <Box sm={12}>
+            <TextField
+              hintText="E-Mail address"
+              floatingLabelText="E-Mail address"
+              type="text"
+            />
+          </Box>
+
         </Flex>
     );
   }
