@@ -24,7 +24,7 @@ class GuestDetails extends PureComponent {
   };
 
   render() {
-    const { valid } = this.props;
+    const { invalid } = this.props;
     return (
       <Dialog
         title="User details"
@@ -38,7 +38,7 @@ class GuestDetails extends PureComponent {
             label="Save"
             primary
             keyboardFocused
-            disabled={!valid}
+            disabled={invalid}
             onTouchTap={() => store.dispatch(submit('GuestForm'))}
           />
         </div>}
