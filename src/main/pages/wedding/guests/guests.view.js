@@ -27,6 +27,7 @@ import * as weddingActions from '../../../core/actions/wedding.actions';
 import { connect } from 'react-redux';
 import includes from 'lodash/includes';
 import filter from 'lodash/filter';
+import { createGuest } from '../../../core/factories/guest.factory';
 
 const cx = classNames.bind(styles);
 
@@ -109,12 +110,7 @@ class GuestsView extends Component {
   };
 
   handleAddingGuest = () => {
-    const newGuest = {
-      id: 'sdfsdf',
-      firstName: undefined,
-      lastName: undefined,
-      sex: 'male',
-    };
+    const newGuest = createGuest();
     this.props.weddingActions.addGuest(newGuest);
     animateScroll.scrollToBottom();
     this.openGuestDetails(newGuest);

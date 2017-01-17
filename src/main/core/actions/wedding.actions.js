@@ -10,6 +10,7 @@ export const addGuest = (guest) => ({ type: ADD_GUEST, guest });
 export const updateGuest = (guest) => ({ type: UPDATE_GUEST, guest });
 export const removeGuests = (guestsToRemove) => ({ type: REMOVE_GUESTS, guests: guestsToRemove });
 
+// do not need to fetch it, just download alongside with wedding
 export const fetchGuests = (query) => (dispatch) => {
   dispatch(sendingRequest(true));
   return getGuests(query)
