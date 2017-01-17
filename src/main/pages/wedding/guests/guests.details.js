@@ -1,9 +1,12 @@
 import React, { PropTypes, PureComponent } from 'react';
+import { connect } from 'react-redux';
+import store from '../../../core/store';
+import { submit } from 'redux-form';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import GuestForm from './guest.form';
 
-export default class GuestDetails extends PureComponent {
+class GuestDetails extends PureComponent {
 
   static propTypes = {
     onClose: PropTypes.func.isRequired,
@@ -12,6 +15,11 @@ export default class GuestDetails extends PureComponent {
   };
 
   handleClose = () => {
+    this.props.onClose();
+  };
+
+  handleSubmit = () => {
+    // submit
     this.props.onClose();
   };
 
@@ -29,7 +37,7 @@ export default class GuestDetails extends PureComponent {
             label="Save"
             primary
             keyboardFocused
-            onTouchTap={this.handleClose}
+            onTouchTap={() => store.dispatch(submit('GuestForm'))}
           />
         </div>}
         modal={false}
@@ -37,6 +45,7 @@ export default class GuestDetails extends PureComponent {
         onRequestClose={this.handleClose}
       >
         <GuestForm
+          onSubmit={this.handleSubmit}
           initialValues={this.props.guest}
         />
       </Dialog>
@@ -44,3 +53,5 @@ export default class GuestDetails extends PureComponent {
   }
 
 }
+
+export default connect()(GuestDetails);

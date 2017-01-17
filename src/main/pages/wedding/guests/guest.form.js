@@ -1,7 +1,8 @@
-import React, { PropTypes, PureComponent } from 'react';
-import { reset, Field, reduxForm } from 'redux-form';
-import TextField from 'material-ui/TextField';
-import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import React, {PropTypes, PureComponent} from "react";
+import {Field, reduxForm} from "redux-form";
+import TextField from "material-ui/TextField";
+import Spacer from "../../../components/Spacer";
+import {RadioButton, RadioButtonGroup} from "material-ui/RadioButton";
 
 const validate = values => {
   const errors = {};
@@ -38,32 +39,26 @@ class GuestForm extends PureComponent {
 
   static propTypes = {
     initialValues: PropTypes.object.isRequired,
+    onSubmit: PropTypes.func.isRequired,
   };
 
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props;
     return (
-      <form onSubmit={handleSubmit}>
+      <form>
+        <Field name="firstName" component={renderTextField} label="First Name" />
+        <Field name="lastName" component={renderTextField} label="Last Name" />
+        <Field name="email" component={renderTextField} label="Email" />
+
+        <Spacer weight="sm" />
+
         <div>
-          <Field name="firstName" component={renderTextField} label="First Name" />
-        </div>
-        <div>
-          <Field name="lastName" component={renderTextField} label="Last Name" />
-        </div>
-        <div>
-          <Field name="email" component={renderTextField} label="Email" />
-        </div>
-        <div>
+          <label>Sex</label>
           <Field name="sex" component={renderRadioGroup}>
             <RadioButton value="male" label="male" />
             <RadioButton value="female" label="female" />
           </Field>
         </div>
-        <div>
-          <button type="submit" disabled={pristine || submitting}>Submit</button>
-          <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values
-          </button>
-        </div>
+
       </form>
     );
   }
