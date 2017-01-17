@@ -1,7 +1,7 @@
 import React, { PropTypes, PureComponent } from 'react';
 import { connect } from 'react-redux';
 import store from '../../../core/store';
-import { submit, isInvalid } from 'redux-form';
+import { submit, getFormValues, isInvalid } from 'redux-form';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import GuestForm from './guest.form';
@@ -19,8 +19,7 @@ class GuestDetails extends PureComponent {
   };
 
   handleSubmit = () => {
-    // submit
-    this.props.onClose();
+    this.props.onClose(this.props.values);
   };
 
   render() {
@@ -58,6 +57,7 @@ class GuestDetails extends PureComponent {
 
 export default connect(
   state => ({
+    values: getFormValues('GuestForm')(state),
     invalid: isInvalid('GuestForm')(state),
   })
 )(GuestDetails);

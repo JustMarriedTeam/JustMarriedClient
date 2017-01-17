@@ -146,14 +146,21 @@ class GuestsView extends Component {
     });
   };
 
-  handleClosingDetails = () => {
+  handleClosingDetails = (savedGuest) => {
+    if (savedGuest) {
+      this.props.weddingActions.updateGuest(savedGuest);
+    }
+    this.closeGuestDetails();
+  };
+
+  closeGuestDetails() {
     this.setState({
       details: {
         isOpen: false,
         guest: null,
       },
     });
-  };
+  }
 
   render() {
     return (
