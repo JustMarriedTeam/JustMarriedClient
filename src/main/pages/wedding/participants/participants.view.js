@@ -1,13 +1,15 @@
-import React, {PureComponent} from "react";
-import {Flex, Box} from "reflexbox";
-import LayoutContainer from "../../../layout/LayoutContainer";
-import ContentSection from "../../../components/ContentSection";
-import PrimaryParticipant from "../../../components/Participants/PrimaryParticipant/primary.participant";
+import React, { PureComponent } from 'react';
+import { Flex, Box } from 'reflexbox';
+import ContentSection from '../../../components/ContentSection';
+import PrimaryParticipant
+  from '../../../components/Participants/PrimaryParticipant/primary.participant';
+import LayoutContainer from '../../../layout/LayoutContainer';
+
+
 export default class ParticipantsView extends PureComponent {
 
   render() {
-    return (<div>
-        <LayoutContainer>
+    return (<LayoutContainer>
 
           <ContentSection header={<h2>Bride & Groom</h2>}>
 
@@ -42,9 +44,7 @@ export default class ParticipantsView extends PureComponent {
           </ContentSection>
 
 
-        </LayoutContainer>
-      </div>
-    );
+        </LayoutContainer>);
   }
 
 }

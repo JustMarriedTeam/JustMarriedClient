@@ -28,6 +28,7 @@ import { connect } from 'react-redux';
 import includes from 'lodash/includes';
 import filter from 'lodash/filter';
 import { createGuest } from '../../../core/factories/guest.factory';
+import LayoutContainer from '../../../layout/LayoutContainer';
 
 const cx = classNames.bind(styles);
 
@@ -165,7 +166,7 @@ class GuestsView extends Component {
 
   render() {
     return (
-      <div>
+      <LayoutContainer>
         <Table
           selectable={this.state.isSelectable}
           multiSelectable={this.state.isSelectable}
@@ -185,6 +186,9 @@ class GuestsView extends Component {
               >Pos.</TableHeaderColumn>
               <TableHeaderColumn>Surname</TableHeaderColumn>
               <TableHeaderColumn>Name</TableHeaderColumn>
+              <TableHeaderColumn
+                className={cx('guests-view__email-header')}
+              >e-mail</TableHeaderColumn>
               <TableHeaderColumn
                 className={cx('guests-view__actions-header')}
               />
@@ -209,6 +213,9 @@ class GuestsView extends Component {
                 >{rowNumber + 1}</TableRowColumn>
                 <TableRowColumn>{guest.lastName}</TableRowColumn>
                 <TableRowColumn>{guest.firstName}</TableRowColumn>
+                <TableRowColumn
+                  className={cx('guests-view__email-row')}
+                >{guest.email}</TableRowColumn>
                 <TableRowColumn
                   className={cx('guests-view__actions-row')}
                 >
@@ -237,7 +244,7 @@ class GuestsView extends Component {
             adjustForCheckbox={this.state.isSelectable}
           >
             <TableRow>
-              <TableRowColumn colSpan="4" style={{ textAlign: 'center' }}>
+              <TableRowColumn colSpan="5" style={{ textAlign: 'center' }}>
                 <FlatButton onClick={this.handleScrollTop} label="Scroll to top" />
               </TableRowColumn>
             </TableRow>
@@ -275,7 +282,7 @@ class GuestsView extends Component {
           onRequestClose={this.handleComitingOperation}
         />
 
-      </div>
+      </LayoutContainer>
     );
   }
 

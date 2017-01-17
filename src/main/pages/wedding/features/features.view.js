@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
+import LayoutContainer from '../../../layout/LayoutContainer';
 
 export default class FeaturesView extends PureComponent {
 
   render() {
     return (
-      <div>features</div>
+      <LayoutContainer bounded>features</LayoutContainer>
     );
   }
 

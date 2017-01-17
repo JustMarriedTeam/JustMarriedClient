@@ -8,7 +8,11 @@ export default class LayoutContainer extends PureComponent {
 
   render() {
     return (
-      <div className={cx('layout-container')}>{this.props.children}</div>
+      <div
+        className={cx('layout-container', {
+          'layout-container--bounded': this.props.bounded,
+        })}
+      >{this.props.children}</div>
     );
   }
 }

@@ -3,8 +3,8 @@ import Promise from 'bluebird';
 function getWedding() {
   return Promise.resolve({
     guests: [
-      { id: 'a', firstName: 'Grzegorz', lastName: 'Gurgul' },
-      { id: 'b', firstName: 'Agata', lastName: 'Nowakiewicz' },
+      { id: 'a', firstName: 'Grzegorz', lastName: 'Gurgul', email: 'grzegorz.g@gmail.com' },
+      { id: 'b', firstName: 'Agata', lastName: 'Nowakiewicz', email: 'agata.n@gmail.com' },
       { id: 'c', firstName: 'Django', lastName: 'Szynszyl' },
       { id: 'd', firstName: 'Java', lastName: 'Szynszyl' },
       { id: 'e', firstName: 'Java', lastName: 'Szynszyl' },

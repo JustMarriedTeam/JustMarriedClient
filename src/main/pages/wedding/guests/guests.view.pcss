@@ -11,6 +11,18 @@
 
   &__position-row, &__position-header {
     width: 20px;
+
+    @media (max-width: map(layout, breakpoints, md)) {
+      display: none;
+    }
+  }
+
+  &__email-row, &__email-header {
+
+    @media (max-width: map(layout, breakpoints, md)) {
+      display: none;
+    }
+
   }
 
   &__actions-row, &__actions-header {
