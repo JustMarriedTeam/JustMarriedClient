@@ -1,12 +1,12 @@
-import React, {PropTypes, PureComponent} from "react";
-import {Field, reduxForm} from "redux-form";
-import TextField from "material-ui/TextField";
-import Spacer from "../../../components/Spacer";
-import {RadioButton, RadioButtonGroup} from "material-ui/RadioButton";
+import React, { PropTypes, PureComponent } from 'react';
+import { Field, reduxForm } from 'redux-form';
+import TextField from 'material-ui/TextField';
+import Spacer from '../../../components/Spacer';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 
 const validate = values => {
   const errors = {};
-  const requiredFields = ['firstName', 'lastName', 'email', 'sex'];
+  const requiredFields = ['firstName', 'lastName', 'sex'];
   requiredFields.forEach(field => {
     if (!values[field]) {
       errors[field] = 'Required';
