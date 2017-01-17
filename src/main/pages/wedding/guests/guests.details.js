@@ -37,7 +37,7 @@ export default class GuestDetails extends PureComponent {
         onRequestClose={this.handleClose}
       >
         <GuestForm
-          guest={this.props.guest}
+          initialValues={this.props.guest}
         />
       </Dialog>
     );

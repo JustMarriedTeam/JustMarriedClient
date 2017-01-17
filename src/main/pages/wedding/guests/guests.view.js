@@ -252,6 +252,12 @@ class GuestsView extends Component {
 
         <Spacer name="endOfList" weight="hg" />
 
+        <GuestDetails
+          onClose={this.handleClosingDetails}
+          isOpen={this.state.details.isOpen}
+          guest={this.state.details.guest}
+        />
+
         <Snackbar
           open={this.state.snackbar.open}
           message={this.state.snackbar.message}
@@ -259,12 +265,6 @@ class GuestsView extends Component {
           autoHideDuration={5000}
           onActionTouchTap={this.handleUndoingOperation}
           onRequestClose={this.handleComitingOperation}
-        />
-
-        <GuestDetails
-          onClose={this.handleClosingDetails}
-          isOpen={this.state.details.isOpen}
-          guest={this.state.details.guest}
         />
 
       </div>

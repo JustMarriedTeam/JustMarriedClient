@@ -1,9 +1,7 @@
 import React, { PropTypes, PureComponent } from 'react';
-import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { reset, Field, reduxForm } from 'redux-form';
 import TextField from 'material-ui/TextField';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import * as guestActions from '../../../core/actions/guest.actions';
 
 const validate = values => {
   const errors = {};
@@ -39,15 +37,8 @@ const renderRadioGroup = ({ input, ...rest }) => (
 class GuestForm extends PureComponent {
 
   static propTypes = {
-    guest: PropTypes.object,
+    initialValues: PropTypes.object.isRequired,
   };
-
-  constructor(props) {
-    super();
-    this.state = {
-      initialValues: props.guest,
-    };
-  }
 
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props;
@@ -79,14 +70,7 @@ class GuestForm extends PureComponent {
 
 }
 
-export default connect(
-  (state) => ({
-
-  }),
-  guestActions
-)(
-  reduxForm({
-    form: 'GuestForm',
-    validate,
-  })(GuestForm)
-);
+export default reduxForm({
+  form: 'GuestForm',
+  validate,
+})(GuestForm);
