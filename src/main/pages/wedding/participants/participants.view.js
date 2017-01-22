@@ -1,15 +1,32 @@
-import React, { PureComponent } from 'react';
+import React, { PropTypes, PureComponent } from 'react';
 import { Flex, Box } from 'reflexbox';
 import ContentSection from '../../../components/ContentSection';
 import PrimaryParticipant
   from '../../../components/Participants/PrimaryParticipant/primary.participant';
 import LayoutContainer from '../../../layout/LayoutContainer';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionBarActions from '../../../core/actions/actionbar.actions';
+import * as weddingActions from '../../../core/actions/wedding.actions';
 
 
-export default class ParticipantsView extends PureComponent {
+class ParticipantsView extends PureComponent {
+
+  static propTypes = {
+    actionBarActions: PropTypes.object.isRequired,
+    weddingActions: PropTypes.object.isRequired,
+    participants: PropTypes.array.isRequired,
+  };
+
+  componentDidMount() {
+    this.props.actionBarActions.displayContextMenu(
+      <div />
+    );
+  }
 
   render() {
-    return (<LayoutContainer>
+    return (
+      <LayoutContainer>
 
           <ContentSection header={<h2>The Young Couple</h2>}>
 
@@ -96,7 +113,16 @@ export default class ParticipantsView extends PureComponent {
           </ContentSection>
 
 
-        </LayoutContainer>);
+        </LayoutContainer>
+    );
   }
 
 }
+
+// https://github.com/reactjs/react-redux/blob/master/docs/api.md
+export default connect((state) => ({
+  participants: state.wedding.participants,
+}), (dispatch) => ({
+  actionBarActions: bindActionCreators(actionBarActions, dispatch),
+  weddingActions: bindActionCreators(weddingActions, dispatch),
+}))(ParticipantsView);

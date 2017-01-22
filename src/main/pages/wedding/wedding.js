@@ -7,6 +7,7 @@ import GuestsView from './guests/guests.view';
 import FeaturesView from './features/features.view';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import ConditionalRenderer from '../../utils/ConditionalRenderer';
 import * as weddingActions from '../../core/actions/wedding.actions';
 
 const TAB_KEYS = {
@@ -53,7 +54,9 @@ class WeddingPage extends Component {
             icon={<FontIcon className="material-icons">star</FontIcon>}
             label="PARTICIPANTS"
           >
-            <ParticipantsView />
+            <ConditionalRenderer show={this.state.activeTab === TAB_KEYS.PARTICIPANTS}>
+              <ParticipantsView />
+            </ConditionalRenderer>
           </Tab>
 
           <Tab
@@ -61,7 +64,9 @@ class WeddingPage extends Component {
             icon={<FontIcon className="material-icons">people</FontIcon>}
             label="GUESTS"
           >
-            <GuestsView guests={wedding.guests} />
+            <ConditionalRenderer show={this.state.activeTab === TAB_KEYS.GUESTS}>
+              <GuestsView guests={wedding.guests} />
+            </ConditionalRenderer>
           </Tab>
 
 
@@ -70,7 +75,9 @@ class WeddingPage extends Component {
             icon={<FontIcon className="material-icons">build</FontIcon>}
             label="FEATURES"
           >
-            <FeaturesView />
+            <ConditionalRenderer show={this.state.activeTab === TAB_KEYS.FEATURES}>
+              <FeaturesView />
+            </ConditionalRenderer>
           </Tab>
 
         </Tabs>
