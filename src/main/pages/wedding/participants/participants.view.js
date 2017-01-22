@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionBarActions from '../../../core/actions/actionbar.actions';
 import * as weddingActions from '../../../core/actions/wedding.actions';
+import EditButton from '../../../components/EditButton';
 
 
 class ParticipantsView extends PureComponent {
@@ -20,7 +21,7 @@ class ParticipantsView extends PureComponent {
 
   componentDidMount() {
     this.props.actionBarActions.displayContextMenu(
-      <div />
+      <EditButton />
     );
   }
 
