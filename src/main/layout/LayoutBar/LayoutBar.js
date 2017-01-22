@@ -2,9 +2,8 @@ import React, { PureComponent, PropTypes } from 'react';
 import AppBar from 'material-ui/AppBar';
 import * as actionBarActions from '../../core/actions/actionbar.actions';
 import { connect } from 'react-redux';
-
 import classNames from 'classnames/bind';
-import styles from './LayoutBar.css';
+import styles from './LayoutBar.pcss';
 
 const cx = classNames.bind(styles);
 
@@ -12,7 +11,7 @@ class LayoutBar extends PureComponent {
 
   static propTypes = {
     actionBar: PropTypes.object.isRequired,
-    onMenuAction: PropTypes.func.isRequired
+    onMenuAction: PropTypes.func.isRequired,
   };
 
   render() {
