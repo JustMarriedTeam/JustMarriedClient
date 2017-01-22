@@ -12,10 +12,17 @@ export default class PrimaryParticipant extends PureComponent {
   static propTypes = {
     participantRole: PropTypes.string.isRequired,
     participantRoleName: PropTypes.string.isRequired,
+    isEditable: PropTypes.bool,
   };
 
+  getDefaultProps() {
+    return {
+      isEditable: false,
+    };
+  }
+
   render() {
-    const { participantRoleName } = this.props;
+    const { participantRoleName, isEditable } = this.props;
     return (
         <Flex wrap className={cx('primary-participant')} align="center" justify="space-around">
 
@@ -30,6 +37,7 @@ export default class PrimaryParticipant extends PureComponent {
             <TextField
               hintText="First name"
               floatingLabelText="First name"
+              disabled={!isEditable}
               type="text"
             />
           </Box>
@@ -38,6 +46,7 @@ export default class PrimaryParticipant extends PureComponent {
             <TextField
               hintText="Last name"
               floatingLabelText="Last name"
+              disabled={!isEditable}
               type="text"
             />
           </Box>
@@ -46,6 +55,7 @@ export default class PrimaryParticipant extends PureComponent {
             <TextField
               hintText="E-Mail address"
               floatingLabelText="E-Mail address"
+              disabled={!isEditable}
               type="text"
             />
           </Box>

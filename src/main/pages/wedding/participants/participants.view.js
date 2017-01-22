@@ -17,6 +17,7 @@ class ParticipantsView extends PureComponent {
     actionBarActions: PropTypes.object.isRequired,
     weddingActions: PropTypes.object.isRequired,
     participants: PropTypes.array.isRequired,
+    isEditing: PropTypes.bool.isRequired,
   };
 
   componentDidMount() {
@@ -26,6 +27,8 @@ class ParticipantsView extends PureComponent {
   }
 
   render() {
+    const { isEditing } = this.props;
+
     return (
       <LayoutContainer>
 
@@ -35,6 +38,7 @@ class ParticipantsView extends PureComponent {
 
               <Box sm={12} md={5} m={2}>
                 <PrimaryParticipant
+                  isEditable={isEditing}
                   participantRole="bride"
                   participantRoleName="Bride"
                 />
@@ -42,6 +46,7 @@ class ParticipantsView extends PureComponent {
 
               <Box sm={12} md={5} m={2}>
                 <PrimaryParticipant
+                  isEditable={isEditing}
                   participantRole="groom"
                   participantRoleName="Groom"
                 />
@@ -57,6 +62,7 @@ class ParticipantsView extends PureComponent {
 
               <Box sm={12} md={5} m={2}>
                 <PrimaryParticipant
+                  isEditable={isEditing}
                   participantRole="bridesmaid"
                   participantRoleName="Bridesmaid"
                 />
@@ -64,6 +70,7 @@ class ParticipantsView extends PureComponent {
 
               <Box sm={12} md={5} m={2}>
                 <PrimaryParticipant
+                  isEditable={isEditing}
                   participantRole="bestMan"
                   participantRoleName="Best Man"
                 />
@@ -79,6 +86,7 @@ class ParticipantsView extends PureComponent {
 
               <Box sm={12} md={5} m={2}>
                 <PrimaryParticipant
+                  isEditable={isEditing}
                   participantRole="motherOfBride"
                   participantRoleName="Bride's Mother"
                 />
@@ -86,6 +94,7 @@ class ParticipantsView extends PureComponent {
 
               <Box sm={12} md={5} m={2}>
                 <PrimaryParticipant
+                  isEditable={isEditing}
                   participantRole="fatherOfBride"
                   participantRoleName="Bride's Father"
                 />
@@ -97,6 +106,7 @@ class ParticipantsView extends PureComponent {
 
               <Box sm={12} md={5} m={2}>
                 <PrimaryParticipant
+                  isEditable={isEditing}
                   participantRole="motherOfGroom"
                   participantRoleName="Groom's Mother"
                 />
@@ -104,6 +114,7 @@ class ParticipantsView extends PureComponent {
 
               <Box sm={12} md={5} m={2}>
                 <PrimaryParticipant
+                  isEditable={isEditing}
                   participantRole="fatherOfGroom"
                   participantRoleName="Groom's Father"
                 />
@@ -123,6 +134,7 @@ class ParticipantsView extends PureComponent {
 // https://github.com/reactjs/react-redux/blob/master/docs/api.md
 export default connect((state) => ({
   participants: state.wedding.participants,
+  isEditing: state.action.editing,
 }), (dispatch) => ({
   actionBarActions: bindActionCreators(actionBarActions, dispatch),
   weddingActions: bindActionCreators(weddingActions, dispatch),
