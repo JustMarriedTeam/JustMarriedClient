@@ -16,11 +16,17 @@ export default class ParticipantsView extends PureComponent {
             <Flex wrap align="center" justify="space-around">
 
               <Box sm={12} md={5} m={2}>
-                <PrimaryParticipant participantRole="bride" />
+                <PrimaryParticipant
+                  participantRole="bride"
+                  participantRoleName="Bride"
+                />
               </Box>
 
               <Box sm={12} md={5} m={2}>
-                <PrimaryParticipant participantRole="groom" />
+                <PrimaryParticipant
+                  participantRole="groom"
+                  participantRoleName="Groom"
+                />
               </Box>
 
             </Flex>
@@ -32,11 +38,17 @@ export default class ParticipantsView extends PureComponent {
             <Flex wrap align="center" justify="space-around">
 
               <Box sm={12} md={5} m={2}>
-                <PrimaryParticipant participantRole="bride" />
+                <PrimaryParticipant
+                  participantRole="bridesmaid"
+                  participantRoleName="Bridesmaid"
+                />
               </Box>
 
               <Box sm={12} md={5} m={2}>
-                <PrimaryParticipant participantRole="groom" />
+                <PrimaryParticipant
+                  participantRole="bestMan"
+                  participantRoleName="Best Man"
+                />
               </Box>
 
             </Flex>
@@ -48,11 +60,17 @@ export default class ParticipantsView extends PureComponent {
             <Flex wrap align="center" justify="space-around">
 
               <Box sm={12} md={5} m={2}>
-                <PrimaryParticipant participantRole="motherOfBride" />
+                <PrimaryParticipant
+                  participantRole="motherOfBride"
+                  participantRoleName="Bride's Mother"
+                />
               </Box>
 
               <Box sm={12} md={5} m={2}>
-                <PrimaryParticipant participantRole="fatherOfBride" />
+                <PrimaryParticipant
+                  participantRole="fatherOfBride"
+                  participantRoleName="Bride's Father"
+                />
               </Box>
 
             </Flex>
@@ -60,11 +78,17 @@ export default class ParticipantsView extends PureComponent {
             <Flex wrap align="center" justify="space-around">
 
               <Box sm={12} md={5} m={2}>
-                <PrimaryParticipant participantRole="motherOfGroom" />
+                <PrimaryParticipant
+                  participantRole="motherOfGroom"
+                  participantRoleName="Groom's Mother"
+                />
               </Box>
 
               <Box sm={12} md={5} m={2}>
-                <PrimaryParticipant participantRole="fatherOfGroom" />
+                <PrimaryParticipant
+                  participantRole="fatherOfGroom"
+                  participantRoleName="Groom's Father"
+                />
               </Box>
 
             </Flex>

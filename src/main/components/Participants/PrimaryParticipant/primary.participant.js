@@ -11,17 +11,19 @@ export default class PrimaryParticipant extends PureComponent {
 
   static propTypes = {
     participantRole: PropTypes.string.isRequired,
+    participantRoleName: PropTypes.string.isRequired,
   };
 
   render() {
+    const { participantRoleName } = this.props;
     return (
         <Flex wrap className={cx('primary-participant')} align="center" justify="space-around">
 
           <Box sm={12}>
             <Avatar
-              src="https://placeholdit.imgix.net/~text?txtsize=23&txt=250%C3%97250&w=250&h=250"
+              className={cx('primary-participant__avatar')}
               size={250}
-            />
+            >{participantRoleName}</Avatar>
           </Box>
 
           <Box sm={12}>
