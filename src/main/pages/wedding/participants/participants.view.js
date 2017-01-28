@@ -38,19 +38,21 @@ class ParticipantsView extends PureComponent {
 
               <Box sm={12} md={5} m={2}>
                 <PrimaryParticipant
+                  form={'ParticipantForm_bride'}
                   isEditable={isEditing}
                   participantRole="bride"
                   participantRoleName="Bride"
-                  participantDetails={participants.bride}
+                  initialValues={participants.bride}
                 />
               </Box>
 
               <Box sm={12} md={5} m={2}>
                 <PrimaryParticipant
+                  form={'ParticipantForm_groom'}
                   isEditable={isEditing}
                   participantRole="groom"
                   participantRoleName="Groom"
-                  participantDetails={participants.groom}
+                  initialValues={participants.groom}
                 />
               </Box>
 
@@ -64,19 +66,21 @@ class ParticipantsView extends PureComponent {
 
               <Box sm={12} md={5} m={2}>
                 <PrimaryParticipant
+                  form={'ParticipantForm_bridesmaid'}
                   isEditable={isEditing}
                   participantRole="bridesmaid"
                   participantRoleName="Bridesmaid"
-                  participantDetails={participants.bridesmaid}
+                  initialValues={participants.bridesmaid}
                 />
               </Box>
 
               <Box sm={12} md={5} m={2}>
                 <PrimaryParticipant
+                  form={'ParticipantForm_bestMan'}
                   isEditable={isEditing}
                   participantRole="bestMan"
                   participantRoleName="Best Man"
-                  participantDetails={participants.bestMan}
+                  initialValues={participants.bestMan}
                 />
               </Box>
 
@@ -90,19 +94,21 @@ class ParticipantsView extends PureComponent {
 
               <Box sm={12} md={5} m={2}>
                 <PrimaryParticipant
+                  form={'ParticipantForm_motherOfBride'}
                   isEditable={isEditing}
                   participantRole="motherOfBride"
                   participantRoleName="Bride's Mother"
-                  participantDetails={participants.motherOfBride}
+                  initialValues={participants.motherOfBride}
                 />
               </Box>
 
               <Box sm={12} md={5} m={2}>
                 <PrimaryParticipant
+                  form={'ParticipantForm_fatherOfBride'}
                   isEditable={isEditing}
                   participantRole="fatherOfBride"
                   participantRoleName="Bride's Father"
-                  participantDetails={participants.fatherOfBride}
+                  initialValues={participants.fatherOfBride}
                 />
               </Box>
 
@@ -112,19 +118,21 @@ class ParticipantsView extends PureComponent {
 
               <Box sm={12} md={5} m={2}>
                 <PrimaryParticipant
+                  form={'ParticipantForm_motherOfGroom'}
                   isEditable={isEditing}
                   participantRole="motherOfGroom"
                   participantRoleName="Groom's Mother"
-                  participantDetails={participants.motherOfGroom}
+                  initialValues={participants.motherOfGroom}
                 />
               </Box>
 
               <Box sm={12} md={5} m={2}>
                 <PrimaryParticipant
+                  form={'ParticipantForm_fatherOfGroom'}
                   isEditable={isEditing}
                   participantRole="fatherOfGroom"
                   participantRoleName="Groom's Father"
-                  participantDetails={participants.fatherOfGroom}
+                  initialValues={participants.fatherOfGroom}
                 />
               </Box>
 
