@@ -2,6 +2,36 @@ import Promise from 'bluebird';
 
 function getWedding() {
   return Promise.resolve({
+    participants: {
+      bride: {
+        firstName: 'Grzegorz',
+        lastName: 'Gurgul',
+        email: 'gurgul.grzegorz@gmail.com',
+      },
+      groom: {
+        firstName: 'Agata',
+        lastName: 'Nowakiewicz',
+        email: 'agatanowakiewicz@gmail.com',
+      },
+      bridesmaid: {
+
+      },
+      bestMan: {
+
+      },
+      motherOfBride: {
+
+      },
+      fatherOfBride: {
+
+      },
+      motherOfGroom: {
+
+      },
+      fatherOfGroom: {
+
+      },
+    },
     guests: [
       { id: 'a', firstName: 'Grzegorz', lastName: 'Gurgul', email: 'grzegorz.g@gmail.com' },
       { id: 'b', firstName: 'Agata', lastName: 'Nowakiewicz', email: 'agata.n@gmail.com' },
@@ -23,4 +53,8 @@ function getWedding() {
   }).then(response => response);
 }
 
-export { getWedding };
+function postWedding(weddingToPost) {
+  return Promise.resolve(weddingToPost).then(response => response);
+}
+
+export { getWedding, postWedding };

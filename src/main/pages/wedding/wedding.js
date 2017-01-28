@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ConditionalRenderer from '../../utils/ConditionalRenderer';
 import * as weddingActions from '../../core/actions/wedding.actions';
+import * as editingActions from '../../core/actions/editing.actions';
+import EditButton from '../../components/EditButton';
 
 const TAB_KEYS = {
   PARTICIPANTS: 0,
@@ -20,6 +22,7 @@ class WeddingPage extends Component {
 
   static propTypes = {
     weddingActions: PropTypes.object.isRequired,
+    editingActions: PropTypes.object.isRequired,
     wedding: PropTypes.object.isRequired,
   };
 
@@ -42,6 +45,13 @@ class WeddingPage extends Component {
 
   render() {
     const { wedding } = this.props;
+
+    const editButton = (<EditButton
+      onEditStarted={() => this.props.editingActions.startEditing(this.props.wedding)}
+      onEditEnded={() => this.props.editingActions.endEditing(
+        this.props.weddingActions.saveWedding)}
+    />);
+
     return (
       <Layout>
         <Tabs
@@ -55,7 +65,7 @@ class WeddingPage extends Component {
             label="PARTICIPANTS"
           >
             <ConditionalRenderer show={this.state.activeTab === TAB_KEYS.PARTICIPANTS}>
-              <ParticipantsView />
+              <ParticipantsView editButton={editButton} />
             </ConditionalRenderer>
           </Tab>
 
@@ -91,4 +101,5 @@ export default connect((state) => ({
   wedding: state.wedding,
 }), (dispatch) => ({
   weddingActions: bindActionCreators(weddingActions, dispatch),
+  editingActions: bindActionCreators(editingActions, dispatch),
 }))(WeddingPage);

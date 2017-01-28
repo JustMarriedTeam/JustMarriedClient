@@ -12,14 +12,13 @@ export default class PrimaryParticipant extends PureComponent {
   static propTypes = {
     participantRole: PropTypes.string.isRequired,
     participantRoleName: PropTypes.string.isRequired,
+    participantDetails: PropTypes.object,
     isEditable: PropTypes.bool,
   };
 
-  getDefaultProps() {
-    return {
-      isEditable: false,
-    };
-  }
+  static defaultProps = {
+    isEditable: false,
+  };
 
   render() {
     const { participantRoleName, isEditable } = this.props;

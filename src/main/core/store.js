@@ -10,6 +10,7 @@ import tasksReducer from './reducers/tasks.reducer';
 import weddingReducer from './reducers/wedding.reducer';
 import actionBarReducer from './reducers/actionbar.reducer';
 import loginSaga from './sagas/login.saga';
+import editSaga from './sagas/edit.saga';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -29,3 +30,4 @@ export default createStore(
 );
 
 sagaMiddleware.run(loginSaga);
+sagaMiddleware.run(editSaga);
