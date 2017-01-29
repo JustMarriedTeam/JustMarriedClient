@@ -3,33 +3,35 @@ import Promise from 'bluebird';
 function getWedding() {
   return Promise.resolve({
     participants: {
-      bride: {
+      groom: {
+        role: 'groom',
         firstName: 'Grzegorz',
         lastName: 'Gurgul',
         email: 'gurgul.grzegorz@gmail.com',
       },
-      groom: {
+      bride: {
+        role: 'bride',
         firstName: 'Agata',
         lastName: 'Nowakiewicz',
         email: 'agatanowakiewicz@gmail.com',
       },
       bridesmaid: {
-
+        role: 'bridesmaid',
       },
       bestMan: {
-
+        role: 'bestMan',
       },
       motherOfBride: {
-
+        role: 'motherOfBride',
       },
       fatherOfBride: {
-
+        role: 'fatherOfBride',
       },
       motherOfGroom: {
-
+        role: 'motherOfGroom',
       },
       fatherOfGroom: {
-
+        role: 'fatherOfGroom',
       },
     },
     guests: [

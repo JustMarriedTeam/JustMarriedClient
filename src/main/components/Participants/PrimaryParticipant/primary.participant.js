@@ -38,6 +38,7 @@ class PrimaryParticipant extends PureComponent {
     participantRole: PropTypes.string.isRequired,
     participantRoleName: PropTypes.string.isRequired,
     initialValues: PropTypes.object,
+    onSubmit: PropTypes.func.isRequired,
     isEditable: PropTypes.bool,
   };
 

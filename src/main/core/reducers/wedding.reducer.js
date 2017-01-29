@@ -4,6 +4,7 @@ import {
   ADD_GUEST,
   UPDATE_GUEST,
   REMOVE_GUESTS,
+  UPDATE_PARTICIPANT,
 } from '../actions/wedding.actions';
 import Wedding from '../models/wedding.model';
 
@@ -18,6 +19,8 @@ export default function (wedding = new Wedding(), action) {
       return wedding.addGuest(action.guest);
     case UPDATE_GUEST:
       return wedding.updateGuest(action.guest);
+    case UPDATE_PARTICIPANT:
+      return wedding.updateParticipant(action.participant);
     default:
       return wedding;
   }

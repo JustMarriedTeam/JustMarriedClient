@@ -26,6 +26,13 @@ class Wedding extends WeddingRecord {
     return this.set('guests', difference(this.guests, guestsToRemove));
   }
 
+  updateParticipant(updatedParticipant) {
+    const participantsByRole = this.get('participants');
+    const oldParticipant = participantsByRole[updatedParticipant.role];
+    merge(oldParticipant, updatedParticipant);
+    return this.set('participants', participantsByRole);
+  }
+
 }
 
 export default Wedding;

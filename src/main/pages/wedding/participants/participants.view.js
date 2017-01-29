@@ -29,6 +29,15 @@ class ParticipantsView extends PureComponent {
   render() {
     const { isEditing, participants } = this.props;
 
+    const renderParticipant = (role, roleName) => <PrimaryParticipant
+      form={`ParticipantForm_${role}`}
+      onSubmit={(details) => this.props.weddingActions.updateParticipant(details)}
+      isEditable={isEditing}
+      participantRole={role}
+      participantRoleName={roleName}
+      initialValues={participants[role]}
+    />;
+
     return (
       <LayoutContainer>
 
@@ -37,23 +46,11 @@ class ParticipantsView extends PureComponent {
             <Flex wrap align="center" justify="space-around">
 
               <Box sm={12} md={5} m={2}>
-                <PrimaryParticipant
-                  form={'ParticipantForm_bride'}
-                  isEditable={isEditing}
-                  participantRole="bride"
-                  participantRoleName="Bride"
-                  initialValues={participants.bride}
-                />
+                {renderParticipant('bride', 'Bride')}
               </Box>
 
               <Box sm={12} md={5} m={2}>
-                <PrimaryParticipant
-                  form={'ParticipantForm_groom'}
-                  isEditable={isEditing}
-                  participantRole="groom"
-                  participantRoleName="Groom"
-                  initialValues={participants.groom}
-                />
+                {renderParticipant('groom', 'Groom')}
               </Box>
 
             </Flex>
@@ -65,23 +62,11 @@ class ParticipantsView extends PureComponent {
             <Flex wrap align="center" justify="space-around">
 
               <Box sm={12} md={5} m={2}>
-                <PrimaryParticipant
-                  form={'ParticipantForm_bridesmaid'}
-                  isEditable={isEditing}
-                  participantRole="bridesmaid"
-                  participantRoleName="Bridesmaid"
-                  initialValues={participants.bridesmaid}
-                />
+                {renderParticipant('bridesmaid', 'Bridesmaid')}
               </Box>
 
               <Box sm={12} md={5} m={2}>
-                <PrimaryParticipant
-                  form={'ParticipantForm_bestMan'}
-                  isEditable={isEditing}
-                  participantRole="bestMan"
-                  participantRoleName="Best Man"
-                  initialValues={participants.bestMan}
-                />
+                {renderParticipant('bestMan', 'Best man')}
               </Box>
 
             </Flex>
@@ -93,23 +78,11 @@ class ParticipantsView extends PureComponent {
             <Flex wrap align="center" justify="space-around">
 
               <Box sm={12} md={5} m={2}>
-                <PrimaryParticipant
-                  form={'ParticipantForm_motherOfBride'}
-                  isEditable={isEditing}
-                  participantRole="motherOfBride"
-                  participantRoleName="Bride's Mother"
-                  initialValues={participants.motherOfBride}
-                />
+                {renderParticipant('motherOfBride', 'Brides mother')}
               </Box>
 
               <Box sm={12} md={5} m={2}>
-                <PrimaryParticipant
-                  form={'ParticipantForm_fatherOfBride'}
-                  isEditable={isEditing}
-                  participantRole="fatherOfBride"
-                  participantRoleName="Bride's Father"
-                  initialValues={participants.fatherOfBride}
-                />
+                {renderParticipant('fatherOfBride', 'Brides father')}
               </Box>
 
             </Flex>
@@ -117,23 +90,11 @@ class ParticipantsView extends PureComponent {
             <Flex wrap align="center" justify="space-around">
 
               <Box sm={12} md={5} m={2}>
-                <PrimaryParticipant
-                  form={'ParticipantForm_motherOfGroom'}
-                  isEditable={isEditing}
-                  participantRole="motherOfGroom"
-                  participantRoleName="Groom's Mother"
-                  initialValues={participants.motherOfGroom}
-                />
+                {renderParticipant('motherOfGroom', 'Grooms mother')}
               </Box>
 
               <Box sm={12} md={5} m={2}>
-                <PrimaryParticipant
-                  form={'ParticipantForm_fatherOfGroom'}
-                  isEditable={isEditing}
-                  participantRole="fatherOfGroom"
-                  participantRoleName="Groom's Father"
-                  initialValues={participants.fatherOfGroom}
-                />
+                {renderParticipant('fatherOfGroom', 'Grooms father')}
               </Box>
 
             </Flex>
