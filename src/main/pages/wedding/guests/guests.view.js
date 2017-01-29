@@ -29,6 +29,7 @@ import includes from 'lodash/includes';
 import filter from 'lodash/filter';
 import { createGuest } from '../../../core/factories/guest.factory';
 import LayoutContainer from '../../../layout/LayoutContainer';
+import ConditionalRenderer from '../../../utils/ConditionalRenderer';
 
 const cx = classNames.bind(styles);
 
@@ -38,6 +39,8 @@ class GuestsView extends Component {
     actionBarActions: PropTypes.object.isRequired,
     weddingActions: PropTypes.object.isRequired,
     guests: PropTypes.array.isRequired,
+    isEditing: PropTypes.bool.isRequired,
+    onMount: PropTypes.func.isRequired,
   };
 
   constructor() {
@@ -57,13 +60,14 @@ class GuestsView extends Component {
   }
 
   componentDidMount() {
-    this.props.actionBarActions.displayContextMenu(
-      <GuestsMenu
+    this.props.onMount({
+      onSubmit() {},
+      otherContextItems: <GuestsMenu
         handleSelect={this.handleSelect}
         handleFilter={this.handleFilter}
         handleRemove={this.handleRemove}
-      />
-    );
+      />,
+    });
   }
 
   handleSelect = () => {
@@ -251,18 +255,19 @@ class GuestsView extends Component {
           </TableFooter>
         </Table>
 
-
-        <Menu effect="zoomin" method="click" position="br">
-          <MainButton
-            iconResting="ion-plus-round"
-            iconActive="ion-close-round"
-          />
-          <ChildButton
-            icon="ion-person-add"
-            label="Add new guest"
-            onClick={this.handleAddingGuest}
-          />
-        </Menu>
+        <ConditionalRenderer show={this.props.isEditing}>
+          <Menu effect="zoomin" method="click" position="br">
+            <MainButton
+              iconResting="ion-plus-round"
+              iconActive="ion-close-round"
+            />
+            <ChildButton
+              icon="ion-person-add"
+              label="Add new guest"
+              onClick={this.handleAddingGuest}
+            />
+          </Menu>
+        </ConditionalRenderer>
 
 
         <Spacer name="endOfList" weight="hg" />
@@ -291,6 +296,7 @@ class GuestsView extends Component {
 // https://github.com/reactjs/react-redux/blob/master/docs/api.md
 export default connect((state) => ({
   guests: state.wedding.guests,
+  isEditing: state.action.editing,
 }), (dispatch) => ({
   actionBarActions: bindActionCreators(actionBarActions, dispatch),
   weddingActions: bindActionCreators(weddingActions, dispatch),

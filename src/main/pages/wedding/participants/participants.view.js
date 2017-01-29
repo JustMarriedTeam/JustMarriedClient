@@ -26,7 +26,7 @@ class ParticipantsView extends PureComponent {
     onMount: PropTypes.func.isRequired,
   };
 
-  componentWillReceiveProps(props) {
+  componentDidMount(props) {
     this.props.onMount({
       onSubmit() {
         const roles = keys(props.participants);

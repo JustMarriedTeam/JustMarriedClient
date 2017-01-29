@@ -49,13 +49,6 @@ export default class GuestsMenu extends Component {
             onTouchTap={this.props.handleRemove}
           />
         </IconMenu>
-
-        <EditButton
-          style={{
-            display: 'inline-block',
-          }}
-        />
-
       </div>
     );
   }

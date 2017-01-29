@@ -39,13 +39,22 @@ class WeddingPage extends Component {
     this.props.weddingActions.fetchWedding();
   }
 
-  onTabMount = ({ onSubmit }) => {
+  onTabMount = ({ onSubmit, otherContextItems }) => {
+    const buttonStyle = {
+      display: 'inline-block',
+      float: 'right',
+    };
+
     this.props.actionBarActions.displayContextMenu(
       <div>
         <EditButton
+          style={buttonStyle}
           onEditStarted={() => this.props.editingActions.startEditing()}
           onEditEnded={() => this.props.editingActions.endEditing(onSubmit)}
         />
+        <div style={buttonStyle}>
+          {otherContextItems}
+        </div>
       </div>
     );
   };
@@ -85,7 +94,10 @@ class WeddingPage extends Component {
             label="GUESTS"
           >
             <ConditionalRenderer show={this.state.activeTab === TAB_KEYS.GUESTS}>
-              <GuestsView guests={wedding.guests} />
+              <GuestsView
+                guests={wedding.guests}
+                onMount={this.onTabMount}
+              />
             </ConditionalRenderer>
           </Tab>
 
