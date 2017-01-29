@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ConditionalRenderer from '../../utils/ConditionalRenderer';
 import * as weddingActions from '../../core/actions/wedding.actions';
+import * as actionBarActions from '../../core/actions/actionbar.actions';
 import * as editingActions from '../../core/actions/editing.actions';
 import EditButton from '../../components/EditButton';
 
@@ -22,6 +23,7 @@ class WeddingPage extends Component {
 
   static propTypes = {
     weddingActions: PropTypes.object.isRequired,
+    actionBarActions: PropTypes.object.isRequired,
     editingActions: PropTypes.object.isRequired,
     wedding: PropTypes.object.isRequired,
   };
@@ -37,6 +39,17 @@ class WeddingPage extends Component {
     this.props.weddingActions.fetchWedding();
   }
 
+  onTabMount = ({ onSubmit }) => {
+    this.props.actionBarActions.displayContextMenu(
+      <div>
+        <EditButton
+          onEditStarted={() => this.props.editingActions.startEditing(this.props.wedding)}
+          onEditEnded={() => this.props.editingActions.endEditing(onSubmit)}
+        />
+      </div>
+    );
+  };
+
   activateTab = (tabToActivate) => {
     this.setState({
       activeTab: tabToActivate,
@@ -45,12 +58,6 @@ class WeddingPage extends Component {
 
   render() {
     const { wedding } = this.props;
-
-    const editButton = (<EditButton
-      onEditStarted={() => this.props.editingActions.startEditing(this.props.wedding)}
-      onEditEnded={() => this.props.editingActions.endEditing(
-        this.props.weddingActions.saveWedding)}
-    />);
 
     return (
       <Layout>
@@ -65,7 +72,10 @@ class WeddingPage extends Component {
             label="PARTICIPANTS"
           >
             <ConditionalRenderer show={this.state.activeTab === TAB_KEYS.PARTICIPANTS}>
-              <ParticipantsView editButton={editButton} />
+              <ParticipantsView
+                participants={wedding.participants}
+                onMount={this.onTabMount}
+              />
             </ConditionalRenderer>
           </Tab>
 
@@ -100,6 +110,7 @@ class WeddingPage extends Component {
 export default connect((state) => ({
   wedding: state.wedding,
 }), (dispatch) => ({
+  actionBarActions: bindActionCreators(actionBarActions, dispatch),
   weddingActions: bindActionCreators(weddingActions, dispatch),
   editingActions: bindActionCreators(editingActions, dispatch),
 }))(WeddingPage);

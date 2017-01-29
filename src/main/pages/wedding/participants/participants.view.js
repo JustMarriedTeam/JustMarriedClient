@@ -6,24 +6,38 @@ import PrimaryParticipant
 import LayoutContainer from '../../../layout/LayoutContainer';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as actionBarActions from '../../../core/actions/actionbar.actions';
+import {
+  submit,
+  isInvalid,
+} from 'redux-form';
 import * as weddingActions from '../../../core/actions/wedding.actions';
-
+import store from '../../../core/store';
+import keys from 'lodash/keys';
+import map from 'lodash/map';
+import includes from 'lodash/includes';
 
 class ParticipantsView extends PureComponent {
 
   static propTypes = {
-    actionBarActions: PropTypes.object.isRequired,
     weddingActions: PropTypes.object.isRequired,
     participants: PropTypes.object.isRequired,
-    editButton: PropTypes.element.isRequired,
     isEditing: PropTypes.bool.isRequired,
+    onMount: PropTypes.func.isRequired,
   };
 
-  componentDidMount() {
-    this.props.actionBarActions.displayContextMenu(
-      this.props.editButton
-    );
+  componentWillReceiveProps(props) {
+    this.props.onMount({
+      onSubmit() {
+        const roles = keys(props.participants);
+        const formNames = map(roles, (role) => `ParticipantForm_${role}`);
+        const invalidForms = map(formNames, (name) => isInvalid(name)(store.getState()));
+        if (!includes(invalidForms, true)) {
+          store.dispatch(submit(formNames));
+        } else {
+          throw new Error('Validation errors');
+        }
+      },
+    });
   }
 
   render() {
@@ -56,6 +70,7 @@ class ParticipantsView extends PureComponent {
             </Flex>
 
           </ContentSection>
+
 
           <ContentSection alternate header={<h2>Witnesses</h2>}>
 
@@ -110,9 +125,7 @@ class ParticipantsView extends PureComponent {
 
 // https://github.com/reactjs/react-redux/blob/master/docs/api.md
 export default connect((state) => ({
-  participants: state.wedding.participants,
   isEditing: state.action.editing,
 }), (dispatch) => ({
-  actionBarActions: bindActionCreators(actionBarActions, dispatch),
   weddingActions: bindActionCreators(weddingActions, dispatch),
 }))(ParticipantsView);

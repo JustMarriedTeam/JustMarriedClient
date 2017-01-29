@@ -84,7 +84,7 @@ class PrimaryParticipant extends PureComponent {
           <Box sm={12}>
 
             <Field
-              name="emailAddress"
+              name="email"
               component={renderTextField}
               label="E-Mail address"
               disabled={!isEditable}

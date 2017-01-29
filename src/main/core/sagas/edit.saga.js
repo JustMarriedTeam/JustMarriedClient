@@ -2,18 +2,16 @@ import { take, put, call, fork } from 'redux-saga/effects';
 import {
   notifyEditFailed,
   notifyEditSucceeded,
-  EDITING_STARTED,
   EDITING_ENDED } from '../actions/editing.actions';
 
 function * editFlow() {
   while (true) {
-    const { editedResource } = yield take(EDITING_STARTED);
-    const { savingMethod } = yield take(EDITING_ENDED);
+    const { commitMethod } = yield take(EDITING_ENDED);
     try {
-      call(savingMethod);
+      yield call(commitMethod);
       yield put(notifyEditSucceeded());
     } catch (error) {
-      yield put(notifyEditFailed(error.message, editedResource));
+      yield put(notifyEditFailed(error.message));
       // ask if reset values, immutable safe-copy from before modifications
     }
   }

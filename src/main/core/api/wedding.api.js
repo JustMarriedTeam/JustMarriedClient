@@ -17,21 +17,39 @@ function getWedding() {
       },
       bridesmaid: {
         role: 'bridesmaid',
+        firstName: 'Agata',
+        lastName: 'Nowakiewicz',
+        email: 'agatanowakiewicz@gmail.com',
       },
       bestMan: {
         role: 'bestMan',
+        firstName: 'Agata',
+        lastName: 'Nowakiewicz',
+        email: 'agatanowakiewicz@gmail.com',
       },
       motherOfBride: {
         role: 'motherOfBride',
+        firstName: 'Agata',
+        lastName: 'Nowakiewicz',
+        email: 'agatanowakiewicz@gmail.com',
       },
       fatherOfBride: {
         role: 'fatherOfBride',
+        firstName: 'Agata',
+        lastName: 'Nowakiewicz',
+        email: 'agatanowakiewicz@gmail.com',
       },
       motherOfGroom: {
         role: 'motherOfGroom',
+        firstName: 'Agata',
+        lastName: 'Nowakiewicz',
+        email: 'agatanowakiewicz@gmail.com',
       },
       fatherOfGroom: {
         role: 'fatherOfGroom',
+        firstName: 'Agata',
+        lastName: 'Nowakiewicz',
+        email: 'agatanowakiewicz@gmail.com',
       },
     },
     guests: [
