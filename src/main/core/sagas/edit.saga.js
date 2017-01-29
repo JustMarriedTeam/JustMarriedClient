@@ -1,4 +1,4 @@
-import { take, put, call, fork, delay } from 'redux-saga/effects';
+import { take, put, call, fork } from 'redux-saga/effects';
 import {
   notifyEditFailed,
   notifyEditSucceeded,
@@ -6,7 +6,7 @@ import {
 import {
   notifySuccess,
   notifyError,
-} from '../actions/notification.actions';
+} from '../actions/alert.actions';
 
 function * editFlow() {
   while (true) {
