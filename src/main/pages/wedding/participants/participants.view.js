@@ -15,6 +15,7 @@ import store from '../../../core/store';
 import keys from 'lodash/keys';
 import map from 'lodash/map';
 import includes from 'lodash/includes';
+import SavingError from '../../../core/errors/saving.error';
 
 class ParticipantsView extends PureComponent {
 
@@ -34,7 +35,7 @@ class ParticipantsView extends PureComponent {
         if (!includes(invalidForms, true)) {
           store.dispatch(submit(formNames));
         } else {
-          throw new Error('Validation errors');
+          throw new SavingError('Check your input');
         }
       },
     });

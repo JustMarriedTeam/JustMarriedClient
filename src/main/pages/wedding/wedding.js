@@ -43,7 +43,7 @@ class WeddingPage extends Component {
     this.props.actionBarActions.displayContextMenu(
       <div>
         <EditButton
-          onEditStarted={() => this.props.editingActions.startEditing(this.props.wedding)}
+          onEditStarted={() => this.props.editingActions.startEditing()}
           onEditEnded={() => this.props.editingActions.endEditing(onSubmit)}
         />
       </div>
@@ -101,6 +101,8 @@ class WeddingPage extends Component {
           </Tab>
 
         </Tabs>
+
+
       </Layout>
     );
   }
