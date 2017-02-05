@@ -34,7 +34,8 @@ export const authenticateWithToken = (token) => ({ type: AUTHENTICATE_WITH_TOKEN
   Active
  */
 
-export const signInViaLocal = () => (dispatch) => dispatch({ type: SIGN_IN_VIA_LOCAL });
+export const signInViaLocal = (credentials) => (dispatch) =>
+  dispatch({ type: SIGN_IN_VIA_LOCAL, credentials });
 
 export const bindLocalAccount = () => (dispatch) => dispatch({ type: BIND_LOCAL_ACCOUNT });
 

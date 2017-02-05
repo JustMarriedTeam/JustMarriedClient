@@ -1,6 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Flex, Box } from 'reflexbox';
+import { Field, reduxForm } from 'redux-form';
 import FontIcon from 'material-ui/FontIcon';
 import TextField from 'material-ui/TextField';
 import Spacer from '../Spacer/Spacer';
@@ -14,6 +15,26 @@ import * as accountActions from '../../core/actions/account.actions';
 
 const cx = classNames.bind(styles);
 
+const validate = values => {
+  const errors = {};
+  const requiredFields = ['login', 'password'];
+  requiredFields.forEach(field => {
+    if (!values[field]) {
+      errors[field] = 'Required';
+    }
+  });
+  return errors;
+};
+
+const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+  <TextField
+    hintText={label}
+    floatingLabelText={label}
+    errorText={touched && error}
+    {...input}
+    {...custom}
+  />
+);
 
 class LoginForm extends PureComponent {
 
@@ -27,77 +48,99 @@ class LoginForm extends PureComponent {
     bindFacebookAccount: PropTypes.func.isRequired,
   };
 
+  handleSubmit = (credentials) => {
+    if (this.props.account.isSignedIn()) {
+      this.props.bindLocalAccount({
+        login: credentials.login,
+        password: credentials.password,
+      });
+    } else {
+      this.props.signInViaLocal({
+        login: 'ggurgul',
+        password: 'ggurgul',
+      });
+    }
+  };
+
   render() {
+    const { submitting } = this.props;
+
     return (
-      <Flex wrap className={cx('login-form')} align="stretch" justify="space-around">
+      <form onSubmit={this.handleSubmit}>
+        <Flex wrap className={cx('login-form')} align="stretch" justify="space-around">
 
-        <Box sm={12} md={5} p={1}>
-          <TextField
-            fullWidth
-            hintText="Login"
-          />
+          <Box sm={12} md={5} p={1}>
 
-          <Spacer weight="xs" />
 
-          <TextField
-            fullWidth
-            hintText="Password"
-          />
-
-          <Spacer weight="md" />
-
-          <div className={cx('local-login-btn-section')}>
-            <RaisedButton
-              primary
+            <Field
+              name="login"
+              fullWidth
+              component={renderTextField}
               label="Login"
-              onClick={this.props.account.isSignedIn()
-                ? () => this.props.bindLocalAccount()
-                : () => this.props.signInViaLocal()}
             />
-          </div>
-        </Box>
 
+            <Field
+              name="password"
+              fullWidth
+              component={renderTextField}
+              label="Password"
+            />
 
-        <MediaQuery maxWidth="767px">
-          <Box col={12} p={1}>
-            <SeparatingLine type="horizontal" text="or" />
+            <Spacer weight="md" />
+
+            <div className={cx('local-login-btn-section')}>
+              <RaisedButton
+                primary
+                disabled={submitting}
+                type="submit"
+                label="Sign in"
+              />
+            </div>
+
           </Box>
-        </MediaQuery>
 
-        <MediaQuery minWidth="768px">
-          <Box col={2} p={1}>
-            <SeparatingLine type="vertical" text="or" />
+
+          <MediaQuery maxWidth="767px">
+            <Box col={12} p={1}>
+              <SeparatingLine type="horizontal" text="or" />
+            </Box>
+          </MediaQuery>
+
+          <MediaQuery minWidth="768px">
+            <Box col={2} p={1}>
+              <SeparatingLine type="vertical" text="or" />
+            </Box>
+          </MediaQuery>
+
+          <Box sm={12} md={5} p={1}>
+
+            <RaisedButton
+              onClick={this.props.account.isSignedIn() ? this.props.bindFacebookAccount
+                : this.props.signInViaFacebook}
+              target="_blank"
+              backgroundColor="#27cbe0"
+              fullWidth
+              label={this.props.account.isSignedIn() ? 'Bind facebook' : 'Continue with facebook'}
+              icon={<FontIcon className="fa fa-facebook-square" />}
+            />
+
+            <Spacer weight="xs" />
+
+            <RaisedButton
+              onClick={this.props.account.isSignedIn() ? this.props.bindGoogleAccount
+                : this.props.signInViaGoogle}
+              target="_blank"
+              backgroundColor="#27cbe0"
+              fullWidth
+              label={this.props.account.isSignedIn() ? 'Bind google' : 'Continue with goole'}
+              icon={<FontIcon className="fa fa-google-plus-square" />}
+            />
+
           </Box>
-        </MediaQuery>
-
-        <Box sm={12} md={5} p={1}>
-
-          <RaisedButton
-            onClick={this.props.account.isSignedIn() ? this.props.bindFacebookAccount
-              : this.props.signInViaFacebook}
-            target="_blank"
-            backgroundColor="#27cbe0"
-            fullWidth
-            label={this.props.account.isSignedIn() ? 'Bind facebook' : 'Continue with facebook'}
-            icon={<FontIcon className="fa fa-facebook-square" />}
-          />
-
-          <Spacer weight="xs" />
-
-          <RaisedButton
-            onClick={this.props.account.isSignedIn() ? this.props.bindGoogleAccount
-              : this.props.signInViaGoogle}
-            target="_blank"
-            backgroundColor="#27cbe0"
-            fullWidth
-            label={this.props.account.isSignedIn() ? 'Bind google' : 'Continue with goole'}
-            icon={<FontIcon className="fa fa-google-plus-square" />}
-          />
-
-        </Box>
 
 
-      </Flex>
+        </Flex>
+      </form>
     );
   }
 
@@ -105,4 +148,7 @@ class LoginForm extends PureComponent {
 
 export default connect((state) => ({
   account: state.account,
-}), accountActions)(LoginForm);
+}), accountActions)(reduxForm({
+  form: 'LoginForm',
+  validate,
+})(LoginForm));

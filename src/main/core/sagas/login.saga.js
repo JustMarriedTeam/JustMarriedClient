@@ -26,11 +26,11 @@ import {
   signOut,
 } from '../api/auth.api';
 
-export function * loginViaLocal(login, password) {
+export function * loginViaLocal(credentials) {
   yield put(accountStateChanged(ACCOUNT_STATE.SIGNING_IN));
   yield put(sendingRequest(true));
   try {
-    return yield call(signInViaLocal, login, password);
+    return yield call(signInViaLocal, credentials);
   } catch (error) {
     yield put(notifyRequestFailed(error.message));
   } finally {
@@ -120,10 +120,10 @@ export function * logout() {
 
 function * loginViaLocalFlow() {
   while (true) {
-    const { login, password } = yield take(SIGN_IN_VIA_LOCAL);
+    const { credentials } = yield take(SIGN_IN_VIA_LOCAL);
 
     const winner = yield race({
-      auth: call(loginViaLocal, login, password),
+      auth: call(loginViaLocal, credentials),
       logout: take(SIGN_OUT),
     });
 

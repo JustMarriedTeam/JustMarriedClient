@@ -3,7 +3,7 @@ import server from '../server';
 
 const apiUrl = process.env.serverApiUrl;
 
-export const signInViaLocal = (login, password) =>
+export const signInViaLocal = ({ login, password }) =>
   Promise.resolve(server.post('/auth/local', {
     login,
     password,
