@@ -3,8 +3,11 @@ import { take, call, put, fork, race } from 'redux-saga/effects';
 import {
   accountStateChanged,
   authenticateWithToken,
+  localAccountBound,
   facebookAccountBound,
   googleAccountBound,
+  SIGN_IN_VIA_LOCAL,
+  BIND_LOCAL_ACCOUNT,
   SIGN_IN_VIA_FACEBOOK,
   BIND_FACEBOOK_ACCOUNT,
   SIGN_IN_VIA_GOOGLE,
@@ -14,12 +17,40 @@ import { sendingRequest, notifyRequestFailed } from '../actions/server.actions';
 import { ACCOUNT_STATE } from '../models/account.model';
 import { navigateToDashboard, navigateToHome } from '../actions/navigation.actions';
 import {
+  signInViaLocal,
+  bindAccountToLocal,
   signInViaFacebook,
   bindAccountToFacebook,
   signInViaGoogle,
   bindAccountToGoogle,
   signOut,
 } from '../api/auth.api';
+
+export function * loginViaLocal(login, password) {
+  yield put(accountStateChanged(ACCOUNT_STATE.SIGNING_IN));
+  yield put(sendingRequest(true));
+  try {
+    return yield call(signInViaLocal, login, password);
+  } catch (error) {
+    yield put(notifyRequestFailed(error.message));
+  } finally {
+    yield put(sendingRequest(false));
+  }
+  return false;
+}
+
+export function * bindLocalAccount() {
+  yield put(accountStateChanged(ACCOUNT_STATE.SIGNING_IN));
+  yield put(sendingRequest(true));
+  try {
+    return yield call(bindAccountToLocal);
+  } catch (error) {
+    yield put(notifyRequestFailed(error.message));
+  } finally {
+    yield put(sendingRequest(false));
+  }
+  return false;
+}
 
 export function * loginViaGoogle() {
   yield put(accountStateChanged(ACCOUNT_STATE.SIGNING_IN));
@@ -85,6 +116,43 @@ export function * logout() {
     yield put(sendingRequest(false));
   }
   return false;
+}
+
+function * loginViaLocalFlow() {
+  while (true) {
+    const { login, password } = yield take(SIGN_IN_VIA_LOCAL);
+
+    const winner = yield race({
+      auth: call(loginViaLocal, login, password),
+      logout: take(SIGN_OUT),
+    });
+
+    if (winner.auth) {
+      yield put(authenticateWithToken(winner.auth));
+      yield put(navigateToDashboard);
+    } else {
+      yield call(logout);
+      yield put(navigateToHome);
+    }
+  }
+}
+
+function * bindLocalAccountFlow() {
+  while (true) {
+    yield take(BIND_LOCAL_ACCOUNT);
+
+    const winner = yield race({
+      auth: call(bindLocalAccount),
+      logout: take(SIGN_OUT),
+    });
+
+    if (winner.auth) {
+      yield put(localAccountBound(winner.auth));
+    } else {
+      yield call(logout);
+      yield put(navigateToHome);
+    }
+  }
 }
 
 function * loginViaGoogleFlow() {
@@ -168,6 +236,8 @@ function * logoutFlow() {
 }
 
 export default function * root() {
+  yield fork(loginViaLocalFlow);
+  yield fork(bindLocalAccountFlow);
   yield fork(loginViaGoogleFlow);
   yield fork(bindGoogleAccountFlow);
   yield fork(loginViaFacebookFlow);

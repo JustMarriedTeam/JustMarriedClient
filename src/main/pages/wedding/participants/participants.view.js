@@ -1,21 +1,20 @@
 import React, { PropTypes, PureComponent } from 'react';
-import { Flex, Box } from 'reflexbox';
-import ContentSection from '../../../components/ContentSection';
 import PrimaryParticipant
   from '../../../components/Participants/PrimaryParticipant/primary.participant';
-import LayoutContainer from '../../../layout/LayoutContainer';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import {
-  submit,
-  isInvalid,
-} from 'redux-form';
+import { submit, isInvalid } from 'redux-form';
 import * as weddingActions from '../../../core/actions/wedding.actions';
 import store from '../../../core/store';
 import find from 'lodash/find';
 import map from 'lodash/map';
+import times from 'lodash/fp/times';
 import includes from 'lodash/includes';
 import SavingError from '../../../core/errors/saving.error';
+import { Responsive, WidthProvider } from 'react-grid-layout';
+import { createGridCols, createGridBreakpoints, createLayouts } from '../../../core/grid';
+
+const ResponsiveReactGridLayout = new WidthProvider(Responsive);
 
 class ParticipantsView extends PureComponent {
 
@@ -25,6 +24,22 @@ class ParticipantsView extends PureComponent {
     isEditing: PropTypes.bool.isRequired,
     onMount: PropTypes.func.isRequired,
   };
+
+  constructor() {
+    super();
+    this.state = {
+      layouts: {},
+      breakpoints: createGridBreakpoints(),
+      cols: createGridCols(),
+    };
+  }
+
+  componentWillReceiveProps(props) {
+    const layouts = createLayouts(times((i) => i)(props.participants.length));
+    this.setState({
+      layouts,
+    });
+  }
 
   componentDidMount(props) {
     this.props.onMount({
@@ -44,6 +59,17 @@ class ParticipantsView extends PureComponent {
   render() {
     const { isEditing, participants } = this.props;
 
+    const roleNamesMapping = {
+      bride: 'Bride',
+      groom: 'Groom',
+      bridesmaid: 'Bridesmaid',
+      bestMan: 'Best man',
+      motherOfBride: 'Mother of Bride',
+      fatherOfBride: 'Father of Bride',
+      motherOfGroom: 'Mother of Groom',
+      fatherOfGroom: 'Father of Groom',
+    };
+
     const renderParticipant = (role, roleName) => <PrimaryParticipant
       form={`ParticipantForm_${role}`}
       onSubmit={(details) => this.props.weddingActions.updateParticipant(details)}
@@ -53,73 +79,25 @@ class ParticipantsView extends PureComponent {
       initialValues={find(participants, { role })}
     />;
 
-    return (
-      <LayoutContainer>
+    return (<ResponsiveReactGridLayout
+      breakpoints={this.state.breakpoints}
+      cols={this.state.cols}
+      margin={[15, 15]}
+      rowHeight={500}
+      isDraggable={false}
+      isResizable={false}
+      layouts={this.state.layouts}
+    >
 
-          <ContentSection header={<h2>The Young Couple</h2>}>
+      {
+        map(participants, (participant) => (
+          <div key={participant.role}>
+            {renderParticipant(participant.role, roleNamesMapping[participant.role])}
+          </div>
+        ))
+      }
 
-            <Flex wrap align="center" justify="space-around">
-
-              <Box sm={12} md={5} m={2}>
-                {renderParticipant('bride', 'Bride')}
-              </Box>
-
-              <Box sm={12} md={5} m={2}>
-                {renderParticipant('groom', 'Groom')}
-              </Box>
-
-            </Flex>
-
-          </ContentSection>
-
-
-          <ContentSection alternate header={<h2>Witnesses</h2>}>
-
-            <Flex wrap align="center" justify="space-around">
-
-              <Box sm={12} md={5} m={2}>
-                {renderParticipant('bridesmaid', 'Bridesmaid')}
-              </Box>
-
-              <Box sm={12} md={5} m={2}>
-                {renderParticipant('bestMan', 'Best man')}
-              </Box>
-
-            </Flex>
-
-          </ContentSection>
-
-          <ContentSection header={<h2>Parents</h2>}>
-
-            <Flex wrap align="center" justify="space-around">
-
-              <Box sm={12} md={5} m={2}>
-                {renderParticipant('motherOfBride', 'Brides mother')}
-              </Box>
-
-              <Box sm={12} md={5} m={2}>
-                {renderParticipant('fatherOfBride', 'Brides father')}
-              </Box>
-
-            </Flex>
-
-            <Flex wrap align="center" justify="space-around">
-
-              <Box sm={12} md={5} m={2}>
-                {renderParticipant('motherOfGroom', 'Grooms mother')}
-              </Box>
-
-              <Box sm={12} md={5} m={2}>
-                {renderParticipant('fatherOfGroom', 'Grooms father')}
-              </Box>
-
-            </Flex>
-
-          </ContentSection>
-
-
-        </LayoutContainer>
-    );
+    </ResponsiveReactGridLayout>);
   }
 
 }

@@ -19,6 +19,8 @@ class LoginForm extends PureComponent {
 
   static propTypes = {
     account: PropTypes.instanceOf(Account).isRequired,
+    signInViaLocal: PropTypes.func.isRequired,
+    bindLocalAccount: PropTypes.func.isRequired,
     signInViaGoogle: PropTypes.func.isRequired,
     bindGoogleAccount: PropTypes.func.isRequired,
     signInViaFacebook: PropTypes.func.isRequired,
@@ -45,7 +47,13 @@ class LoginForm extends PureComponent {
           <Spacer weight="md" />
 
           <div className={cx('local-login-btn-section')}>
-            <RaisedButton primary label="Login" />
+            <RaisedButton
+              primary
+              label="Login"
+              onClick={this.props.account.isSignedIn()
+                ? () => this.props.bindLocalAccount()
+                : () => this.props.signInViaLocal()}
+            />
           </div>
         </Box>
 
