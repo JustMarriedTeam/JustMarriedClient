@@ -16,6 +16,7 @@ import {
 import { sendingRequest, notifyRequestFailed } from '../actions/server.actions';
 import { ACCOUNT_STATE } from '../models/account.model';
 import { navigateToDashboard, navigateToHome } from '../actions/navigation.actions';
+import { storeAuthenticationToken } from '../cookies';
 import {
   signInViaLocal,
   bindAccountToLocal,
@@ -128,6 +129,7 @@ function * loginViaLocalFlow() {
     });
 
     if (winner.auth) {
+      yield call(storeAuthenticationToken, winner.auth);
       yield put(authenticateWithToken(winner.auth));
       yield put(navigateToDashboard);
     } else {

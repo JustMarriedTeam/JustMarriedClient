@@ -7,7 +7,7 @@ export const signInViaLocal = ({ login, password }) =>
   Promise.resolve(server.post('/auth/local', {
     login,
     password,
-  })).then(response => response.json());
+  })).then((response) => response.data.token);
 
 export const bindAccountToLocal = () =>
   Promise.resolve(server.post('/auth/local/bind'))
