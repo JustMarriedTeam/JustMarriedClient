@@ -131,7 +131,7 @@ function * loginViaLocalFlow() {
     if (winner.auth) {
       yield call(storeAuthenticationToken, winner.auth);
       yield put(authenticateWithToken(winner.auth));
-      yield put(navigateToDashboard);
+      // yield put(navigateToDashboard);
     } else {
       yield call(logout);
       yield put(navigateToHome);
@@ -239,10 +239,10 @@ function * logoutFlow() {
 
 export default function * root() {
   yield fork(loginViaLocalFlow);
-  yield fork(bindLocalAccountFlow);
-  yield fork(loginViaGoogleFlow);
-  yield fork(bindGoogleAccountFlow);
-  yield fork(loginViaFacebookFlow);
-  yield fork(bindFacebookAccountFlow);
-  yield fork(logoutFlow);
+  // yield fork(bindLocalAccountFlow);
+  // yield fork(loginViaGoogleFlow);
+  // yield fork(bindGoogleAccountFlow);
+  // yield fork(loginViaFacebookFlow);
+  // yield fork(bindFacebookAccountFlow);
+  // yield fork(logoutFlow);
 }

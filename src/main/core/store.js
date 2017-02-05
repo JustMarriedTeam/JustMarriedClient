@@ -7,7 +7,6 @@ import actionReducer from './reducers/action.reducer';
 import alertReducer from './reducers/alert.reducer';
 import accountReducer from './reducers/account.reducer';
 import serverReducer from './reducers/server.reducer';
-import tasksReducer from './reducers/tasks.reducer';
 import weddingReducer from './reducers/wedding.reducer';
 import actionBarReducer from './reducers/actionbar.reducer';
 import loginSaga from './sagas/login.saga';
@@ -22,7 +21,6 @@ export default createStore(
     form: formReducer,
     account: accountReducer,
     server: serverReducer,
-    tasks: tasksReducer,
     wedding: weddingReducer,
     routing: routerReducer,
     actionBar: actionBarReducer,

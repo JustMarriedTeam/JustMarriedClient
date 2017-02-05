@@ -1,4 +1,5 @@
 import { getWedding, postWedding } from '../api/wedding.api';
+import { getTasks } from '../api/tasks.api';
 import { sendingRequest, notifyRequestFailed } from './server.actions';
 
 export const WEDDING_FETCHED = 'WEDDING_FETCHED';
@@ -6,7 +7,7 @@ export const WEDDING_SAVED = 'WEDDING_SAVED';
 export const ADD_GUEST = 'ADD_GUEST';
 export const UPDATE_GUEST = 'UPDATE_GUEST';
 export const REMOVE_GUESTS = 'GUESTS_REMOVED';
-
+export const TASKS_LOADED = 'TASKS_LOADED';
 export const UPDATE_PARTICIPANT = 'PARTICIPANT_UPDATED';
 
 export const addGuest = (guest) => ({ type: ADD_GUEST, guest });
@@ -30,3 +31,13 @@ export const saveWedding = (savedWedding) => (dispatch) => {
     .catch((err) => dispatch(notifyRequestFailed(err)))
     .finally(() => dispatch(sendingRequest(false)));
 };
+
+export const loadTasks = (query) => (dispatch) => {
+  dispatch(sendingRequest(true));
+  return getTasks(query)
+    .then((tasks) => dispatch(({ type: TASKS_LOADED, tasks })))
+    .catch((err) => dispatch(notifyRequestFailed(err)))
+    .finally(() => dispatch(sendingRequest(false)));
+};
+
+

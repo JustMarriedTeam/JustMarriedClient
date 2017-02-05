@@ -7,6 +7,7 @@ import merge from 'lodash/merge';
 const WeddingRecord = new Immutable.Record({
   guests: [],
   participants: [],
+  tasks: [],
 });
 
 class Wedding extends WeddingRecord {

@@ -3,14 +3,13 @@ import Layout from '../../layout/Layout';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
 import TaskGrid from '../../components/TaskGrid';
-import TaskCollection from '../../core/models/task.collection.model';
 import { connect } from 'react-redux';
-import * as tasksActions from '../../core/actions/tasks.actions';
+import * as weddingActions from '../../core/actions/wedding.actions';
 
 class TasksPage extends Component {
 
   static propTypes = {
-    tasks: PropTypes.instanceOf(TaskCollection).isRequired,
+    tasks: PropTypes.array.isRequired,
     loadTasks: PropTypes.func.isRequired,
   };
 
@@ -46,5 +45,5 @@ class TasksPage extends Component {
 }
 
 export default connect((state) => ({
-  tasks: state.tasks,
-}), tasksActions)(TasksPage);
+  tasks: state.wedding.tasks,
+}), weddingActions)(TasksPage);
