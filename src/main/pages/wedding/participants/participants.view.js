@@ -12,7 +12,7 @@ import {
 } from 'redux-form';
 import * as weddingActions from '../../../core/actions/wedding.actions';
 import store from '../../../core/store';
-import keys from 'lodash/keys';
+import find from 'lodash/find';
 import map from 'lodash/map';
 import includes from 'lodash/includes';
 import SavingError from '../../../core/errors/saving.error';
@@ -21,7 +21,7 @@ class ParticipantsView extends PureComponent {
 
   static propTypes = {
     weddingActions: PropTypes.object.isRequired,
-    participants: PropTypes.object.isRequired,
+    participants: PropTypes.array.isRequired,
     isEditing: PropTypes.bool.isRequired,
     onMount: PropTypes.func.isRequired,
   };
@@ -29,7 +29,7 @@ class ParticipantsView extends PureComponent {
   componentDidMount(props) {
     this.props.onMount({
       onSubmit() {
-        const roles = keys(props.participants);
+        const roles = map(props.participants, (participant) => participant.role);
         const formNames = map(roles, (role) => `ParticipantForm_${role}`);
         const invalidForms = map(formNames, (name) => isInvalid(name)(store.getState()));
         if (!includes(invalidForms, true)) {
@@ -50,7 +50,7 @@ class ParticipantsView extends PureComponent {
       isEditable={isEditing}
       participantRole={role}
       participantRoleName={roleName}
-      initialValues={participants[role]}
+      initialValues={find(participants, { role })}
     />;
 
     return (

@@ -6,7 +6,7 @@ import merge from 'lodash/merge';
 
 const WeddingRecord = new Immutable.Record({
   guests: [],
-  participants: {},
+  participants: [],
 });
 
 class Wedding extends WeddingRecord {
@@ -27,10 +27,10 @@ class Wedding extends WeddingRecord {
   }
 
   updateParticipant(updatedParticipant) {
-    const participantsByRole = this.get('participants');
-    const oldParticipant = participantsByRole[updatedParticipant.role];
+    const allParticipants = this.get('participants');
+    const oldParticipant = find(allParticipants, { role: updatedParticipant.role });
     merge(oldParticipant, updatedParticipant);
-    return this.set('participants', participantsByRole);
+    return this.set('participants', allParticipants);
   }
 
 }

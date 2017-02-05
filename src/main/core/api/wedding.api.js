@@ -2,56 +2,56 @@ import Promise from 'bluebird';
 
 function getWedding() {
   return Promise.resolve({
-    participants: {
-      groom: {
+    participants: [
+      {
         role: 'groom',
         firstName: 'Grzegorz',
         lastName: 'Gurgul',
         email: 'gurgul.grzegorz@gmail.com',
       },
-      bride: {
+      {
         role: 'bride',
         firstName: 'Agata',
         lastName: 'Nowakiewicz',
         email: 'agatanowakiewicz@gmail.com',
       },
-      bridesmaid: {
+      {
         role: 'bridesmaid',
         firstName: 'Agata',
         lastName: 'Nowakiewicz',
         email: 'agatanowakiewicz@gmail.com',
       },
-      bestMan: {
+      {
         role: 'bestMan',
         firstName: 'Agata',
         lastName: 'Nowakiewicz',
         email: 'agatanowakiewicz@gmail.com',
       },
-      motherOfBride: {
+      {
         role: 'motherOfBride',
         firstName: 'Agata',
         lastName: 'Nowakiewicz',
         email: 'agatanowakiewicz@gmail.com',
       },
-      fatherOfBride: {
+      {
         role: 'fatherOfBride',
         firstName: 'Agata',
         lastName: 'Nowakiewicz',
         email: 'agatanowakiewicz@gmail.com',
       },
-      motherOfGroom: {
+      {
         role: 'motherOfGroom',
         firstName: 'Agata',
         lastName: 'Nowakiewicz',
         email: 'agatanowakiewicz@gmail.com',
       },
-      fatherOfGroom: {
+      {
         role: 'fatherOfGroom',
         firstName: 'Agata',
         lastName: 'Nowakiewicz',
         email: 'agatanowakiewicz@gmail.com',
       },
-    },
+    ],
     guests: [
       { id: 'a', firstName: 'Grzegorz', lastName: 'Gurgul', email: 'grzegorz.g@gmail.com' },
       { id: 'b', firstName: 'Agata', lastName: 'Nowakiewicz', email: 'agata.n@gmail.com' },
