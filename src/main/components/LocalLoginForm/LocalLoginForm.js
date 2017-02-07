@@ -40,24 +40,18 @@ class LocalLoginForm extends PureComponent {
     bindLocalAccount: PropTypes.func.isRequired,
   };
 
-  handleSubmit = (credentials) => {
+  issueAuthenticationRequest = (credentials) => {
     if (this.props.account.isSignedIn()) {
-      this.props.bindLocalAccount({
-        login: credentials.login,
-        password: credentials.password,
-      });
+      this.props.bindLocalAccount(credentials);
     } else {
-      this.props.signInViaLocal({
-        login: 'ggurgul',
-        password: 'ggurgul',
-      });
+      this.props.signInViaLocal(credentials);
     }
   };
 
   render() {
-    const { submitting } = this.props;
+    const { submitting, handleSubmit } = this.props;
 
-    return (<form onSubmit={this.handleSubmit}>
+    return (<form onSubmit={handleSubmit(this.issueAuthenticationRequest)}>
       <Field
         name="login"
         fullWidth
