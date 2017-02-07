@@ -39,5 +39,3 @@ export const loadTasks = (query) => (dispatch) => {
     .catch((err) => dispatch(notifyRequestFailed(err)))
     .finally(() => dispatch(sendingRequest(false)));
 };
-
-

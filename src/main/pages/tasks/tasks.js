@@ -25,7 +25,7 @@ class TasksPage extends Component {
           >
 
             <TaskGrid
-              tasks={[]}
+              tasks={this.props.tasks}
             />
 
           </Tab>
