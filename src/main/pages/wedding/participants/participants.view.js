@@ -8,7 +8,6 @@ import * as weddingActions from '../../../core/actions/wedding.actions';
 import store from '../../../core/store';
 import find from 'lodash/find';
 import map from 'lodash/map';
-import times from 'lodash/fp/times';
 import includes from 'lodash/includes';
 import SavingError from '../../../core/errors/saving.error';
 import { Responsive, WidthProvider } from 'react-grid-layout';
@@ -35,7 +34,7 @@ class ParticipantsView extends PureComponent {
   }
 
   componentWillReceiveProps(props) {
-    const layouts = createLayouts(times((i) => i)(props.participants.length));
+    const layouts = createLayouts(map(props.participants, (participant) => participant.role));
     this.setState({
       layouts,
     });
