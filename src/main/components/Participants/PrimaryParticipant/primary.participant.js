@@ -62,7 +62,7 @@ class PrimaryParticipant extends PureComponent {
           <Box sm={12}>
 
             <Field
-              name="firstName"
+              name="user.firstName"
               component={renderTextField}
               label="First name"
               disabled={!isEditable}
@@ -73,7 +73,7 @@ class PrimaryParticipant extends PureComponent {
           <Box sm={12}>
 
             <Field
-              name="lastName"
+              name="user.lastName"
               component={renderTextField}
               label="Last name"
               disabled={!isEditable}
@@ -84,7 +84,7 @@ class PrimaryParticipant extends PureComponent {
           <Box sm={12}>
 
             <Field
-              name="email"
+              name="user.email"
               component={renderTextField}
               label="E-Mail address"
               disabled={!isEditable}
