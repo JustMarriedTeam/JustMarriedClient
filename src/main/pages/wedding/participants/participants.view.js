@@ -24,17 +24,17 @@ class ParticipantsView extends PureComponent {
     onMount: PropTypes.func.isRequired,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      layouts: {},
+      layouts: ParticipantsView.generateGridMapping(props.participants),
       breakpoints: createGridBreakpoints(),
       cols: createGridCols(),
     };
   }
 
   componentWillReceiveProps(props) {
-    const layouts = createLayouts(map(props.participants, (participant) => participant.role));
+    const layouts = ParticipantsView.generateGridMapping(props.participants);
     this.setState({
       layouts,
     });
@@ -53,6 +53,10 @@ class ParticipantsView extends PureComponent {
         }
       },
     });
+  }
+
+  static generateGridMapping(participants) {
+    return createLayouts(map(participants, (participant) => participant.role));
   }
 
   render() {
