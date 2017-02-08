@@ -50,7 +50,7 @@ class WeddingPage extends Component {
         <EditButton
           style={buttonStyle}
           onEditStarted={() => this.props.editingActions.startEditing()}
-          onEditEnded={() => this.props.editingActions.endEditing(onSubmit(
+          onEditEnded={() => this.props.editingActions.endEditing(() => onSubmit(
             () => this.props.weddingActions.saveWedding(this.props.wedding)
           ))}
         />

@@ -8,6 +8,7 @@ import * as weddingActions from '../../../core/actions/wedding.actions';
 import store from '../../../core/store';
 import find from 'lodash/find';
 import map from 'lodash/map';
+import forEach from 'lodash/forEach';
 import includes from 'lodash/includes';
 import SavingError from '../../../core/errors/saving.error';
 import { Responsive, WidthProvider } from 'react-grid-layout';
@@ -47,7 +48,7 @@ class ParticipantsView extends PureComponent {
         const formNames = map(roles, (role) => `ParticipantForm_${role}`);
         const invalidForms = map(formNames, (name) => isInvalid(name)(store.getState()));
         if (!includes(invalidForms, true)) {
-          store.dispatch(submit(formNames));
+          forEach(formNames, (name) => store.dispatch(submit(name)));
           return save();
         } else { // eslint-disable-line
           throw new SavingError('Check your input');
