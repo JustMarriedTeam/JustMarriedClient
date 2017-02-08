@@ -47,9 +47,9 @@ class PrimaryParticipant extends PureComponent {
   };
 
   render() {
-    const { participantRoleName, isEditable } = this.props;
+    const { participantRoleName, isEditable, handleSubmit } = this.props;
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.props.onSubmit)}>
         <Flex wrap className={cx('primary-participant')} align="center" justify="space-around">
 
           <Box sm={12}>

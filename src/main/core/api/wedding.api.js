@@ -8,7 +8,8 @@ function getWedding(query) {
 }
 
 function postWedding(weddingToPost) {
-  return Promise.resolve(weddingToPost).then(response => response);
+  return Promise.resolve(server.post('/wedding', weddingToPost))
+    .then((response) => response.data);
 }
 
 export { getWedding, postWedding };
