@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { routerReducer } from 'react-router-redux';
+import { browserHistory } from 'react-router'
+import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
@@ -26,7 +27,7 @@ export default createStore(
     actionBar: actionBarReducer,
   }),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), // eslint-disable-line
-  applyMiddleware(thunk, sagaMiddleware)
+  applyMiddleware(thunk, sagaMiddleware, routerMiddleware(browserHistory))
 );
 
 sagaMiddleware.run(loginSaga);

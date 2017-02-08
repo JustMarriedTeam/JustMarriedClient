@@ -7,9 +7,14 @@ function getWedding(query) {
   })).then((response) => response.data);
 }
 
+function putWedding(weddingToPost) {
+  return Promise.resolve(server.put('/wedding', weddingToPost))
+    .then((response) => response.data);
+}
+
 function postWedding(weddingToPost) {
   return Promise.resolve(server.post('/wedding', weddingToPost))
     .then((response) => response.data);
 }
 
-export { getWedding, postWedding };
+export { getWedding, postWedding, putWedding };

@@ -15,10 +15,15 @@ export const BIND_GOOGLE_ACCOUNT = 'BIND_GOOGLE_ACCOUNT';
 export const GOOGLE_ACCOUNT_BOUND = 'GOOGLE_ACCOUNT_BOUND';
 
 export const SIGN_OUT = 'SIGN_OUT';
+export const SIGNED_OUT = 'SIGNED_OUT';
 
 /*
   Passive
  */
+
+export const signOut = () => ({ type: SIGN_OUT });
+
+export const signedOut = () => ({ type: SIGNED_OUT });
 
 export const localAccountBound = (state) => ({ type: LOCAL_ACCOUNT_BOUND, state });
 

@@ -21,6 +21,6 @@ export const signInViaGoogle = () => openInPopup(`${apiUrl}/auth/google.authenti
 
 export const bindAccountToGoogle = () => openInPopup(`${apiUrl}/auth/google.authorization`);
 
-export const signOut = () =>
+export const invalidateToken = () =>
     // invalidate token
      Promise.resolve(true);

@@ -42,14 +42,14 @@ class ParticipantsView extends PureComponent {
 
   componentDidMount() {
     this.props.onMount({
-      onSubmit: () => {
+      onSubmit: (save) => {
         const roles = map(this.props.participants, (participant) => participant.role);
         const formNames = map(roles, (role) => `ParticipantForm_${role}`);
         const invalidForms = map(formNames, (name) => isInvalid(name)(store.getState()));
         if (!includes(invalidForms, true)) {
           store.dispatch(submit(formNames));
-          this.props.weddingActions.saveWedding();
-        } else {
+          return save();
+        } else { // eslint-disable-line
           throw new SavingError('Check your input');
         }
       },

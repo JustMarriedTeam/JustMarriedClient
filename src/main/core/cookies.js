@@ -9,6 +9,10 @@ function tryCookieAuthentication() {
   }
 }
 
+function clearAuthenticationToken() {
+  cookie.remove('authToken');
+}
+
 function storeAuthenticationToken(token) {
   cookie.save('authToken', token);
 }
@@ -16,5 +20,6 @@ function storeAuthenticationToken(token) {
 export {
   tryCookieAuthentication,
   storeAuthenticationToken,
+  clearAuthenticationToken,
 };
 export default cookie;
