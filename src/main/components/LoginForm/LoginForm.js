@@ -2,7 +2,6 @@ import React, { PureComponent, PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Flex, Box } from 'reflexbox';
 import FontIcon from 'material-ui/FontIcon';
-import TextField from 'material-ui/TextField';
 import Spacer from '../Spacer/Spacer';
 import SeparatingLine from '../SeparatingLine/SeparatingLine';
 import MediaQuery from 'react-responsive';
@@ -11,9 +10,9 @@ import styles from './LoginForm.pcss';
 import { connect } from 'react-redux';
 import Account from '../../core/models/account.model';
 import * as accountActions from '../../core/actions/account.actions';
+import LocalLoginForm from '../LocalLoginForm';
 
 const cx = classNames.bind(styles);
-
 
 class LoginForm extends PureComponent {
 
@@ -25,30 +24,16 @@ class LoginForm extends PureComponent {
     bindFacebookAccount: PropTypes.func.isRequired,
   };
 
+
   render() {
     return (
       <Flex wrap className={cx('login-form')} align="stretch" justify="space-around">
 
         <Box sm={12} md={5} p={1}>
-          <TextField
-            fullWidth
-            hintText="Login"
-          />
 
-          <Spacer weight="xs" />
+          <LocalLoginForm />
 
-          <TextField
-            fullWidth
-            hintText="Password"
-          />
-
-          <Spacer weight="md" />
-
-          <div className={cx('local-login-btn-section')}>
-            <RaisedButton primary label="Login" />
-          </div>
         </Box>
-
 
         <MediaQuery maxWidth="767px">
           <Box col={12} p={1}>

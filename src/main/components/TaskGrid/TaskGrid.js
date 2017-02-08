@@ -21,8 +21,8 @@ export default class TaskGrid extends Component {
     };
   }
 
-  componentWillMount() {
-    const layouts = createLayouts(_.times((i) => i)(this.props.tasks.length));
+  componentWillReceiveProps(props) {
+    const layouts = createLayouts(_.times((i) => i)(props.tasks.length));
     this.setState({
       layouts,
     });

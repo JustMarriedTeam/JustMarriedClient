@@ -9,5 +9,17 @@ function tryCookieAuthentication() {
   }
 }
 
-export { tryCookieAuthentication };
+function clearAuthenticationToken() {
+  cookie.remove('authToken');
+}
+
+function storeAuthenticationToken(token) {
+  cookie.save('authToken', token);
+}
+
+export {
+  tryCookieAuthentication,
+  storeAuthenticationToken,
+  clearAuthenticationToken,
+};
 export default cookie;

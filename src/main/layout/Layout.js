@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import LayoutBar from './LayoutBar/LayoutBar';
 import LayoutDrawer from './LayoutDrawer/LayoutDrawer';
 import LayoutFooter from './LayoutFooter/LayoutFooter';
+import Alert from './Alert/Alert';
 import styles from './Layout.pcss';
 
 const cx = classNames.bind(styles);
@@ -44,6 +45,7 @@ export default class Layout extends Component {
         </main>
 
         <LayoutFooter />
+        <Alert />
 
       </div>
     );

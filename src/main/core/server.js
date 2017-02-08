@@ -3,6 +3,7 @@
 import axios from 'axios';
 import Promise from 'bluebird';
 import store from './store';
+import { signOut } from './actions/account.actions';
 
 const axiosInstance = axios.create({
   baseURL: process.env.serverApiUrl,
@@ -17,6 +18,13 @@ axiosInstance.interceptors.request.use((config) => {
     }
   }
   return config;
-}, (error) => Promise.reject(error));
+});
+
+axiosInstance.interceptors.response.use((response) => response, (error) => {
+  if (error.response.status === 401) {
+    store.dispatch(signOut());
+  }
+  return Promise.reject(error);
+});
 
 export default axiosInstance;
