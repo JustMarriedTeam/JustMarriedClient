@@ -13,6 +13,9 @@ import includes from 'lodash/includes';
 import SavingError from '../../../core/errors/saving.error';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import { createGridCols, createGridBreakpoints, createLayouts } from '../../../core/grid';
+import { Menu, MainButton, ChildButton } from 'react-mfb';
+import ConditionalRenderer from '../../../utils/ConditionalRenderer';
+import AddParticipantsPopup from './addParticipants.popup';
 
 const ResponsiveReactGridLayout = new WidthProvider(Responsive);
 
@@ -31,6 +34,12 @@ class ParticipantsView extends PureComponent {
       layouts: ParticipantsView.generateGridMapping(props.participants),
       breakpoints: createGridBreakpoints(),
       cols: createGridCols(),
+      dialogs: {
+        addParticipants: {
+          isOpen: false,
+          participantsToChooseFrom: [],
+        },
+      },
     };
   }
 
@@ -56,6 +65,36 @@ class ParticipantsView extends PureComponent {
       },
     });
   }
+
+  showAddParticipantsDialog = (participantsToChooseFrom) => {
+    this.setState({
+      dialogs: {
+        addParticipants: {
+          isOpen: true,
+          participantsToChooseFrom,
+        },
+      },
+    });
+  };
+
+  hideAddParticipantsDialog = () => {
+    this.setState({
+      dialogs: {
+        addParticipants: {
+          isOpen: false,
+          participantsToChooseFrom: [],
+        },
+      },
+    });
+  };
+
+  handleAddingParticipant = () => {
+    this.showAddParticipantsDialog(['bridesmaid', 'bestMan']);
+  };
+
+  handleClosingAddParticipantsDialog = () => {
+    this.hideAddParticipantsDialog();
+  };
 
   static generateGridMapping(participants) {
     return createLayouts(map(participants, (participant) => participant.role));
@@ -84,25 +123,48 @@ class ParticipantsView extends PureComponent {
       initialValues={find(participants, { role })}
     />;
 
-    return (<ResponsiveReactGridLayout
-      breakpoints={this.state.breakpoints}
-      cols={this.state.cols}
-      margin={[15, 15]}
-      rowHeight={500}
-      isDraggable={false}
-      isResizable={false}
-      layouts={this.state.layouts}
-    >
+    return (<div>
+      <ResponsiveReactGridLayout
+        breakpoints={this.state.breakpoints}
+        cols={this.state.cols}
+        margin={[15, 15]}
+        rowHeight={500}
+        isDraggable={false}
+        isResizable={false}
+        layouts={this.state.layouts}
+      >
 
-      {
-        map(participants, (participant) => (
-          <div key={participant.role}>
-            {renderParticipant(participant.role, roleNamesMapping[participant.role])}
-          </div>
-        ))
-      }
+        {
+          map(participants, (participant) => (
+            <div key={participant.role}>
+              {renderParticipant(participant.role, roleNamesMapping[participant.role])}
+            </div>
+          ))
+        }
 
-    </ResponsiveReactGridLayout>);
+      </ResponsiveReactGridLayout>
+
+      <ConditionalRenderer show={this.props.isEditing}>
+        <Menu effect="zoomin" method="click" position="br">
+          <MainButton
+            iconResting="ion-plus-round"
+            iconActive="ion-close-round"
+          />
+          <ChildButton
+            icon="ion-person-add"
+            label="Add participant"
+            onClick={this.handleAddingParticipant}
+          />
+        </Menu>
+      </ConditionalRenderer>
+
+      <AddParticipantsPopup
+        onClose={this.handleClosingAddParticipantsDialog}
+        isOpen={this.state.dialogs.addParticipants.isOpen}
+        participantsToChooseFrom={this.state.dialogs.addParticipants.participantsToChooseFrom}
+      />
+
+    </div>);
   }
 
 }
