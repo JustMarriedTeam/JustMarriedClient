@@ -5,6 +5,7 @@ import {
   UPDATE_GUEST,
   REMOVE_GUESTS,
   UPDATE_PARTICIPANT,
+  TOGGLE_PARTICIPANT,
   TASKS_LOADED,
 } from '../actions/wedding.actions';
 import Wedding from '../models/wedding.model';
@@ -22,6 +23,8 @@ export default function (wedding = new Wedding(), action) {
       return wedding.addGuest(action.guest);
     case UPDATE_GUEST:
       return wedding.updateGuest(action.guest);
+    case TOGGLE_PARTICIPANT:
+      return wedding.toggleParticipant(action.participant);
     case UPDATE_PARTICIPANT:
       return wedding.updateParticipant(action.participant);
     default:

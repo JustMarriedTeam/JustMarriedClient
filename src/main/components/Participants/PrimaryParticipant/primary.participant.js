@@ -1,128 +1,60 @@
-import React, { Component, PropTypes } from 'react';
-import { Flex, Box } from 'reflexbox';
-import { Field, reduxForm } from 'redux-form';
+import React, { PureComponent, PropTypes } from 'react';
 import Avatar from 'material-ui/Avatar';
-import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import Toggle from 'material-ui/Toggle';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
+import * as allWeddingActions from '../../../core/actions/wedding.actions';
+import ParticipantForm from './participant.form';
 import styles from './primary.participant.pcss';
 
 const cx = classNames.bind(styles);
 
-const validate = values => {
-  const errors = {};
-  const requiredFields = ['firstName', 'lastName'];
-  requiredFields.forEach(field => {
-    if (!values[field]) {
-      errors[field] = 'Required';
-    }
-  });
-  if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address';
-  }
-  return errors;
-};
-
-class PrimaryParticipant extends Component {
+class PrimaryParticipant extends PureComponent {
 
   static propTypes = {
-    participantRole: PropTypes.string.isRequired,
-    participantRoleName: PropTypes.string.isRequired,
-    initialValues: PropTypes.object,
-    onSubmit: PropTypes.func.isRequired,
-    isEditable: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    isEditable: false,
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      enabled: !!props.initialValues,
-    };
-  }
-
-  handleToggle = () => {
-    this.setState((prevState) => ({
-      enabled: !prevState.enabled,
-    }));
+    weddingActions: PropTypes.object.isRequired,
+    participant: PropTypes.object.isRequired,
+    isEditing: PropTypes.bool,
   };
 
   render() {
-    const { participantRoleName, isEditable } = this.props;
-
-    const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-      <TextField
-        hintText={label}
-        floatingLabelText={label}
-        errorText={touched && error}
-        disabled={!isEditable || !this.state.enabled}
-        {...input}
-        {...custom}
-      />
-    );
+    const {
+      isEditing,
+      participant,
+      weddingActions } = this.props;
 
     return (
-      <form>
-        <Paper className={cx('primary-participant')}>
+      <Paper className={cx('primary-participant')}>
 
-          <Toggle
-            disabled={!isEditable}
-            className={cx('primary-participant__toggle')}
-            toggled={this.state.enabled}
-            onToggle={this.handleToggle}
-          />
+        <Toggle
+          className={cx('primary-participant__toggle')}
+          disabled={!isEditing}
+          toggled={participant.active}
+          onToggle={() => weddingActions.toggleParticipant(participant)}
+        />
 
-          <Flex wrap align="center" justify="space-around">
+        <Avatar
+          className={cx('primary-participant__avatar')}
+          size={250}
+        >{participant.role}</Avatar>
 
-            <Box sm={12}>
-              <Avatar
-                className={cx('primary-participant__avatar')}
-                size={250}
-              >{participantRoleName}</Avatar>
-            </Box>
+        <ParticipantForm
+          form={`ParticipantForm_${participant.role}`}
+          initialValues={participant}
+          isEditable={isEditing}
+          onSubmit={(details) => weddingActions.updateParticipant(details)}
+        />
 
-            <Box sm={12}>
-
-              <Field
-                name="user.firstName"
-                component={renderTextField}
-                label="First name"
-              />
-
-            </Box>
-
-            <Box sm={12}>
-
-              <Field
-                name="user.lastName"
-                component={renderTextField}
-                label="Last name"
-              />
-
-            </Box>
-
-            <Box sm={12}>
-
-              <Field
-                name="user.email"
-                component={renderTextField}
-                label="E-Mail address"
-              />
-
-            </Box>
-
-          </Flex>
-        </Paper>
-      </form>
+      </Paper>
     );
   }
 
 }
 
-export default reduxForm({
-  validate,
-})(PrimaryParticipant);
+export default connect((state) => ({
+  isEditing: state.action.editing,
+}), (dispatch) => ({
+  weddingActions: bindActionCreators(allWeddingActions, dispatch),
+}))(PrimaryParticipant);

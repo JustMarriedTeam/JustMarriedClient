@@ -34,6 +34,13 @@ class Wedding extends WeddingRecord {
     return this.set('participants', allParticipants);
   }
 
+  toggleParticipant(toggledParticipant) {
+    const allParticipants = this.get('participants');
+    const oldParticipant = find(allParticipants, { role: toggledParticipant.role });
+    oldParticipant.active = !oldParticipant.active;
+    return this.set('participants', allParticipants);
+  }
+
 }
 
 export default Wedding;

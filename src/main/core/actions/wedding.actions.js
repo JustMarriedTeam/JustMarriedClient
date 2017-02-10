@@ -10,12 +10,14 @@ export const UPDATE_GUEST = 'UPDATE_GUEST';
 export const REMOVE_GUESTS = 'GUESTS_REMOVED';
 export const TASKS_LOADED = 'TASKS_LOADED';
 export const UPDATE_PARTICIPANT = 'PARTICIPANT_UPDATED';
+export const TOGGLE_PARTICIPANT = 'PARTICIPANT_TOGGLED';
 
 export const addGuest = (guest) => ({ type: ADD_GUEST, guest });
 export const updateGuest = (guest) => ({ type: UPDATE_GUEST, guest });
 export const removeGuests = (guestsToRemove) => ({ type: REMOVE_GUESTS, guests: guestsToRemove });
 
 export const updateParticipant = (participant) => ({ type: UPDATE_PARTICIPANT, participant });
+export const toggleParticipant = (participant) => ({ type: TOGGLE_PARTICIPANT, participant });
 
 export const fetchWedding = (query) => (dispatch) => {
   dispatch(sendingRequest(true));

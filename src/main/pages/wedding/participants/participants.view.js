@@ -13,9 +13,6 @@ import includes from 'lodash/includes';
 import SavingError from '../../../core/errors/saving.error';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import { createGridCols, createGridBreakpoints, createLayouts } from '../../../core/grid';
-import { Menu, MainButton, ChildButton } from 'react-mfb';
-import ConditionalRenderer from '../../../utils/ConditionalRenderer';
-import AddParticipantsPopup from './addParticipants.popup';
 
 const ResponsiveReactGridLayout = new WidthProvider(Responsive);
 
@@ -24,10 +21,6 @@ const roleNamesMapping = {
   groom: 'Groom',
   bridesmaid: 'Bridesmaid',
   bestMan: 'Best man',
-  motherOfBride: 'Mother of Bride',
-  fatherOfBride: 'Father of Bride',
-  motherOfGroom: 'Mother of Groom',
-  fatherOfGroom: 'Father of Groom',
 };
 
 class ParticipantsView extends PureComponent {
@@ -49,12 +42,6 @@ class ParticipantsView extends PureComponent {
       layouts: ParticipantsView.generateGridMapping(props.participants),
       breakpoints: createGridBreakpoints(),
       cols: createGridCols(),
-      dialogs: {
-        addParticipants: {
-          isOpen: false,
-          presenceList: [],
-        },
-      },
     };
   }
 
@@ -81,35 +68,8 @@ class ParticipantsView extends PureComponent {
     });
   }
 
-  setAddParticipantsDialogVisibility = (visible) => {
-    this.setState({
-      dialogs: {
-        addParticipants: {
-          isOpen: visible,
-        },
-      },
-    });
-  };
-
-  handleAddingParticipant = () => {
-    this.setAddParticipantsDialogVisibility(true);
-  };
-
-  handleClosingAddParticipantsDialog = () => {
-    this.setAddParticipantsDialogVisibility(false);
-  };
-
   render() {
-    const { isEditing, participants } = this.props;
-
-    const renderParticipant = (role, roleName) => <PrimaryParticipant
-      form={`ParticipantForm_${role}`}
-      onSubmit={(details) => this.props.weddingActions.updateParticipant(details)}
-      isEditable={isEditing}
-      participantRole={role}
-      participantRoleName={roleName}
-      initialValues={find(participants, { role })}
-    />;
+    const { participants } = this.props;
 
     return (<div>
       <ResponsiveReactGridLayout
@@ -125,32 +85,14 @@ class ParticipantsView extends PureComponent {
         {
           map(participants, (participant) => (
             <div key={participant.role}>
-              {renderParticipant(participant.role, roleNamesMapping[participant.role])}
+              <PrimaryParticipant
+                participant={participant}
+              />
             </div>
           ))
         }
 
       </ResponsiveReactGridLayout>
-
-      <ConditionalRenderer show={this.props.isEditing}>
-        <Menu effect="zoomin" method="click" position="br">
-          <MainButton
-            iconResting="ion-plus-round"
-            iconActive="ion-close-round"
-          />
-          <ChildButton
-            icon="ion-person-add"
-            label="Add participant"
-            onClick={this.handleAddingParticipant}
-          />
-        </Menu>
-      </ConditionalRenderer>
-
-      <AddParticipantsPopup
-        onClose={this.handleClosingAddParticipantsDialog}
-        isOpen={this.state.dialogs.addParticipants.isOpen}
-        participants={this.props.participants}
-      />
 
     </div>);
   }
