@@ -43,7 +43,7 @@ class PrimaryParticipant extends PureComponent {
         <ParticipantForm
           form={`ParticipantForm_${participant.role}`}
           initialValues={participant}
-          isEditable={isEditing}
+          isEditable={isEditing && participant.active}
           onSubmit={(details) => weddingActions.updateParticipant(details)}
         />
 

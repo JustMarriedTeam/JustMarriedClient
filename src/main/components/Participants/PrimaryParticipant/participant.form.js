@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import { Flex, Box } from 'reflexbox';
 import { Field, reduxForm } from 'redux-form';
 import TextField from 'material-ui/TextField';
@@ -18,7 +18,7 @@ const validate = values => {
   return errors;
 };
 
-class ParticipantForm extends Component {
+class ParticipantForm extends PureComponent {
 
   static propTypes = {
     initialValues: PropTypes.object,
