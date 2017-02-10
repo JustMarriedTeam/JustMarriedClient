@@ -3,6 +3,8 @@ import { Flex, Box } from 'reflexbox';
 import { Field, reduxForm } from 'redux-form';
 import Avatar from 'material-ui/Avatar';
 import TextField from 'material-ui/TextField';
+import Paper from 'material-ui/Paper';
+import Toggle from 'material-ui/Toggle';
 import classNames from 'classnames/bind';
 import styles from './primary.participant.pcss';
 
@@ -50,49 +52,56 @@ class PrimaryParticipant extends PureComponent {
     const { participantRoleName, isEditable } = this.props;
     return (
       <form>
-        <Flex wrap className={cx('primary-participant')} align="center" justify="space-around">
+        <Paper className={cx('primary-participant')}>
 
-          <Box sm={12}>
-            <Avatar
-              className={cx('primary-participant__avatar')}
-              size={250}
-            >{participantRoleName}</Avatar>
-          </Box>
+          <Toggle
+            className={cx('primary-participant__toggle')}
+          />
 
-          <Box sm={12}>
+          <Flex wrap align="center" justify="space-around">
 
-            <Field
-              name="user.firstName"
-              component={renderTextField}
-              label="First name"
-              disabled={!isEditable}
-            />
+            <Box sm={12}>
+              <Avatar
+                className={cx('primary-participant__avatar')}
+                size={250}
+              >{participantRoleName}</Avatar>
+            </Box>
 
-          </Box>
+            <Box sm={12}>
 
-          <Box sm={12}>
+              <Field
+                name="user.firstName"
+                component={renderTextField}
+                label="First name"
+                disabled={!isEditable}
+              />
 
-            <Field
-              name="user.lastName"
-              component={renderTextField}
-              label="Last name"
-              disabled={!isEditable}
-            />
+            </Box>
 
-          </Box>
+            <Box sm={12}>
 
-          <Box sm={12}>
+              <Field
+                name="user.lastName"
+                component={renderTextField}
+                label="Last name"
+                disabled={!isEditable}
+              />
 
-            <Field
-              name="user.email"
-              component={renderTextField}
-              label="E-Mail address"
-              disabled={!isEditable}
-            />
+            </Box>
 
-          </Box>
+            <Box sm={12}>
 
-        </Flex>
+              <Field
+                name="user.email"
+                component={renderTextField}
+                label="E-Mail address"
+                disabled={!isEditable}
+              />
+
+            </Box>
+
+          </Flex>
+        </Paper>
       </form>
     );
   }

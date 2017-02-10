@@ -19,7 +19,22 @@ import AddParticipantsPopup from './addParticipants.popup';
 
 const ResponsiveReactGridLayout = new WidthProvider(Responsive);
 
+const roleNamesMapping = {
+  bride: 'Bride',
+  groom: 'Groom',
+  bridesmaid: 'Bridesmaid',
+  bestMan: 'Best man',
+  motherOfBride: 'Mother of Bride',
+  fatherOfBride: 'Father of Bride',
+  motherOfGroom: 'Mother of Groom',
+  fatherOfGroom: 'Father of Groom',
+};
+
 class ParticipantsView extends PureComponent {
+
+  static generateGridMapping(participants) {
+    return createLayouts(map(participants, (participant) => participant.role));
+  }
 
   static propTypes = {
     weddingActions: PropTypes.object.isRequired,
@@ -37,7 +52,7 @@ class ParticipantsView extends PureComponent {
       dialogs: {
         addParticipants: {
           isOpen: false,
-          participantsToChooseFrom: [],
+          presenceList: [],
         },
       },
     };
@@ -66,53 +81,26 @@ class ParticipantsView extends PureComponent {
     });
   }
 
-  showAddParticipantsDialog = (participantsToChooseFrom) => {
+  setAddParticipantsDialogVisibility = (visible) => {
     this.setState({
       dialogs: {
         addParticipants: {
-          isOpen: true,
-          participantsToChooseFrom,
-        },
-      },
-    });
-  };
-
-  hideAddParticipantsDialog = () => {
-    this.setState({
-      dialogs: {
-        addParticipants: {
-          isOpen: false,
-          participantsToChooseFrom: [],
+          isOpen: visible,
         },
       },
     });
   };
 
   handleAddingParticipant = () => {
-    this.showAddParticipantsDialog(['bridesmaid', 'bestMan']);
+    this.setAddParticipantsDialogVisibility(true);
   };
 
   handleClosingAddParticipantsDialog = () => {
-    this.hideAddParticipantsDialog();
+    this.setAddParticipantsDialogVisibility(false);
   };
-
-  static generateGridMapping(participants) {
-    return createLayouts(map(participants, (participant) => participant.role));
-  }
 
   render() {
     const { isEditing, participants } = this.props;
-
-    const roleNamesMapping = {
-      bride: 'Bride',
-      groom: 'Groom',
-      bridesmaid: 'Bridesmaid',
-      bestMan: 'Best man',
-      motherOfBride: 'Mother of Bride',
-      fatherOfBride: 'Father of Bride',
-      motherOfGroom: 'Mother of Groom',
-      fatherOfGroom: 'Father of Groom',
-    };
 
     const renderParticipant = (role, roleName) => <PrimaryParticipant
       form={`ParticipantForm_${role}`}
@@ -128,7 +116,7 @@ class ParticipantsView extends PureComponent {
         breakpoints={this.state.breakpoints}
         cols={this.state.cols}
         margin={[15, 15]}
-        rowHeight={500}
+        rowHeight={550}
         isDraggable={false}
         isResizable={false}
         layouts={this.state.layouts}
@@ -161,7 +149,7 @@ class ParticipantsView extends PureComponent {
       <AddParticipantsPopup
         onClose={this.handleClosingAddParticipantsDialog}
         isOpen={this.state.dialogs.addParticipants.isOpen}
-        participantsToChooseFrom={this.state.dialogs.addParticipants.participantsToChooseFrom}
+        participants={this.props.participants}
       />
 
     </div>);

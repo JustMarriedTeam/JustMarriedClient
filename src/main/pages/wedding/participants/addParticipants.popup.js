@@ -1,13 +1,46 @@
 import React, { PropTypes, PureComponent } from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import Checkbox from 'material-ui/Checkbox';
+import map from 'lodash/map';
+import mapValues from 'lodash/mapValues';
+import includes from 'lodash/includes';
+import keys from 'lodash/keys';
+
+
+const roleNamesMapping = {
+  bride: 'Bride',
+  groom: 'Groom',
+  bridesmaid: 'Bridesmaid',
+  bestMan: 'Best man',
+  motherOfBride: 'Mother of Bride',
+  fatherOfBride: 'Father of Bride',
+  motherOfGroom: 'Mother of Groom',
+  fatherOfGroom: 'Father of Groom',
+};
 
 export default class AddParticipantsPopup extends PureComponent {
 
   static propTypes = {
     onClose: PropTypes.func.isRequired,
     isOpen: PropTypes.bool.isRequired,
-    participantsToChooseFrom: PropTypes.array.isRequired,
+    participants: PropTypes.array.isRequired,
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      participantSelections: mapValues(roleNamesMapping, (name, role) =>
+        includes(this.props.participants, { role })),
+    };
+  }
+
+  setSelection = (participantRole, value) => {
+    this.setState({
+      participantSelections: {
+        [participantRole]: value,
+      },
+    });
   };
 
   handleClose = () => {
@@ -15,10 +48,21 @@ export default class AddParticipantsPopup extends PureComponent {
   };
 
   handleSubmit = () => {
-    this.props.onClose(this.props.values);
+    this.props.onClose(this.state.participantSelections); // list of participant roles to add
   };
 
   render() {
+    const renderParticipantCheckbox = (participantRole) => {
+      const { participantSelections } = this.state;
+      return (<Checkbox
+        key={participantRole}
+        disabled={includes(this.props.participants, { role: participantRole })}
+        label={roleNamesMapping[participantRole]}
+        checked={participantSelections[participantRole]}
+        onCheck={(evt, checked) => this.setSelection(participantRole, checked)} // eslint-disable-line
+      />);
+    };
+
     return (
       <Dialog
         title="Add participants"
@@ -39,7 +83,11 @@ export default class AddParticipantsPopup extends PureComponent {
         open={this.props.isOpen}
         onRequestClose={this.handleClose}
       >
-        <div>blablabla</div>
+
+        {
+          map(keys(roleNamesMapping), renderParticipantCheckbox)
+        }
+
       </Dialog>
     );
   }
