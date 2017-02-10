@@ -1,4 +1,4 @@
-import React, { PureComponent, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Flex, Box } from 'reflexbox';
 import { Field, reduxForm } from 'redux-form';
 import Avatar from 'material-ui/Avatar';
@@ -24,17 +24,7 @@ const validate = values => {
   return errors;
 };
 
-const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-  <TextField
-    hintText={label}
-    floatingLabelText={label}
-    errorText={touched && error}
-    {...input}
-    {...custom}
-  />
-);
-
-class PrimaryParticipant extends PureComponent {
+class PrimaryParticipant extends Component {
 
   static propTypes = {
     participantRole: PropTypes.string.isRequired,
@@ -48,14 +38,42 @@ class PrimaryParticipant extends PureComponent {
     isEditable: false,
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      enabled: !!props.initialValues,
+    };
+  }
+
+  handleToggle = () => {
+    this.setState((prevState) => ({
+      enabled: !prevState.enabled,
+    }));
+  };
+
   render() {
     const { participantRoleName, isEditable } = this.props;
+
+    const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+      <TextField
+        hintText={label}
+        floatingLabelText={label}
+        errorText={touched && error}
+        disabled={!isEditable || !this.state.enabled}
+        {...input}
+        {...custom}
+      />
+    );
+
     return (
       <form>
         <Paper className={cx('primary-participant')}>
 
           <Toggle
+            disabled={!isEditable}
             className={cx('primary-participant__toggle')}
+            toggled={this.state.enabled}
+            onToggle={this.handleToggle}
           />
 
           <Flex wrap align="center" justify="space-around">
@@ -73,7 +91,6 @@ class PrimaryParticipant extends PureComponent {
                 name="user.firstName"
                 component={renderTextField}
                 label="First name"
-                disabled={!isEditable}
               />
 
             </Box>
@@ -84,7 +101,6 @@ class PrimaryParticipant extends PureComponent {
                 name="user.lastName"
                 component={renderTextField}
                 label="Last name"
-                disabled={!isEditable}
               />
 
             </Box>
@@ -95,7 +111,6 @@ class PrimaryParticipant extends PureComponent {
                 name="user.email"
                 component={renderTextField}
                 label="E-Mail address"
-                disabled={!isEditable}
               />
 
             </Box>
