@@ -3,8 +3,6 @@ import Layout from '../../layout/Layout';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
 import ParticipantsView from './participants/participants.view';
-import GuestsView from './guests/guests.view';
-import FeaturesView from './features/features.view';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ConditionalRenderer from '../../utils/ConditionalRenderer';
@@ -38,14 +36,6 @@ class WeddingPage extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.weddingActions.fetchWedding().finally(() => {
-      this.setState({
-        isLoading: false,
-      });
-    });
-  }
-
   onTabMount = ({ onSubmit, otherContextItems }) => {
     const buttonStyle = {
       display: 'inline-block',
@@ -75,8 +65,6 @@ class WeddingPage extends Component {
   };
 
   render() {
-    const { wedding } = this.props;
-
     return (
       <Layout>
         <Tabs
@@ -89,9 +77,8 @@ class WeddingPage extends Component {
             icon={<FontIcon className="material-icons">star</FontIcon>}
             label="PARTICIPANTS"
           >
-            <ConditionalRenderer show={!this.state.isLoading && this.state.activeTab === TAB_KEYS.PARTICIPANTS}>
+            <ConditionalRenderer show={this.state.activeTab === TAB_KEYS.PARTICIPANTS}>
               <ParticipantsView
-                ofWedding={wedding}
                 onMount={this.onTabMount}
               />
             </ConditionalRenderer>
@@ -102,12 +89,12 @@ class WeddingPage extends Component {
             icon={<FontIcon className="material-icons">people</FontIcon>}
             label="GUESTS"
           >
-            <ConditionalRenderer show={!this.state.isLoading && this.state.activeTab === TAB_KEYS.GUESTS}>
-              <GuestsView
-                guests={wedding.guests}
-                onMount={this.onTabMount}
-              />
-            </ConditionalRenderer>
+            {/* <ConditionalRenderer show={!this.state.isLoading && this.state.activeTab === TAB_KEYS.GUESTS}>*/}
+              {/* <GuestsView*/}
+                {/* guests={wedding.guests}*/}
+                {/* onMount={this.onTabMount}*/}
+              {/* />*/}
+            {/* </ConditionalRenderer>*/}
           </Tab>
 
 
@@ -116,9 +103,9 @@ class WeddingPage extends Component {
             icon={<FontIcon className="material-icons">build</FontIcon>}
             label="FEATURES"
           >
-            <ConditionalRenderer show={!this.state.isLoading && this.state.activeTab === TAB_KEYS.FEATURES}>
-              <FeaturesView />
-            </ConditionalRenderer>
+            {/* <ConditionalRenderer show={!this.state.isLoading && this.state.activeTab === TAB_KEYS.FEATURES}>*/}
+              {/* <FeaturesView />*/}
+            {/* </ConditionalRenderer>*/}
           </Tab>
 
         </Tabs>
