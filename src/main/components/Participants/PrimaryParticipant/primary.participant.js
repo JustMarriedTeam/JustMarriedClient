@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 import Toggle from 'material-ui/Toggle';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import find from 'lodash/find';
 import classNames from 'classnames/bind';
 import * as allWeddingActions from '../../../core/actions/wedding.actions';
 import ParticipantForm from './participant.form';
@@ -53,8 +54,13 @@ class PrimaryParticipant extends PureComponent {
 
 }
 
-export default connect((state) => ({
-  isEditing: state.action.editing,
-}), (dispatch) => ({
+// http://somebody32.github.io/22 - though might not be necessary here
+export default connect((_, initialProps) => {
+  const { role } = initialProps;
+  return (state) => (({
+    isEditing: state.action.editing,
+    participant: find(state.wedding.participants, { role }),
+  }));
+}, (dispatch) => ({
   weddingActions: bindActionCreators(allWeddingActions, dispatch),
 }))(PrimaryParticipant);

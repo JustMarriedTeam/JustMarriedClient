@@ -6,22 +6,15 @@ import { connect } from 'react-redux';
 import { submit, isInvalid } from 'redux-form';
 import * as weddingActions from '../../../core/actions/wedding.actions';
 import store from '../../../core/store';
-import find from 'lodash/find';
 import map from 'lodash/map';
 import forEach from 'lodash/forEach';
 import includes from 'lodash/includes';
 import SavingError from '../../../core/errors/saving.error';
 import { Responsive, WidthProvider } from 'react-grid-layout';
+import Immutable from 'immutable';
 import { createGridCols, createGridBreakpoints, createLayouts } from '../../../core/grid';
 
 const ResponsiveReactGridLayout = new WidthProvider(Responsive);
-
-const roleNamesMapping = {
-  bride: 'Bride',
-  groom: 'Groom',
-  bridesmaid: 'Bridesmaid',
-  bestMan: 'Best man',
-};
 
 class ParticipantsView extends PureComponent {
 
@@ -31,7 +24,7 @@ class ParticipantsView extends PureComponent {
 
   static propTypes = {
     weddingActions: PropTypes.object.isRequired,
-    participants: PropTypes.array.isRequired,
+    participants: PropTypes.instanceOf(Immutable.List).isRequired,
     isEditing: PropTypes.bool.isRequired,
     onMount: PropTypes.func.isRequired,
   };
@@ -86,7 +79,7 @@ class ParticipantsView extends PureComponent {
           map(participants, (participant) => (
             <div key={participant.role}>
               <PrimaryParticipant
-                participant={participant}
+                role={participant.role}
               />
             </div>
           ))
