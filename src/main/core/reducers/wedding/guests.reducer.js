@@ -1,18 +1,13 @@
 import Immutable from 'immutable';
 import {
-  ADD_GUEST,
-  UPDATE_GUEST,
-  REMOVE_GUESTS,
+  GUESTS_FETCHED,
 } from '../../actions/wedding.actions';
 
-export default function (participants = new Immutable.Map(), action) {
+export default function (guests = new Immutable.Map(), action) {
   switch (action.type) {
-    case ADD_GUEST:
-    case UPDATE_GUEST:
-      return participants.set(action.guest.id, action.guest);
-    case REMOVE_GUESTS:
-      return participants.delete(action.guest.id);
+    case GUESTS_FETCHED:
+      return guests.merge(action.guests);
     default:
-      return participants;
+      return guests;
   }
 }
