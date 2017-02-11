@@ -2,6 +2,10 @@ import { getWedding, postWedding, putWedding } from '../api/wedding.api';
 import { getTasks } from '../api/tasks.api';
 import { sendingRequest, notifyRequestFailed } from './server.actions';
 
+import {
+  PARTICIPANTS_FETCHED,
+} from './participant.actions';
+
 export const WEDDING_FETCHED = 'WEDDING_FETCHED';
 export const WEDDINGS_FETCHED = 'WEDDINGS_FETCHED';
 export const WEDDING_SAVED = 'WEDDING_SAVED';
@@ -9,10 +13,7 @@ export const WEDDING_CREATED = 'WEDDING_CREATED';
 export const ADD_GUEST = 'ADD_GUEST';
 export const UPDATE_GUEST = 'UPDATE_GUEST';
 export const REMOVE_GUESTS = 'GUESTS_REMOVED';
-export const UPDATE_PARTICIPANT = 'PARTICIPANT_UPDATED';
-export const TOGGLE_PARTICIPANT = 'PARTICIPANT_TOGGLED';
 
-export const PARTICIPANTS_FETCHED = 'PARTICIPANTS_FETCHED';
 export const GUESTS_FETCHED = 'GUESTS_FETCHED';
 export const TASKS_FETCHED = 'TASKS_FETCHED';
 export const USERS_FETCHED = 'USERS_FETCHED';
@@ -20,10 +21,6 @@ export const USERS_FETCHED = 'USERS_FETCHED';
 export const addGuest = (guest) => ({ type: ADD_GUEST, guest });
 export const updateGuest = (guest) => ({ type: UPDATE_GUEST, guest });
 export const removeGuests = (guestsToRemove) => ({ type: REMOVE_GUESTS, guests: guestsToRemove });
-
-export const updateParticipant = (participant) => ({ type: UPDATE_PARTICIPANT, participant });
-export const toggleParticipant = (participant) => ({ type: TOGGLE_PARTICIPANT, participant });
-
 
 export const fetchWedding = (query) => (dispatch) => {
   dispatch(sendingRequest(true));

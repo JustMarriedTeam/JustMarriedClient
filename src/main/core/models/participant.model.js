@@ -5,6 +5,7 @@ const ParticipantRecord = new Immutable.Record({
   id: String,
   user: String,
   role: String,
+  active: Boolean,
 });
 
 /**

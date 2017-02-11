@@ -4,9 +4,8 @@ import Paper from 'material-ui/Paper';
 import Toggle from 'material-ui/Toggle';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import find from 'lodash/find';
 import classNames from 'classnames/bind';
-import * as allWeddingActions from '../../../core/actions/wedding.actions';
+import * as allParticipantActions from '../../../core/actions/participant.actions';
 import ParticipantForm from './participant.form';
 import styles from './primary.participant.pcss';
 
@@ -15,7 +14,7 @@ const cx = classNames.bind(styles);
 class PrimaryParticipant extends PureComponent {
 
   static propTypes = {
-    weddingActions: PropTypes.object.isRequired,
+    participantActions: PropTypes.object.isRequired,
     participant: PropTypes.object.isRequired,
     isEditing: PropTypes.bool,
   };
@@ -24,7 +23,7 @@ class PrimaryParticipant extends PureComponent {
     const {
       isEditing,
       participant,
-      weddingActions } = this.props;
+      participantActions } = this.props;
 
     return (
       <Paper className={cx('primary-participant')}>
@@ -33,7 +32,7 @@ class PrimaryParticipant extends PureComponent {
           className={cx('primary-participant__toggle')}
           disabled={!isEditing}
           toggled={participant.active}
-          onToggle={() => weddingActions.toggleParticipant(participant)}
+          onToggle={() => participantActions.toggleParticipant(participant)}
         />
 
         <Avatar
@@ -45,7 +44,7 @@ class PrimaryParticipant extends PureComponent {
           form={`ParticipantForm_${participant.role}`}
           initialValues={participant}
           isEditable={isEditing && participant.active}
-          onSubmit={(details) => weddingActions.updateParticipant(details)}
+          onSubmit={(details) => participantActions.updateParticipant(details)}
         />
 
       </Paper>
@@ -58,5 +57,5 @@ class PrimaryParticipant extends PureComponent {
 export default connect((state) => (({
   isEditing: state.action.editing,
 })), (dispatch) => ({
-  weddingActions: bindActionCreators(allWeddingActions, dispatch),
+  participantActions: bindActionCreators(allParticipantActions, dispatch),
 }))(PrimaryParticipant);
