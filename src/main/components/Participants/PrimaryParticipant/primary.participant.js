@@ -55,12 +55,8 @@ class PrimaryParticipant extends PureComponent {
 }
 
 // http://somebody32.github.io/22 - though might not be necessary here
-export default connect((_, initialProps) => {
-  const { role } = initialProps;
-  return (state) => (({
-    isEditing: state.action.editing,
-    participant: find(state.wedding.participants, { role }),
-  }));
-}, (dispatch) => ({
+export default connect((state) => (({
+  isEditing: state.action.editing,
+})), (dispatch) => ({
   weddingActions: bindActionCreators(allWeddingActions, dispatch),
 }))(PrimaryParticipant);

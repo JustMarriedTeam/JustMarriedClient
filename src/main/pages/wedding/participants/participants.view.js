@@ -1,6 +1,5 @@
 import React, { PropTypes, PureComponent } from 'react';
-import PrimaryParticipant
-  from '../../../components/Participants/PrimaryParticipant/primary.participant';
+import PrimaryParticipant from '../../../components/Participants/PrimaryParticipant/primary.participant';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { submit, isInvalid } from 'redux-form';
@@ -11,8 +10,8 @@ import forEach from 'lodash/forEach';
 import includes from 'lodash/includes';
 import SavingError from '../../../core/errors/saving.error';
 import { Responsive, WidthProvider } from 'react-grid-layout';
-import Immutable from 'immutable';
 import { createGridCols, createGridBreakpoints, createLayouts } from '../../../core/grid';
+import { selectParticipants } from '../../../core/selectors/participants.selector';
 
 const ResponsiveReactGridLayout = new WidthProvider(Responsive);
 
@@ -23,8 +22,8 @@ class ParticipantsView extends PureComponent {
   }
 
   static propTypes = {
+    participants: PropTypes.array.isRequired, // should be Immutable.List of Participant or sth
     weddingActions: PropTypes.object.isRequired,
-    participants: PropTypes.instanceOf(Immutable.List).isRequired,
     isEditing: PropTypes.bool.isRequired,
     onMount: PropTypes.func.isRequired,
   };
@@ -79,7 +78,7 @@ class ParticipantsView extends PureComponent {
           map(participants, (participant) => (
             <div key={participant.role}>
               <PrimaryParticipant
-                role={participant.role}
+                participant={participant}
               />
             </div>
           ))
@@ -95,6 +94,7 @@ class ParticipantsView extends PureComponent {
 // https://github.com/reactjs/react-redux/blob/master/docs/api.md
 export default connect((state) => ({
   isEditing: state.action.editing,
+  participants: selectParticipants(state),
 }), (dispatch) => ({
   weddingActions: bindActionCreators(weddingActions, dispatch),
 }))(ParticipantsView);

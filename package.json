@@ -52,6 +52,7 @@
     "redux-saga": "^0.14.0",
     "redux-thunk": "^2.1.0",
     "reflexbox": "^2.2.3",
+    "reselect": "2.5.4",
     "robox": "^1.0.0-beta.8",
     "whatwg-fetch": "^1.0.0"
   },
