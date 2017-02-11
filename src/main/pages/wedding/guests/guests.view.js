@@ -30,6 +30,7 @@ import filter from 'lodash/filter';
 import { createGuest } from '../../../core/factories/guest.factory';
 import LayoutContainer from '../../../layout/LayoutContainer';
 import ConditionalRenderer from '../../../utils/ConditionalRenderer';
+import { selectGuests } from '../../../core/selectors/guests.selector';
 
 const cx = classNames.bind(styles);
 
@@ -295,7 +296,7 @@ class GuestsView extends Component {
 
 // https://github.com/reactjs/react-redux/blob/master/docs/api.md
 export default connect((state) => ({
-  guests: state.wedding.guests,
+  guests: selectGuests(state),
   isEditing: state.action.editing,
 }), (dispatch) => ({
   actionBarActions: bindActionCreators(actionBarActions, dispatch),
