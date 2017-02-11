@@ -3,6 +3,7 @@ import { getTasks } from '../api/tasks.api';
 import { sendingRequest, notifyRequestFailed } from './server.actions';
 
 export const WEDDING_FETCHED = 'WEDDING_FETCHED';
+export const WEDDINGS_FETCHED = 'WEDDINGS_FETCHED';
 export const WEDDING_SAVED = 'WEDDING_SAVED';
 export const WEDDING_CREATED = 'WEDDING_CREATED';
 export const ADD_GUEST = 'ADD_GUEST';
@@ -29,6 +30,7 @@ export const fetchWedding = (query) => (dispatch) => {
   return getWedding(query)
     .then((wedding) => {
       const {
+        weddings,
         participants,
         guests,
         users,
@@ -38,7 +40,9 @@ export const fetchWedding = (query) => (dispatch) => {
       dispatch({ type: GUESTS_FETCHED, guests });
       dispatch({ type: TASKS_FETCHED, tasks });
       dispatch({ type: USERS_FETCHED, users });
-      dispatch({ type: WEDDING_FETCHED, wedding: wedding.result });
+      dispatch({ type: WEDDINGS_FETCHED, weddings });
+
+      dispatch({ type: WEDDING_FETCHED, id: wedding.result });
     })
     .catch((err) => dispatch(notifyRequestFailed(err)))
     .finally(() => dispatch(sendingRequest(false)));
