@@ -8,9 +8,13 @@ export const WEDDING_CREATED = 'WEDDING_CREATED';
 export const ADD_GUEST = 'ADD_GUEST';
 export const UPDATE_GUEST = 'UPDATE_GUEST';
 export const REMOVE_GUESTS = 'GUESTS_REMOVED';
-export const TASKS_LOADED = 'TASKS_LOADED';
 export const UPDATE_PARTICIPANT = 'PARTICIPANT_UPDATED';
 export const TOGGLE_PARTICIPANT = 'PARTICIPANT_TOGGLED';
+
+export const PARTICIPANTS_FETCHED = 'PARTICIPANTS_FETCHED';
+export const GUESTS_FETCHED = 'GUESTS_FETCHED';
+export const TASKS_FETCHED = 'TASKS_FETCHED';
+export const USERS_FETCHED = 'USERS_FETCHED';
 
 export const addGuest = (guest) => ({ type: ADD_GUEST, guest });
 export const updateGuest = (guest) => ({ type: UPDATE_GUEST, guest });
@@ -19,10 +23,23 @@ export const removeGuests = (guestsToRemove) => ({ type: REMOVE_GUESTS, guests: 
 export const updateParticipant = (participant) => ({ type: UPDATE_PARTICIPANT, participant });
 export const toggleParticipant = (participant) => ({ type: TOGGLE_PARTICIPANT, participant });
 
+
 export const fetchWedding = (query) => (dispatch) => {
   dispatch(sendingRequest(true));
   return getWedding(query)
-    .then((wedding) => dispatch(({ type: WEDDING_FETCHED, wedding })))
+    .then((wedding) => {
+      const {
+        participants,
+        guests,
+        users,
+        tasks } = wedding.entities;
+
+      dispatch({ type: PARTICIPANTS_FETCHED, participants });
+      dispatch({ type: GUESTS_FETCHED, guests });
+      dispatch({ type: TASKS_FETCHED, tasks });
+      dispatch({ type: USERS_FETCHED, users });
+      dispatch({ type: WEDDING_FETCHED, wedding: wedding.result });
+    })
     .catch((err) => dispatch(notifyRequestFailed(err)))
     .finally(() => dispatch(sendingRequest(false)));
 };
@@ -46,7 +63,7 @@ export const saveWedding = (savedWedding) => (dispatch) => {
 export const loadTasks = (query) => (dispatch) => {
   dispatch(sendingRequest(true));
   return getTasks(query)
-    .then((tasks) => dispatch(({ type: TASKS_LOADED, tasks })))
+    .then((tasks) => dispatch(({ type: TASKS_FETCHED, tasks })))
     .catch((err) => dispatch(notifyRequestFailed(err)))
     .finally(() => dispatch(sendingRequest(false)));
 };
