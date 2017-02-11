@@ -3,6 +3,8 @@ import Layout from '../../layout/Layout';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
 import ParticipantsView from './participants/participants.view';
+import GuestsView from './guests/guests.view';
+import FeaturesView from './features/features.view';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ConditionalRenderer from '../../utils/ConditionalRenderer';
@@ -89,12 +91,11 @@ class WeddingPage extends Component {
             icon={<FontIcon className="material-icons">people</FontIcon>}
             label="GUESTS"
           >
-            {/* <ConditionalRenderer show={!this.state.isLoading && this.state.activeTab === TAB_KEYS.GUESTS}>*/}
-              {/* <GuestsView*/}
-                {/* guests={wedding.guests}*/}
-                {/* onMount={this.onTabMount}*/}
-              {/* />*/}
-            {/* </ConditionalRenderer>*/}
+            <ConditionalRenderer show={this.state.activeTab === TAB_KEYS.GUESTS}>
+              <GuestsView
+                onMount={this.onTabMount}
+              />
+            </ConditionalRenderer>
           </Tab>
 
 
@@ -103,9 +104,9 @@ class WeddingPage extends Component {
             icon={<FontIcon className="material-icons">build</FontIcon>}
             label="FEATURES"
           >
-            {/* <ConditionalRenderer show={!this.state.isLoading && this.state.activeTab === TAB_KEYS.FEATURES}>*/}
-              {/* <FeaturesView />*/}
-            {/* </ConditionalRenderer>*/}
+            <ConditionalRenderer show={this.state.activeTab === TAB_KEYS.FEATURES}>
+              <FeaturesView />
+            </ConditionalRenderer>
           </Tab>
 
         </Tabs>
