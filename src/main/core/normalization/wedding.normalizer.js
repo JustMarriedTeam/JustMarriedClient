@@ -1,4 +1,4 @@
-import { normalize, schema } from 'normalizr';
+import { normalize, denormalize, schema } from 'normalizr';
 
 const user = new schema.Entity('users');
 
@@ -18,5 +18,6 @@ const wedding = new schema.Entity('articles', {
 });
 
 const normalizeWedding = (data) => normalize(data, wedding);
+const denormalizeWedding = (data, entity) => denormalize(data, wedding, entity);
 
-export { normalizeWedding };
+export { normalizeWedding, denormalizeWedding };
