@@ -12,6 +12,11 @@ module.exports = (cfg) => ({
     //     ],
     //   },
     // ],
+
+    preLoaders: [
+      { test: /\.jsx?$/, loader: 'source-map-loader', enforce: 'pre', exclude: /react-hot-loader/ },
+    ],
+
     loaders: [
       {
         test: /\.js[x]?$/,

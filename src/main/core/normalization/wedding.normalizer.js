@@ -19,6 +19,7 @@ const weddingsSchema = new schema.Entity('weddings', {
 });
 
 const normalizeWedding = (data) => normalize(data, weddingsSchema);
-const denormalizeWedding = (wedding, entities) => denormalize(wedding, entities, weddingsSchema);
+const denormalizeWedding = (wedding, entities) =>
+  denormalize(wedding, entities, weddingsSchema);
 
 export { normalizeWedding, denormalizeWedding };
