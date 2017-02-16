@@ -1,5 +1,6 @@
 import Immutable from 'immutable';
 import store from '../store';
+import merge from 'lodash/merge';
 
 const ParticipantRecord = new Immutable.Record({
   id: String,
@@ -16,6 +17,13 @@ class Participant extends ParticipantRecord {
 
   get user() {
     return store.getState().entities.users.get(this.get('user'));
+  }
+
+  toJS() {
+    // todo: deserialize using normalizr
+    return merge(super.toJS(), {
+      user: this.user.toJS(),
+    });
   }
 
 }

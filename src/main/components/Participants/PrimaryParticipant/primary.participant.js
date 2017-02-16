@@ -7,7 +7,9 @@ import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import * as allParticipantActions from '../../../core/actions/participant.actions';
 import ParticipantForm from './participant.form';
+import Participant from '../../../core/models/participant.model';
 import styles from './primary.participant.pcss';
+import merge from 'lodash/merge';
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +17,7 @@ class PrimaryParticipant extends PureComponent {
 
   static propTypes = {
     participantActions: PropTypes.object.isRequired,
-    participant: PropTypes.object.isRequired,
+    participant: PropTypes.instanceOf(Participant).isRequired,
     isEditing: PropTypes.bool,
   };
 
@@ -42,9 +44,10 @@ class PrimaryParticipant extends PureComponent {
 
         <ParticipantForm
           form={`ParticipantForm_${participant.role}`}
-          initialValues={participant}
+          initialValues={participant.toJS()}
           isEditable={isEditing && participant.active}
-          onSubmit={(details) => participantActions.updateParticipant(details)}
+          onSubmit={(details) =>
+            participantActions.updateParticipant(details)}
         />
 
       </Paper>

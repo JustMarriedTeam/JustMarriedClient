@@ -3,7 +3,6 @@ import { Flex, Box } from 'reflexbox';
 import { Field, reduxForm } from 'redux-form';
 import TextField from 'material-ui/TextField';
 
-
 const validate = values => {
   const errors = {};
   const requiredFields = ['firstName', 'lastName'];
@@ -27,7 +26,7 @@ class ParticipantForm extends PureComponent {
   };
 
   render() {
-    const { isEditable } = this.props;
+    const { isEditable, handleSubmit } = this.props;
 
     const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
       <TextField
@@ -41,7 +40,9 @@ class ParticipantForm extends PureComponent {
     );
 
     return (
-      <form>
+      <form
+        onSubmit={handleSubmit}
+      >
         <Flex wrap align="center" justify="space-around">
 
           <Box sm={12}>
