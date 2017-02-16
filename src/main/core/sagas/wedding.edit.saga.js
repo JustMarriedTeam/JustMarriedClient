@@ -22,7 +22,7 @@ const submitForms = forEach((name) => put(submit(name)));
 
 function * editWedding() {
   yield take(WEDDING_EDIT_SUBMITTED);
-  const state = select();
+  const state = yield select();
 
   const formNames = getParticipantFormNames(state);
   const invalidForms = map(formNames, (name) => isInvalid(name)(state));
