@@ -42,10 +42,10 @@ function * editWedding() {
 
 function * editWeddingFlow() {
   while (true) {
-    const { awaitForEvents } = yield take(WEDDING_EDIT_STARTED);
+    yield take(WEDDING_EDIT_STARTED);
 
     yield race({
-      commit: call(editWedding, awaitForEvents),
+      commit: call(editWedding),
       cancel: take(WEDDING_EDIT_CANCELLED),
     });
 
