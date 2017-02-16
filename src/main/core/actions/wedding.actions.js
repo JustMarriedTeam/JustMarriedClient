@@ -22,6 +22,7 @@ export const addGuest = (guest) => ({ type: ADD_GUEST, guest });
 export const updateGuest = (guest) => ({ type: UPDATE_GUEST, guest });
 export const removeGuests = (guestsToRemove) => ({ type: REMOVE_GUESTS, guests: guestsToRemove });
 
+
 export const fetchWedding = (query) => (dispatch) => {
   dispatch(sendingRequest(true));
   return getWedding(query)

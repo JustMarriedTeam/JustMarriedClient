@@ -9,7 +9,6 @@ import * as allParticipantActions from '../../../core/actions/participant.action
 import ParticipantForm from './participant.form';
 import Participant from '../../../core/models/participant.model';
 import styles from './primary.participant.pcss';
-import merge from 'lodash/merge';
 
 const cx = classNames.bind(styles);
 
@@ -25,7 +24,8 @@ class PrimaryParticipant extends PureComponent {
     const {
       isEditing,
       participant,
-      participantActions } = this.props;
+      participantActions,
+    } = this.props;
 
     return (
       <Paper className={cx('primary-participant')}>

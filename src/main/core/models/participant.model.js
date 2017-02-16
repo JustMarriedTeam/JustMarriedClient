@@ -20,9 +20,10 @@ class Participant extends ParticipantRecord {
   }
 
   toJS() {
+    const that = this;
     // todo: deserialize using normalizr
     return merge(super.toJS(), {
-      user: this.user.toJS(),
+      user: that.user.toJS(),
     });
   }
 

@@ -17,6 +17,7 @@ export const updateParticipant = (participant) => (dispatch) => {
     type: USER_UPDATED,
     user: users[participant.user.id],
   });
+
 };
 
 

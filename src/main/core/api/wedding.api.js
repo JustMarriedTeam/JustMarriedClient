@@ -1,7 +1,6 @@
 import Promise from 'bluebird';
 import server from '../server';
 import store from '../store';
-import mapValues from 'lodash/fp/mapValues';
 import Immutable from 'immutable';
 import { normalizeWedding, denormalizeWedding } from '../normalization/wedding.normalizer';
 

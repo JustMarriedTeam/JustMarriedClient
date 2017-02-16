@@ -49,9 +49,10 @@ class WeddingPage extends Component {
         <EditButton
           style={buttonStyle}
           onEditStarted={() => this.props.editingActions.startEditing()}
-          onEditEnded={() => this.props.editingActions.endEditing(() => onSubmit(
-            (wedding) => this.props.weddingActions.saveWedding(wedding)
-          ))}
+          onEditEnded={() => this.props.editingActions.endEditing(() => onSubmit({
+            type: 'DUPA',
+            wedding: this.props.wedding,
+          }))}
         />
         <div style={buttonStyle}>
           {otherContextItems}
