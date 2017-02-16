@@ -38,7 +38,7 @@ class WeddingPage extends Component {
     };
   }
 
-  onTabMount = ({ onSubmit, otherContextItems }) => {
+  onTabMount = ({ otherContextItems }) => {
     const buttonStyle = {
       display: 'inline-block',
       float: 'right',
@@ -48,11 +48,10 @@ class WeddingPage extends Component {
       <div>
         <EditButton
           style={buttonStyle}
-          onEditStarted={() => this.props.editingActions.startEditing()}
-          onEditEnded={() => this.props.editingActions.endEditing(() => onSubmit({
-            type: 'DUPA',
-            wedding: this.props.wedding,
-          }))}
+          onEditStarted={() => this.props.editingActions.startEditing(
+            weddingActions.startWeddingEdit)}
+          onEditEnded={() => this.props.editingActions.endEditing(
+            weddingActions.submitWeddingEdit)}
         />
         <div style={buttonStyle}>
           {otherContextItems}

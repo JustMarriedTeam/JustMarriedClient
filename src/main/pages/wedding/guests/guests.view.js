@@ -62,7 +62,6 @@ class GuestsView extends Component {
 
   componentDidMount() {
     this.props.onMount({
-      onSubmit() {},
       otherContextItems: <GuestsMenu
         handleSelect={this.handleSelect}
         handleFilter={this.handleFilter}

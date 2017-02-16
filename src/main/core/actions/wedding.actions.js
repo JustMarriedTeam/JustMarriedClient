@@ -18,10 +18,19 @@ export const GUESTS_FETCHED = 'GUESTS_FETCHED';
 export const TASKS_FETCHED = 'TASKS_FETCHED';
 export const USERS_FETCHED = 'USERS_FETCHED';
 
+export const WEDDING_EDIT_STARTED = 'WEDDING_EDIT_STARTED';
+export const WEDDING_EDIT_CANCELLED = 'WEDDING_EDIT_CANCELLED';
+export const WEDDING_EDIT_SUBMITTED = 'WEDDING_EDIT_SUBMITTED';
+export const WEDDING_EDIT_ENDED = 'WEDDING_EDIT_ENDED';
+
 export const addGuest = (guest) => ({ type: ADD_GUEST, guest });
 export const updateGuest = (guest) => ({ type: UPDATE_GUEST, guest });
 export const removeGuests = (guestsToRemove) => ({ type: REMOVE_GUESTS, guests: guestsToRemove });
 
+export const startWeddingEdit = () => ({ type: WEDDING_EDIT_STARTED });
+export const cancelWeddingEdit = () => ({ type: WEDDING_EDIT_CANCELLED });
+export const submitWeddingEdit = () => ({ type: WEDDING_EDIT_SUBMITTED });
+export const endWeddingEdit = () => ({ type: WEDDING_EDIT_ENDED });
 
 export const fetchWedding = (query) => (dispatch) => {
   dispatch(sendingRequest(true));

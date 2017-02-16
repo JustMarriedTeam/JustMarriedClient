@@ -8,7 +8,6 @@ import store from '../../../core/store';
 import map from 'lodash/map';
 import forEach from 'lodash/forEach';
 import includes from 'lodash/includes';
-import SavingError from '../../../core/errors/saving.error';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import { createGridCols, createGridBreakpoints, createLayouts } from '../../../core/grid';
 import { selectParticipants } from '../../../core/selectors/participants.selector';
@@ -45,19 +44,7 @@ class ParticipantsView extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.onMount({
-      onSubmit: (saveEvent) => {
-        const roles = map(this.props.participants, (participant) => participant.role);
-        const formNames = map(roles, (role) => `ParticipantForm_${role}`);
-        const invalidForms = map(formNames, (name) => isInvalid(name)(store.getState()));
-        if (!includes(invalidForms, true)) {
-          forEach(formNames, (name) => store.dispatch(submit(name)));
-          store.dispatch(saveEvent);
-        } else { // eslint-disable-line
-          throw new SavingError('Check your input');
-        }
-      },
-    });
+    this.props.onMount();
   }
 
   render() {
