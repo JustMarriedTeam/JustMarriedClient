@@ -38,7 +38,7 @@ class WeddingPage extends Component {
     };
   }
 
-  onTabMount = ({ otherContextItems }) => {
+  onTabMount = ({ otherContextItems } = {}) => {
     const buttonStyle = {
       display: 'inline-block',
       float: 'right',
