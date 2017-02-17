@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import * as allParticipantActions from '../../../core/actions/participant.actions';
+import * as allFormActions from '../../../core/actions/form.actions';
 import ParticipantForm from './participant.form';
 import Participant from '../../../core/models/participant.model';
 import styles from './primary.participant.pcss';
@@ -16,6 +17,7 @@ class PrimaryParticipant extends PureComponent {
 
   static propTypes = {
     participantActions: PropTypes.object.isRequired,
+    formActions: PropTypes.object.isRequired,
     participant: PropTypes.instanceOf(Participant).isRequired,
     isEditing: PropTypes.bool,
   };
@@ -25,6 +27,7 @@ class PrimaryParticipant extends PureComponent {
       isEditing,
       participant,
       participantActions,
+      formActions,
     } = this.props;
 
     return (
@@ -46,8 +49,10 @@ class PrimaryParticipant extends PureComponent {
           form={`ParticipantForm_${participant.role}`}
           initialValues={participant.toJS()}
           isEditable={isEditing && participant.active}
-          onSubmit={(details) =>
-            participantActions.updateParticipant(details)}
+          onSubmit={(details) => {
+            participantActions.updateParticipant(details);
+            formActions.notifySubmitted(`ParticipantForm_${participant.role}`);
+          }}
         />
 
       </Paper>
@@ -61,4 +66,5 @@ export default connect((state) => (({
   isEditing: state.action.editing,
 })), (dispatch) => ({
   participantActions: bindActionCreators(allParticipantActions, dispatch),
+  formActions: bindActionCreators(allFormActions, dispatch),
 }))(PrimaryParticipant);
