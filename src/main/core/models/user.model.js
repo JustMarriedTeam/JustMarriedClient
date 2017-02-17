@@ -5,6 +5,7 @@ const UserRecord = new Immutable.Record({
   username: '',
   firstName: '',
   lastName: '',
+  contactEmail: '',
 });
 
 class User extends UserRecord {

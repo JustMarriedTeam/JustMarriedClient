@@ -68,7 +68,7 @@ class ParticipantForm extends PureComponent {
           <Box sm={12}>
 
             <Field
-              name="user.email"
+              name="user.contactEmail"
               component={renderTextField}
               label="E-Mail address"
             />
