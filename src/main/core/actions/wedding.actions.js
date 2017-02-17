@@ -32,25 +32,28 @@ export const cancelWeddingEdit = () => ({ type: WEDDING_EDIT_CANCELLED });
 export const submitWeddingEdit = () => ({ type: WEDDING_EDIT_SUBMITTED });
 export const endWeddingEdit = () => ({ type: WEDDING_EDIT_ENDED });
 
+const propagateWeddingUpdate = (dispatch) => (wedding) => {
+  const {
+    weddings,
+    participants,
+    guests,
+    users,
+    tasks } = wedding.entities;
+
+  dispatch({ type: PARTICIPANTS_FETCHED, participants });
+  dispatch({ type: GUESTS_FETCHED, guests });
+  dispatch({ type: TASKS_FETCHED, tasks });
+  dispatch({ type: USERS_FETCHED, users });
+  dispatch({ type: WEDDINGS_FETCHED, weddings });
+
+  return wedding;
+};
+
 export const fetchWedding = (query) => (dispatch) => {
   dispatch(sendingRequest(true));
   return getWedding(query)
-    .then((wedding) => {
-      const {
-        weddings,
-        participants,
-        guests,
-        users,
-        tasks } = wedding.entities;
-
-      dispatch({ type: PARTICIPANTS_FETCHED, participants });
-      dispatch({ type: GUESTS_FETCHED, guests });
-      dispatch({ type: TASKS_FETCHED, tasks });
-      dispatch({ type: USERS_FETCHED, users });
-      dispatch({ type: WEDDINGS_FETCHED, weddings });
-
-      dispatch({ type: WEDDING_FETCHED, id: wedding.result });
-    })
+    .then(propagateWeddingUpdate(dispatch))
+    .then((wedding) => dispatch({ type: WEDDING_FETCHED, id: wedding.result }))
     .catch((err) => dispatch(notifyRequestFailed(err)))
     .finally(() => dispatch(sendingRequest(false)));
 };
@@ -58,7 +61,8 @@ export const fetchWedding = (query) => (dispatch) => {
 export const createWedding = (createdWedding) => (dispatch) => {
   dispatch(sendingRequest(true));
   return postWedding(createdWedding)
-    .then((wedding) => dispatch(({ type: WEDDING_CREATED, wedding })))
+    .then(propagateWeddingUpdate(dispatch))
+    .then((wedding) => dispatch({ type: WEDDING_CREATED, id: wedding.result }))
     .catch((err) => dispatch(notifyRequestFailed(err)))
     .finally(() => dispatch(sendingRequest(false)));
 };
@@ -66,7 +70,8 @@ export const createWedding = (createdWedding) => (dispatch) => {
 export const saveWedding = (savedWedding) => (dispatch) => {
   dispatch(sendingRequest(true));
   return putWedding(savedWedding)
-    .then((wedding) => dispatch(({ type: WEDDING_SAVED, wedding })))
+    .then(propagateWeddingUpdate(dispatch))
+    .then((wedding) => dispatch({ type: WEDDING_SAVED, id: wedding.result }))
     .catch((err) => dispatch(notifyRequestFailed(err)))
     .finally(() => dispatch(sendingRequest(false)));
 };
