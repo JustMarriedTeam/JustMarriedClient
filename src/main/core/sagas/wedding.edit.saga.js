@@ -19,6 +19,7 @@ const getParticipantFormNames = (state) =>
   map((participant) => `ParticipantForm_${participant.role}`)(selectParticipants(state));
 
 const submitForms = map((name) => put(submit(name)));
+const takeAll = map((name) => take(name));
 
 function * editWedding() {
   yield take(WEDDING_EDIT_SUBMITTED);
@@ -32,10 +33,7 @@ function * editWedding() {
     throw new SavingError('Check your input');
   }
 
-  yield [
-    take('ParticipantForm_groom'),
-    take('ParticipantForm_bride'),
-  ];
+  yield takeAll(formNames);
 
   yield put(saveWedding(selectWedding(state)));
 }
