@@ -22,8 +22,8 @@ const denormalizeWedding = ({ id }, entities) =>
   denormalize(id, weddingsSchema, entities);
 
 const normalizeParticipant = (data) => normalize(data, participantsSchema);
-const denormalizeParticipant = ({ id }, entities) =>
-  denormalize(id, participantsSchema, entities);
+const denormalizeParticipant = (participant, entities) =>
+  denormalize(participant, participantsSchema, entities);
 
 export {
   normalizeWedding,

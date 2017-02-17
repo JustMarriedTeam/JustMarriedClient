@@ -1,10 +1,10 @@
 import Immutable from 'immutable';
 
 const UserRecord = new Immutable.Record({
-  id: String,
-  username: String,
-  firstName: String,
-  lastName: String,
+  id: '',
+  username: '',
+  firstName: '',
+  lastName: '',
 });
 
 class User extends UserRecord {

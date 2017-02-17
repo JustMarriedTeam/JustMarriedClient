@@ -20,7 +20,7 @@ const validate = values => {
 class ParticipantForm extends PureComponent {
 
   static propTypes = {
-    initialValues: PropTypes.object,
+    initialValues: PropTypes.object.isRequired,
     onSubmit: PropTypes.func.isRequired,
     isEditable: PropTypes.bool,
   };
@@ -84,4 +84,5 @@ class ParticipantForm extends PureComponent {
 
 export default reduxForm({
   validate,
+  enableReinitialize: true,
 })(ParticipantForm);

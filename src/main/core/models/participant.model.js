@@ -1,12 +1,12 @@
-import Immutable from "immutable";
-import store from "../store";
-import {denormalizeParticipant} from "../normalization/wedding.normalizer";
+import Immutable from 'immutable';
+import store from '../store';
+import merge from 'lodash/merge';
 
 const ParticipantRecord = new Immutable.Record({
-  id: String,
-  user: String,
-  role: String,
-  active: Boolean,
+  id: '',
+  user: '',
+  role: '',
+  active: false,
 });
 
 /**
@@ -16,13 +16,16 @@ const ParticipantRecord = new Immutable.Record({
 class Participant extends ParticipantRecord {
 
   get user() {
-    return store.getState().entities.users.get(this.get('user'));
+    const userId = this.get('user');
+    const entities = store.getState().entities;
+    return entities.users.get(userId);
   }
 
   toJS() {
-    const p = super.toJS();
-    const participant = denormalizeParticipant(p, store.getState().entities);
-    return participant;
+    const user = this.user.toJS();
+    return merge(super.toJS(), {
+      user,
+    });
   }
 
 }

@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 
 const WeddingRecord = new Immutable.Record({
-  id: String,
+  id: '',
   participants: [],
   guests: [],
   tasks: [],
