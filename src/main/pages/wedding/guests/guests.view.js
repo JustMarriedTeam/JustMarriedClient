@@ -23,7 +23,7 @@ import classNames from 'classnames/bind';
 import styles from './guests.view.pcss';
 import { bindActionCreators } from 'redux';
 import * as actionBarActions from '../../../core/actions/actionbar.actions';
-import * as weddingActions from '../../../core/actions/wedding.actions';
+import * as allGuestsActions from '../../../core/actions/guests.actions';
 import { connect } from 'react-redux';
 import includes from 'lodash/includes';
 import filter from 'lodash/filter';
@@ -38,7 +38,7 @@ class GuestsView extends Component {
 
   static propTypes = {
     actionBarActions: PropTypes.object.isRequired,
-    weddingActions: PropTypes.object.isRequired,
+    guestsActions: PropTypes.object.isRequired,
     guests: PropTypes.array.isRequired,
     isEditing: PropTypes.bool.isRequired,
     onMount: PropTypes.func.isRequired,
@@ -77,7 +77,7 @@ class GuestsView extends Component {
   };
 
   handleRemove = () => {
-    this.props.weddingActions.removeGuests(
+    this.props.guestsActions.removeGuests(
       filter(this.props.guests, (item, index) => includes(this.state.selectedGuests, index))
     );
     this.setState({
@@ -86,7 +86,7 @@ class GuestsView extends Component {
   };
 
   handleRemovingItem = (guest) => {
-    this.props.weddingActions.removeGuests([guest]);
+    this.props.guestsActions.removeGuests([guest]);
     this.setState({
       snackbar: {
         open: true,
@@ -115,7 +115,7 @@ class GuestsView extends Component {
 
   handleAddingGuest = () => {
     const newGuest = createGuest();
-    this.props.weddingActions.addGuest(newGuest);
+    this.props.guestsActions.addGuest(newGuest);
     animateScroll.scrollToBottom();
     this.openGuestDetails(newGuest);
   };
@@ -154,7 +154,7 @@ class GuestsView extends Component {
 
   handleClosingDetails = (savedGuest) => {
     if (savedGuest) {
-      this.props.weddingActions.updateGuest(savedGuest);
+      this.props.guestsActions.updateGuest(savedGuest);
     }
     this.closeGuestDetails();
   };
@@ -299,6 +299,6 @@ export default connect((state) => ({
   isEditing: state.action.editing,
 }), (dispatch) => ({
   actionBarActions: bindActionCreators(actionBarActions, dispatch),
-  weddingActions: bindActionCreators(weddingActions, dispatch),
+  guestsActions: bindActionCreators(allGuestsActions, dispatch),
 }))(GuestsView);
 

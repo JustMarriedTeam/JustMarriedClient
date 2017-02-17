@@ -6,15 +6,16 @@ import {
   PARTICIPANTS_FETCHED,
 } from './participant.actions';
 
+import {
+  GUESTS_FETCHED,
+} from './guests.actions';
+
 export const WEDDING_FETCHED = 'WEDDING_FETCHED';
 export const WEDDINGS_FETCHED = 'WEDDINGS_FETCHED';
 export const WEDDING_SAVED = 'WEDDING_SAVED';
 export const WEDDING_CREATED = 'WEDDING_CREATED';
-export const ADD_GUEST = 'ADD_GUEST';
-export const UPDATE_GUEST = 'UPDATE_GUEST';
-export const REMOVE_GUESTS = 'GUESTS_REMOVED';
 
-export const GUESTS_FETCHED = 'GUESTS_FETCHED';
+
 export const TASKS_FETCHED = 'TASKS_FETCHED';
 export const USERS_FETCHED = 'USERS_FETCHED';
 
@@ -22,10 +23,6 @@ export const WEDDING_EDIT_STARTED = 'WEDDING_EDIT_STARTED';
 export const WEDDING_EDIT_CANCELLED = 'WEDDING_EDIT_CANCELLED';
 export const WEDDING_EDIT_SUBMITTED = 'WEDDING_EDIT_SUBMITTED';
 export const WEDDING_EDIT_ENDED = 'WEDDING_EDIT_ENDED';
-
-export const addGuest = (guest) => ({ type: ADD_GUEST, guest });
-export const updateGuest = (guest) => ({ type: UPDATE_GUEST, guest });
-export const removeGuests = (guestsToRemove) => ({ type: REMOVE_GUESTS, guests: guestsToRemove });
 
 export const startWeddingEdit = () => ({ type: WEDDING_EDIT_STARTED });
 export const cancelWeddingEdit = () => ({ type: WEDDING_EDIT_CANCELLED });
