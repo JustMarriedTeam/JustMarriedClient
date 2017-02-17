@@ -1,4 +1,8 @@
-import { normalizeWedding, denormalizeWedding } from '../../../main/core/normalization/wedding.normalizer';
+import {
+  normalizeWedding,
+  denormalizeWedding,
+  denormalizeParticipant,
+} from '../../../main/core/normalization/wedding.normalizer';
 import { expect } from 'chai';
 
 describe('wedding (de)normalization', () => {
@@ -298,6 +302,101 @@ describe('wedding (de)normalization', () => {
           lastName: 'Gurgul',
         },
       ],
+    });
+  });
+
+
+  it('should denormalize participant', () => {
+    expect(denormalizeParticipant({
+      active: true,
+      id: '58972e823b87a6696c40ab8d',
+      role: 'bride',
+      user: '58972c993b87a6696c40ab86',
+    }, {
+      weddings: {
+        '58972e823b87a6696c40ab8a': {
+          guests: [
+            '58972e823b87a6696c40ab8c',
+            '58972e823b87a6696c40ab8b',
+          ],
+          id: '58972e823b87a6696c40ab8a',
+          owners: [
+            '58972c7e3b87a6696c40ab83',
+          ],
+          participants: [
+            '58972e823b87a6696c40ab8f',
+            '58972e823b87a6696c40ab8d',
+          ],
+          tasks: [
+            '58972f263b87a6696c40ab99',
+            '58972f573b87a6696c40aba0',
+          ],
+        },
+      },
+      guests: {
+        '58972e823b87a6696c40ab8b': {
+          firstName: 'Agata',
+          id: '58972e823b87a6696c40ab8b',
+          lastName: 'Machowicz',
+        },
+        '58972e823b87a6696c40ab8c': {
+          firstName: 'Mateusz',
+          id: '58972e823b87a6696c40ab8c',
+          lastName: 'Machowicz',
+        },
+      },
+      participants: {
+        '58972e823b87a6696c40ab8d': {
+          active: true,
+          id: '58972e823b87a6696c40ab8d',
+          role: 'bride',
+          user: '58972c993b87a6696c40ab86',
+        },
+        '58972e823b87a6696c40ab8f': {
+          active: true,
+          id: '58972e823b87a6696c40ab8f',
+          role: 'groom',
+          user: '58972c7e3b87a6696c40ab83',
+        },
+      },
+      tasks: {
+        '58972f263b87a6696c40ab99': {
+          description: 'Every wedding needs wedding rings!',
+          id: '58972f263b87a6696c40ab99',
+          name: 'Buy wedding ring',
+          status: 'pending',
+        },
+        '58972f573b87a6696c40aba0': {
+          description: 'Every weeding needs some guests!',
+          id: '58972f573b87a6696c40aba0',
+          name: 'Invite guests',
+          status: 'pending',
+        },
+      },
+      users: {
+        '58972c7e3b87a6696c40ab83': {
+          firstName: 'Grzegorz',
+          id: '58972c7e3b87a6696c40ab83',
+          lastName: 'Gurgul',
+          username: 'ggurgul',
+        },
+        '58972c993b87a6696c40ab86': {
+          firstName: 'Agata',
+          id: '58972c993b87a6696c40ab86',
+          lastName: 'Nowakiewicz',
+          username: 'anowakiewicz',
+        },
+      },
+    })).to.be.deep.eql({
+      active: true,
+      id: '58972e823b87a6696c40ab8d',
+      role: 'bride',
+      user: {
+        firstName: 'Agata',
+        id: '58972c993b87a6696c40ab86',
+        lastName: 'Nowakiewicz',
+        username: 'anowakiewicz',
+      },
     });
   });
 

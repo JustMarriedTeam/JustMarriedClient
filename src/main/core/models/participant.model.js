@@ -1,6 +1,6 @@
-import Immutable from 'immutable';
-import store from '../store';
-import merge from 'lodash/merge';
+import Immutable from "immutable";
+import store from "../store";
+import {denormalizeParticipant} from "../normalization/wedding.normalizer";
 
 const ParticipantRecord = new Immutable.Record({
   id: String,
@@ -20,11 +20,9 @@ class Participant extends ParticipantRecord {
   }
 
   toJS() {
-    const that = this;
-    // todo: deserialize using normalizr
-    return merge(super.toJS(), {
-      user: that.user.toJS(),
-    });
+    const p = super.toJS();
+    const participant = denormalizeParticipant(p, store.getState().entities);
+    return participant;
   }
 
 }
