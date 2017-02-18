@@ -4,12 +4,12 @@ import Wedding from '../models/wedding.model';
 const NULL_WEDDING = new Wedding();
 
 const weddingEntitiesSelector = state => state.entities.weddings;
-const weddingSelector = state => state.wedding;
+const selectCurrentWeddingId = state => state.wedding.get('id');
 
 const selectWedding = createSelector(
-  [weddingEntitiesSelector, weddingSelector],
-  (weddings, wedding) => weddings.get(wedding.get('id')) || NULL_WEDDING
+  [weddingEntitiesSelector, selectCurrentWeddingId],
+  (weddings, currentWeddingId) => weddings.get(currentWeddingId) || NULL_WEDDING
 );
 
-export { selectWedding };
+export { selectWedding, selectCurrentWeddingId };
 

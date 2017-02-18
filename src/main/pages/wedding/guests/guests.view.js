@@ -51,7 +51,7 @@ class GuestsView extends Component {
       selectedGuests: [],
       details: {
         isOpen: false,
-        displayType: GUEST_DISPLAY_TYPE.NEW_GUEST,
+        displayType: null,
         guest: null,
       },
       snackbar: {
@@ -128,11 +128,12 @@ class GuestsView extends Component {
   };
 
   handleAddingGuest = () => this.openGuestDetails({
-    displayType: GUEST_DISPLAY_TYPE.NEW_GUEST,
+    displayType: GUEST_DISPLAY_TYPE.ADD_NEW_GUEST,
   });
 
   handleOpeningDetails = (guest) => this.openGuestDetails({
-    displayType: GUEST_DISPLAY_TYPE.EXISTING_GUEST,
+    displayType: this.props.isEditing ? GUEST_DISPLAY_TYPE.EDIT_GUEST
+      : GUEST_DISPLAY_TYPE.DISPLAY_GUEST,
     guestId: guest.id,
   });
 
@@ -229,7 +230,7 @@ class GuestsView extends Component {
                     targetOrigin={{ horizontal: 'left', vertical: 'top' }}
                   >
                     <MenuItem
-                      primaryText={ isEditing ? 'Edit' : 'Details' }
+                      primaryText={isEditing ? 'Edit' : 'Details'}
                       onTouchTap={() => this.handleOpeningDetails(guest)}
                     />
                     <MenuItem
