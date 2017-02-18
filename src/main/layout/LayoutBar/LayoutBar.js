@@ -34,5 +34,5 @@ class LayoutBar extends PureComponent {
 }
 
 export default connect((state) => ({
-  actionBarMenu: state.actionBar.menu,
+  actionBarMenu: state.actionBar.toJS().menu,
 }), actionBarActions)(LayoutBar);
