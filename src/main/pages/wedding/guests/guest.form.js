@@ -47,7 +47,7 @@ class GuestForm extends PureComponent {
       <form>
         <Field name="firstName" component={renderTextField} label="First Name" />
         <Field name="lastName" component={renderTextField} label="Last Name" />
-        <Field name="email" component={renderTextField} label="Email" />
+        <Field name="contactEmail" component={renderTextField} label="Email" />
 
         <Spacer weight="sm" />
 

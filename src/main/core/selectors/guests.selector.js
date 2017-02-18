@@ -8,5 +8,10 @@ const selectGuests = createSelector(
   (wedding, guests) => wedding.guests.map((id) => guests.get(id))
 );
 
-export { selectGuests };
+const selectGuest = (id) => createSelector(
+  [guestsEntitiesSelector],
+  (guests) => guests.get(id)
+);
+
+export { selectGuests, selectGuest };
 

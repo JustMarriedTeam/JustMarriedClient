@@ -9,7 +9,7 @@ import {
   TableFooter,
 } from 'material-ui/Table';
 import GuestsMenu from './guests.menu';
-import GuestDetails from './guests.details';
+import GuestDetails, { GUEST_DISPLAY_TYPE } from './guests.details';
 import { Menu, MainButton, ChildButton } from 'react-mfb';
 import { animateScroll } from 'react-scroll';
 import IconMenu from 'material-ui/IconMenu';
@@ -27,12 +27,12 @@ import * as allGuestsActions from '../../../core/actions/guests.actions';
 import { connect } from 'react-redux';
 import includes from 'lodash/includes';
 import filter from 'lodash/filter';
-import { createGuest } from '../../../core/factories/guest.factory';
 import LayoutContainer from '../../../layout/LayoutContainer';
 import ConditionalRenderer from '../../../utils/ConditionalRenderer';
 import { selectGuests } from '../../../core/selectors/guests.selector';
 
 const cx = classNames.bind(styles);
+
 
 class GuestsView extends Component {
 
@@ -51,6 +51,7 @@ class GuestsView extends Component {
       selectedGuests: [],
       details: {
         isOpen: false,
+        displayType: GUEST_DISPLAY_TYPE.NEW_GUEST,
         guest: null,
       },
       snackbar: {
@@ -113,23 +114,8 @@ class GuestsView extends Component {
     }
   };
 
-  handleAddingGuest = () => {
-    const newGuest = createGuest();
-    this.props.guestsActions.addGuest(newGuest);
-    animateScroll.scrollToBottom();
-    this.openGuestDetails(newGuest);
-  };
-
   handleScrollTop = () => {
     animateScroll.scrollToTop();
-  };
-
-  handleUndoingOperation = () => {
-    this.closeSnackbar();
-  };
-
-  handleComitingOperation = () => {
-    this.closeSnackbar();
   };
 
   closeSnackbar = () => {
@@ -141,34 +127,47 @@ class GuestsView extends Component {
     });
   };
 
-  handleOpeningDetails = (guest) => this.openGuestDetails(guest);
+  handleAddingGuest = () => this.openGuestDetails({
+    displayType: GUEST_DISPLAY_TYPE.NEW_GUEST,
+  });
 
-  openGuestDetails(guest) {
+  handleOpeningDetails = (guest) => this.openGuestDetails({
+    displayType: GUEST_DISPLAY_TYPE.EXISTING_GUEST,
+    guestId: guest.id,
+  });
+
+  openGuestDetails({ displayType, guestId }) {
     this.setState({
       details: {
         isOpen: true,
-        guest,
+        displayType,
+        guestId,
       },
     });
   }
 
-  handleClosingDetails = (savedGuest) => {
-    if (savedGuest) {
-      this.props.guestsActions.updateGuest(savedGuest);
-    }
-    this.closeGuestDetails();
-  };
+  handleClosingDetails = () => this.closeGuestDetails();
 
   closeGuestDetails() {
     this.setState({
       details: {
         isOpen: false,
-        guest: null,
+        guestId: null,
       },
     });
   }
 
+  handleUndoingOperation = () => {
+    this.closeSnackbar();
+  };
+
+  handleComitingOperation = () => {
+    this.closeSnackbar();
+  };
+
   render() {
+    const { isEditing } = this.props;
+
     return (
       <LayoutContainer>
         <Table
@@ -230,7 +229,7 @@ class GuestsView extends Component {
                     targetOrigin={{ horizontal: 'left', vertical: 'top' }}
                   >
                     <MenuItem
-                      primaryText="Details"
+                      primaryText={ isEditing ? 'Edit' : 'Details' }
                       onTouchTap={() => this.handleOpeningDetails(guest)}
                     />
                     <MenuItem
@@ -255,6 +254,8 @@ class GuestsView extends Component {
           </TableFooter>
         </Table>
 
+        <Spacer name="endOfList" weight="hg" />
+
         <ConditionalRenderer show={this.props.isEditing}>
           <Menu effect="zoomin" method="click" position="br">
             <MainButton
@@ -269,14 +270,14 @@ class GuestsView extends Component {
           </Menu>
         </ConditionalRenderer>
 
-
-        <Spacer name="endOfList" weight="hg" />
-
-        <GuestDetails
-          onClose={this.handleClosingDetails}
-          isOpen={this.state.details.isOpen}
-          guest={this.state.details.guest}
-        />
+        <ConditionalRenderer show={this.state.details.isOpen}>
+          <GuestDetails
+            displayType={this.state.details.displayType}
+            onClose={this.handleClosingDetails}
+            isOpen={this.state.details.isOpen}
+            guestId={this.state.details.guestId}
+          />
+        </ConditionalRenderer>
 
         <Snackbar
           open={this.state.snackbar.open}
