@@ -9,6 +9,7 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 import { createGridCols, createGridBreakpoints, createLayouts } from '../../../core/grid';
 import { selectParticipants } from '../../../core/selectors/participants.selector';
 import Participant from '../../../core/models/participant.model';
+
 const ResponsiveReactGridLayout = new WidthProvider(Responsive);
 
 class ParticipantsView extends PureComponent {
@@ -18,7 +19,7 @@ class ParticipantsView extends PureComponent {
   }
 
   static propTypes = {
-    participants: PropTypes.arrayOf(Participant).isRequired,
+    participants: PropTypes.arrayOf(PropTypes.instanceOf(Participant)).isRequired,
     weddingActions: PropTypes.object.isRequired,
     isEditing: PropTypes.bool.isRequired,
     onMount: PropTypes.func.isRequired,
