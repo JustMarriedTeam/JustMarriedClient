@@ -18,6 +18,8 @@ import Task from './pages/task/task';
 import Theme from './theme/theme';
 import styles from './styles/main.css';
 
+import { onEnterWedding } from './core/routing/wedding.routing';
+
 const cx = classNames.bind(styles);
 
 injectTapEventPlugin();
@@ -69,7 +71,7 @@ ReactDOM.render(
       <IndexRoute component={HomePage} />
       <Route path="/home" component={HomePage} />
       <Route path="/dashboard" component={DashboardPage} />
-      <Route path="/wedding" component={WeddingPage} />
+      <Route path="/wedding" component={WeddingPage} onEnter={onEnterWedding} />
       <Route path="/tasks" component={Tasks}>
         <Route path="/tasks/:taskId" component={Task} />
       </Route>

@@ -2,6 +2,7 @@ import { take, put, call, fork } from 'redux-saga/effects';
 import {
   notifyEditFailed,
   notifyEditSucceeded,
+  EDITING_STARTED,
   EDITING_ENDED } from '../actions/editing.actions';
 import {
   notifySuccess,
@@ -10,9 +11,11 @@ import {
 
 function * editFlow() {
   while (true) {
-    const { commitMethod } = yield take(EDITING_ENDED);
+    const { onEditStarted } = yield take(EDITING_STARTED);
+    yield call(onEditStarted);
+    const { onEditEnded } = yield take(EDITING_ENDED);
     try {
-      yield call(commitMethod);
+      yield call(onEditEnded);
       yield put(notifySuccess('Saved'));
       yield put(notifyEditSucceeded());
     } catch (error) {

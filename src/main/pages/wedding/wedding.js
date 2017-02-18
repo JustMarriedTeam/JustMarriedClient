@@ -7,11 +7,12 @@ import GuestsView from './guests/guests.view';
 import FeaturesView from './features/features.view';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import ConditionalRenderer from '../../utils/ConditionalRenderer';
 import * as weddingActions from '../../core/actions/wedding.actions';
 import * as actionBarActions from '../../core/actions/actionbar.actions';
-import * as editingActions from '../../core/actions/editing.actions';
-import EditButton from '../../components/EditButton';
+import * as allSelectionActions from '../../core/actions/selection.actions';
+import EditAction from '../../layout/LayoutBar/actions/EditAction';
+import { selectWedding } from '../../core/selectors/wedding.selector';
+import Wedding from '../../core/models/wedding.model';
 
 const TAB_KEYS = {
   PARTICIPANTS: 0,
@@ -24,22 +25,38 @@ class WeddingPage extends Component {
   static propTypes = {
     weddingActions: PropTypes.object.isRequired,
     actionBarActions: PropTypes.object.isRequired,
-    editingActions: PropTypes.object.isRequired,
-    wedding: PropTypes.object.isRequired,
+    selectionActions: PropTypes.object.isRequired,
+    wedding: PropTypes.instanceOf(Wedding).isRequired,
   };
 
   constructor(props) {
     super(props);
     this.state = {
       activeTab: TAB_KEYS.PARTICIPANTS,
+      isLoading: true,
+      tabs: {},
     };
   }
 
   componentDidMount() {
-    this.props.weddingActions.fetchWedding();
+    this.activateTab(TAB_KEYS.PARTICIPANTS);
   }
 
-  onTabMount = ({ onSubmit, otherContextItems }) => {
+  onTabMount = (tabId) => ({ otherContextItems } = {}) => {
+    this.state.tabs[tabId] = {
+      menu: otherContextItems,
+    };
+  };
+
+  activateTab = (tabToActivate) => {
+    this.setState({
+      activeTab: tabToActivate,
+    }, this.invalidateAppBarMenu);
+  };
+
+  invalidateAppBarMenu = () => {
+    const { menu } = this.state.tabs[this.state.activeTab];
+
     const buttonStyle = {
       display: 'inline-block',
       float: 'right',
@@ -47,29 +64,25 @@ class WeddingPage extends Component {
 
     this.props.actionBarActions.displayContextMenu(
       <div>
-        <EditButton
+        <EditAction
           style={buttonStyle}
-          onEditStarted={() => this.props.editingActions.startEditing()}
-          onEditEnded={() => this.props.editingActions.endEditing(() => onSubmit(
-            () => this.props.weddingActions.saveWedding(this.props.wedding)
-          ))}
+          onEditStarted={() => {
+            this.props.weddingActions.startWeddingEdit();
+            this.props.selectionActions.enableSelecting();
+          }}
+          onEditEnded={() => {
+            this.props.weddingActions.submitWeddingEdit();
+            this.props.selectionActions.disableSelecting();
+          }}
         />
         <div style={buttonStyle}>
-          {otherContextItems}
+          {menu}
         </div>
       </div>
     );
   };
 
-  activateTab = (tabToActivate) => {
-    this.setState({
-      activeTab: tabToActivate,
-    });
-  };
-
   render() {
-    const { wedding } = this.props;
-
     return (
       <Layout>
         <Tabs
@@ -82,12 +95,9 @@ class WeddingPage extends Component {
             icon={<FontIcon className="material-icons">star</FontIcon>}
             label="PARTICIPANTS"
           >
-            <ConditionalRenderer show={this.state.activeTab === TAB_KEYS.PARTICIPANTS}>
               <ParticipantsView
-                participants={wedding.participants}
-                onMount={this.onTabMount}
+                onMount={this.onTabMount(TAB_KEYS.PARTICIPANTS)}
               />
-            </ConditionalRenderer>
           </Tab>
 
           <Tab
@@ -95,12 +105,9 @@ class WeddingPage extends Component {
             icon={<FontIcon className="material-icons">people</FontIcon>}
             label="GUESTS"
           >
-            <ConditionalRenderer show={this.state.activeTab === TAB_KEYS.GUESTS}>
               <GuestsView
-                guests={wedding.guests}
-                onMount={this.onTabMount}
+                onMount={this.onTabMount(TAB_KEYS.GUESTS)}
               />
-            </ConditionalRenderer>
           </Tab>
 
 
@@ -109,9 +116,7 @@ class WeddingPage extends Component {
             icon={<FontIcon className="material-icons">build</FontIcon>}
             label="FEATURES"
           >
-            <ConditionalRenderer show={this.state.activeTab === TAB_KEYS.FEATURES}>
               <FeaturesView />
-            </ConditionalRenderer>
           </Tab>
 
         </Tabs>
@@ -124,9 +129,9 @@ class WeddingPage extends Component {
 }
 
 export default connect((state) => ({
-  wedding: state.wedding,
+  wedding: selectWedding(state),
 }), (dispatch) => ({
   actionBarActions: bindActionCreators(actionBarActions, dispatch),
   weddingActions: bindActionCreators(weddingActions, dispatch),
-  editingActions: bindActionCreators(editingActions, dispatch),
+  selectionActions: bindActionCreators(allSelectionActions, dispatch),
 }))(WeddingPage);

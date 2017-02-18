@@ -10,11 +10,12 @@ const cx = classNames.bind(styles);
 class LayoutBar extends PureComponent {
 
   static propTypes = {
-    actionBar: PropTypes.object.isRequired,
+    actionBarMenu: PropTypes.node.isRequired,
     onMenuAction: PropTypes.func.isRequired,
   };
 
   render() {
+    const { actionBarMenu, onMenuAction } = this.props;
     return (
       <AppBar
         className={cx('layout-bar')}
@@ -22,8 +23,8 @@ class LayoutBar extends PureComponent {
           position: 'fixed',
           top: 0,
         }}
-        onLeftIconButtonTouchTap={this.props.onMenuAction}
-        iconElementRight={this.props.actionBar.menu || <div />}
+        onLeftIconButtonTouchTap={onMenuAction}
+        iconElementRight={actionBarMenu}
         title="JustMarried"
         zDepth={0}
       />
@@ -33,5 +34,5 @@ class LayoutBar extends PureComponent {
 }
 
 export default connect((state) => ({
-  actionBar: state.actionBar,
+  actionBarMenu: state.actionBar.toJS().menu,
 }), actionBarActions)(LayoutBar);

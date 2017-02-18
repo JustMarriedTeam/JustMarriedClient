@@ -3,9 +3,9 @@ import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as editingActions from '../../core/actions/editing.actions';
+import * as allEditingActions from '../../../../core/actions/editing.actions';
 import classNames from 'classnames/bind';
-import styles from './EditButton.pcss';
+import styles from './EditAction.pcss';
 
 const cx = classNames.bind(styles);
 
@@ -15,13 +15,21 @@ class EditButton extends PureComponent {
     isEditing: PropTypes.bool.isRequired,
     onEditStarted: PropTypes.func,
     onEditEnded: PropTypes.func.isRequired,
+    editingActions: PropTypes.object.isRequired,
   };
 
   toggleEdit = () => {
-    if (this.props.isEditing) {
-      this.props.onEditEnded();
+    const {
+      editingActions,
+      isEditing,
+      onEditStarted,
+      onEditEnded,
+    } = this.props;
+
+    if (isEditing) {
+      editingActions.endEditing(onEditEnded);
     } else {
-      this.props.onEditStarted();
+      editingActions.startEditing(onEditStarted);
     }
   };
 
@@ -47,5 +55,5 @@ class EditButton extends PureComponent {
 export default connect((state) => ({
   isEditing: state.action.editing,
 }), (dispatch) => ({
-  interfaceActions: bindActionCreators(editingActions, dispatch),
+  editingActions: bindActionCreators(allEditingActions, dispatch),
 }))(EditButton);

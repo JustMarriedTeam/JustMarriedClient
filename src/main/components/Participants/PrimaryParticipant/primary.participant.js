@@ -1,104 +1,70 @@
 import React, { PureComponent, PropTypes } from 'react';
-import { Flex, Box } from 'reflexbox';
-import { Field, reduxForm } from 'redux-form';
 import Avatar from 'material-ui/Avatar';
-import TextField from 'material-ui/TextField';
+import Paper from 'material-ui/Paper';
+import Toggle from 'material-ui/Toggle';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
+import * as allParticipantActions from '../../../core/actions/participant.actions';
+import * as allFormActions from '../../../core/actions/form.actions';
+import ParticipantForm from './participant.form';
+import Participant from '../../../core/models/participant.model';
 import styles from './primary.participant.pcss';
 
 const cx = classNames.bind(styles);
 
-const validate = values => {
-  const errors = {};
-  const requiredFields = ['firstName', 'lastName'];
-  requiredFields.forEach(field => {
-    if (!values[field]) {
-      errors[field] = 'Required';
-    }
-  });
-  if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address';
-  }
-  return errors;
-};
-
-const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-  <TextField
-    hintText={label}
-    floatingLabelText={label}
-    errorText={touched && error}
-    {...input}
-    {...custom}
-  />
-);
-
 class PrimaryParticipant extends PureComponent {
 
   static propTypes = {
-    participantRole: PropTypes.string.isRequired,
-    participantRoleName: PropTypes.string.isRequired,
-    initialValues: PropTypes.object,
-    onSubmit: PropTypes.func.isRequired,
-    isEditable: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    isEditable: false,
+    participantActions: PropTypes.object.isRequired,
+    formActions: PropTypes.object.isRequired,
+    participant: PropTypes.instanceOf(Participant).isRequired,
+    isEditing: PropTypes.bool,
   };
 
   render() {
-    const { participantRoleName, isEditable } = this.props;
+    const {
+      isEditing,
+      participant,
+      participantActions,
+      formActions,
+    } = this.props;
+
     return (
-      <form>
-        <Flex wrap className={cx('primary-participant')} align="center" justify="space-around">
+      <Paper className={cx('primary-participant')}>
 
-          <Box sm={12}>
-            <Avatar
-              className={cx('primary-participant__avatar')}
-              size={250}
-            >{participantRoleName}</Avatar>
-          </Box>
+        <Toggle
+          className={cx('primary-participant__toggle')}
+          disabled={!isEditing}
+          toggled={participant.active}
+          onToggle={() => participantActions.toggleParticipant(participant)}
+        />
 
-          <Box sm={12}>
+        <Avatar
+          className={cx('primary-participant__avatar')}
+          size={250}
+        >{participant.role}</Avatar>
 
-            <Field
-              name="user.firstName"
-              component={renderTextField}
-              label="First name"
-              disabled={!isEditable}
-            />
+        <ParticipantForm
+          form={`ParticipantForm_${participant.role}`}
+          initialValues={participant.toJS()}
+          isEditable={isEditing && participant.active}
+          onSubmit={(details) => {
+            participantActions.updateParticipant(details);
+            formActions.notifySubmitted(`ParticipantForm_${participant.role}`);
+          }}
+        />
 
-          </Box>
-
-          <Box sm={12}>
-
-            <Field
-              name="user.lastName"
-              component={renderTextField}
-              label="Last name"
-              disabled={!isEditable}
-            />
-
-          </Box>
-
-          <Box sm={12}>
-
-            <Field
-              name="user.email"
-              component={renderTextField}
-              label="E-Mail address"
-              disabled={!isEditable}
-            />
-
-          </Box>
-
-        </Flex>
-      </form>
+      </Paper>
     );
   }
 
 }
 
-export default reduxForm({
-  validate,
-})(PrimaryParticipant);
+// http://somebody32.github.io/22 - though might not be necessary here
+export default connect((state) => (({
+  isEditing: state.action.editing,
+})), (dispatch) => ({
+  participantActions: bindActionCreators(allParticipantActions, dispatch),
+  formActions: bindActionCreators(allFormActions, dispatch),
+}))(PrimaryParticipant);

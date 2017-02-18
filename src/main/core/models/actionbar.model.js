@@ -1,7 +1,8 @@
 import Immutable from 'immutable';
+import React from 'react';
 
 const ActionBarRecord = new Immutable.Record({
-  menu: undefined,
+  menu: <div />,
 });
 
 class ActionBar extends ActionBarRecord {
