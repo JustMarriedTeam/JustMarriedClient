@@ -9,7 +9,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as weddingActions from '../../core/actions/wedding.actions';
 import * as actionBarActions from '../../core/actions/actionbar.actions';
-import * as editingActions from '../../core/actions/editing.actions';
 import EditAction from '../../layout/LayoutBar/actions/EditAction';
 import { selectWedding } from '../../core/selectors/wedding.selector';
 import Wedding from '../../core/models/wedding.model';
@@ -25,7 +24,6 @@ class WeddingPage extends Component {
   static propTypes = {
     weddingActions: PropTypes.object.isRequired,
     actionBarActions: PropTypes.object.isRequired,
-    editingActions: PropTypes.object.isRequired,
     wedding: PropTypes.instanceOf(Wedding).isRequired,
   };
 
@@ -66,10 +64,8 @@ class WeddingPage extends Component {
       <div>
         <EditAction
           style={buttonStyle}
-          onEditStarted={() => this.props.editingActions.startEditing(
-            this.props.weddingActions.startWeddingEdit)}
-          onEditEnded={() => this.props.editingActions.endEditing(
-            this.props.weddingActions.submitWeddingEdit)}
+          onEditStarted={() => this.props.weddingActions.startWeddingEdit()}
+          onEditEnded={() => this.props.weddingActions.submitWeddingEdit()}
         />
         <div style={buttonStyle}>
           {menu}
@@ -129,5 +125,4 @@ export default connect((state) => ({
 }), (dispatch) => ({
   actionBarActions: bindActionCreators(actionBarActions, dispatch),
   weddingActions: bindActionCreators(weddingActions, dispatch),
-  editingActions: bindActionCreators(editingActions, dispatch),
 }))(WeddingPage);
