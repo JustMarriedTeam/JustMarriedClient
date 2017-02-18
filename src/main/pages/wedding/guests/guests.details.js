@@ -69,7 +69,10 @@ class GuestDetails extends PureComponent {
         });
         break;
       case GUEST_DISPLAY_TYPE.EDIT_GUEST:
-        guestsActions.updateGuest(guest);
+        guestsActions.updateGuest({
+          guest,
+          weddingId
+        });
         break;
       default:
         throw new Error('Unsupported display type');
@@ -104,7 +107,7 @@ class GuestDetails extends PureComponent {
         onRequestClose={this.handleClose}
       >
         <GuestForm
-          disabled={BEHAVIOUR_MAPPINGS[displayType].isEditable}
+          disabled={!BEHAVIOUR_MAPPINGS[displayType].isEditable}
           onSubmit={this.handleSubmit}
           initialValues={this.props.guest.toJS()}
         />

@@ -18,31 +18,35 @@ const validate = values => {
   return errors;
 };
 
-const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-  <TextField
-    hintText={label}
-    floatingLabelText={label}
-    errorText={touched && error}
-    {...input}
-    {...custom}
-  />
-);
-
-const renderRadioGroup = ({ input, ...rest }) => (
-  <RadioButtonGroup {...input} {...rest}
-    valueSelected={input.value}
-    onChange={(event, value) => input.onChange(value)}
-  />
-);
-
 class GuestForm extends PureComponent {
 
   static propTypes = {
     initialValues: PropTypes.object.isRequired,
+    disabled: PropTypes.bool.isRequired,
     onSubmit: PropTypes.func.isRequired,
   };
 
   render() {
+    const { disabled } = this.props;
+
+    const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+      <TextField
+        hintText={label}
+        floatingLabelText={label}
+        errorText={touched && error}
+        disabled={disabled}
+        {...input}
+        {...custom}
+      />
+    );
+
+    const renderRadioGroup = ({ input, ...rest }) => (
+      <RadioButtonGroup {...input} {...rest}
+        valueSelected={input.value}
+        onChange={(event, value) => input.onChange(value)}
+      />
+    );
+
     return (
       <form>
         <Field name="firstName" component={renderTextField} label="First Name" />
@@ -54,8 +58,17 @@ class GuestForm extends PureComponent {
         <div>
           <label>Sex</label>
           <Field name="sex" component={renderRadioGroup}>
-            <RadioButton value="male" label="male" />
-            <RadioButton value="female" label="female" />
+            <RadioButton
+              disabled={disabled}
+              value="M"
+              label="male"
+            />
+
+            <RadioButton
+              disabled={disabled}
+              value="F"
+              label="female"
+            />
           </Field>
         </div>
 
