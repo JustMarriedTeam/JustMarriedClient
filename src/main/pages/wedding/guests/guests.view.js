@@ -8,7 +8,7 @@ import {
   TableRowColumn,
   TableFooter,
 } from 'material-ui/Table';
-import MultiActions from '../../../layout/LayoutBar/actions/MultiActions';
+import SelectAction from '../../../layout/LayoutBar/actions/SelectAction';
 import GuestDetails, { GUEST_DISPLAY_TYPE } from './guests.details';
 import { Menu, MainButton, ChildButton } from 'react-mfb';
 import { animateScroll } from 'react-scroll';
@@ -65,7 +65,7 @@ class GuestsView extends Component {
 
   componentDidMount() {
     this.props.onMount({
-      otherContextItems: <MultiActions
+      otherContextItems: <SelectAction
         onSelect={this.handleSelect}
         onRemove={this.handleRemove}
       />,

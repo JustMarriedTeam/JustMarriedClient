@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import * as weddingActions from '../../core/actions/wedding.actions';
 import * as actionBarActions from '../../core/actions/actionbar.actions';
 import * as editingActions from '../../core/actions/editing.actions';
-import EditButton from '../../components/EditButton';
+import EditAction from '../../layout/LayoutBar/actions/EditAction';
 import { selectWedding } from '../../core/selectors/wedding.selector';
 import Wedding from '../../core/models/wedding.model';
 
@@ -64,7 +64,7 @@ class WeddingPage extends Component {
 
     this.props.actionBarActions.displayContextMenu(
       <div>
-        <EditButton
+        <EditAction
           style={buttonStyle}
           onEditStarted={() => this.props.editingActions.startEditing(
             this.props.weddingActions.startWeddingEdit)}

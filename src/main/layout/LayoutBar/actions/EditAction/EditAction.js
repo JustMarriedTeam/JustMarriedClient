@@ -3,9 +3,9 @@ import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as editingActions from '../../core/actions/editing.actions';
+import * as editingActions from '../../../../core/actions/editing.actions';
 import classNames from 'classnames/bind';
-import styles from './EditButton.pcss';
+import styles from './EditAction.pcss';
 
 const cx = classNames.bind(styles);
 

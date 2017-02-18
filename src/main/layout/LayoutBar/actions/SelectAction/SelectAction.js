@@ -5,8 +5,8 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as allSelectionActions from '../../../core/actions/selection.actions';
-import ConditionalRenderer from '../../../utils/ConditionalRenderer';
+import * as allSelectionActions from '../../../../core/actions/selection.actions';
+import ConditionalRenderer from '../../../../utils/ConditionalRenderer';
 
 class MultiActions extends PureComponent {
 
