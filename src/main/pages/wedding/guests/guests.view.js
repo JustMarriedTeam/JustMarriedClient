@@ -22,7 +22,7 @@ import Spacer from '../../../components/Spacer';
 import classNames from 'classnames/bind';
 import styles from './guests.view.pcss';
 import { bindActionCreators } from 'redux';
-import * as actionBarActions from '../../../core/actions/actionbar.actions';
+import * as allActionBarActions from '../../../core/actions/actionbar.actions';
 import * as allGuestsActions from '../../../core/actions/guests.actions';
 import { connect } from 'react-redux';
 import includes from 'lodash/includes';
@@ -306,7 +306,7 @@ export default connect((state) => ({
   isEditing: state.action.editing,
   isSelecting: state.action.selecting,
 }), (dispatch) => ({
-  actionBarActions: bindActionCreators(actionBarActions, dispatch),
+  actionBarActions: bindActionCreators(allActionBarActions, dispatch),
   guestsActions: bindActionCreators(allGuestsActions, dispatch),
 }))(GuestsView);
 
