@@ -15,6 +15,7 @@ import actionBarReducer from './reducers/actionbar.reducer';
 // sagas
 import loginSaga from './sagas/login.saga';
 import editSaga from './sagas/edit.saga';
+import selectSaga from './sagas/select.saga';
 import weddingEditSaga from './sagas/wedding.edit.saga';
 
 // entities
@@ -53,4 +54,5 @@ export default createStore(
 
 sagaMiddleware.run(loginSaga);
 sagaMiddleware.run(editSaga);
+sagaMiddleware.run(selectSaga);
 sagaMiddleware.run(weddingEditSaga);

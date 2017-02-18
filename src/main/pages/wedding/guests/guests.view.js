@@ -8,7 +8,7 @@ import {
   TableRowColumn,
   TableFooter,
 } from 'material-ui/Table';
-import GuestsMenu from './guests.menu';
+import MultiActions from '../../../layout/LayoutBar/actions/MultiActions';
 import GuestDetails, { GUEST_DISPLAY_TYPE } from './guests.details';
 import { Menu, MainButton, ChildButton } from 'react-mfb';
 import { animateScroll } from 'react-scroll';
@@ -43,13 +43,13 @@ class GuestsView extends Component {
     weddingId: PropTypes.string,
     guests: PropTypes.array.isRequired,
     isEditing: PropTypes.bool.isRequired,
+    isSelecting: PropTypes.bool.isRequired,
     onMount: PropTypes.func.isRequired,
   };
 
   constructor() {
     super();
     this.state = {
-      isSelectable: false,
       selectedGuests: [],
       details: {
         isOpen: false,
@@ -65,19 +65,14 @@ class GuestsView extends Component {
 
   componentDidMount() {
     this.props.onMount({
-      otherContextItems: <GuestsMenu
-        handleSelect={this.handleSelect}
-        handleFilter={this.handleFilter}
-        handleRemove={this.handleRemove}
+      otherContextItems: <MultiActions
+        onSelect={this.handleSelect}
+        onRemove={this.handleRemove}
       />,
     });
   }
 
-  handleSelect = () => {
-    this.setState({
-      isSelectable: true,
-    });
-  };
+  handleSelect = () => {};
 
   handleRemove = () => {
     const { weddingId } = this.props;
@@ -85,9 +80,6 @@ class GuestsView extends Component {
       weddingId,
       guests: filter(this.props.guests, (item, index) =>
         includes(this.state.selectedGuests, index)),
-    });
-    this.setState({
-      isSelectable: false,
     });
   };
 
@@ -176,21 +168,21 @@ class GuestsView extends Component {
   };
 
   render() {
-    const { isEditing } = this.props;
+    const { isEditing, isSelecting } = this.props;
 
     return (
       <LayoutContainer>
         <Table
-          selectable={this.state.isSelectable}
-          multiSelectable={this.state.isSelectable}
+          selectable={isSelecting}
+          multiSelectable={isSelecting}
           onRowSelection={this.handleRowSelection}
         >
 
           <TableHeader
             className={cx('guests-view__header')}
-            displaySelectAll={this.state.isSelectable}
-            adjustForCheckbox={this.state.isSelectable}
-            enableSelectAll={this.state.isSelectable}
+            displaySelectAll={isSelecting}
+            adjustForCheckbox={isSelecting}
+            enableSelectAll={isSelecting}
           >
 
             <TableRow>
@@ -211,8 +203,8 @@ class GuestsView extends Component {
 
           <TableBody
             stripedRows
-            displayRowCheckbox={this.state.isSelectable}
-            showRowHover={this.state.isSelectable}
+            displayRowCheckbox={isSelecting}
+            showRowHover={isSelecting}
           >
 
             {this.props.guests.map((guest, rowNumber) => (
@@ -232,7 +224,7 @@ class GuestsView extends Component {
                 <TableRowColumn
                   className={cx('guests-view__actions-row')}
                 >
-                  <ConditionalRenderer show={!this.state.isSelectable}>
+                  <ConditionalRenderer show={!isSelecting}>
                     <IconMenu
                       useLayerForClickAway
                       iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
@@ -257,7 +249,7 @@ class GuestsView extends Component {
           </TableBody>
 
           <TableFooter
-            adjustForCheckbox={this.state.isSelectable}
+            adjustForCheckbox={isSelecting}
           >
             <TableRow>
               <TableRowColumn colSpan="5" style={{ textAlign: 'center' }}>
@@ -312,6 +304,7 @@ export default connect((state) => ({
   guests: selectGuests(state),
   weddingId: selectCurrentWeddingId(state),
   isEditing: state.action.editing,
+  isSelecting: state.action.selecting,
 }), (dispatch) => ({
   actionBarActions: bindActionCreators(actionBarActions, dispatch),
   guestsActions: bindActionCreators(allGuestsActions, dispatch),
