@@ -30,6 +30,7 @@ import filter from 'lodash/filter';
 import LayoutContainer from '../../../layout/LayoutContainer';
 import ConditionalRenderer from '../../../utils/ConditionalRenderer';
 import { selectGuests } from '../../../core/selectors/guests.selector';
+import { selectCurrentWeddingId } from '../../../core/selectors/wedding.selector';
 
 const cx = classNames.bind(styles);
 
@@ -39,6 +40,7 @@ class GuestsView extends Component {
   static propTypes = {
     actionBarActions: PropTypes.object.isRequired,
     guestsActions: PropTypes.object.isRequired,
+    weddingId: PropTypes.string,
     guests: PropTypes.array.isRequired,
     isEditing: PropTypes.bool.isRequired,
     onMount: PropTypes.func.isRequired,
@@ -78,16 +80,23 @@ class GuestsView extends Component {
   };
 
   handleRemove = () => {
-    this.props.guestsActions.removeGuests(
-      filter(this.props.guests, (item, index) => includes(this.state.selectedGuests, index))
-    );
+    const { weddingId } = this.props;
+    this.props.guestsActions.removeGuests({
+      weddingId,
+      guests: filter(this.props.guests, (item, index) =>
+        includes(this.state.selectedGuests, index)),
+    });
     this.setState({
       isSelectable: false,
     });
   };
 
   handleRemovingItem = (guest) => {
-    this.props.guestsActions.removeGuests([guest]);
+    const { weddingId } = this.props;
+    this.props.guestsActions.removeGuests({
+      weddingId,
+      guests: [guest],
+    });
     this.setState({
       snackbar: {
         open: true,
@@ -298,6 +307,7 @@ class GuestsView extends Component {
 // https://github.com/reactjs/react-redux/blob/master/docs/api.md
 export default connect((state) => ({
   guests: selectGuests(state),
+  weddingId: selectCurrentWeddingId(state),
   isEditing: state.action.editing,
 }), (dispatch) => ({
   actionBarActions: bindActionCreators(actionBarActions, dispatch),

@@ -4,11 +4,14 @@ import {
 } from '../../actions/wedding.actions';
 import {
   ADD_GUEST,
+  REMOVE_GUESTS,
 } from '../../actions/guests.actions';
 import mapValues from 'lodash/fp/mapValues';
+import difference from 'lodash/difference';
 import Wedding from '../../models/wedding.model';
 import Guest from '../../models/guest.model';
 import union from 'lodash/union';
+import { mapToIds } from '../../utils/reducer.utils';
 
 const wrapAll = mapValues((raw) => new Wedding(raw));
 
@@ -20,6 +23,10 @@ export default (weddings = new Immutable.Map(), action) => {
       const addedGuest = new Guest(action.guest);
       return weddings.updateIn([action.weddingId, 'guests'],
         arr => union(arr, [addedGuest.id])
+      );
+    case REMOVE_GUESTS:
+      return weddings.updateIn([action.weddingId, 'guests'],
+        arr => difference(arr, mapToIds(action.guests))
       );
     default:
       return weddings;

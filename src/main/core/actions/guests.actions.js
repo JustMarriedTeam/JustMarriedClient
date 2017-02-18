@@ -4,5 +4,6 @@ export const UPDATE_GUEST = 'UPDATE_GUEST';
 export const REMOVE_GUESTS = 'GUESTS_REMOVED';
 
 export const addGuest = ({ guest, weddingId }) => ({ type: ADD_GUEST, weddingId, guest });
-export const updateGuest = (guest) => ({ type: UPDATE_GUEST, guest });
-export const removeGuests = (guestsToRemove) => ({ type: REMOVE_GUESTS, guests: guestsToRemove });
+export const updateGuest = ({ guest, weddingId }) => ({ type: UPDATE_GUEST, weddingId, guest });
+export const removeGuests = ({ guests, weddingId }) =>
+  ({ type: REMOVE_GUESTS, weddingId, guests });
