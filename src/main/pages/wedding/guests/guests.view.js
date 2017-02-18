@@ -232,21 +232,24 @@ class GuestsView extends Component {
                 <TableRowColumn
                   className={cx('guests-view__actions-row')}
                 >
-                  <IconMenu
-                    useLayerForClickAway
-                    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                    anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
-                    targetOrigin={{ horizontal: 'left', vertical: 'top' }}
-                  >
-                    <MenuItem
-                      primaryText={isEditing ? 'Edit' : 'Details'}
-                      onTouchTap={() => this.handleOpeningDetails(guest)}
-                    />
-                    <MenuItem
-                      primaryText="Remove"
-                      onTouchTap={() => this.handleRemovingItem(guest)}
-                    />
-                  </IconMenu>
+                  <ConditionalRenderer show={!this.state.isSelectable}>
+                    <IconMenu
+                      useLayerForClickAway
+                      iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                      anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
+                      targetOrigin={{ horizontal: 'left', vertical: 'top' }}
+                    >
+                      <MenuItem
+                        primaryText={isEditing ? 'Edit' : 'Details'}
+                        onTouchTap={() => this.handleOpeningDetails(guest)}
+                      />
+                      <MenuItem
+                        disabled={!isEditing}
+                        primaryText="Remove"
+                        onTouchTap={() => this.handleRemovingItem(guest)}
+                      />
+                    </IconMenu>
+                  </ConditionalRenderer>
                 </TableRowColumn>
               </TableRow>
             ))}
