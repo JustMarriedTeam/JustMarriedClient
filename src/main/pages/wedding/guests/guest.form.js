@@ -29,7 +29,7 @@ class GuestForm extends PureComponent {
   render() {
     const { disabled } = this.props;
 
-    const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+    const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => ( // eslint-disable-line
       <TextField
         hintText={label}
         floatingLabelText={label}
@@ -40,10 +40,12 @@ class GuestForm extends PureComponent {
       />
     );
 
-    const renderRadioGroup = ({ input, ...rest }) => (
-      <RadioButtonGroup {...input} {...rest}
+    const renderRadioGroup = ({ input, ...rest }) => ( // eslint-disable-line
+      <RadioButtonGroup
         valueSelected={input.value}
         onChange={(event, value) => input.onChange(value)}
+        {...input}
+        {...rest}
       />
     );
 

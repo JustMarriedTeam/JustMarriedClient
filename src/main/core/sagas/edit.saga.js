@@ -10,7 +10,7 @@ import {
 } from '../actions/alert.actions';
 
 function * editFlow() {
-  while (true) {
+  while (true) { // eslint-disable-line
     const { onEditStarted } = yield take(EDITING_STARTED);
     yield call(onEditStarted);
     const { onEditEnded } = yield take(EDITING_ENDED);

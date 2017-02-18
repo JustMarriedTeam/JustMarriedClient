@@ -95,9 +95,9 @@ class WeddingPage extends Component {
             icon={<FontIcon className="material-icons">star</FontIcon>}
             label="PARTICIPANTS"
           >
-              <ParticipantsView
-                onMount={this.onTabMount(TAB_KEYS.PARTICIPANTS)}
-              />
+            <ParticipantsView
+              onMount={this.onTabMount(TAB_KEYS.PARTICIPANTS)}
+            />
           </Tab>
 
           <Tab
@@ -105,9 +105,9 @@ class WeddingPage extends Component {
             icon={<FontIcon className="material-icons">people</FontIcon>}
             label="GUESTS"
           >
-              <GuestsView
-                onMount={this.onTabMount(TAB_KEYS.GUESTS)}
-              />
+            <GuestsView
+              onMount={this.onTabMount(TAB_KEYS.GUESTS)}
+            />
           </Tab>
 
 
@@ -116,7 +116,7 @@ class WeddingPage extends Component {
             icon={<FontIcon className="material-icons">build</FontIcon>}
             label="FEATURES"
           >
-              <FeaturesView />
+            <FeaturesView />
           </Tab>
 
         </Tabs>

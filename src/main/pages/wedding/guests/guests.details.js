@@ -71,7 +71,7 @@ class GuestDetails extends PureComponent {
       case GUEST_DISPLAY_TYPE.EDIT_GUEST:
         guestsActions.updateGuest({
           guest,
-          weddingId
+          weddingId,
         });
         break;
       default:

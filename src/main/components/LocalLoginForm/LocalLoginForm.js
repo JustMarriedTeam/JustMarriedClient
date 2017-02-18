@@ -22,7 +22,7 @@ const validate = values => {
   return errors;
 };
 
-const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => ( // eslint-disable-line
   <TextField
     hintText={label}
     floatingLabelText={label}
@@ -66,7 +66,7 @@ class LocalLoginForm extends PureComponent {
         label="Password"
       />
 
-      <Spacer weight="md"/>
+      <Spacer weight="md" />
 
       <div className={cx('local-login-form__buttons-plh')}>
         <RaisedButton

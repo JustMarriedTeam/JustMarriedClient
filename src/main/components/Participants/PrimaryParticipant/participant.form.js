@@ -28,7 +28,7 @@ class ParticipantForm extends PureComponent {
   render() {
     const { isEditable, handleSubmit } = this.props;
 
-    const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+    const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => ( // eslint-disable-line
       <TextField
         hintText={label}
         floatingLabelText={label}

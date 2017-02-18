@@ -1,5 +1,6 @@
 import React, { PropTypes, PureComponent } from 'react';
-import PrimaryParticipant from '../../../components/Participants/PrimaryParticipant/primary.participant';
+import PrimaryParticipant from
+  '../../../components/Participants/PrimaryParticipant/primary.participant';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as weddingActions from '../../../core/actions/wedding.actions';
@@ -7,7 +8,7 @@ import map from 'lodash/map';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import { createGridCols, createGridBreakpoints, createLayouts } from '../../../core/grid';
 import { selectParticipants } from '../../../core/selectors/participants.selector';
-
+import Participant from '../../../core/models/participant.model';
 const ResponsiveReactGridLayout = new WidthProvider(Responsive);
 
 class ParticipantsView extends PureComponent {
@@ -17,7 +18,7 @@ class ParticipantsView extends PureComponent {
   }
 
   static propTypes = {
-    participants: PropTypes.array.isRequired, // should be Immutable.List of Participant or sth
+    participants: PropTypes.arrayOf(Participant).isRequired,
     weddingActions: PropTypes.object.isRequired,
     isEditing: PropTypes.bool.isRequired,
     onMount: PropTypes.func.isRequired,

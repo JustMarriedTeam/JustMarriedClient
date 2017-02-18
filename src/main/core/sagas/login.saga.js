@@ -14,7 +14,7 @@ import {
   SIGN_IN_VIA_GOOGLE,
   BIND_GOOGLE_ACCOUNT,
   SIGN_OUT } from '../actions/account.actions';
-import { sendingRequest, notifyRequestFailed } from '../actions/server.actions';
+import { notifyRequestFailed } from '../actions/server.actions';
 import { ACCOUNT_STATE } from '../models/account.model';
 import { navigateToDashboard, navigateToHome } from '../actions/navigation.actions';
 import { storeAuthenticationToken, clearAuthenticationToken } from '../cookies';
@@ -217,7 +217,7 @@ function * bindFacebookAccountFlow() {
 }
 
 function * logoutFlow() {
-  while (true) {
+  while (true) { // eslint-disable-line
     yield take(SIGN_OUT);
     yield call(logout);
   }

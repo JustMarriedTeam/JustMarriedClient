@@ -19,11 +19,12 @@ export default (weddings = new Immutable.Map(), action) => {
   switch (action.type) {
     case WEDDINGS_FETCHED:
       return weddings.merge(wrapAll(action.weddings));
-    case ADD_GUEST:
+    case ADD_GUEST: {
       const addedGuest = new Guest(action.guest);
       return weddings.updateIn([action.weddingId, 'guests'],
         arr => union(arr, [addedGuest.id])
       );
+    }
     case REMOVE_GUESTS:
       return weddings.updateIn([action.weddingId, 'guests'],
         arr => difference(arr, mapToIds(action.guests))

@@ -3,7 +3,6 @@ import { take, race, select, put, call, fork } from 'redux-saga/effects';
 import { selectParticipants } from '../selectors/participants.selector';
 import { selectWedding } from '../selectors/wedding.selector';
 import map from 'lodash/fp/map';
-import forEach from 'lodash/fp/forEach';
 import includes from 'lodash/includes';
 import SavingError from '../errors/saving.error';
 import { submit, isInvalid } from 'redux-form';
@@ -39,7 +38,7 @@ function * editWedding() {
 }
 
 function * editWeddingFlow() {
-  while (true) {
+  while (true) { // eslint-disable-line
     yield take(WEDDING_EDIT_STARTED);
 
     yield race({

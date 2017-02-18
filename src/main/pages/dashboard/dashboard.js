@@ -20,8 +20,6 @@ class DashboardPage extends Component {
   }
 
   render() {
-    const { wedding } = this.props;
-
     return (
       <Layout>
         dashboard

@@ -13,7 +13,7 @@ function * removeFlow() {
 }
 
 function * selectionFlow() {
-  while (true) {
+  while (true) { // eslint-disable-line
     const { onSelect } = yield take(SELECT_MULTIPLE);
     yield call(onSelect);
     yield put(selectionStarted());
