@@ -3,7 +3,8 @@ import classNames from 'classnames/bind';
 import LayoutBar from './LayoutBar/LayoutBar';
 import LayoutDrawer from './LayoutDrawer/LayoutDrawer';
 import LayoutFooter from './LayoutFooter/LayoutFooter';
-import Alert from './Alert/Alert';
+import Alert from './Alert';
+import Popup from './Popup';
 import styles from './Layout.pcss';
 import ConditionalRenderer from '../utils/ConditionalRenderer';
 import Account from '../core/models/account.model';
@@ -54,6 +55,7 @@ class Layout extends Component {
 
         <LayoutFooter />
         <Alert />
+        <Popup />
 
       </div>
     );

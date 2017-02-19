@@ -8,6 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 // application only
 import actionReducer from './reducers/action.reducer';
 import alertReducer from './reducers/alert.reducer';
+import popupReducer from './reducers/popup.reducer';
 import accountReducer from './reducers/account.reducer';
 import serverReducer from './reducers/server.reducer';
 import actionBarReducer from './reducers/actionbar.reducer';
@@ -18,6 +19,7 @@ import registerSaga from './sagas/register.saga';
 import editSaga from './sagas/edit.saga';
 import selectSaga from './sagas/select.saga';
 import weddingEditSaga from './sagas/wedding.edit.saga';
+import weddingWizardSaga from './sagas/wedding.wizard.saga';
 
 // entities
 import guestsReducer from './reducers/entities/guests.reducer';
@@ -45,6 +47,7 @@ export default createStore(
     routing: routerReducer,
     action: actionReducer,
     alert: alertReducer,
+    popup: popupReducer,
     account: accountReducer,
     server: serverReducer,
     actionBar: actionBarReducer,
@@ -58,3 +61,4 @@ sagaMiddleware.run(registerSaga);
 sagaMiddleware.run(editSaga);
 sagaMiddleware.run(selectSaga);
 sagaMiddleware.run(weddingEditSaga);
+sagaMiddleware.run(weddingWizardSaga);
