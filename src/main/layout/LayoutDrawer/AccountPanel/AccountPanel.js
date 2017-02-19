@@ -3,6 +3,7 @@ import Avatar from 'material-ui/Avatar';
 import { connect } from 'react-redux';
 import Account from '../../../core/models/account.model';
 import * as allAccountActions from '../../../core/actions/account.actions';
+import IconButton from 'material-ui/IconButton';
 import classNames from 'classnames/bind';
 import styles from './AccountPanel.pcss';
 
@@ -19,11 +20,24 @@ class AccountPanel extends PureComponent {
     const { account } = this.props;
 
     return (
-      <div>
+      <div className={cx('account-panel')}>
+
         <Avatar
           className={cx('account-panel__avatar')}
-          size={250}
+          size={100}
         >G</Avatar>
+
+        <div className={cx('account-panel__details')}>
+          <h5>Hello { account.user.firstName }!</h5>
+          <IconButton
+            onClick={() => this.props.signOut()}
+            iconClassName="material-icons"
+            tooltip="Sign out"
+          >
+            exit_to_app
+          </IconButton>
+        </div>
+
       </div>
     );
   }
