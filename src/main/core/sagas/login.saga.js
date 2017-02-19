@@ -1,24 +1,29 @@
 /* eslint-disable no-constant-condition */
 import { take, call, put, fork, race } from 'redux-saga/effects';
 import {
+  signedIn,
   signedOut,
   accountStateChanged,
-  authenticateWithToken,
   localAccountBound,
   facebookAccountBound,
   googleAccountBound,
-  accountRetrieved,
+  RESTORE_AUTHENTICATION,
   SIGN_IN_VIA_LOCAL,
   BIND_LOCAL_ACCOUNT,
   SIGN_IN_VIA_FACEBOOK,
   BIND_FACEBOOK_ACCOUNT,
   SIGN_IN_VIA_GOOGLE,
   BIND_GOOGLE_ACCOUNT,
-  SIGN_OUT } from '../actions/account.actions';
+  SIGN_OUT,
+} from '../actions/account.actions';
 import { notifyRequestFailed } from '../actions/server.actions';
 import { ACCOUNT_STATE } from '../models/account.model';
 import { navigateToDashboard, navigateToHome } from '../actions/navigation.actions';
-import { storeAuthenticationToken, clearAuthenticationToken } from '../cookies';
+import {
+  storeAuthenticationToken,
+  retrieveAuthenticationToken,
+  clearAuthenticationToken,
+} from '../cookies';
 import {
   signInViaLocal,
   bindAccountToLocal,
@@ -30,9 +35,13 @@ import {
 } from '../api/auth.api';
 import { getAccount } from '../api/account.api';
 
-function * retrieveAccount() {
-  const account = yield call(getAccount);
-  yield put(accountRetrieved(account));
+function * signInWithToken(token) {
+  const account = yield call(getAccount, token);
+  yield call(storeAuthenticationToken, token);
+  yield put(signedIn({
+    account,
+    token,
+  }));
 }
 
 function * loginViaLocal(credentials) {
@@ -118,9 +127,7 @@ function * loginViaLocalFlow() {
     });
 
     if (winner.auth) {
-      yield call(storeAuthenticationToken, winner.auth);
-      yield put(authenticateWithToken(winner.auth));
-      yield call(retrieveAccount);
+      yield call(signInWithToken, winner.auth);
       yield put(navigateToDashboard());
     } else {
       yield call(logout);
@@ -158,7 +165,7 @@ function * loginViaGoogleFlow() {
     });
 
     if (winner.auth) {
-      yield put(authenticateWithToken(winner.auth));
+      yield call(signInWithToken, winner.auth);
       yield put(navigateToDashboard());
     } else {
       yield call(logout);
@@ -196,7 +203,7 @@ function * loginViaFacebookFlow() {
     });
 
     if (winner.auth) {
-      yield put(authenticateWithToken(winner.auth));
+      yield call(signInWithToken, winner.auth);
       yield put(navigateToDashboard());
     } else {
       yield call(logout);
@@ -224,6 +231,16 @@ function * bindFacebookAccountFlow() {
   }
 }
 
+function * loginFromCookieFlow() {
+  while (true) {
+    yield take(RESTORE_AUTHENTICATION);
+    const token = yield call(retrieveAuthenticationToken);
+    if (token) {
+      yield call(signInWithToken, token);
+    }
+  }
+}
+
 function * logoutFlow() {
   while (true) { // eslint-disable-line
     yield take(SIGN_OUT);
@@ -238,5 +255,6 @@ export default function * root() {
   yield fork(bindGoogleAccountFlow);
   yield fork(loginViaFacebookFlow);
   yield fork(bindFacebookAccountFlow);
+  yield fork(loginFromCookieFlow);
   yield fork(logoutFlow);
 }

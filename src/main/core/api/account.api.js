@@ -1,5 +1,9 @@
 import server from '../server';
 
-export const getAccount = () =>
-  Promise.resolve(server.get('/accounts'))
+export const getAccount = (token) =>
+  Promise.resolve(server.get('/accounts', {
+    headers: {
+      token,
+    },
+  }))
     .then((response) => response.data);

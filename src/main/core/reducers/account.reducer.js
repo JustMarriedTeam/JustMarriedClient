@@ -1,7 +1,6 @@
 import {
   ACCOUNT_CHANGE_STATE,
-  AUTHENTICATE_WITH_TOKEN,
-  ACCOUNT_RETRIEVED,
+  SIGNED_IN,
   SIGNED_OUT,
 } from '../actions/account.actions';
 import Account, { ACCOUNT_STATE } from '../models/account.model';
@@ -14,14 +13,14 @@ export default function (account = new Account(), action) {
       return account.withMutations((state) => {
         state.set('state', ACCOUNT_STATE.SIGNED_OUT);
         state.delete('token');
+        state.delete('user');
       });
-    case AUTHENTICATE_WITH_TOKEN:
+    case SIGNED_IN:
       return account.withMutations((state) => {
         state.set('state', ACCOUNT_STATE.SIGNED_IN);
         state.set('token', action.token);
+        state.merge(action.account);
       });
-    case ACCOUNT_RETRIEVED:
-      return account.merge(action.account);
     default:
       return account;
   }

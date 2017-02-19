@@ -6,7 +6,6 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import store from './core/store';
-import { tryCookieAuthentication } from './core/cookies';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import ErrorPage from './pages/error/error';
@@ -16,6 +15,7 @@ import DashboardPage from './pages/dashboard/dashboard';
 import Tasks from './pages/tasks/tasks';
 import Task from './pages/task/task';
 import Theme from './theme/theme';
+import { restoreAuthentication } from './core/actions/account.actions';
 import styles from './styles/main.css';
 
 import { onEnterWedding } from './core/routing/wedding.routing';
@@ -51,7 +51,7 @@ class App extends React.Component {
   });
 
   componentWillMount() {
-    tryCookieAuthentication();
+    store.dispatch(restoreAuthentication());
   }
 
   render() {
