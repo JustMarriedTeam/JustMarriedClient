@@ -1,7 +1,10 @@
 // http://stackoverflow.com/questions/38405700/getstate-in-redux-saga
 import React from 'react';
 import { take, put, call, fork } from 'redux-saga/effects';
-import { displayAcknowledgePopup } from '../actions/popup.actions';
+import {
+  displayAcknowledgePopup,
+  POPUP_CONFIRMED,
+} from '../actions/popup.actions';
 import { SIGNED_IN } from '../actions/account.actions';
 
 function * weddingWizard() {
@@ -10,6 +13,8 @@ function * weddingWizard() {
     content: <span>Fill in the information about the wedding such as participants,
       guests, budget and others.</span>,
   }));
+
+  yield take(POPUP_CONFIRMED);
 }
 
 function * weddingWizardFlow() {

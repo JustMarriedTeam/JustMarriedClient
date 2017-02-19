@@ -14,10 +14,11 @@ class Popup extends PureComponent {
 
   static propTypes = {
     popup: PropTypes.instanceOf(PopupModel).isRequired,
+    confirmPopup: PropTypes.func.isRequired,
   };
 
   render() {
-    const { popup } = this.props;
+    const { popup, confirmPopup } = this.props;
 
     if (!popup.visible) {
       return <div />;
@@ -30,7 +31,7 @@ class Popup extends PureComponent {
             label="Confirm"
             primary
             keyboardFocused
-            onTouchTap={this.handleClose}
+            onTouchTap={() => confirmPopup()}
           />,
         ],
       },
