@@ -1,6 +1,7 @@
 export const ACCOUNT_CHANGE_STATE = 'CHANGING_ACCOUNT_STATE';
 
 export const AUTHENTICATE_WITH_TOKEN = 'AUTHENTICATE_WITH_TOKEN';
+export const ACCOUNT_RETRIEVED = 'ACCOUNT_RETRIEVED';
 
 export const SIGN_IN_VIA_LOCAL = 'SIGN_IN_VIA_LOCAL';
 export const SIGN_UP_VIA_LOCAL = 'SIGN_UP_VIA_LOCAL';
@@ -22,6 +23,8 @@ export const SIGNED_OUT = 'SIGNED_OUT';
   Passive
  */
 
+export const accountRetrieved = (account) => ({ type: ACCOUNT_RETRIEVED, account });
+
 export const signOut = () => ({ type: SIGN_OUT });
 
 export const signedOut = () => ({ type: SIGNED_OUT });
@@ -39,7 +42,6 @@ export const authenticateWithToken = (token) => ({ type: AUTHENTICATE_WITH_TOKEN
 /*
   Active
  */
-
 
 export const signUpViaLocalAccount = (credentials) => ({ type: SIGN_UP_VIA_LOCAL, credentials });
 

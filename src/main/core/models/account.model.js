@@ -10,8 +10,10 @@ export const ACCOUNT_STATE = {
 };
 
 const AccountRecord = new Immutable.Record({
-  state: ACCOUNT_STATE.SIGNED_OUT,
+  id: null,
+  login: null,
   token: null,
+  state: ACCOUNT_STATE.SIGNED_OUT,
   user: {},
 });
 

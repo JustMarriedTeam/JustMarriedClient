@@ -7,6 +7,7 @@ import {
   localAccountBound,
   facebookAccountBound,
   googleAccountBound,
+  accountRetrieved,
   SIGN_IN_VIA_LOCAL,
   BIND_LOCAL_ACCOUNT,
   SIGN_IN_VIA_FACEBOOK,
@@ -27,8 +28,14 @@ import {
   bindAccountToGoogle,
   invalidateToken,
 } from '../api/auth.api';
+import { getAccount } from '../api/account.api';
 
-export function * loginViaLocal(credentials) {
+function * retrieveAccount() {
+  const account = yield call(getAccount);
+  yield put(accountRetrieved(account));
+}
+
+function * loginViaLocal(credentials) {
   yield put(accountStateChanged(ACCOUNT_STATE.SIGNING_IN));
   try {
     return yield call(signInViaLocal, credentials);
@@ -38,7 +45,7 @@ export function * loginViaLocal(credentials) {
   return false;
 }
 
-export function * bindLocalAccount() {
+function * bindLocalAccount() {
   yield put(accountStateChanged(ACCOUNT_STATE.SIGNING_IN));
   try {
     return yield call(bindAccountToLocal);
@@ -48,7 +55,7 @@ export function * bindLocalAccount() {
   return false;
 }
 
-export function * loginViaGoogle() {
+function * loginViaGoogle() {
   yield put(accountStateChanged(ACCOUNT_STATE.SIGNING_IN));
   try {
     return yield call(signInViaGoogle);
@@ -58,7 +65,7 @@ export function * loginViaGoogle() {
   return false;
 }
 
-export function * bindGoogleAccount() {
+function * bindGoogleAccount() {
   yield put(accountStateChanged(ACCOUNT_STATE.SIGNING_IN));
   try {
     return yield call(bindAccountToGoogle);
@@ -68,7 +75,7 @@ export function * bindGoogleAccount() {
   return false;
 }
 
-export function * loginViaFacebook() {
+function * loginViaFacebook() {
   yield put(accountStateChanged(ACCOUNT_STATE.SIGNING_IN));
   try {
     return yield call(signInViaFacebook);
@@ -78,7 +85,7 @@ export function * loginViaFacebook() {
   return false;
 }
 
-export function * bindFacebookAccount() {
+function * bindFacebookAccount() {
   yield put(accountStateChanged(ACCOUNT_STATE.SIGNING_IN));
   try {
     return yield call(bindAccountToFacebook);
@@ -88,7 +95,7 @@ export function * bindFacebookAccount() {
   return false;
 }
 
-export function * logout() {
+function * logout() {
   try {
     const response = yield call(invalidateToken);
     yield call(clearAuthenticationToken);
@@ -113,6 +120,7 @@ function * loginViaLocalFlow() {
     if (winner.auth) {
       yield call(storeAuthenticationToken, winner.auth);
       yield put(authenticateWithToken(winner.auth));
+      yield call(retrieveAccount);
       yield put(navigateToDashboard());
     } else {
       yield call(logout);

@@ -1,7 +1,8 @@
 import {
   ACCOUNT_CHANGE_STATE,
   AUTHENTICATE_WITH_TOKEN,
-  SIGNED_OUT
+  ACCOUNT_RETRIEVED,
+  SIGNED_OUT,
 } from '../actions/account.actions';
 import Account, { ACCOUNT_STATE } from '../models/account.model';
 
@@ -19,6 +20,8 @@ export default function (account = new Account(), action) {
         state.set('state', ACCOUNT_STATE.SIGNED_IN);
         state.set('token', action.token);
       });
+    case ACCOUNT_RETRIEVED:
+      return account.merge(action.account);
     default:
       return account;
   }
