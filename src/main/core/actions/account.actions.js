@@ -3,6 +3,7 @@ export const ACCOUNT_CHANGE_STATE = 'CHANGING_ACCOUNT_STATE';
 export const AUTHENTICATE_WITH_TOKEN = 'AUTHENTICATE_WITH_TOKEN';
 
 export const SIGN_IN_VIA_LOCAL = 'SIGN_IN_VIA_LOCAL';
+export const SIGN_UP_VIA_LOCAL = 'SIGN_UP_VIA_LOCAL';
 export const BIND_LOCAL_ACCOUNT = 'BIND_LOCAL_ACCOUNT';
 export const LOCAL_ACCOUNT_BOUND = 'LOCAL_ACCOUNT_BOUND';
 
@@ -38,6 +39,9 @@ export const authenticateWithToken = (token) => ({ type: AUTHENTICATE_WITH_TOKEN
 /*
   Active
  */
+
+
+export const signUpViaLocalAccount = (credentials) => ({ type: SIGN_UP_VIA_LOCAL, credentials });
 
 export const signInViaLocal = (credentials) => (dispatch) =>
   dispatch({ type: SIGN_IN_VIA_LOCAL, credentials });

@@ -11,9 +11,8 @@ import ContentSection from '../../components/ContentSection';
 import ParallaxContent from '../../components/ParallaxContent';
 import Carousel from '../../components/Carousel';
 import CarouselItem from '../../components/Carousel/CarouselItem';
-import Scroll, { animateScroll } from 'react-scroll';
+import Scroll from 'react-scroll';
 import styles from './home.pcss';
-
 import whyNeedUs from '../../assets/whyneedus.jpg';
 import registrationBg from '../../assets/registrationbg.jpg';
 
