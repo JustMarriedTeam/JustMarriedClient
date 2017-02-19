@@ -19,6 +19,10 @@ const AccountRecord = new Immutable.Record({
 
 class Account extends AccountRecord {
 
+  get user() {
+    return super.user.toJS();
+  }
+
   isSignedIn() {
     return this.state === ACCOUNT_STATE.SIGNED_IN;
   }
