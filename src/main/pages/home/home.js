@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Layout from '../../layout/Layout';
 import classnames from 'classnames/bind';
 import LayoutContainer from '../../layout/LayoutContainer';
@@ -15,12 +15,20 @@ import Scroll from 'react-scroll';
 import styles from './home.pcss';
 import whyNeedUs from '../../assets/whyneedus.jpg';
 import registrationBg from '../../assets/registrationbg.jpg';
+import { connect } from 'react-redux';
+import * as allAccountActions from '../../core/actions/account.actions';
+import Account from '../../core/models/account.model';
+import ConditionalRenderer from '../../utils/ConditionalRenderer';
 
 const cx = classnames.bind(styles);
 const ScrollToElement = Scroll.Element;
 const scroller = Scroll.scroller;
 
-export default class HomePage extends React.Component {
+class HomePage extends React.Component {
+
+  static propTypes = {
+    account: PropTypes.instanceOf(Account).isRequired,
+  };
 
   constructor() {
     super();
@@ -61,7 +69,7 @@ export default class HomePage extends React.Component {
       <Layout>
         <div className={cx('home__banner')}>
           <div className={cx('home__banner-content')}>
-            <div className={cx('home__logo')} />
+            <div className={cx('home__logo')}/>
             <div className={cx('home__slogan')}>
 
               <h1>Just Married</h1>
@@ -84,7 +92,7 @@ export default class HomePage extends React.Component {
 
             <Spacer />
 
-            <LoginPane isVisible={this.state.loginForm.shown} />
+            <LoginPane isVisible={this.state.loginForm.shown}/>
 
           </div>
         </div>
@@ -117,18 +125,20 @@ export default class HomePage extends React.Component {
 
           </ContentSection>
 
-          <ParallaxContent img={registrationBg}>
+          <ConditionalRenderer show={!this.props.account.isSignedIn()}>
+            <ParallaxContent img={registrationBg}>
 
-            <ScrollToElement name="registration">
-              <RegistrationForm
-                style={{
-                  padding: '120px 0',
-                  textAlign: 'center',
-                }}
-              />
-            </ScrollToElement>
+              <ScrollToElement name="registration">
+                <RegistrationForm
+                  style={{
+                    padding: '120px 0',
+                    textAlign: 'center',
+                  }}
+                />
+              </ScrollToElement>
 
-          </ParallaxContent>
+            </ParallaxContent>
+          </ConditionalRenderer>
 
         </LayoutContainer>
 
@@ -138,3 +148,8 @@ export default class HomePage extends React.Component {
   }
 
 }
+
+
+export default connect((state) => ({
+  account: state.account,
+}), allAccountActions)(HomePage);
