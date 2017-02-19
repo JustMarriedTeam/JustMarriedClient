@@ -1,9 +1,17 @@
 .account-panel {
 
-  padding: 10px 10px 2px;
+  display: table;
+  border-collapse: separate;
+  border-spacing: 10px;
+  width: 100%;
+
+  &__avatar,
+  &__details {
+    vertical-align: middle;
+  }
 
   &__avatar {
-    display: inline-block;
+    display: table-cell;
     font-size: 40px !important;
     line-height: 40px;
     border-radius: 5%;
@@ -12,7 +20,19 @@
   }
 
   &__details {
-    display: inline-block;
+    display: table-cell;
+    width: 100%;
+    vertical-align: bottom;
+  }
+
+  &__header {
+    font-size: 1.5em;
+    font-weight: 300;
+    line-height: 50px;
+  }
+
+  &__actions {
+    text-align: right;
   }
 
 }

@@ -28,14 +28,21 @@ class AccountPanel extends PureComponent {
         >G</Avatar>
 
         <div className={cx('account-panel__details')}>
-          <h5>Hello { account.user.firstName }!</h5>
-          <IconButton
-            onClick={() => this.props.signOut()}
-            iconClassName="material-icons"
-            tooltip="Sign out"
-          >
-            exit_to_app
-          </IconButton>
+
+          <div className={cx('account-panel__header')}>
+            Hello { account.user.firstName }!
+          </div>
+
+          <div className={cx('account-panel__actions')}>
+            <IconButton
+              onClick={() => this.props.signOut()}
+              iconClassName="material-icons"
+              tooltip="Sign out"
+            >
+              exit_to_app
+            </IconButton>
+          </div>
+
         </div>
 
       </div>
