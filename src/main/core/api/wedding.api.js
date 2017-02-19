@@ -19,8 +19,7 @@ function putWedding(weddingToPost) {
 }
 
 function postWedding(weddingToPost) {
-  const wedding = store.getState().wedding;
-  return Promise.resolve(server.post('/wedding', denormalizeWedding(wedding, weddingToPost)))
+  return Promise.resolve(server.post('/wedding', weddingToPost.toJS()))
     .then((response) => normalizeWedding(response.data));
 }
 

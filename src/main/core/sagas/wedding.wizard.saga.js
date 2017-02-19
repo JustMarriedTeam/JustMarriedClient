@@ -6,6 +6,7 @@ import {
   POPUP_CONFIRMED,
 } from '../actions/popup.actions';
 import { SIGNED_IN } from '../actions/account.actions';
+import { createWedding, WEDDING_CREATED } from '../actions/wedding.actions';
 
 function * weddingWizard() {
   yield put(displayAcknowledgePopup({
@@ -15,6 +16,8 @@ function * weddingWizard() {
   }));
 
   yield take(POPUP_CONFIRMED);
+  yield put(createWedding());
+  yield take(WEDDING_CREATED);
 }
 
 function * weddingWizardFlow() {

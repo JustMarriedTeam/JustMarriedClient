@@ -1,6 +1,7 @@
 import { getWedding, postWedding, putWedding } from '../api/wedding.api';
 import { getTasks } from '../api/tasks.api';
 import { sendingRequest, notifyRequestFailed } from './server.actions';
+import { createEmptyWedding } from '../factories/wedding.factory';
 
 import {
   PARTICIPANTS_FETCHED,
@@ -55,9 +56,9 @@ export const fetchWedding = (query) => (dispatch) => {
     .finally(() => dispatch(sendingRequest(false)));
 };
 
-export const createWedding = (createdWedding) => (dispatch) => {
+export const createWedding = () => (dispatch) => {
   dispatch(sendingRequest(true));
-  return postWedding(createdWedding)
+  return postWedding(createEmptyWedding())
     .then(propagateWeddingUpdate(dispatch))
     .then((wedding) => dispatch({ type: WEDDING_CREATED, id: wedding.result }))
     .catch((err) => dispatch(notifyRequestFailed(err)))
