@@ -69,30 +69,34 @@ class HomePage extends React.Component {
       <Layout>
         <div className={cx('home__banner')}>
           <div className={cx('home__banner-content')}>
-            <div className={cx('home__logo')}/>
+            <div className={cx('home__logo')} />
             <div className={cx('home__slogan')}>
 
               <h1>Just Married</h1>
               <h4>Let's plan your wedding!</h4>
 
-              <RaisedButton
-                label="Start here"
-                secondary
-                onClick={this.handleStart}
-              />
+              <ConditionalRenderer show={!this.props.account.isSignedIn()}>
+                <div>
+                  <RaisedButton
+                    label="Start here"
+                    secondary
+                    onClick={this.handleStart}
+                  />
 
-              <FlatButton
-                onClick={this.toggleLoginForm}
-                disabled={this.state.loginForm.shown}
-                label="or sign in"
-                href={'#continue'}
-              />
+                  <FlatButton
+                    onClick={this.toggleLoginForm}
+                    disabled={this.state.loginForm.shown}
+                    label="or sign in"
+                    href={'#continue'}
+                  />
+                </div>
+              </ConditionalRenderer>
 
             </div>
 
             <Spacer />
 
-            <LoginPane isVisible={this.state.loginForm.shown}/>
+            <LoginPane isVisible={this.state.loginForm.shown} />
 
           </div>
         </div>
