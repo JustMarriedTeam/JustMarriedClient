@@ -36,12 +36,16 @@ import {
 import { getAccount } from '../api/account.api';
 
 function * signInWithToken(token) {
-  const account = yield call(getAccount, token);
-  yield call(storeAuthenticationToken, token);
-  yield put(signedIn({
-    account,
-    token,
-  }));
+  try {
+    const account = yield call(getAccount, token);
+    yield call(storeAuthenticationToken, token);
+    yield put(signedIn({
+      account,
+      token,
+    }));
+  } catch (e) {
+    yield call(clearAuthenticationToken);
+  }
 }
 
 function * loginViaLocal(credentials) {

@@ -19,7 +19,7 @@ import registerSaga from './sagas/register.saga';
 import editSaga from './sagas/edit.saga';
 import selectSaga from './sagas/select.saga';
 import weddingEditSaga from './sagas/wedding.edit.saga';
-import weddingWizardSaga from './sagas/wedding.wizard.saga';
+import assignmentSaga from './sagas/assignment.saga';
 
 // entities
 import guestsReducer from './reducers/entities/guests.reducer';
@@ -61,4 +61,4 @@ sagaMiddleware.run(registerSaga);
 sagaMiddleware.run(editSaga);
 sagaMiddleware.run(selectSaga);
 sagaMiddleware.run(weddingEditSaga);
-sagaMiddleware.run(weddingWizardSaga);
+sagaMiddleware.run(assignmentSaga);
