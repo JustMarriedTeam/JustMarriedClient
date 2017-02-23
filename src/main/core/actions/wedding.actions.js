@@ -14,8 +14,6 @@ import {
 export const WEDDING_FETCHED = 'WEDDING_FETCHED';
 export const WEDDINGS_FETCHED = 'WEDDINGS_FETCHED';
 export const WEDDING_SAVED = 'WEDDING_SAVED';
-export const WEDDING_CREATED = 'WEDDING_CREATED';
-
 
 export const TASKS_FETCHED = 'TASKS_FETCHED';
 export const USERS_FETCHED = 'USERS_FETCHED';
@@ -52,15 +50,6 @@ export const fetchWedding = (query) => (dispatch) => {
   return getWedding(query)
     .then(propagateWeddingUpdate(dispatch))
     .then((wedding) => dispatch({ type: WEDDING_FETCHED, id: wedding.result }))
-    .catch((err) => dispatch(notifyRequestFailed(err)))
-    .finally(() => dispatch(sendingRequest(false)));
-};
-
-export const createWedding = () => (dispatch) => {
-  dispatch(sendingRequest(true));
-  return postWedding(createEmptyWedding())
-    .then(propagateWeddingUpdate(dispatch))
-    .then((wedding) => dispatch({ type: WEDDING_CREATED, id: wedding.result }))
     .catch((err) => dispatch(notifyRequestFailed(err)))
     .finally(() => dispatch(sendingRequest(false)));
 };

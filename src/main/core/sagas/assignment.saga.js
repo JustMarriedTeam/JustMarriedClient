@@ -7,6 +7,7 @@ import {
 } from '../actions/popup.actions';
 import { SIGNED_IN } from '../actions/account.actions';
 import { ASSIGNED_ACTION } from '../models/account.model';
+import { navigateToWedding, navigateToDashboard } from '../actions/navigation.actions';
 
 const pendingAssignments = (state) => state.account.getPendingAssignments();
 
@@ -18,7 +19,7 @@ function * fillWeddingFlow() {
   }));
 
   yield take(POPUP_CONFIRMED);
-  // yield put(createWedding());
+  yield put(navigateToWedding());
 }
 
 function * loginWelcomeFlow() {
@@ -26,14 +27,18 @@ function * loginWelcomeFlow() {
     yield take(SIGNED_IN);
     const assignmentsList = yield select(pendingAssignments);
 
-    for (const assignment of assignmentsList) {
-      switch (assignment.action) {
-        case ASSIGNED_ACTION.FILL_WEDDING:
-          yield call(fillWeddingFlow);
-          break;
-        default:
-          throw new Error('Unknown assignment');
+    if (assignmentsList.size > 0) {
+      for (const assignment of assignmentsList) {
+        switch (assignment.action) {
+          case ASSIGNED_ACTION.FILL_WEDDING:
+            yield call(fillWeddingFlow);
+            break;
+          default:
+            throw new Error('Unknown assignment');
+        }
       }
+    } else {
+      yield put(navigateToDashboard());
     }
   }
 }

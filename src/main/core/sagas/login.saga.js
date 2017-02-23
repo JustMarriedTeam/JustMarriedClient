@@ -18,7 +18,7 @@ import {
 } from '../actions/account.actions';
 import { notifyRequestFailed } from '../actions/server.actions';
 import { ACCOUNT_STATE } from '../models/account.model';
-import { navigateToDashboard, navigateToHome } from '../actions/navigation.actions';
+import { navigateToHome } from '../actions/navigation.actions';
 import {
   storeAuthenticationToken,
   retrieveAuthenticationToken,
@@ -132,7 +132,6 @@ function * loginViaLocalFlow() {
 
     if (winner.auth) {
       yield call(signInWithToken, winner.auth);
-      yield put(navigateToDashboard());
     } else {
       yield call(logout);
       yield put(navigateToHome);
@@ -151,7 +150,6 @@ function * bindLocalAccountFlow() {
 
     if (winner.auth) {
       yield put(localAccountBound(winner.auth));
-      yield put(navigateToDashboard());
     } else {
       yield call(logout);
       yield put(navigateToHome);
@@ -170,7 +168,6 @@ function * loginViaGoogleFlow() {
 
     if (winner.auth) {
       yield call(signInWithToken, winner.auth);
-      yield put(navigateToDashboard());
     } else {
       yield call(logout);
       yield put(navigateToHome);
@@ -189,7 +186,6 @@ function * bindGoogleAccountFlow() {
 
     if (winner.auth) {
       yield put(googleAccountBound(winner.auth));
-      yield put(navigateToDashboard());
     } else {
       yield call(logout);
       yield put(navigateToHome);
@@ -208,7 +204,6 @@ function * loginViaFacebookFlow() {
 
     if (winner.auth) {
       yield call(signInWithToken, winner.auth);
-      yield put(navigateToDashboard());
     } else {
       yield call(logout);
       yield put(navigateToHome);
@@ -227,7 +222,6 @@ function * bindFacebookAccountFlow() {
 
     if (winner.auth) {
       yield put(facebookAccountBound(winner.auth));
-      yield put(navigateToDashboard());
     } else {
       yield call(logout);
       yield put(navigateToHome);

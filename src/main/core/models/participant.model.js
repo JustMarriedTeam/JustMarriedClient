@@ -22,7 +22,7 @@ class Participant extends ParticipantRecord {
   }
 
   toJS() {
-    const user = this.user.toJS();
+    const user = !!this.user ? this.user.toJS() : {};
     return merge(super.toJS(), {
       user,
     });
