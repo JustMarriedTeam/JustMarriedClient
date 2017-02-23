@@ -39,8 +39,8 @@ class Account extends AccountRecord {
 
   getPendingAssignments() {
     return this.assignments
-      .filter((assignment) => !assignment.done)
-      .map((assignment) => new Assignment(assignment));
+      .map((assignment) => new Assignment(assignment))
+      .filterNot((assignment) => assignment.done);
   }
 
 }
