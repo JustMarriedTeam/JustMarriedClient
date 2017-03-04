@@ -30,7 +30,7 @@ class AccountPanel extends PureComponent {
         <div className={cx('account-panel__details')}>
 
           <div className={cx('account-panel__header')}>
-            Hello { account.user.firstName }!
+            Hello {account.user.firstName}!
           </div>
 
           <div className={cx('account-panel__actions')}>

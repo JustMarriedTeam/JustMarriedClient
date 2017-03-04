@@ -1,14 +1,9 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import classnames from 'classnames/bind';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import * as allPopupActions from '../../core/actions/popup.actions';
 import PopupModel, { POPUP_ROLE } from '../../core/models/popup.model';
-
-import styles from './Popup.pcss';
-
-const cx = classnames.bind(styles);
 
 class Popup extends PureComponent {
 
@@ -39,7 +34,6 @@ class Popup extends PureComponent {
 
     return (
       <Dialog
-        className={cx('popup')}
         title={popup.title}
         actions={POPUP_ROLE_MAPPING.actions}
         modal={false}

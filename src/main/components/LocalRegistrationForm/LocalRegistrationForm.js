@@ -1,6 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Flex, Box } from 'reflexbox';
 import TextField from 'material-ui/TextField';
 import Spacer from '../Spacer/Spacer';
 import { Field, reduxForm } from 'redux-form';

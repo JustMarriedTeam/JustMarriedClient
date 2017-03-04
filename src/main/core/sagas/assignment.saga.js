@@ -15,7 +15,8 @@ function * fillWeddingFlow() {
   yield put(displayAcknowledgePopup({
     title: 'Create your wedding',
     content: <span>Fill in the information about the wedding such as participants,
-      guests, budget and others.</span>,
+      guests, budget and others.
+    </span>,
   }));
 
   yield take(POPUP_CONFIRMED);

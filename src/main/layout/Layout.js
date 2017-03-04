@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import LayoutBar from './LayoutBar/LayoutBar';
 import LayoutDrawer from './LayoutDrawer/LayoutDrawer';
@@ -43,10 +43,10 @@ class Layout extends Component {
     return (
       <div className={cx('layout__root')}>
 
-        <LayoutBar onMenuAction={() => this.toggleDrawer()}/>
+        <LayoutBar onMenuAction={() => this.toggleDrawer()} />
 
         <ConditionalRenderer show={this.props.account.isSignedIn()}>
-          <LayoutDrawer open={this.state.drawer.open} onToggle={this.toggleDrawer}/>
+          <LayoutDrawer open={this.state.drawer.open} onToggle={this.toggleDrawer} />
         </ConditionalRenderer>
 
         <main className={cx('layout__content')}>

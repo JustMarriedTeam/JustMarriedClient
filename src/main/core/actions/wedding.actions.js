@@ -1,7 +1,6 @@
-import { getWedding, postWedding, putWedding } from '../api/wedding.api';
+import { getWedding, putWedding } from '../api/wedding.api';
 import { getTasks } from '../api/tasks.api';
 import { sendingRequest, notifyRequestFailed } from './server.actions';
-import { createEmptyWedding } from '../factories/wedding.factory';
 
 import {
   PARTICIPANTS_FETCHED,
