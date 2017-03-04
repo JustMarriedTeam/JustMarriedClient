@@ -6,6 +6,7 @@ import {
   email,
   firstName,
   lastName } from '../../../core/validation/participant.validation';
+import { validateIf } from '../../../core/validation/common.validation';
 import {
   TextField,
 } from 'redux-form-material-ui';
@@ -21,6 +22,7 @@ class ParticipantForm extends PureComponent {
 
   render() {
     const { isEditable, handleSubmit } = this.props;
+    const validationOf = validateIf(isEditable);
 
     return (
       <form
@@ -34,7 +36,7 @@ class ParticipantForm extends PureComponent {
               name="user.firstName"
               label="First name"
               floatingLabelText="First name"
-              validate={[required, firstName]}
+              validate={validationOf([required, firstName])}
               disabled={!isEditable}
               component={TextField}
             />
@@ -47,7 +49,7 @@ class ParticipantForm extends PureComponent {
               name="user.lastName"
               label="Last name"
               floatingLabelText="Last name"
-              validate={[required, lastName]}
+              validate={validationOf([required, lastName])}
               disabled={!isEditable}
               component={TextField}
             />
@@ -60,7 +62,7 @@ class ParticipantForm extends PureComponent {
               name="user.contactEmail"
               label="Contact email"
               floatingLabelText="Contact email"
-              validate={[email]}
+              validate={validationOf([email])}
               disabled={!isEditable}
               component={TextField}
             />
@@ -75,9 +77,9 @@ class ParticipantForm extends PureComponent {
 }
 
 export default reduxForm({
-  validate() {
-    // no complex validation (field combinations)
-    return true;
-  },
+  // validate() {
+  //   // no complex validation (field combinations)
+  //   return true;
+  // },
   enableReinitialize: true,
 })(ParticipantForm);
