@@ -7,6 +7,7 @@ export const ACCOUNT_STATE = {
   SIGNING_OUT: 'SIGNING_OUT',
   SIGNED_IN_SUCCESSFUL: 'SIGNED_IN_SUCCESSFUL',
   SIGNED_IN_FAILED: 'SIGNED_IN_FAILED',
+  UNKNOWN: 'UNKNOWN',
 };
 
 export const ASSIGNED_ACTION = {
@@ -22,7 +23,7 @@ const AccountRecord = new Immutable.Record({
   id: null,
   login: null,
   token: null,
-  state: ACCOUNT_STATE.SIGNED_OUT,
+  state: ACCOUNT_STATE.UNKNOWN,
   user: {},
   assignments: [],
 });

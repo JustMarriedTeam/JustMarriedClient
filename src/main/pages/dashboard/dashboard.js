@@ -16,7 +16,7 @@ class DashboardPage extends Component {
   };
 
   componentDidMount() {
-    this.props.weddingActions.fetchWedding();
+
   }
 
   render() {

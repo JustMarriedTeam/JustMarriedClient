@@ -1,18 +1,18 @@
-import React, { PropTypes, Component } from 'react';
-import Layout from '../../layout/Layout';
-import { Tabs, Tab } from 'material-ui/Tabs';
-import FontIcon from 'material-ui/FontIcon';
-import ParticipantsView from './participants/participants.view';
-import GuestsView from './guests/guests.view';
-import FeaturesView from './features/features.view';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import * as weddingActions from '../../core/actions/wedding.actions';
-import * as actionBarActions from '../../core/actions/actionbar.actions';
-import * as allSelectionActions from '../../core/actions/selection.actions';
-import EditAction from '../../layout/LayoutBar/actions/EditAction';
-import { selectWedding } from '../../core/selectors/wedding.selector';
-import Wedding from '../../core/models/wedding.model';
+import React, {PropTypes, Component} from "react";
+import Layout from "../../layout/Layout";
+import {Tabs, Tab} from "material-ui/Tabs";
+import FontIcon from "material-ui/FontIcon";
+import ParticipantsView from "./participants/participants.view";
+import GuestsView from "./guests/guests.view";
+import FeaturesView from "./features/features.view";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
+import * as weddingActions from "../../core/actions/wedding.actions";
+import * as actionBarActions from "../../core/actions/actionbar.actions";
+import * as allSelectionActions from "../../core/actions/selection.actions";
+import EditAction from "../../layout/LayoutBar/actions/EditAction";
+import {selectWedding} from "../../core/selectors/wedding.selector";
+import Wedding from "../../core/models/wedding.model";
 
 const TAB_KEYS = {
   PARTICIPANTS: 0,
@@ -38,11 +38,15 @@ class WeddingPage extends Component {
     };
   }
 
+  componentWillMount() {
+    this.props.weddingActions.fetchWedding();
+  }
+
   componentDidMount() {
     this.activateTab(TAB_KEYS.PARTICIPANTS);
   }
 
-  onTabMount = (tabId) => ({ otherContextItems } = {}) => {
+  onTabMount = (tabId) => ({otherContextItems} = {}) => {
     this.state.tabs[tabId] = {
       menu: otherContextItems,
     };
@@ -55,7 +59,7 @@ class WeddingPage extends Component {
   };
 
   invalidateAppBarMenu = () => {
-    const { menu } = this.state.tabs[this.state.activeTab];
+    const {menu} = this.state.tabs[this.state.activeTab];
 
     const buttonStyle = {
       display: 'inline-block',

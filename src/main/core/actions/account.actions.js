@@ -1,6 +1,6 @@
-export const ACCOUNT_CHANGE_STATE = 'CHANGING_ACCOUNT_STATE';
+import { retrieveAuthenticationToken } from '../cookies';
 
-export const RESTORE_AUTHENTICATION = 'RESTORE_AUTHENTICATION';
+export const ACCOUNT_CHANGE_STATE = 'CHANGING_ACCOUNT_STATE';
 
 export const SIGN_IN_VIA_LOCAL = 'SIGN_IN_VIA_LOCAL';
 export const SIGN_UP_VIA_LOCAL = 'SIGN_UP_VIA_LOCAL';
@@ -14,6 +14,8 @@ export const FACEBOOK_ACCOUNT_BOUND = 'FACEBOOK_ACCOUNT_BOUND';
 export const SIGN_IN_VIA_GOOGLE = 'SIGN_IN_VIA_GOOGLE';
 export const BIND_GOOGLE_ACCOUNT = 'BIND_GOOGLE_ACCOUNT';
 export const GOOGLE_ACCOUNT_BOUND = 'GOOGLE_ACCOUNT_BOUND';
+
+export const RESTORE_AUTHENTICATION = 'RESTORE_AUTHENTICATION';
 
 export const SIGN_OUT = 'SIGN_OUT';
 export const SIGNED_OUT = 'SIGNED_OUT';
@@ -58,3 +60,11 @@ export const bindFacebookAccount = () => (dispatch) => dispatch({ type: BIND_FAC
 export const signInViaGoogle = () => (dispatch) => dispatch({ type: SIGN_IN_VIA_GOOGLE });
 
 export const bindGoogleAccount = () => (dispatch) => dispatch({ type: BIND_GOOGLE_ACCOUNT });
+
+export const tryRestoreAuthentication = () => (dispatch) => {
+  const token = retrieveAuthenticationToken();
+  if (token) {
+    return dispatch(restoreAuthentication(token));
+  }
+  return null;
+};

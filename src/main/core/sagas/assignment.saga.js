@@ -25,20 +25,23 @@ function * fillWeddingFlow() {
 function * loginWelcomeFlow() {
   while (true) { // eslint-disable-line
     yield take(SIGNED_IN);
-    const assignmentsList = yield select(pendingAssignments);
+    const location = yield select((state) => state.routing.locationBeforeTransitions);
+    if (location.pathname === '/home') {
+      const assignmentsList = yield select(pendingAssignments);
 
-    if (assignmentsList.size > 0) {
-      for (const assignment of assignmentsList) {
-        switch (assignment.action) {
-          case ASSIGNED_ACTION.FILL_WEDDING:
-            yield call(fillWeddingFlow);
-            break;
-          default:
-            throw new Error('Unknown assignment');
+      if (assignmentsList.size > 0) {
+        for (const assignment of assignmentsList) {
+          switch (assignment.action) {
+            case ASSIGNED_ACTION.FILL_WEDDING:
+              yield call(fillWeddingFlow);
+              break;
+            default:
+              throw new Error('Unknown assignment');
+          }
         }
+      } else {
+        yield put(navigateToDashboard());
       }
-    } else {
-      yield put(navigateToDashboard());
     }
   }
 }

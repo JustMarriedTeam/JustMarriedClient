@@ -21,7 +21,6 @@ import { ACCOUNT_STATE } from '../models/account.model';
 import { navigateToHome } from '../actions/navigation.actions';
 import {
   storeAuthenticationToken,
-  retrieveAuthenticationToken,
   clearAuthenticationToken,
 } from '../cookies';
 import {
@@ -229,13 +228,10 @@ function * bindFacebookAccountFlow() {
   }
 }
 
-function * loginFromCookieFlow() {
+function * restoreAuthenticationFlow() {
   while (true) {
-    yield take(RESTORE_AUTHENTICATION);
-    const token = yield call(retrieveAuthenticationToken);
-    if (token) {
-      yield call(signInWithToken, token);
-    }
+    const { token } = yield take(RESTORE_AUTHENTICATION);
+    yield call(signInWithToken, token);
   }
 }
 
@@ -253,6 +249,6 @@ export default function * root() {
   yield fork(bindGoogleAccountFlow);
   yield fork(loginViaFacebookFlow);
   yield fork(bindFacebookAccountFlow);
-  yield fork(loginFromCookieFlow);
+  yield fork(restoreAuthenticationFlow);
   yield fork(logoutFlow);
 }
