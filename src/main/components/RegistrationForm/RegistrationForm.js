@@ -1,53 +1,28 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Flex, Box } from 'reflexbox';
 import FontIcon from 'material-ui/FontIcon';
-import TextField from 'material-ui/TextField';
+import LocalRegistrationForm from '../LocalRegistrationForm';
 import Spacer from '../Spacer/Spacer';
 import SeparatingLine from '../SeparatingLine/SeparatingLine';
 import MediaQuery from 'react-responsive';
+import { connect } from 'react-redux';
+import * as allAccountActions from '../../core/actions/account.actions';
 
-export default class RegistrationForm extends PureComponent {
+class RegistrationForm extends PureComponent {
 
+  static propTypes = {
+    signInViaGoogle: PropTypes.func.isRequired,
+    signInViaFacebook: PropTypes.func.isRequired,
+  };
 
   render() {
     return (
-      <Flex wrap align="stretch" justify="space-around" {...this.props}>
+      <Flex wrap align="stretch" justify="space-around">
 
-        <Box sm={12} md={5} p={1}>
-          <TextField
-            fullWidth
-            hintText="Login"
-          />
-
-          <Spacer weight="xs" />
-
-          <TextField
-            fullWidth
-            hintText="E-mail address"
-          />
-
-          <Spacer weight="xs" />
-
-          <TextField
-            fullWidth
-            hintText="Password"
-          />
-
-          <Spacer weight="md" />
-
-          <TextField
-            fullWidth
-            hintText="Repeat password"
-          />
-
-          <Spacer weight="md" />
-
-          <div>
-            <RaisedButton primary label="Login" />
-          </div>
+        <Box col={12} md={5} p={1}>
+          <LocalRegistrationForm />
         </Box>
-
 
         <MediaQuery maxWidth="767px">
           <Box col={12} p={1}>
@@ -64,7 +39,7 @@ export default class RegistrationForm extends PureComponent {
         <Box sm={12} md={5} p={1}>
 
           <RaisedButton
-            href="http://localhost:2701/api/auth/facebook"
+            onClick={this.props.signInViaFacebook}
             target="_blank"
             backgroundColor="#27cbe0"
             fullWidth
@@ -75,7 +50,7 @@ export default class RegistrationForm extends PureComponent {
           <Spacer weight="xs" />
 
           <RaisedButton
-            href="http://localhost:2701/api/auth/google"
+            onClick={this.props.signInViaGoogle}
             target="_blank"
             backgroundColor="#27cbe0"
             fullWidth
@@ -91,3 +66,6 @@ export default class RegistrationForm extends PureComponent {
   }
 
 }
+
+export default connect(() => ({
+}), allAccountActions)(RegistrationForm);

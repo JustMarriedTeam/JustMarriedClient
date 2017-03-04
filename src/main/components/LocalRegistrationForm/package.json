@@ -1,0 +1,6 @@
+{
+  "name": "LocalRegistrationForm",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./LocalRegistrationForm.js"
+}

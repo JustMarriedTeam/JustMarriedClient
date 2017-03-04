@@ -18,10 +18,4 @@ function putWedding(weddingToPost) {
     .then((response) => normalizeWedding(response.data));
 }
 
-function postWedding(weddingToPost) {
-  const wedding = store.getState().wedding;
-  return Promise.resolve(server.post('/wedding', denormalizeWedding(wedding, weddingToPost)))
-    .then((response) => normalizeWedding(response.data));
-}
-
-export { getWedding, postWedding, putWedding };
+export { getWedding, putWedding };

@@ -38,6 +38,10 @@ class WeddingPage extends Component {
     };
   }
 
+  componentWillMount() {
+    this.props.weddingActions.fetchWedding();
+  }
+
   componentDidMount() {
     this.activateTab(TAB_KEYS.PARTICIPANTS);
   }

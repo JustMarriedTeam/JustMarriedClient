@@ -6,7 +6,6 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import store from './core/store';
-import { tryCookieAuthentication } from './core/cookies';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import ErrorPage from './pages/error/error';
@@ -16,9 +15,8 @@ import DashboardPage from './pages/dashboard/dashboard';
 import Tasks from './pages/tasks/tasks';
 import Task from './pages/task/task';
 import Theme from './theme/theme';
+import { secured } from './components/SecuredComponent';
 import styles from './styles/main.css';
-
-import { onEnterWedding } from './core/routing/wedding.routing';
 
 const cx = classNames.bind(styles);
 
@@ -50,10 +48,6 @@ class App extends React.Component {
     },
   });
 
-  componentWillMount() {
-    tryCookieAuthentication();
-  }
-
   render() {
     return (
       <MuiThemeProvider muiTheme={Theme}>
@@ -70,9 +64,9 @@ ReactDOM.render(
     <Route path="/" component={App}>
       <IndexRoute component={HomePage} />
       <Route path="/home" component={HomePage} />
-      <Route path="/dashboard" component={DashboardPage} />
-      <Route path="/wedding" component={WeddingPage} onEnter={onEnterWedding} />
-      <Route path="/tasks" component={Tasks}>
+      <Route path="/dashboard" component={secured(DashboardPage)} />
+      <Route path="/wedding" component={secured(WeddingPage)} />
+      <Route path="/tasks" component={secured(Tasks)}>
         <Route path="/tasks/:taskId" component={Task} />
       </Route>
       <Route path="*" component={ErrorPage} />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Layout from '../../layout/Layout';
 import classnames from 'classnames/bind';
 import LayoutContainer from '../../layout/LayoutContainer';
@@ -11,14 +11,24 @@ import ContentSection from '../../components/ContentSection';
 import ParallaxContent from '../../components/ParallaxContent';
 import Carousel from '../../components/Carousel';
 import CarouselItem from '../../components/Carousel/CarouselItem';
+import Scroll from 'react-scroll';
 import styles from './home.pcss';
-
 import whyNeedUs from '../../assets/whyneedus.jpg';
 import registrationBg from '../../assets/registrationbg.jpg';
+import { connect } from 'react-redux';
+import * as allAccountActions from '../../core/actions/account.actions';
+import Account from '../../core/models/account.model';
+import ConditionalRenderer from '../../utils/ConditionalRenderer';
 
 const cx = classnames.bind(styles);
+const ScrollToElement = Scroll.Element;
+const scroller = Scroll.scroller;
 
-export default class HomePage extends React.Component {
+class HomePage extends React.Component {
+
+  static propTypes = {
+    account: PropTypes.instanceOf(Account).isRequired,
+  };
 
   constructor() {
     super();
@@ -35,6 +45,14 @@ export default class HomePage extends React.Component {
         shown: !prevState.loginForm.shown,
       },
     }));
+  };
+
+  handleStart = () => {
+    scroller.scrollTo('registration', {
+      duration: 1000,
+      delay: 100,
+      smooth: true,
+    });
   };
 
 
@@ -57,13 +75,22 @@ export default class HomePage extends React.Component {
               <h1>Just Married</h1>
               <h4>Let's plan your wedding!</h4>
 
-              <RaisedButton label="Start here" secondary href={'#start'} />
-              <FlatButton
-                onClick={this.toggleLoginForm}
-                disabled={this.state.loginForm.shown}
-                label="or sign in"
-                href={'#continue'}
-              />
+              <ConditionalRenderer show={!this.props.account.isSignedIn()}>
+                <div>
+                  <RaisedButton
+                    label="Start here"
+                    secondary
+                    onClick={this.handleStart}
+                  />
+
+                  <FlatButton
+                    onClick={this.toggleLoginForm}
+                    disabled={this.state.loginForm.shown}
+                    label="or sign in"
+                    href={'#continue'}
+                  />
+                </div>
+              </ConditionalRenderer>
 
             </div>
 
@@ -102,16 +129,20 @@ export default class HomePage extends React.Component {
 
           </ContentSection>
 
-          <ParallaxContent img={registrationBg}>
+          <ConditionalRenderer show={!this.props.account.isSignedIn()}>
+            <ParallaxContent img={registrationBg}>
 
-            <RegistrationForm
-              style={{
-                padding: '120px 0',
-                textAlign: 'center',
-              }}
-            />
+              <ScrollToElement name="registration">
+                <RegistrationForm
+                  style={{
+                    padding: '120px 0',
+                    textAlign: 'center',
+                  }}
+                />
+              </ScrollToElement>
 
-          </ParallaxContent>
+            </ParallaxContent>
+          </ConditionalRenderer>
 
         </LayoutContainer>
 
@@ -121,3 +152,8 @@ export default class HomePage extends React.Component {
   }
 
 }
+
+
+export default connect((state) => ({
+  account: state.account,
+}), allAccountActions)(HomePage);

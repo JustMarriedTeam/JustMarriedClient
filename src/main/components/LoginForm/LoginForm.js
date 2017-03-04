@@ -9,7 +9,7 @@ import classNames from 'classnames/bind';
 import styles from './LoginForm.pcss';
 import { connect } from 'react-redux';
 import Account from '../../core/models/account.model';
-import * as accountActions from '../../core/actions/account.actions';
+import * as allAccountActions from '../../core/actions/account.actions';
 import LocalLoginForm from '../LocalLoginForm';
 
 const cx = classNames.bind(styles);
@@ -82,4 +82,4 @@ class LoginForm extends PureComponent {
 
 export default connect((state) => ({
   account: state.account,
-}), accountActions)(LoginForm);
+}), allAccountActions)(LoginForm);

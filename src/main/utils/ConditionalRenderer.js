@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 
 class ConditionalRenderer extends PureComponent {
   render() {
@@ -7,7 +7,7 @@ class ConditionalRenderer extends PureComponent {
         this.props.children
       );
     }
-    return null;
+    return <div />;
   }
 }
 

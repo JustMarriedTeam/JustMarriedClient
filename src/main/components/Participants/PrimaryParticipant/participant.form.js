@@ -1,21 +1,16 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { Flex, Box } from 'reflexbox';
 import { Field, reduxForm } from 'redux-form';
-import TextField from 'material-ui/TextField';
+import {
+  required,
+  email,
+  firstName,
+  lastName } from '../../../core/validation/participant.validation';
+import { validateIf } from '../../../core/validation/common.validation';
+import {
+  TextField,
+} from 'redux-form-material-ui';
 
-const validate = values => {
-  const errors = {};
-  const requiredFields = ['firstName', 'lastName'];
-  requiredFields.forEach(field => {
-    if (!values[field]) {
-      errors[field] = 'Required';
-    }
-  });
-  if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address';
-  }
-  return errors;
-};
 
 class ParticipantForm extends PureComponent {
 
@@ -27,17 +22,7 @@ class ParticipantForm extends PureComponent {
 
   render() {
     const { isEditable, handleSubmit } = this.props;
-
-    const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => ( // eslint-disable-line
-      <TextField
-        hintText={label}
-        floatingLabelText={label}
-        errorText={touched && error}
-        disabled={!isEditable}
-        {...input}
-        {...custom}
-      />
-    );
+    const validationOf = validateIf(isEditable);
 
     return (
       <form
@@ -49,8 +34,11 @@ class ParticipantForm extends PureComponent {
 
             <Field
               name="user.firstName"
-              component={renderTextField}
               label="First name"
+              floatingLabelText="First name"
+              validate={validationOf([required, firstName])}
+              disabled={!isEditable}
+              component={TextField}
             />
 
           </Box>
@@ -59,8 +47,11 @@ class ParticipantForm extends PureComponent {
 
             <Field
               name="user.lastName"
-              component={renderTextField}
               label="Last name"
+              floatingLabelText="Last name"
+              validate={validationOf([required, lastName])}
+              disabled={!isEditable}
+              component={TextField}
             />
 
           </Box>
@@ -69,8 +60,11 @@ class ParticipantForm extends PureComponent {
 
             <Field
               name="user.contactEmail"
-              component={renderTextField}
-              label="E-Mail address"
+              label="Contact email"
+              floatingLabelText="Contact email"
+              validate={validationOf([email])}
+              disabled={!isEditable}
+              component={TextField}
             />
 
           </Box>
@@ -83,6 +77,9 @@ class ParticipantForm extends PureComponent {
 }
 
 export default reduxForm({
-  validate,
+  // validate() {
+  //   // no complex validation (field combinations)
+  //   return true;
+  // },
   enableReinitialize: true,
 })(ParticipantForm);

@@ -3,6 +3,9 @@ import server from '../server';
 
 const apiUrl = process.env.serverApiUrl;
 
+export const signUpViaLocal = (credentials) =>
+  Promise.resolve(server.post('/accounts', credentials));
+
 export const signInViaLocal = ({ login, password }) =>
   Promise.resolve(server.post('/auth/local', {
     login,
@@ -22,5 +25,5 @@ export const signInViaGoogle = () => openInPopup(`${apiUrl}/auth/google.authenti
 export const bindAccountToGoogle = () => openInPopup(`${apiUrl}/auth/google.authorization`);
 
 export const invalidateToken = () =>
-    // invalidate token
-     Promise.resolve(true);
+  // invalidate token
+  Promise.resolve(true);
