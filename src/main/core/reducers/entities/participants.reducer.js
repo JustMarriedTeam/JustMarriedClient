@@ -13,7 +13,7 @@ const wrapAll = mapValues((raw) => new Participant(raw));
 export default function (participants = new Immutable.Map(), action) {
   switch (action.type) {
     case PARTICIPANTS_FETCHED:
-      return participants.merge(wrapAll(action.participants));
+      return new Immutable.Map(wrapAll(action.participants));
     case PARTICIPANT_TOGGLED:
       return participants.updateIn([action.participant.id], (participant) =>
         participant.set('active', !participant.active)
