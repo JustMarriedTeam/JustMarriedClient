@@ -4,6 +4,8 @@ import axios from 'axios';
 import Promise from 'bluebird';
 import store from './store';
 import { signOut } from './actions/account.actions';
+import { removeTransientIdentifiers } from './utils/conversion.utils';
+import isObject from 'lodash/isObject';
 
 const axiosInstance = axios.create({
   baseURL: process.env.serverApiUrl,
@@ -16,6 +18,13 @@ axiosInstance.interceptors.request.use((config) => {
     if (config.method !== 'OPTIONS') {
       config.headers.token = accessToken;
     }
+  }
+  return config;
+});
+
+axiosInstance.interceptors.request.use((config) => {
+  if (isObject(config.data)) {
+    removeTransientIdentifiers(config.data);
   }
   return config;
 });
