@@ -3,6 +3,7 @@ import Immutable from 'immutable';
 const ALERT_TYPE = {
   ERROR: 'ERROR',
   WARNING: 'WARNING',
+  INFO: 'INFO',
   SUCCESS: 'SUCCESS',
 };
 

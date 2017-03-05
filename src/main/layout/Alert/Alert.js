@@ -27,6 +27,7 @@ class Alert extends PureComponent {
         className={cx({
           'alert--success': alert.type === ALERT_TYPE.SUCCESS,
           'alert--warning': alert.type === ALERT_TYPE.WARNING,
+          'alert--info': alert.type === ALERT_TYPE.INFO,
           'alert--error': alert.type === ALERT_TYPE.ERROR,
         })}
       />

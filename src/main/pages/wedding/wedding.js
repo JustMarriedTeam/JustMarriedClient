@@ -13,6 +13,7 @@ import * as allSelectionActions from '../../core/actions/selection.actions';
 import EditAction from '../../layout/LayoutBar/actions/EditAction';
 import { selectWedding } from '../../core/selectors/wedding.selector';
 import Wedding from '../../core/models/wedding.model';
+import { weddingEditEvents } from '../../core/sagas/wedding.edit.saga';
 
 const TAB_KEYS = {
   PARTICIPANTS: 0,
@@ -77,6 +78,7 @@ class WeddingPage extends Component {
           onEditEnded={() => {
             this.props.weddingActions.submitWeddingEdit();
             this.props.selectionActions.disableSelecting();
+            return weddingEditEvents;
           }}
         />
         <div style={buttonStyle}>

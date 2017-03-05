@@ -1,15 +1,16 @@
-// http://stackoverflow.com/questions/38405700/getstate-in-redux-saga
 import { take, race, select, put, call, fork } from 'redux-saga/effects';
 import { selectParticipants } from '../selectors/participants.selector';
 import { selectWedding } from '../selectors/wedding.selector';
 import map from 'lodash/fp/map';
 import includes from 'lodash/includes';
-import SavingError from '../errors/saving.error';
 import { submit, isInvalid } from 'redux-form';
 import {
   WEDDING_EDIT_STARTED,
   WEDDING_EDIT_CANCELLED,
   WEDDING_EDIT_SUBMITTED,
+  WEDDING_EDIT_SUCCESSFUL,
+  WEDDING_EDIT_VALIDATE,
+  WEDDING_EDIT_FAILED,
   saveWedding,
   endWeddingEdit,
 } from '../../core/actions/wedding.actions';
@@ -25,16 +26,31 @@ function * editWedding() {
   const state = yield select();
 
   const formNames = getParticipantFormNames(state);
-  const invalidForms = map(formNames, (name) => isInvalid(name)(state));
+  const invalidForms = map((name) => isInvalid(name)(state))(formNames);
   if (!includes(invalidForms, true)) {
     yield submitForms(formNames);
   } else {
-    throw new SavingError('Check your input');
+    yield put({
+      type: WEDDING_EDIT_VALIDATE,
+      message: 'Some values are invalid',
+    });
+    return;
   }
 
   yield takeAll(formNames);
 
-  yield put(saveWedding(selectWedding(state)));
+  try {
+    yield put(saveWedding(selectWedding(state)));
+    yield put({
+      type: WEDDING_EDIT_SUCCESSFUL,
+      message: 'Wedding saved',
+    });
+  } catch (e) {
+    yield put({
+      type: WEDDING_EDIT_FAILED,
+      message: 'Cannot save wedding',
+    });
+  }
 }
 
 function * editWeddingFlow() {
@@ -49,6 +65,13 @@ function * editWeddingFlow() {
     yield put(endWeddingEdit());
   }
 }
+
+export const weddingEditEvents = {
+  successEventName: WEDDING_EDIT_SUCCESSFUL,
+  cancelEventName: WEDDING_EDIT_CANCELLED,
+  retryEventName: WEDDING_EDIT_VALIDATE,
+  failureEventName: WEDDING_EDIT_FAILED,
+};
 
 export default function * root() {
   yield fork(editWeddingFlow);

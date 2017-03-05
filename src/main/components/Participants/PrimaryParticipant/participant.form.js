@@ -77,9 +77,5 @@ class ParticipantForm extends PureComponent {
 }
 
 export default reduxForm({
-  // validate() {
-  //   // no complex validation (field combinations)
-  //   return true;
-  // },
   enableReinitialize: true,
 })(ParticipantForm);

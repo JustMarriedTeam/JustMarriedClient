@@ -7,5 +7,5 @@ export const EDITING_SUCCEEDED = 'EDITING_SUCCEEDED';
 export const startEditing = (onEditStarted) => ({ type: EDITING_STARTED, onEditStarted });
 export const endEditing = (onEditEnded) => ({ type: EDITING_ENDED, onEditEnded });
 
-export const notifyEditFailed = (failureReason) => ({ type: EDITING_FAILED, failureReason });
+export const notifyEditFailed = () => ({ type: EDITING_FAILED });
 export const notifyEditSucceeded = () => ({ type: EDITING_SUCCEEDED });
