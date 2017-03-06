@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
-import times from 'lodash/fp/times';
 import Task from '../Task/Task';
 import { createGridCols, createGridBreakpoints, createLayouts } from '../../core/grid';
 import Immutable from 'immutable';
@@ -8,6 +7,10 @@ import Immutable from 'immutable';
 const ResponsiveReactGridLayout = new WidthProvider(Responsive);
 
 export default class TaskGrid extends Component {
+
+  static generateGridMapping(tasks) {
+    return createLayouts(tasks.map((task) => task.id).toArray());
+  }
 
   static propTypes = {
     tasks: PropTypes.instanceOf(Immutable.List).isRequired,
@@ -23,7 +26,7 @@ export default class TaskGrid extends Component {
   }
 
   componentWillReceiveProps(props) {
-    const layouts = createLayouts(times((i) => i)(props.tasks.size));
+    const layouts = TaskGrid.generateGridMapping(props.tasks);
     this.setState({
       layouts,
     });
