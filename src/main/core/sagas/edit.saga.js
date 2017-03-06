@@ -1,3 +1,4 @@
+/* eslint no-constant-condition: 0 */
 import { take, put, race, call, fork } from 'redux-saga/effects';
 import {
   notifyEditSucceeded,

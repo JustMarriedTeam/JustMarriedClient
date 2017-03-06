@@ -236,7 +236,7 @@ function * restoreAuthenticationFlow() {
 }
 
 function * logoutFlow() {
-  while (true) { // eslint-disable-line
+  while (true) {
     yield take(SIGN_OUT);
     yield call(logout);
   }

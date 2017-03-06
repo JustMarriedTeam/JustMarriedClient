@@ -1,4 +1,4 @@
-// http://stackoverflow.com/questions/38405700/getstate-in-redux-saga
+/* eslint no-constant-condition: 0 */
 import React from 'react';
 import { take, put, select, call, fork } from 'redux-saga/effects';
 import {
@@ -24,7 +24,7 @@ function * fillWeddingFlow() {
 }
 
 function * loginWelcomeFlow() {
-  while (true) { // eslint-disable-line
+  while (true) {
     yield take(SIGNED_IN);
     const location = yield select((state) => state.routing.locationBeforeTransitions);
     if (location.pathname === '/home') {

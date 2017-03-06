@@ -20,8 +20,6 @@ export const updateParticipant = (participant) => (dispatch) => {
     type: USER_UPDATED,
     user: users[updatedParticipant.user.id],
   });
-
 };
-
 
 export const toggleParticipant = (participant) => ({ type: PARTICIPANT_TOGGLED, participant });

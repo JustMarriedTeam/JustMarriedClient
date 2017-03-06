@@ -1,3 +1,4 @@
+/* eslint no-constant-condition: 0 */
 import { take, put, race, call, fork } from 'redux-saga/effects';
 import {
   SELECT_MULTIPLE,
@@ -13,7 +14,7 @@ function * removeFlow() {
 }
 
 function * selectionFlow() {
-  while (true) { // eslint-disable-line
+  while (true) {
     const { onSelect } = yield take(SELECT_MULTIPLE);
     yield call(onSelect);
     yield put(selectionStarted());
