@@ -17,17 +17,10 @@ const weddingsSchema = new schema.Entity('weddings', {
   owners: [user],
 });
 
-const normalizeWedding = (data) => normalize(data, weddingsSchema);
-const denormalizeWedding = ({ id }, entities) =>
+export const normalizeWedding = (data) => normalize(data, weddingsSchema);
+export const denormalizeWedding = ({ id }, entities) =>
   denormalize(id, weddingsSchema, entities);
 
-const normalizeParticipant = (data) => normalize(data, participantsSchema);
-const denormalizeParticipant = (participant, entities) =>
+export const normalizeParticipant = (data) => normalize(data, participantsSchema);
+export const denormalizeParticipant = (participant, entities) =>
   denormalize(participant, participantsSchema, entities);
-
-export {
-  normalizeWedding,
-  denormalizeWedding,
-  normalizeParticipant,
-  denormalizeParticipant,
-};
