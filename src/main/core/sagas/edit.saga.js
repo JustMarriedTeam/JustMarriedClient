@@ -17,7 +17,7 @@ function * submitFlow() {
   const { onEditsSubmitted } = yield take(EDITS_SUBMITTED);
   try {
     yield call(onEditsSubmitted);
-    yield put(notifySuccess());
+    yield put(notifySuccess('Saved'));
     return { done: true };
   } catch (e) {
     if (e instanceof ValidationError) {
@@ -44,11 +44,13 @@ function * editFlow() {
       if (winner.submit) {
         const { done } = winner.submit;
         if (done) {
-          yield put(notifyEditSucceeded('Saved'));
+          yield put(notifyEditSucceeded());
           break;
         }
       } else if (winner.cancel) {
-        yield put(notifyEditFailed('Cancelled'));
+        const { onEditsCancelled } = winner.cancel;
+        yield call(onEditsCancelled);
+        yield put(notifyEditFailed());
         break;
       }
     }

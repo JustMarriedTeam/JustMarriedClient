@@ -7,7 +7,7 @@ import { selectParticipants } from '../selectors/participants.selector';
 import { selectWedding } from '../selectors/wedding.selector';
 import map from 'lodash/fp/map';
 import includes from 'lodash/includes';
-import { submit, isInvalid } from 'redux-form';
+import { submit, reset, isInvalid } from 'redux-form';
 import store from '../store';
 import ValidationError from '../errors/validation.error';
 import SavingError from '../errors/saving.error';
@@ -21,7 +21,10 @@ export const USERS_FETCHED = 'USERS_FETCHED';
 
 const getParticipantFormNames = (state) =>
   map((participant) => `ParticipantForm_${participant.role}`)(selectParticipants(state));
-const submitForms = (dispatch) => map((name) => dispatch(submit(name))); // todo promise resolve all?
+const submitForms = (dispatch) => (names) =>
+  Promise.all(map((name) => dispatch(submit(name)))(names));
+const resetForms = (dispatch) => (names) =>
+  Promise.all(map((name) => dispatch(reset(name)))(names));
 
 const propagateWeddingUpdate = (dispatch) => (wedding) => {
   const {
@@ -72,10 +75,17 @@ export const saveWeddingIfValid = () => (dispatch) => {
   const formNames = getParticipantFormNames(state);
   const invalidForms = map((name) => isInvalid(name)(state))(formNames);
   if (!includes(invalidForms, true)) {
-    submitForms(dispatch)(formNames);
+    return submitForms(dispatch)(formNames)
+      .then(() => dispatch(saveWedding(selectWedding(state))))
+      .catch((e) => {
+        throw new SavingError(e);
+      });
   } else {
     throw new ValidationError('Specify correct values');
   }
+};
 
-  return dispatch(saveWedding(selectWedding(state)));
+export const resetWeddingForms = () => (dispatch) => {
+  const formNames = getParticipantFormNames(store.getState());
+  return resetForms(dispatch)(formNames);
 };

@@ -79,7 +79,7 @@ class WeddingPage extends Component {
           }}
           onEditsCancelled={() => {
             this.props.selectionActions.disableSelecting();
-            this.props.weddingActions.fetchWedding();
+            this.props.weddingActions.resetWeddingForms();
           }}
         />
         <div style={buttonStyle}>
