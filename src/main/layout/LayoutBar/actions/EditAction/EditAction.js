@@ -53,11 +53,8 @@ class EditButton extends PureComponent {
     </IconButton>;
 
     return (
-      <div>
+      <div className={cx('edit-button')}>
         <IconButton
-          className={cx('edit-button', {
-            'edit-button--active': this.props.isEditing,
-          })}
           onTouchTap={this.toggleEdit}
         >
           {
