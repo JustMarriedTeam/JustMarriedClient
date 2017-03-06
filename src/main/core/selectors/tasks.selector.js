@@ -1,3 +1,3 @@
-const tasksEntitiesSelector = state => state.entities.tasks.toSetSeq();
+const tasksEntitiesSelector = state => state.entities.tasks.toList();
 
 export const selectTasks = tasksEntitiesSelector;

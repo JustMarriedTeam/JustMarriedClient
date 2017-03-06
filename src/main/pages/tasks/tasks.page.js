@@ -9,11 +9,12 @@ import * as weddingActions from '../../core/actions/wedding.actions';
 import * as actionBarActions from '../../core/actions/actionbar.actions';
 import * as allSelectionActions from '../../core/actions/selection.actions';
 import { selectTasks } from '../../core/selectors/tasks.selector';
+import Immutable from 'immutable';
 
 class TasksPage extends Component {
 
   static propTypes = {
-    tasks: PropTypes.array.isRequired,
+    tasks: PropTypes.instanceOf(Immutable.List).isRequired,
     weddingActions: PropTypes.object.isRequired,
     actionBarActions: PropTypes.object.isRequired,
     selectionActions: PropTypes.object.isRequired,
