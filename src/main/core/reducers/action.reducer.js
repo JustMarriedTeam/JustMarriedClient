@@ -1,4 +1,4 @@
-import { EDITING_STARTED, EDITING_SUCCEEDED } from '../actions/editing.actions';
+import { EDITS_STARTED, EDITING_SUCCEEDED, EDITING_FAILED } from '../actions/editing.actions';
 import {
   SELECTING_STARTED,
   SELECTING_ENDED,
@@ -9,9 +9,10 @@ import Action from '../models/action.model';
 
 export default function (action = new Action(), actionTriggered) {
   switch (actionTriggered.type) {
-    case EDITING_STARTED:
+    case EDITS_STARTED:
       return action.set('editing', true);
     case EDITING_SUCCEEDED:
+    case EDITING_FAILED:
       return action.set('editing', false);
     case ENABLE_SELECTING:
       return action.set('canSelect', true);

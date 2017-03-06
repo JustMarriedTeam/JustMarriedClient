@@ -13,7 +13,6 @@ import * as allSelectionActions from '../../core/actions/selection.actions';
 import EditAction from '../../layout/LayoutBar/actions/EditAction';
 import { selectWedding } from '../../core/selectors/wedding.selector';
 import Wedding from '../../core/models/wedding.model';
-import { weddingEditEvents } from '../../core/sagas/wedding.edit.saga';
 
 const TAB_KEYS = {
   PARTICIPANTS: 0,
@@ -71,14 +70,16 @@ class WeddingPage extends Component {
       <div>
         <EditAction
           style={buttonStyle}
-          onEditStarted={() => {
-            this.props.weddingActions.startWeddingEdit();
+          onEditsStarted={() => {
             this.props.selectionActions.enableSelecting();
           }}
-          onEditEnded={() => {
-            this.props.weddingActions.submitWeddingEdit();
+          onEditsSubmitted={() => {
+            this.props.weddingActions.saveWeddingIfValid();
             this.props.selectionActions.disableSelecting();
-            return weddingEditEvents;
+          }}
+          onEditsCancelled={() => {
+            this.props.selectionActions.disableSelecting();
+            this.props.weddingActions.fetchWedding();
           }}
         />
         <div style={buttonStyle}>

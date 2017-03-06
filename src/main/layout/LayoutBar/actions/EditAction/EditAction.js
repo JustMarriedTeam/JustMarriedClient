@@ -13,8 +13,9 @@ class EditButton extends PureComponent {
 
   static propTypes = {
     isEditing: PropTypes.bool.isRequired,
-    onEditStarted: PropTypes.func,
-    onEditEnded: PropTypes.func.isRequired,
+    onEditsStarted: PropTypes.func,
+    onEditsSubmitted: PropTypes.func.isRequired,
+    onEditsCancelled: PropTypes.func.isRequired,
     editingActions: PropTypes.object.isRequired,
   };
 
@@ -22,31 +23,51 @@ class EditButton extends PureComponent {
     const {
       editingActions,
       isEditing,
-      onEditStarted,
-      onEditEnded,
+      onEditsStarted,
+      onEditsSubmitted,
     } = this.props;
 
     if (isEditing) {
-      editingActions.endEditing(onEditEnded);
+      editingActions.submitEdits(onEditsSubmitted);
     } else {
-      editingActions.startEditing(onEditStarted);
+      editingActions.startEdits(onEditsStarted);
     }
   };
 
+  cancelEdit = () => {
+    const {
+      editingActions,
+      onEditsCancelled } = this.props;
+
+    editingActions.cancelEdits(onEditsCancelled);
+  };
+
   render() {
+    const { isEditing } = this.props;
+
+    const renderCancelButton = () => <IconButton
+      className={cx('cancel-button')}
+      onTouchTap={() => this.cancelEdit()}
+    >
+      <FontIcon className="material-icons">cancel</FontIcon>
+    </IconButton>;
+
     return (
-      <IconButton
-        className={cx('edit-button', {
-          'edit-button--active': this.props.isEditing,
-        })}
-        onTouchTap={this.toggleEdit}
-      >
-        {
-          this.props.isEditing
-            ? <FontIcon className="material-icons">save</FontIcon>
-            : <FontIcon className="material-icons">mode_edit</FontIcon>
-        }
-      </IconButton>
+      <div>
+        <IconButton
+          className={cx('edit-button', {
+            'edit-button--active': this.props.isEditing,
+          })}
+          onTouchTap={this.toggleEdit}
+        >
+          {
+            this.props.isEditing
+              ? <FontIcon className="material-icons">save</FontIcon>
+              : <FontIcon className="material-icons">mode_edit</FontIcon>
+          }
+        </IconButton>
+        {isEditing ? renderCancelButton() : null}
+      </div>
     );
   }
 

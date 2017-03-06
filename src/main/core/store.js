@@ -18,7 +18,6 @@ import loginSaga from './sagas/login.saga';
 import registerSaga from './sagas/register.saga';
 import editSaga from './sagas/edit.saga';
 import selectSaga from './sagas/select.saga';
-import weddingEditSaga from './sagas/wedding.edit.saga';
 import assignmentSaga from './sagas/assignment.saga';
 
 // entities
@@ -60,5 +59,4 @@ sagaMiddleware.run(loginSaga);
 sagaMiddleware.run(registerSaga);
 sagaMiddleware.run(editSaga);
 sagaMiddleware.run(selectSaga);
-sagaMiddleware.run(weddingEditSaga);
 sagaMiddleware.run(assignmentSaga);

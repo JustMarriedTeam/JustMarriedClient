@@ -1,55 +1,56 @@
 import { take, put, race, call, fork } from 'redux-saga/effects';
 import {
-  notifyEditFailed,
   notifyEditSucceeded,
-  EDITING_STARTED,
-  EDITING_ENDED } from '../actions/editing.actions';
+  notifyEditFailed,
+  EDITS_STARTED,
+  EDITS_SUBMITTED,
+  EDITS_CANCELLED,
+} from '../actions/editing.actions';
 import {
   notifySuccess,
   notifyInfo,
   notifyError,
 } from '../actions/alert.actions';
+import ValidationError from '../errors/validation.error';
 
-function * editingAction(onEditEnded) {
-  const {
-    successEventName,
-    cancelEventName,
-    retryEventName,
-    failureEventName,
-  } = yield call(onEditEnded);
-
-  const actionTaken = yield race({
-    success: take(successEventName),
-    retry: take(retryEventName),
-    failure: take(failureEventName),
-    cancel: take(cancelEventName),
-  });
-
-  if (actionTaken.success) {
-    yield put(notifySuccess(actionTaken.success.message));
-    yield put(notifyEditSucceeded());
-  } else if (actionTaken.retry) {
-    yield put(notifyInfo(actionTaken.retry.message));
-  } else if (actionTaken.failure) {
-    yield put(notifyError(actionTaken.failure.message));
-    yield put(notifyEditFailed());
-  } else {
-    yield put(notifyInfo(actionTaken.cancel.message));
-    yield put(notifyEditSucceeded());
+function * submitFlow() {
+  const { onEditsSubmitted } = yield take(EDITS_SUBMITTED);
+  try {
+    yield call(onEditsSubmitted);
+    yield put(notifySuccess());
+    return { done: true };
+  } catch (e) {
+    if (e instanceof ValidationError) {
+      yield put(notifyInfo(e.message));
+      return { done: false };
+    } else {
+      yield put(notifyError(e.message));
+      return { done: false };
+    }
   }
-
-  return !!actionTaken.retry;
 }
 
 function * editFlow() {
-  while (true) { // eslint-disable-line
-    const { onEditStarted } = yield take(EDITING_STARTED);
-    yield call(onEditStarted);
+  while (true) {
+    const { onEditsStarted } = yield take(EDITS_STARTED);
+    yield call(onEditsStarted);
 
-    let keepTrying = true;
-    while (keepTrying) { // eslint-disable-line
-      const { onEditEnded } = yield take(EDITING_ENDED);
-      keepTrying = yield call(editingAction, onEditEnded);
+    while (true) {
+      const winner = yield race({
+        submit: call(submitFlow),
+        cancel: take(EDITS_CANCELLED),
+      });
+
+      if (winner.submit) {
+        const { done } = winner.submit;
+        if (done) {
+          yield put(notifyEditSucceeded('Saved'));
+          break;
+        }
+      } else if (winner.cancel) {
+        yield put(notifyEditFailed('Cancelled'));
+        break;
+      }
     }
   }
 }
