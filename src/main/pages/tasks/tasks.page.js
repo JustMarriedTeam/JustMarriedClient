@@ -14,9 +14,9 @@ import { TASK_STATUS } from '../../core/models/task.model';
 
 // better use selectors... they cache...
 const TABS = {
-  ALL: {
+  DONE: {
     key: 0,
-    filter: (tasks) => tasks,
+    filter: (tasks) => tasks.filter((task) => task.hasStatus(TASK_STATUS.DONE)),
   },
   TODO: {
     key: 1,
@@ -44,17 +44,6 @@ class TasksPage extends Component {
       <Layout>
         <Tabs>
           <Tab
-            icon={<FontIcon className="material-icons">view_compact</FontIcon>}
-            label="All"
-            value={TABS.ALL.key}
-          >
-
-            <TaskGrid
-              tasks={TABS.ALL.filter(this.props.tasks)}
-            />
-
-          </Tab>
-          <Tab
             icon={<FontIcon className="material-icons">schedule</FontIcon>}
             label="Todo"
             value={TABS.TODO.key}
@@ -74,6 +63,18 @@ class TasksPage extends Component {
 
             <TaskGrid
               tasks={TABS.UPCOMING.filter(this.props.tasks)}
+            />
+
+          </Tab>
+
+          <Tab
+            icon={<FontIcon className="material-icons">view_compact</FontIcon>}
+            label="Done"
+            value={TABS.DONE.key}
+          >
+
+            <TaskGrid
+              tasks={TABS.DONE.filter(this.props.tasks)}
             />
 
           </Tab>
