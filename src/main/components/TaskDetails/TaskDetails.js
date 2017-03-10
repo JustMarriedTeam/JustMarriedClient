@@ -22,14 +22,14 @@ class TaskDetails extends PureComponent {
     const { task } = this.props;
 
     return (
-      <Flex wrap className={cx('login-form')} align="stretch" justify="space-around">
+      <Flex wrap className={cx('task-details')} align="stretch" justify="space-around">
 
         <Box sm={12} md={5} p={1}>
 
-          <img role="presentation" src="http://meetingking.com/wp-content/images/meetingking_tasks.png" />
-
+          <img className={cx('task-details__image')} role="presentation" src="http://meetingking.com/wp-content/images/meetingking_tasks.png" />
 
           {task.description}
+
         </Box>
 
       </Flex>

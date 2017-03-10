@@ -23,6 +23,7 @@ class Modal extends PureComponent {
         title={modal.title}
         actions={modal.actions}
         modal={false}
+        autoScrollBodyContent
         open={modal.open}
         onRequestClose={closeModal}
       >
