@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as allModalActions from '../../core/actions/modal.actions';
 import TaskDetails from '../TaskDetails/TaskDetails';
 import { bindActionCreators } from 'redux';
+import { DEFAULT_ACTIONS } from '../../layout/Modal/Modal';
 
 class Task extends PureComponent {
 
@@ -17,7 +18,7 @@ class Task extends PureComponent {
     const { task, modalActions } = this.props;
     modalActions.openModal({
       title: task.name,
-      actions: <div>abc</div>,
+      actions: DEFAULT_ACTIONS.CLOSE_ACTION,
       content: <TaskDetails task={task} />,
     });
   };
