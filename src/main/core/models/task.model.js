@@ -19,6 +19,10 @@ class Task extends TaskRecord {
     return this.status === status;
   }
 
+  getRelated() {
+    return new Immutable.List();
+  }
+
 }
 
 export default Task;

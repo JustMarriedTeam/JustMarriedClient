@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './TaskDetails.pcss';
 import { connect } from 'react-redux';
 import Task from '../../core/models/task.model';
+import RelatedTasks from '../RelatedTasks/RelatedTasks';
 import * as allTaskActions from '../../core/actions/task.actions';
 import * as allModalActions from '../../core/actions/modal.actions';
 import { bindActionCreators } from 'redux';
@@ -24,13 +25,26 @@ class TaskDetails extends PureComponent {
     return (
       <Flex wrap className={cx('task-details')} align="stretch" justify="space-around">
 
-        <Box sm={12} md={5} p={1}>
+        <Box sm={12}>
 
           <img className={cx('task-details__image')} role="presentation" src="http://meetingking.com/wp-content/images/meetingking_tasks.png" />
 
           {task.description}
 
         </Box>
+
+        <Box sm={12} lg={6} p={1}>
+
+          <RelatedTasks title={'Depending on'} tasks={task.getRelated()} />
+
+        </Box>
+
+        <Box sm={12} lg={6} p={1}>
+
+          <RelatedTasks title={'Required for'} tasks={task.getRelated()} />
+
+        </Box>
+
 
       </Flex>
     );

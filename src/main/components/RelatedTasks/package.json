@@ -1,0 +1,6 @@
+{
+  "name": "RelatedTasks",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./RelatedTasks.js"
+}
