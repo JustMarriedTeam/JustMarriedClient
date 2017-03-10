@@ -9,6 +9,7 @@ import createSagaMiddleware from 'redux-saga';
 import actionReducer from './reducers/action.reducer';
 import alertReducer from './reducers/alert.reducer';
 import popupReducer from './reducers/popup.reducer';
+import modalReducer from './reducers/modal.reducer';
 import accountReducer from './reducers/account.reducer';
 import serverReducer from './reducers/server.reducer';
 import actionBarReducer from './reducers/actionbar.reducer';
@@ -47,6 +48,7 @@ export default createStore(
     action: actionReducer,
     alert: alertReducer,
     popup: popupReducer,
+    modal: modalReducer,
     account: accountReducer,
     server: serverReducer,
     actionBar: actionBarReducer,
