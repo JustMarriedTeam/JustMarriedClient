@@ -13,13 +13,14 @@ const cx = classNames.bind(styles);
 class TaskDetails extends PureComponent {
 
   static propTypes = {
-    taskId: PropTypes.string.isRequired,
     task: PropTypes.instanceOf(Task).isRequired,
     taskActions: PropTypes.object.isRequired,
     modalActions: PropTypes.object.isRequired,
   };
 
   render() {
+    const { task } = this.props;
+
     return (
       <Flex wrap className={cx('login-form')} align="stretch" justify="space-around">
 
@@ -27,6 +28,8 @@ class TaskDetails extends PureComponent {
 
           <img role="presentation" src="http://meetingking.com/wp-content/images/meetingking_tasks.png" />
 
+
+          {task.description}
         </Box>
 
       </Flex>
@@ -36,9 +39,7 @@ class TaskDetails extends PureComponent {
 }
 
 export default connect(
-  {
-
-  },
+  () => ({}),
   (dispatch) => ({
     taskActions: bindActionCreators(allTaskActions, dispatch),
     modalActions: bindActionCreators(allModalActions, dispatch),

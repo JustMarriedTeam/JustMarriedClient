@@ -6,7 +6,7 @@ import * as allModalActions from '../../core/actions/modal.actions';
 import TaskDetails from '../TaskDetails/TaskDetails';
 import { bindActionCreators } from 'redux';
 
-export class Task extends PureComponent {
+class Task extends PureComponent {
 
   static propTypes = {
     task: PropTypes.instanceOf(TaskModel).isRequired,
@@ -42,9 +42,7 @@ export class Task extends PureComponent {
 }
 
 export default connect(
-  {
-
-  },
+  () => ({}),
   (dispatch) => ({
     modalActions: bindActionCreators(allModalActions, dispatch),
   })
