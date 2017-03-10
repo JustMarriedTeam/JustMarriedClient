@@ -4,6 +4,7 @@ import React from 'react';
 const ModalRecord = new Immutable.Record({
   title: '',
   actions: <div />,
+  content: <div />,
   open: false,
 });
 

@@ -8,11 +8,11 @@ class Modal extends PureComponent {
 
   static propTypes = {
     modal: PropTypes.instanceOf(ModalModel).isRequired,
-    confirmPopup: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired,
   };
 
   render() {
-    const { modal } = this.props;
+    const { modal, closeModal } = this.props;
 
     if (!modal.open) {
       return <div />;
@@ -22,11 +22,11 @@ class Modal extends PureComponent {
       <Dialog
         title={modal.title}
         actions={modal.actions}
-        modal
+        modal={false}
         open={modal.open}
-        onRequestClose={this.handleClose}
+        onRequestClose={closeModal}
       >
-        {popup.content}
+        {modal.content}
       </Dialog>
     );
   }

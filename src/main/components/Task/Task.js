@@ -18,7 +18,7 @@ class Task extends PureComponent {
     modalActions.openModal({
       title: task.name,
       actions: <div>abc</div>,
-      content: <TaskDetails taskId={task.id} />,
+      content: <TaskDetails task={task} />,
     });
   };
 
