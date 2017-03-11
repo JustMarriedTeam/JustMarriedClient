@@ -1,0 +1,6 @@
+{
+  "name": "SectionHeader",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./SectionHeader.js"
+}

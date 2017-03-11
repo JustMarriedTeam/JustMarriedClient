@@ -1,6 +1,8 @@
-import React, {PureComponent, PropTypes} from 'react';
-import {List, ListItem} from 'material-ui/List';
+import React, { PureComponent, PropTypes } from 'react';
+import { List, ListItem } from 'material-ui/List';
 import FontIcon from 'material-ui/FontIcon';
+import SectionHeader from '../SectionHeader';
+import IconButton from 'material-ui/IconButton';
 import Immutable from 'immutable';
 
 const ICONS_BY_STATUS = {
@@ -16,12 +18,25 @@ export default class RelatedTasks extends PureComponent {
     title: PropTypes.string.isRequired,
   };
 
+  handleEditClick() {
+
+  }
+
   render() {
-    const {title, tasks} = this.props;
+    const { title, tasks } = this.props;
 
     return (
       <div>
-        <h6>{title}</h6>
+        <SectionHeader
+          title={title}
+          rightIcon={
+            <IconButton>
+              <FontIcon
+                onClick={() => this.handleEditClick()}
+                className="material-icons"
+              >edit</FontIcon>
+            </IconButton>}
+        />
         <List>
           {
             tasks.map(
@@ -30,7 +45,8 @@ export default class RelatedTasks extends PureComponent {
                   primaryText={task.name}
                   rightIcon={
                     <FontIcon
-                      className="material-icons">{ ICONS_BY_STATUS[task.status] }</FontIcon>
+                      className="material-icons"
+                    >{ICONS_BY_STATUS[task.status]}</FontIcon>
                   }
                   leftIcon={<img
                     role="presentation"
