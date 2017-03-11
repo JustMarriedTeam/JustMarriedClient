@@ -11,16 +11,14 @@ const TaskRecord = new Immutable.Record({
   name: '',
   description: '',
   status: '',
+  requiredFor: [],
+  dependingOn: [],
 });
 
 class Task extends TaskRecord {
 
   hasStatus(status) {
     return this.status === status;
-  }
-
-  getRelated() {
-    return new Immutable.List();
   }
 
 }

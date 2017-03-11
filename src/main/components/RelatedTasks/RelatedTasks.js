@@ -18,13 +18,15 @@ export default class RelatedTasks extends PureComponent {
         <List>
           {
             tasks.map(
-              (task) => <ListItem
-                primaryText={task.name}
-                leftIcon={<img
-                  role="presentation"
-                  src="http://meetingking.com/wp-content/images/meetingking_tasks.png"
-                />}
-              />
+              (task) => <div key={task.id}>
+                <ListItem
+                  primaryText={task.name}
+                  leftIcon={<img
+                    role="presentation"
+                    src="http://meetingking.com/wp-content/images/meetingking_tasks.png"
+                  />}
+                />
+              </div>
             )
           }
         </List>
