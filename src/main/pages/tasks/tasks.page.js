@@ -56,7 +56,7 @@ class TasksPage extends Component {
           </Tab>
 
           <Tab
-            icon={<FontIcon className="material-icons">next_week</FontIcon>}
+            icon={<FontIcon className="material-icons">lock_open</FontIcon>}
             label="Upcoming"
             value={TABS.UPCOMING.key}
           >
@@ -68,7 +68,7 @@ class TasksPage extends Component {
           </Tab>
 
           <Tab
-            icon={<FontIcon className="material-icons">view_compact</FontIcon>}
+            icon={<FontIcon className="material-icons">lock_outline</FontIcon>}
             label="Done"
             value={TABS.DONE.key}
           >
