@@ -1,4 +1,5 @@
 import Immutable from 'immutable';
+import concat from 'lodash/concat';
 
 export const TASK_STATUS = {
   PENDING: 'pending',
@@ -19,6 +20,11 @@ class Task extends TaskRecord {
 
   hasStatus(status) {
     return this.status === status;
+  }
+
+  addDependency(requiredTask) {
+    return this.update('dependingOn', (dependingOnList) =>
+      concat(dependingOnList, [requiredTask.id]));
   }
 
 }

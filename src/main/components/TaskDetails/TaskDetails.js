@@ -34,7 +34,7 @@ class TaskDetails extends PureComponent {
   };
 
   render() {
-    const { task, dependingOnTasks, requiredForTasks } = this.props;
+    const { task, taskActions, dependingOnTasks, requiredForTasks } = this.props;
 
     return (
       <Flex wrap className={cx('task-details')} align="stretch" justify="space-around">
@@ -53,13 +53,23 @@ class TaskDetails extends PureComponent {
 
         <Box sm={12} lg={6} p={1}>
 
-          <RelatedTasks title={'Depending on'} tasks={dependingOnTasks} />
+          <RelatedTasks
+            title={'Depending on'}
+            tasks={dependingOnTasks}
+            onTaskAdded={(requiredTask) => taskActions.makeTaskDependOn(task, requiredTask)}
+            onTaskRemoved={(notRequiredTask) => taskActions.makeTaskIndependentOf(task, notRequiredTask)}
+          />
 
         </Box>
 
         <Box sm={12} lg={6} p={1}>
 
-          <RelatedTasks title={'Required for'} tasks={requiredForTasks} />
+          <RelatedTasks
+            title={'Required for'}
+            tasks={requiredForTasks}
+            onTaskAdded={(requiredTask) => taskActions.makeTaskDependOn(task, requiredTask)}
+            onTaskRemoved={(notRequiredTask) => taskActions.makeTaskIndependentOf(task, notRequiredTask)}
+          />
 
         </Box>
 

@@ -11,6 +11,8 @@ const cx = classNames.bind(styles);
 class TaskSelector extends PureComponent {
 
   static propTypes = {
+    onTaskSelection: PropTypes.func.isRequired,
+
     /*
      Set internally via connect.
      */
@@ -23,13 +25,14 @@ class TaskSelector extends PureComponent {
   };
 
   render() {
-    const { tasks } = this.props;
+    const { tasks, onTaskSelection } = this.props;
 
     return (
       <AutoComplete
         hintText="Start typing"
-        dataSource={tasks}
+        dataSource={tasks.toArray()}
         dataSourceConfig={TaskSelector.dataSourceConfig}
+        onNewRequest={onTaskSelection}
       />
     );
   }

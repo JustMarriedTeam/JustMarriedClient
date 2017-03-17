@@ -17,6 +17,8 @@ export default class RelatedTasks extends Component {
   static propTypes = {
     tasks: PropTypes.instanceOf(Immutable.List).isRequired,
     title: PropTypes.string.isRequired,
+    onTaskAdded: PropTypes.func.isRequired,
+    onTaskRemoved: PropTypes.func.isRequired,
   };
 
   constructor() {
@@ -59,7 +61,7 @@ export default class RelatedTasks extends Component {
         className="material-icons"
       >{this.state.addingTask ? 'cancel' : 'add'}</FontIcon>}
     >
-      <TaskSelector />
+      <TaskSelector onTaskSelection={this.props.onTaskAdded} />
     </ExpandableIconElement>;
 
     return (
