@@ -21,6 +21,7 @@ class TaskDetails extends PureComponent {
 
   static propTypes = {
     taskId: PropTypes.string.isRequired,
+    isEditable: PropTypes.bool.isRequired,
 
     /*
      Set internally via connect.

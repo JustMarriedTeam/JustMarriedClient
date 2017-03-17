@@ -7,7 +7,7 @@ import Immutable from 'immutable';
 
 const ICONS_BY_STATUS = {
   done: 'done',
-  pending: 'lock_open',
+  pending: 'schedule',
   blocked: 'lock_outline',
 };
 

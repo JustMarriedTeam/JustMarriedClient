@@ -2,18 +2,8 @@ import React, { PureComponent, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 import * as allModalActions from '../../core/actions/modal.actions';
 import ModalModel from '../../core/models/modal.model';
-
-export const DEFAULT_ACTIONS = {
-  CLOSE_ACTION(actions) {
-    return (<FlatButton
-      onClick={() => actions.closeModal()}
-      label="Close"
-    />);
-  },
-};
 
 class Modal extends PureComponent {
 
@@ -22,8 +12,12 @@ class Modal extends PureComponent {
     modalActions: PropTypes.object.isRequired,
   };
 
+  renderElement = (candidate) => React.isValidElement(candidate)
+      ? candidate : candidate(this.props.modal.context);
+
   render() {
     const { modal, modalActions } = this.props;
+    const { open, header, footer, content } = modal;
 
     if (!modal.open) {
       return <div />;
@@ -31,14 +25,14 @@ class Modal extends PureComponent {
 
     return (
       <Dialog
-        title={modal.title}
-        actions={React.isValidElement(modal.actions) ? modal.actions : modal.actions(modalActions)}
+        title={this.renderElement(header)}
+        actions={this.renderElement(footer)}
         modal={false}
         autoScrollBodyContent
-        open={modal.open}
+        open={open}
         onRequestClose={modalActions.closeModal}
       >
-        {modal.content}
+        {this.renderElement(content)}
       </Dialog>
     );
   }

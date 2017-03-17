@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import * as allModalActions from '../../core/actions/modal.actions';
 import TaskDetails from '../TaskDetails/TaskDetails';
 import { bindActionCreators } from 'redux';
-import { DEFAULT_ACTIONS } from '../../layout/Modal/Modal';
+import CloseModalFooter from '../../layout/Modal/footers/CloseModalFooter';
+import TitleWithEditModalHeader from '../../layout/Modal/headers/TitleWithEditModalHeader';
 
 class Task extends PureComponent {
 
@@ -16,10 +17,20 @@ class Task extends PureComponent {
 
   openDetails = () => {
     const { task, modalActions } = this.props;
+
     modalActions.openModal({
-      title: task.name,
-      actions: DEFAULT_ACTIONS.CLOSE_ACTION,
-      content: <TaskDetails taskId={task.id} />,
+      context: {
+        isEditable: false,
+      },
+      header: <TitleWithEditModalHeader title={task.name} />,
+      content: (ctx) => <TaskDetails
+        taskId={task.id}
+        isEditable={ctx.isEditable}
+      />,
+      footer: (ctx) => <CloseModalFooter
+        canClose={!ctx.isEditable}
+        onClose={() => modalActions.closeModal()}
+      />,
     });
   };
 
