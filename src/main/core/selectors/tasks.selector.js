@@ -9,3 +9,6 @@ export const selectTasksRequiredFor = (selectedTaskId) => state =>
 
 export const selectTasksDependingOn = (selectedTaskId) => state =>
   state.entities.tasks.filter((task) => task.dependingOn.includes(selectedTaskId)).toList();
+
+export const selectAllTasks = state =>
+  state.entities.tasks.toList();

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { List, ListItem } from 'material-ui/List';
 import FontIcon from 'material-ui/FontIcon';
 import SectionHeader from '../SectionHeader';
-import IconButton from 'material-ui/IconButton';
+import ExpandableIconElement from '../ExpandableIconElement';
 import Immutable from 'immutable';
 
 const ICONS_BY_STATUS = {
@@ -21,13 +21,13 @@ export default class RelatedTasks extends Component {
   constructor() {
     super();
     this.state = {
-      editing: false,
+      addingTask: false,
     };
   }
 
-  toggleEditing() {
+  toggleAddTask() {
     this.setState((prevState) => ({
-      editing: !prevState.editing,
+      addingTask: !prevState.addingTask,
     }));
   }
 
@@ -35,33 +35,39 @@ export default class RelatedTasks extends Component {
     const { title, tasks } = this.props;
 
     const renderTaskListItems = () => tasks.map(
-        (task) => <div key={task.id}>
-          <ListItem
-            primaryText={task.name}
-            rightIcon={
-              <FontIcon
-                className="material-icons"
-              >{ICONS_BY_STATUS[task.status]}</FontIcon>
-            }
-            leftIcon={<img
-              role="presentation"
-              src="http://meetingking.com/wp-content/images/meetingking_tasks.png"
-            />}
-          />
-        </div>
-      );
+      (task) => <div key={task.id}>
+        <ListItem
+          primaryText={task.name}
+          rightIcon={
+            <FontIcon
+              className="material-icons"
+            >{ICONS_BY_STATUS[task.status]}</FontIcon>
+          }
+          leftIcon={<img
+            role="presentation"
+            src="http://meetingking.com/wp-content/images/meetingking_tasks.png"
+          />}
+        />
+      </div>
+    );
+
+    const renderTaskAddInput = () => <ExpandableIconElement
+      expanded={this.state.addingTask}
+      icon={<FontIcon
+        onClick={() => this.toggleAddTask()}
+        className="material-icons"
+      >add</FontIcon>}
+    >
+
+      <div>dupadupduspdsuds</div>
+
+    </ExpandableIconElement>;
 
     return (
       <div>
         <SectionHeader
           title={title}
-          rightIcon={
-            <IconButton>
-              <FontIcon
-                onClick={() => this.toggleEditing()}
-                className="material-icons"
-              >{ this.state.editing ? 'save' : 'edit'}</FontIcon>
-            </IconButton>}
+          rightIcon={renderTaskAddInput()}
         />
         <List>
           {
