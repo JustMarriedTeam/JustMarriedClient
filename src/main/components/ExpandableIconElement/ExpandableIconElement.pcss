@@ -10,18 +10,13 @@
 
   &__element {
     flex-grow: 1;
-    overflow: hidden;
-    & > * {
-      width: 0;
-    }
+    display: none;
   }
 
   &--expanded {
 
     .expandable-icon-element__element {
-      & > * {
-        width: 100%;
-      }
+      display: block;
     }
 
   }

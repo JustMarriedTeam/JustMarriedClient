@@ -3,6 +3,7 @@ import { List, ListItem } from 'material-ui/List';
 import FontIcon from 'material-ui/FontIcon';
 import SectionHeader from '../SectionHeader';
 import ExpandableIconElement from '../ExpandableIconElement';
+import TaskSelector from '../TaskSelector';
 import Immutable from 'immutable';
 
 const ICONS_BY_STATUS = {
@@ -56,11 +57,9 @@ export default class RelatedTasks extends Component {
       icon={<FontIcon
         onClick={() => this.toggleAddTask()}
         className="material-icons"
-      >add</FontIcon>}
+      >{this.state.addingTask ? 'cancel' : 'add'}</FontIcon>}
     >
-
-      <div>dupadupduspdsuds</div>
-
+      <TaskSelector />
     </ExpandableIconElement>;
 
     return (
