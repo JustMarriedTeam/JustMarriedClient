@@ -74,7 +74,7 @@ class TaskDetails extends Component {
 
         </Box>
 
-        <Box sm={12} lg={6} p={1}>
+        <Box sm={12} lg={6}>
 
           <RelatedTasks
             title={'Depending on'}
@@ -90,7 +90,7 @@ class TaskDetails extends Component {
 
         </Box>
 
-        <Box sm={12} lg={6} p={1}>
+        <Box sm={12} lg={6}>
 
           <RelatedTasks
             title={'Required for'}

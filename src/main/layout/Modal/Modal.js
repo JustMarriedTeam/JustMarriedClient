@@ -34,7 +34,7 @@ class Modal extends PureComponent {
         bodyClassName={cx('modal__body')}
         actionsContainerClassName={cx('modal__footer')}
         overlayClassName={cx('modal__overlay')}
-        title={this.renderElement(header)}
+        title={<div>{this.renderElement(header)}</div>}
         actions={this.renderElement(footer)}
         modal={false}
         autoScrollBodyContent
