@@ -13,6 +13,7 @@ import {
   selectTasksDependingOn,
   selectTasksUnrelatedTo,
 } from '../../core/selectors/tasks.selector';
+import TaskDetailsForm from './TaskDetailsForm';
 
 const cx = classNames.bind(styles);
 
@@ -57,7 +58,11 @@ class TaskDetails extends Component {
             src="http://meetingking.com/wp-content/images/meetingking_tasks.png"
           />
 
-          {task.description}
+          <TaskDetailsForm
+            initialValues={task.toJS()}
+            disabled={!isEditable}
+            onSubmit={(values) => alert(values)}
+          />
 
         </Box>
 
