@@ -14,7 +14,8 @@ const wrapAll = (tasks) => keyBy((task) => task.id)(mapValues((raw) => new Task(
 export default function (tasks = new Immutable.Map(), action) {
   switch (action.type) {
     case TASKS_FETCHED:
-      return new Immutable.Map(wrapAll(action.tasks));
+      const wrappedTasks = wrapAll(action.tasks);
+      return new Immutable.Map(wrappedTasks);
     case MAKE_TASK_DEPEND_ON:
       return tasks.update(action.task.id, (task) =>
         task.addDependency(action.requiredTask));

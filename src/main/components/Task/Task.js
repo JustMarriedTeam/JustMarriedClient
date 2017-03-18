@@ -24,7 +24,7 @@ class Task extends PureComponent {
       },
       header: <TitleWithEditModalHeader title={task.name} />,
       content: (ctx) => <TaskDetails
-        taskId={task.id}
+        task={task}
         isEditable={ctx.isEditable}
       />,
       footer: (ctx) => <CloseModalFooter

@@ -3,6 +3,7 @@
   "parser": "babel-eslint",
   "extends": "airbnb",
   "rules": {
-    "no-else-return": "off"
+    "no-else-return": "off",
+    "no-underscore-dangle": ["error", { "allow": ["__foo__"], "allowAfterThis": true }]
   }
 }
