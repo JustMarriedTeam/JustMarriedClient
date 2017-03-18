@@ -31,6 +31,12 @@ class TaskDetails extends Component {
     };
   }
 
+  refreshTask = (task) => {
+    this.setState({
+      task,
+    });
+  };
+
   render() {
     const { task } = this.state;
 
@@ -54,8 +60,8 @@ class TaskDetails extends Component {
           <RelatedTasks
             title={'Depending on'}
             tasks={task.getRequiredTasks()}
-            onTaskAdded={(requiredTask) => task.addDependency(requiredTask)}
-            onTaskRemoved={(notRequiredTask) => task.removeDependency(notRequiredTask)}
+            onTaskAdded={(requiredTask) => this.refreshTask(task.addDependency(requiredTask))}
+            onTaskRemoved={(notRequiredTask) => this.refreshTask(task.removeDependency(notRequiredTask))}
           />
 
         </Box>

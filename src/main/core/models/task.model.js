@@ -32,12 +32,12 @@ class Task extends TaskRecord {
 
   addDependency(requiredTask) {
     return this.update('dependingOn', (dependingOnList) =>
-      dependingOnList.push(requiredTask.id));
+      dependingOnList.add(requiredTask.id));
   }
 
   removeDependency(notRequiredTask) {
     return this.update('dependingOn', (dependingOnList) =>
-      dependingOnList.push(notRequiredTask.id));
+      dependingOnList.add(notRequiredTask.id));
   }
 
   getRequiredTasks() {
