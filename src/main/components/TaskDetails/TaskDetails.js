@@ -54,8 +54,8 @@ class TaskDetails extends Component {
           <RelatedTasks
             title={'Depending on'}
             tasks={task.getRequiredTasks()}
-            onTaskAdded={(requiredTask) => alert('added')}
-            onTaskRemoved={(notRequiredTask) => alert('removed')}
+            onTaskAdded={(requiredTask) => task.addDependency(requiredTask)}
+            onTaskRemoved={(notRequiredTask) => task.removeDependency(notRequiredTask)}
           />
 
         </Box>

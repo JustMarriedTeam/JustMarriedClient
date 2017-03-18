@@ -15,7 +15,7 @@ const ICONS_BY_STATUS = {
 export default class RelatedTasks extends Component {
 
   static propTypes = {
-    tasks: PropTypes.instanceOf(Immutable.List).isRequired,
+    tasks: PropTypes.instanceOf(Immutable.Seq).isRequired,
     title: PropTypes.string.isRequired,
     onTaskAdded: PropTypes.func.isRequired,
     onTaskRemoved: PropTypes.func.isRequired,

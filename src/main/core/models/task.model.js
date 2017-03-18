@@ -1,5 +1,4 @@
 import Immutable from 'immutable';
-import concat from 'lodash/concat';
 import store from '../store';
 
 export const TASK_STATUS = {
@@ -19,8 +18,12 @@ const TaskRecord = new Immutable.Record({
 
 class Task extends TaskRecord {
 
-  constructor(values) {
-    super(Immutable.fromJS(values));
+  constructor({ id, name, description, status, requiredFor, dependingOn }) {
+    super({
+      id, name, description, status,
+      requiredFor: new Immutable.Set(requiredFor),
+      dependingOn: new Immutable.Set(dependingOn),
+    });
   }
 
   hasStatus(status) {
@@ -29,15 +32,20 @@ class Task extends TaskRecord {
 
   addDependency(requiredTask) {
     return this.update('dependingOn', (dependingOnList) =>
-      concat(dependingOnList, [requiredTask.id]));
+      dependingOnList.push(requiredTask.id));
+  }
+
+  removeDependency(notRequiredTask) {
+    return this.update('dependingOn', (dependingOnList) =>
+      dependingOnList.push(notRequiredTask.id));
   }
 
   getRequiredTasks() {
-    return this.__getTasksFrom__('dependingOn');
+    return this.__getTasksFrom__('dependingOn').toSeq();
   }
 
   getDependentTasks() {
-    return this.__getTasksFrom__('requiredFor');
+    return this.__getTasksFrom__('requiredFor').toSeq();
   }
 
   __getTasksFrom__(where) {
