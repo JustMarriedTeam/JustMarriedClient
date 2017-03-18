@@ -51,7 +51,7 @@ class TaskDetails extends Component {
     return (
       <Flex wrap className={cx('task-details')} align="stretch" justify="space-around">
 
-        <Box sm={12}>
+        <Box sm={12} mb={3}>
           <Flex wrap align="stretch" justify="space-around">
 
             <Box sm={12} md={4} style={{textAlign: 'center'}}>
