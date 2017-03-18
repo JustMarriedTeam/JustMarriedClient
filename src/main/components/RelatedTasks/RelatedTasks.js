@@ -1,12 +1,13 @@
-import React, { Component, PropTypes } from 'react';
-import { List, ListItem } from 'material-ui/List';
+import React, {Component, PropTypes} from 'react';
+import {List, ListItem} from 'material-ui/List';
 import FontIcon from 'material-ui/FontIcon';
 import SectionHeader from '../SectionHeader';
 import ExpandableIconElement from '../ExpandableIconElement';
 import TaskSelector from '../TaskSelector';
 import Immutable from 'immutable';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import Task from '../../core/models/task.model';
+import ConditionalRenderer from '../../utils/ConditionalRenderer';
 
 const ICONS_BY_STATUS = {
   done: 'done',
@@ -18,6 +19,7 @@ class RelatedTasks extends Component {
 
   static propTypes = {
     title: PropTypes.string.isRequired,
+    isEditable: PropTypes.bool,
     toTask: PropTypes.instanceOf(Task).isRequired,
     relatedTasksSelector: PropTypes.func.isRequired,
     unrelatedTasksSelector: PropTypes.func.isRequired,
@@ -45,7 +47,7 @@ class RelatedTasks extends Component {
   }
 
   render() {
-    const { title, relatedTasks, unrelatedTasks } = this.props;
+    const {isEditable, title, relatedTasks, unrelatedTasks} = this.props;
 
     const renderTaskListItems = () => relatedTasks.map(
       (relatedTask) => <div key={relatedTask.id}>
@@ -64,18 +66,21 @@ class RelatedTasks extends Component {
       </div>
     );
 
-    const renderTaskAddInput = () => <ExpandableIconElement
-      expanded={this.state.addingTask}
-      icon={<FontIcon
-        onClick={() => this.toggleAddTask()}
-        className="material-icons"
-      >{this.state.addingTask ? 'cancel' : 'add'}</FontIcon>}
-    >
-      <TaskSelector
-        tasksToChooseFrom={unrelatedTasks}
-        onTaskSelection={this.props.onTaskAdded}
-      />
-    </ExpandableIconElement>;
+    const renderTaskAddInput = () =>
+      <ConditionalRenderer show={isEditable}>
+        <ExpandableIconElement
+          expanded={this.state.addingTask}
+          icon={<FontIcon
+            onClick={() => this.toggleAddTask()}
+            className="material-icons"
+          >{this.state.addingTask ? 'cancel' : 'add'}</FontIcon>}
+        >
+          <TaskSelector
+            tasksToChooseFrom={unrelatedTasks}
+            onTaskSelection={this.props.onTaskAdded}
+          />
+        </ExpandableIconElement>
+      </ConditionalRenderer>;
 
     return (
       <div>

@@ -4,6 +4,10 @@ import { bindActionCreators } from 'redux';
 import Dialog from 'material-ui/Dialog';
 import * as allModalActions from '../../core/actions/modal.actions';
 import ModalModel from '../../core/models/modal.model';
+import classNames from 'classnames/bind';
+import styles from './Modal.pcss';
+
+const cx = classNames.bind(styles);
 
 class Modal extends PureComponent {
 
@@ -25,6 +29,11 @@ class Modal extends PureComponent {
 
     return (
       <Dialog
+        className={cx('modal')}
+        titleClassName={cx('modal__header')}
+        bodyClassName={cx('modal__body')}
+        actionsContainerClassName={cx('modal__footer')}
+        overlayClassName={cx('modal__overlay')}
         title={this.renderElement(header)}
         actions={this.renderElement(footer)}
         modal={false}

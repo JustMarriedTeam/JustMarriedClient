@@ -43,6 +43,7 @@ class TaskDetails extends Component {
   };
 
   render() {
+    const { isEditable } = this.props;
     const { task } = this.state;
 
     return (
@@ -64,6 +65,7 @@ class TaskDetails extends Component {
 
           <RelatedTasks
             title={'Depending on'}
+            isEditable={isEditable}
             toTask={task}
             relatedTasksSelector={selectTasksRequiredFor}
             unrelatedTasksSelector={selectTasksUnrelatedTo}
@@ -79,6 +81,7 @@ class TaskDetails extends Component {
 
           <RelatedTasks
             title={'Required for'}
+            isEditable={isEditable}
             toTask={task}
             relatedTasksSelector={selectTasksDependingOn}
             unrelatedTasksSelector={selectTasksUnrelatedTo}

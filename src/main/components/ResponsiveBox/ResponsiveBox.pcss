@@ -2,9 +2,14 @@
 
   margin: 0 auto;
 
+  @media (min-width: map(layout, breakpoints, xs)) {
+    max-width: map(layout, breakpoints, xs);
+    padding: 0 5px;
+  }
+
   @media (min-width: map(layout, breakpoints, sm)) {
     max-width: map(layout, breakpoints, sm);
-    padding: 0 5px;
+    padding: 0 10px;
   }
 
   @media (min-width: map(layout, breakpoints, md)) {
