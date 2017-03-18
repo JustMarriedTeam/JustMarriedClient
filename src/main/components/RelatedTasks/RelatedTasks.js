@@ -58,6 +58,11 @@ class RelatedTasks extends Component {
     }));
   };
 
+  handleTaskAdded = (addedTask) => {
+    this.props.onTaskAdded(addedTask);
+    this.taskSelector.reset();
+  };
+
   render() {
     const { isEditable, title, relatedTasks, unrelatedTasks } = this.props;
 
@@ -90,7 +95,7 @@ class RelatedTasks extends Component {
           <TaskSelector
             ref={(taskSelector) => { this.taskSelector = taskSelector; }}
             tasksToChooseFrom={unrelatedTasks}
-            onTaskSelection={this.props.onTaskAdded}
+            onTaskSelection={(task) => this.handleTaskAdded(task)}
           />
         </ExpandableIconElement>
       </ConditionalRenderer>;

@@ -22,6 +22,10 @@ export default class TaskSelector extends PureComponent {
     setTimeout(() => this.textInput.focus(), 100);
   }
 
+  reset() {
+    this.textInput.setState({ searchText: '' });
+  }
+
   render() {
     const { tasksToChooseFrom, onTaskSelection } = this.props;
 
