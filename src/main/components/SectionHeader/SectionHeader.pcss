@@ -1,5 +1,16 @@
 .section-header {
 
+  &--title-collapse {
+
+    @media (max-width: map(layout, breakpoints, sm)) {
+      .section-header__title {
+        display: none;
+        flex-grow: 0;
+      }
+    }
+
+  }
+
   &__row {
     display: flex;
     align-items: center;

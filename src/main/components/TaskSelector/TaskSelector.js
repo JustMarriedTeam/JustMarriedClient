@@ -18,12 +18,18 @@ export default class TaskSelector extends PureComponent {
     value: 'id',
   };
 
+  focus() {
+    setTimeout(() => this.textInput.focus(), 100);
+  }
+
   render() {
     const { tasksToChooseFrom, onTaskSelection } = this.props;
 
     return (
       <AutoComplete
         hintText="Start typing"
+        ref={(element) => { this.textInput = element; }}
+        menuCloseDelay={50}
         dataSource={tasksToChooseFrom.toArray()}
         dataSourceConfig={TaskSelector.dataSourceConfig}
         onNewRequest={onTaskSelection}

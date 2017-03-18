@@ -19,7 +19,11 @@
   }
 
   &__body {
-    width: 100%;
+
+    @media (max-width: map(layout, breakpoints, sm)) {
+      padding: 0 2px 15px !important;
+    }
+
   }
 
   &__overlay {

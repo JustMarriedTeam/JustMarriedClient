@@ -1,11 +1,11 @@
-import React, {Component, PropTypes} from 'react';
-import {List, ListItem} from 'material-ui/List';
+import React, { Component, PropTypes } from 'react';
+import { List, ListItem } from 'material-ui/List';
 import FontIcon from 'material-ui/FontIcon';
 import SectionHeader from '../SectionHeader';
 import ExpandableIconElement from '../ExpandableIconElement';
 import TaskSelector from '../TaskSelector';
 import Immutable from 'immutable';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Task from '../../core/models/task.model';
 import ConditionalRenderer from '../../utils/ConditionalRenderer';
 
@@ -13,6 +13,12 @@ const ICONS_BY_STATUS = {
   done: 'done',
   pending: 'schedule',
   blocked: 'lock_outline',
+};
+
+const focusElement = (element) => {
+  if (element) {
+    element.focus();
+  }
 };
 
 class RelatedTasks extends Component {
@@ -40,14 +46,20 @@ class RelatedTasks extends Component {
     };
   }
 
-  toggleAddTask() {
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.addingTask) {
+      this.taskSelector.focus();
+    }
+  }
+
+  toggleAddTask = () => {
     this.setState((prevState) => ({
       addingTask: !prevState.addingTask,
     }));
-  }
+  };
 
   render() {
-    const {isEditable, title, relatedTasks, unrelatedTasks} = this.props;
+    const { isEditable, title, relatedTasks, unrelatedTasks } = this.props;
 
     const renderTaskListItems = () => relatedTasks.map(
       (relatedTask) => <div key={relatedTask.id}>
@@ -76,6 +88,7 @@ class RelatedTasks extends Component {
           >{this.state.addingTask ? 'cancel' : 'add'}</FontIcon>}
         >
           <TaskSelector
+            ref={(taskSelector) => { this.taskSelector = taskSelector; }}
             tasksToChooseFrom={unrelatedTasks}
             onTaskSelection={this.props.onTaskAdded}
           />
@@ -86,6 +99,7 @@ class RelatedTasks extends Component {
       <div>
         <SectionHeader
           title={title}
+          hideTitle={this.state.addingTask}
           rightIcon={renderTaskAddInput()}
         />
         <List>
