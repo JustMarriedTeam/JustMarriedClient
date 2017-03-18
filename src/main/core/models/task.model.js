@@ -37,8 +37,19 @@ class Task extends TaskRecord {
 
   removeDependency(notRequiredTask) {
     return this.update('dependingOn', (dependingOnList) =>
-      dependingOnList.add(notRequiredTask.id));
+      dependingOnList.remove(notRequiredTask.id));
   }
+
+  addRequirement(dependentTask) {
+    return this.update('requiredFor', (requiredForList) =>
+      requiredForList.add(dependentTask.id));
+  }
+
+  removeRequirement(notDependentTask) {
+    return this.update('requiredFor', (requiredForList) =>
+      requiredForList.remove(notDependentTask.id));
+  }
+
 
   getRequiredTasks() {
     return this.__getTasksFrom__('dependingOn').toSeq();

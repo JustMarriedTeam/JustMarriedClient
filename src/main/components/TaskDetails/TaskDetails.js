@@ -71,8 +71,8 @@ class TaskDetails extends Component {
           <RelatedTasks
             title={'Required for'}
             tasks={task.getDependentTasks()}
-            onTaskAdded={(requiredTask) => alert('added')}
-            onTaskRemoved={(notRequiredTask) => alert('removed')}
+            onTaskAdded={(dependentTask) => this.refreshTask(task.addRequirement(dependentTask))}
+            onTaskRemoved={(notDependentTask) => this.refreshTask(task.removeRequirement(notDependentTask))}
           />
 
         </Box>
