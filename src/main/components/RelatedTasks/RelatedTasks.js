@@ -66,22 +66,29 @@ class RelatedTasks extends Component {
   render() {
     const { isEditable, title, relatedTasks, unrelatedTasks } = this.props;
 
-    const renderTaskListItems = () => relatedTasks.map(
-      (relatedTask) => <div key={relatedTask.id}>
-        <ListItem
-          primaryText={relatedTask.name}
-          rightIcon={
-            <FontIcon
-              className="material-icons"
-            >{ICONS_BY_STATUS[relatedTask.status]}</FontIcon>
-          }
-          leftIcon={<img
-            role="presentation"
-            src="http://meetingking.com/wp-content/images/meetingking_tasks.png"
-          />}
-        />
-      </div>
-    );
+    const renderTaskListItems = () => {
+      const renderTaskRightIcon = (relatedTask) => isEditable
+          ? <FontIcon
+            onClick={() => this.props.onTaskRemoved(relatedTask)}
+            className="material-icons"
+          >remove</FontIcon>
+          : <FontIcon
+            className="material-icons"
+          >{ICONS_BY_STATUS[relatedTask.status]}</FontIcon>;
+
+      return relatedTasks.map(
+        (relatedTask) => <div key={relatedTask.id}>
+          <ListItem
+            primaryText={relatedTask.name}
+            rightIcon={renderTaskRightIcon(relatedTask)}
+            leftIcon={<img
+              role="presentation"
+              src="http://meetingking.com/wp-content/images/meetingking_tasks.png"
+            />}
+          />
+        </div>
+      );
+    };
 
     const renderTaskAddInput = () =>
       <ConditionalRenderer show={isEditable}>
