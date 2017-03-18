@@ -14,6 +14,7 @@ import {
   selectTasksUnrelatedTo,
 } from '../../core/selectors/tasks.selector';
 import TaskDetailsForm from './TaskDetailsForm';
+import Image from '../Image';
 
 const cx = classNames.bind(styles);
 
@@ -51,18 +52,25 @@ class TaskDetails extends Component {
       <Flex wrap className={cx('task-details')} align="stretch" justify="space-around">
 
         <Box sm={12}>
+          <Flex wrap align="stretch" justify="space-around">
 
-          <img
-            className={cx('task-details__image')}
-            role="presentation"
-            src="http://meetingking.com/wp-content/images/meetingking_tasks.png"
-          />
+            <Box sm={12} md={4} style={{textAlign: 'center'}}>
+              <Image
+                className={cx('task-details__image')}
+                src="http://meetingking.com/wp-content/images/meetingking_tasks.png"
+              />
+            </Box>
 
-          <TaskDetailsForm
-            initialValues={task.toJS()}
-            disabled={!isEditable}
-            onSubmit={(values) => alert(values)}
-          />
+            <Box sm={12} md={8}>
+              <TaskDetailsForm
+                initialValues={task.toJS()}
+                disabled={!isEditable}
+                onSubmit={(values) => alert(values)}
+              />
+            </Box>
+
+
+          </Flex>
 
         </Box>
 

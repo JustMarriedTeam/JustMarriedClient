@@ -30,6 +30,7 @@ class TaskDetailsForm extends PureComponent {
             <Field
               name="description"
               label="Description"
+              fullWidth
               floatingLabelText="Description"
               validate={[required, taskDescription]}
               disabled={disabled}
