@@ -8,6 +8,11 @@ import RelatedTasks from '../RelatedTasks/RelatedTasks';
 import * as allTaskActions from '../../core/actions/task.actions';
 import * as allModalActions from '../../core/actions/modal.actions';
 import { bindActionCreators } from 'redux';
+import {
+  selectTasksRequiredFor,
+  selectTasksDependingOn,
+  selectTasksUnrelatedTo,
+} from '../../core/selectors/tasks.selector';
 
 const cx = classNames.bind(styles);
 
@@ -59,9 +64,13 @@ class TaskDetails extends Component {
 
           <RelatedTasks
             title={'Depending on'}
-            tasks={task.getRequiredTasks()}
-            onTaskAdded={(requiredTask) => this.refreshTask(task.addDependency(requiredTask))}
-            onTaskRemoved={(notRequiredTask) => this.refreshTask(task.removeDependency(notRequiredTask))}
+            toTask={task}
+            relatedTasksSelector={selectTasksRequiredFor}
+            unrelatedTasksSelector={selectTasksUnrelatedTo}
+            onTaskAdded={(requiredTask) =>
+              this.refreshTask(task.addDependency(requiredTask))}
+            onTaskRemoved={(notRequiredTask) =>
+              this.refreshTask(task.removeDependency(notRequiredTask))}
           />
 
         </Box>
@@ -70,9 +79,13 @@ class TaskDetails extends Component {
 
           <RelatedTasks
             title={'Required for'}
-            tasks={task.getDependentTasks()}
-            onTaskAdded={(dependentTask) => this.refreshTask(task.addRequirement(dependentTask))}
-            onTaskRemoved={(notDependentTask) => this.refreshTask(task.removeRequirement(notDependentTask))}
+            toTask={task}
+            relatedTasksSelector={selectTasksDependingOn}
+            unrelatedTasksSelector={selectTasksUnrelatedTo}
+            onTaskAdded={(dependentTask) =>
+              this.refreshTask(task.addRequirement(dependentTask))}
+            onTaskRemoved={(notDependentTask) =>
+              this.refreshTask(task.removeRequirement(notDependentTask))}
           />
 
         </Box>

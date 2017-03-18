@@ -5,6 +5,8 @@ import SectionHeader from '../SectionHeader';
 import ExpandableIconElement from '../ExpandableIconElement';
 import TaskSelector from '../TaskSelector';
 import Immutable from 'immutable';
+import { connect } from 'react-redux';
+import Task from '../../core/models/task.model';
 
 const ICONS_BY_STATUS = {
   done: 'done',
@@ -12,13 +14,21 @@ const ICONS_BY_STATUS = {
   blocked: 'lock_outline',
 };
 
-export default class RelatedTasks extends Component {
+class RelatedTasks extends Component {
 
   static propTypes = {
-    tasks: PropTypes.instanceOf(Immutable.Seq).isRequired,
     title: PropTypes.string.isRequired,
+    toTask: PropTypes.instanceOf(Task).isRequired,
+    relatedTasksSelector: PropTypes.func.isRequired,
+    unrelatedTasksSelector: PropTypes.func.isRequired,
     onTaskAdded: PropTypes.func.isRequired,
     onTaskRemoved: PropTypes.func.isRequired,
+
+    /**
+     * Set internally by connect.
+     */
+    relatedTasks: PropTypes.instanceOf(Immutable.Seq).isRequired,
+    unrelatedTasks: PropTypes.instanceOf(Immutable.Seq).isRequired,
   };
 
   constructor() {
@@ -35,16 +45,16 @@ export default class RelatedTasks extends Component {
   }
 
   render() {
-    const { title, tasks } = this.props;
+    const { title, relatedTasks, unrelatedTasks } = this.props;
 
-    const renderTaskListItems = () => tasks.map(
-      (task) => <div key={task.id}>
+    const renderTaskListItems = () => relatedTasks.map(
+      (relatedTask) => <div key={relatedTask.id}>
         <ListItem
-          primaryText={task.name}
+          primaryText={relatedTask.name}
           rightIcon={
             <FontIcon
               className="material-icons"
-            >{ICONS_BY_STATUS[task.status]}</FontIcon>
+            >{ICONS_BY_STATUS[relatedTask.status]}</FontIcon>
           }
           leftIcon={<img
             role="presentation"
@@ -61,7 +71,10 @@ export default class RelatedTasks extends Component {
         className="material-icons"
       >{this.state.addingTask ? 'cancel' : 'add'}</FontIcon>}
     >
-      <TaskSelector onTaskSelection={this.props.onTaskAdded} />
+      <TaskSelector
+        tasksToChooseFrom={unrelatedTasks}
+        onTaskSelection={this.props.onTaskAdded}
+      />
     </ExpandableIconElement>;
 
     return (
@@ -72,7 +85,7 @@ export default class RelatedTasks extends Component {
         />
         <List>
           {
-            tasks.size > 0 ? renderTaskListItems() : <ListItem>None</ListItem>
+            relatedTasks.size > 0 ? renderTaskListItems() : <ListItem>None</ListItem>
           }
         </List>
       </div>
@@ -80,3 +93,12 @@ export default class RelatedTasks extends Component {
   }
 
 }
+
+export default connect(
+  (state, props) => ({
+    relatedTasks: props.relatedTasksSelector(props.toTask)(state),
+    unrelatedTasks: props.unrelatedTasksSelector(props.toTask)(state),
+  }),
+  () => ({})
+)(RelatedTasks);
+

@@ -1,14 +1,28 @@
-const tasksEntitiesSelector = state => state.entities.tasks.toList();
+import { createSelector } from 'reselect';
 
-export const selectTasks = tasksEntitiesSelector;
+export const selectTasks = state => state.entities.tasks.toList();
 
-export const selectTask = (selectedTaskId) => state => state.entities.tasks.get(selectedTaskId);
+export const selectTasksById = state => state.entities.tasks;
 
-export const selectTasksRequiredFor = (selectedTaskId) => state =>
-  state.entities.tasks.filter((task) => task.requiredFor.includes(selectedTaskId)).toList();
+export const selectTasksAsSeq = state => state.entities.tasks.toSetSeq();
 
-export const selectTasksDependingOn = (selectedTaskId) => state =>
-  state.entities.tasks.filter((task) => task.dependingOn.includes(selectedTaskId)).toList();
 
-export const selectAllTasks = state =>
-  state.entities.tasks.toList();
+export const selectTasksRequiredFor = (selectedTask) => createSelector(
+  [selectTasksById],
+  (tasksByKey) => selectedTask.dependingOn.map((taskId) => tasksByKey.get(taskId)).toSeq()
+);
+
+export const selectTasksDependingOn = (selectedTask) => createSelector(
+  [selectTasksById],
+  (tasksByKey) => selectedTask.requiredFor.map((taskId) => tasksByKey.get(taskId)).toSeq()
+);
+
+export const selectTasksUnrelatedTo = (task) => createSelector(
+  [selectTasksAsSeq],
+  (allTasksSeq) => {
+    const requiredForIds = task.requiredFor;
+    const dependingOnIds = task.dependingOn;
+    const relatedTasksIds = requiredForIds.union(dependingOnIds);
+    return allTasksSeq.filterNot((filteredTask) => relatedTasksIds.contains(filteredTask.id));
+  }
+);
