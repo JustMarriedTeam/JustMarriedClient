@@ -22,9 +22,13 @@ class Task extends PureComponent {
       context: {
         isEditable: false,
       },
-      header: <TitleWithEditModalHeader title={task.name} />,
+      header: <TitleWithEditModalHeader
+        title={task.name}
+        onSave={() => this.saveTaskDetails()}
+      />,
       content: (ctx) => <TaskDetails
         task={task}
+        bindControls={({save}) => { this.saveTaskDetails = save; }}
         isEditable={ctx.isEditable}
       />,
       footer: (ctx) => <CloseModalFooter

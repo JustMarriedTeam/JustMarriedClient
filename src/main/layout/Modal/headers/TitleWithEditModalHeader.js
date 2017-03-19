@@ -13,9 +13,35 @@ class TitleWithEditModalHeader extends PureComponent {
 
   static propTypes = {
     title: PropTypes.string.isRequired,
+    onEdit: PropTypes.func,
+    onSave: PropTypes.func,
 
     modalActions: PropTypes.object.isRequired,
     modalContext: PropTypes.object.isRequired,
+  };
+
+  static defaultProps = {
+    onEdit: () => true,
+    onSave: () => true,
+  };
+
+  handleEditToggle = () => {
+    const isEditable = !this.props.modalContext.isEditable;
+    if (!isEditable) {
+      if (this.props.onSave()) {
+        this.updateContext(false);
+      }
+    } else {
+      if (this.props.onEdit()) {
+        this.updateContext(true);
+      }
+    }
+  };
+
+  updateContext = (isEditable) => {
+    this.props.modalActions.mergeInContext({
+      isEditable,
+    });
   };
 
   render() {
@@ -28,9 +54,7 @@ class TitleWithEditModalHeader extends PureComponent {
         </div>
         <div className={cx('title-with-edit-modal-header__editIcon')}><IconButton>
           <FontIcon
-            onClick={() => this.props.modalActions.mergeInContext({
-              isEditable: !isEditable,
-            })}
+            onClick={this.handleEditToggle}
             className="material-icons"
           >{isEditable ? 'save' : 'edit'}</FontIcon>
         </IconButton></div>

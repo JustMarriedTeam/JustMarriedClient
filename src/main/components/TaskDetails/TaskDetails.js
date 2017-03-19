@@ -23,6 +23,7 @@ class TaskDetails extends Component {
   static propTypes = {
     task: PropTypes.instanceOf(Task).isRequired,
     isEditable: PropTypes.bool.isRequired,
+    bindControls: PropTypes.func.isRequired,
 
     /**
      * Set internally by connect
@@ -36,6 +37,21 @@ class TaskDetails extends Component {
     this.state = {
       task: props.task,
     };
+  }
+
+  componentDidMount() {
+    this.props.bindControls({
+      save: this.save,
+    });
+  }
+
+  componentWillUnmount() {
+    this.props.bindControls(null);
+  }
+
+  save() {
+    alert('saving');
+    return true;
   }
 
   refreshTask = (task) => {
