@@ -1,7 +1,20 @@
-export const MAKE_TASK_DEPEND_ON = 'MAKE_TASK_DEPEND_ON';
-export const MAKE_TASK_INDEPENDENT_OF = 'MAKE_TASK_INDEPENDENT_OF';
+import { sendingRequest, notifyRequestFailed } from './server.actions';
+import { getTasks, putTask } from '../api/tasks.api';
 
-export const makeTaskDependOn = (task, requiredTask) =>
-  ({ type: MAKE_TASK_DEPEND_ON, task, requiredTask });
-export const makeTaskIndependentOf = (task, notRequiredTask) =>
-  ({ type: MAKE_TASK_INDEPENDENT_OF, task, notRequiredTask });
+export const TASKS_FETCHED = 'TASKS_FETCHED';
+
+export const fetchTasks = (query) => (dispatch) => {
+  dispatch(sendingRequest(true));
+  return getTasks(query)
+    .then((tasks) => dispatch(({ type: TASKS_FETCHED, tasks })))
+    .catch((err) => dispatch(notifyRequestFailed(err)))
+    .finally(() => dispatch(sendingRequest(false)));
+};
+
+export const updateTask = (task) => (dispatch) => {
+  dispatch(sendingRequest(true));
+  return putTask(task)
+    .then(fetchTasks())
+    .catch((err) => dispatch(notifyRequestFailed(err)))
+    .finally(() => dispatch(sendingRequest(false)));
+};

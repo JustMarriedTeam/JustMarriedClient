@@ -21,20 +21,16 @@ class TitleWithEditModalHeader extends PureComponent {
   };
 
   static defaultProps = {
-    onEdit: () => true,
-    onSave: () => true,
+    onEdit: () => Promise.resolve(true),
+    onSave: () => Promise.resolve(true),
   };
 
   handleEditToggle = () => {
     const isEditable = !this.props.modalContext.isEditable;
     if (!isEditable) {
-      if (this.props.onSave()) {
-        this.updateContext(false);
-      }
+      this.props.onSave().then(() => this.updateContext(false));
     } else {
-      if (this.props.onEdit()) {
-        this.updateContext(true);
-      }
+      this.props.onEdit().then(() => this.updateContext(true));
     }
   };
 

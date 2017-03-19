@@ -5,7 +5,7 @@ import FontIcon from 'material-ui/FontIcon';
 import TaskGrid from '../../components/TaskGrid';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as weddingActions from '../../core/actions/wedding.actions';
+import * as allTasksActions from '../../core/actions/task.actions';
 import * as actionBarActions from '../../core/actions/actionbar.actions';
 import * as allSelectionActions from '../../core/actions/selection.actions';
 import {selectTasks} from '../../core/selectors/tasks.selector';
@@ -32,12 +32,12 @@ class TasksPage extends Component {
 
   static propTypes = {
     tasks: PropTypes.instanceOf(Immutable.List).isRequired,
-    weddingActions: PropTypes.object.isRequired,
+    tasksActions: PropTypes.object.isRequired,
     actionBarActions: PropTypes.object.isRequired,
     selectionActions: PropTypes.object.isRequired,
   };
 
-  componentWillMount = () => this.props.weddingActions.loadTasks();
+  componentWillMount = () => this.props.tasksActions.fetchTasks();
 
   render() {
     return (
@@ -89,7 +89,7 @@ export default connect((state) => ({
   tasks: selectTasks(state),
 }), (dispatch) => ({
   actionBarActions: bindActionCreators(actionBarActions, dispatch),
-  weddingActions: bindActionCreators(weddingActions, dispatch),
+  tasksActions: bindActionCreators(allTasksActions, dispatch),
   selectionActions: bindActionCreators(allSelectionActions, dispatch),
 }))(TasksPage);
 

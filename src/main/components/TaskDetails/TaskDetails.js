@@ -15,6 +15,8 @@ import {
 } from '../../core/selectors/tasks.selector';
 import TaskDetailsForm from './TaskDetailsForm';
 import Image from '../Image';
+import { submit, reset, isInvalid } from 'redux-form';
+import extend from 'lodash/extend';
 
 const cx = classNames.bind(styles);
 
@@ -30,6 +32,8 @@ class TaskDetails extends Component {
      */
     taskActions: PropTypes.object.isRequired,
     modalActions: PropTypes.object.isRequired,
+    submitForm: PropTypes.func.isRequired,
+    isFormInvalid: PropTypes.bool.isRequired,
   };
 
   constructor(props) {
@@ -49,10 +53,15 @@ class TaskDetails extends Component {
     this.props.bindControls(null);
   }
 
-  save() {
-    alert('saving');
-    return true;
-  }
+  save = () => {
+    const { isFormInvalid, submitForm, taskActions } = this.props;
+    if (isFormInvalid) {
+      return Promise.reject('Invalid values in form');
+    } else {
+      submitForm();
+      return taskActions.updateTask(this.state.task);
+    }
+  };
 
   refreshTask = (task) => {
     this.setState({
@@ -70,7 +79,7 @@ class TaskDetails extends Component {
         <Box sm={12} mb={3}>
           <Flex wrap align="stretch" justify="space-around">
 
-            <Box sm={12} md={4} style={{textAlign: 'center'}}>
+            <Box sm={12} md={4} style={{ textAlign: 'center' }}>
               <Image
                 className={cx('task-details__image')}
                 src="http://meetingking.com/wp-content/images/meetingking_tasks.png"
@@ -81,7 +90,7 @@ class TaskDetails extends Component {
               <TaskDetailsForm
                 initialValues={task.toJS()}
                 disabled={!isEditable}
-                onSubmit={(values) => alert(values)}
+                onSubmit={(values) => { this.state.task = this.state.task.mergeWith(values) }}
               />
             </Box>
 
@@ -130,10 +139,13 @@ class TaskDetails extends Component {
 }
 
 export default connect(
-  () => ({}),
+  (state) => ({
+    isFormInvalid: isInvalid('TaskDetails')(state),
+  }),
   (dispatch) => ({
     taskActions: bindActionCreators(allTaskActions, dispatch),
     modalActions: bindActionCreators(allModalActions, dispatch),
+    submitForm: () => dispatch(submit('TaskDetails')),
   })
 )(TaskDetails);
 

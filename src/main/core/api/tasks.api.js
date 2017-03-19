@@ -7,4 +7,9 @@ function getTasks(query) {
   })).then((response) => response.data);
 }
 
-export { getTasks };
+function putTask(task) {
+  return Promise.resolve(server.put(`/tasks/${task.id}`, task))
+    .then((response) => response.data);
+}
+
+export { getTasks, putTask };
