@@ -15,8 +15,7 @@ import {
 } from '../../core/selectors/tasks.selector';
 import TaskDetailsForm from './TaskDetailsForm';
 import Image from '../Image';
-import { submit, reset, isInvalid } from 'redux-form';
-import extend from 'lodash/extend';
+import { isInvalid } from 'redux-form';
 
 const cx = classNames.bind(styles);
 
@@ -32,7 +31,6 @@ class TaskDetails extends Component {
      */
     taskActions: PropTypes.object.isRequired,
     modalActions: PropTypes.object.isRequired,
-    submitForm: PropTypes.func.isRequired,
     isFormInvalid: PropTypes.bool.isRequired,
   };
 
@@ -54,12 +52,12 @@ class TaskDetails extends Component {
   }
 
   save = () => {
-    const { isFormInvalid, submitForm, taskActions } = this.props;
+    const { isFormInvalid, taskActions } = this.props;
     if (isFormInvalid) {
       return Promise.reject('Invalid values in form');
     } else {
-      submitForm();
-      return taskActions.updateTask(this.state.task);
+      return this.taskDetailsForm.submit()
+        .then((updatedTask) => taskActions.updateTask(updatedTask));
     }
   };
 
@@ -88,9 +86,10 @@ class TaskDetails extends Component {
 
             <Box sm={12} md={8}>
               <TaskDetailsForm
+                ref={(component) => { this.taskDetailsForm = component; }}
                 initialValues={task.toJS()}
                 disabled={!isEditable}
-                onSubmit={(values) => { this.state.task = this.state.task.mergeWith(values) }}
+                onSubmit={(values) => Promise.resolve(this.state.task.merge(values))}
               />
             </Box>
 
@@ -145,7 +144,6 @@ export default connect(
   (dispatch) => ({
     taskActions: bindActionCreators(allTaskActions, dispatch),
     modalActions: bindActionCreators(allModalActions, dispatch),
-    submitForm: () => dispatch(submit('TaskDetails')),
   })
 )(TaskDetails);
 
