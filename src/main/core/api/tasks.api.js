@@ -8,7 +8,7 @@ function getTasks(query) {
 }
 
 function putTask(task) {
-  return Promise.resolve(server.put(`/tasks/${task.id}`, task))
+  return Promise.resolve(server.put(`/wedding/tasks/${task.id}`, task))
     .then((response) => response.data);
 }
 
