@@ -35,7 +35,7 @@ class TaskDetailsForm extends PureComponent {
               validate={[required, taskDescription]}
               disabled={disabled}
               multiLine
-              rows={4}
+              rows={1}
               rowsMax={10}
               component={TextField}
             />

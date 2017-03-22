@@ -3,7 +3,7 @@ import { getTasks, putTask } from '../api/tasks.api';
 
 export const TASKS_FETCHED = 'TASKS_FETCHED';
 
-export const fetchTasks = (query) => (dispatch) => {
+const fetchTasks = (query) => (dispatch) => {
   dispatch(sendingRequest(true));
   return getTasks(query)
     .then((tasks) => dispatch(({ type: TASKS_FETCHED, tasks })))
@@ -11,10 +11,13 @@ export const fetchTasks = (query) => (dispatch) => {
     .finally(() => dispatch(sendingRequest(false)));
 };
 
-export const updateTask = (task) => (dispatch) => {
+const updateTask = (task) => (dispatch) => {
   dispatch(sendingRequest(true));
   return putTask(task)
-    .then(fetchTasks())
+    .then(() => fetchTasks()(dispatch))
     .catch((err) => dispatch(notifyRequestFailed(err)))
     .finally(() => dispatch(sendingRequest(false)));
 };
+
+export { fetchTasks, updateTask };
+
