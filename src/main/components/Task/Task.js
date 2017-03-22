@@ -32,11 +32,18 @@ class Task extends PureComponent {
         itemArray.push(
           <MenuItem
             key="makeDone"
-            onTouchTap={() => taskActions.changeStatus(task, TASK_STATUS.DONE)}
+            onTouchTap={() => taskActions.changeStatus(task, TASK_STATUS.DONE)
+              .then(modalActions.closeModal)}
             primaryText="Make done"/>
         );
       } else if (task.hasStatus(TASK_STATUS.DONE)) {
-        itemArray.push(<MenuItem key="makePending" primaryText="Make pending"/>);
+        itemArray.push(
+          <MenuItem
+            key="makePending"
+            onTouchTap={() => taskActions.changeStatus(task, TASK_STATUS.PENDING)
+              .then(modalActions.closeModal)}
+            primaryText="Make pending"/>
+        );
       }
 
       return itemArray;
