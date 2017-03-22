@@ -19,5 +19,8 @@ const updateTask = (task) => (dispatch) => {
     .finally(() => dispatch(sendingRequest(false)));
 };
 
-export { fetchTasks, updateTask };
+const changeStatus = (task, status) => (dispatch) =>
+  updateTask(task.setStatus(status))(dispatch);
+
+export { fetchTasks, updateTask, changeStatus };
 

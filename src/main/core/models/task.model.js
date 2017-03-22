@@ -30,6 +30,10 @@ class Task extends TaskRecord {
     return this.status === status;
   }
 
+  setStatus(newStatus) {
+    return this.set('status', newStatus);
+  }
+
   addDependency(requiredTask) {
     return this.update('dependingOn', (dependingOnList) =>
       dependingOnList.add(requiredTask.id));
