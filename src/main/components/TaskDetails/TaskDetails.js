@@ -42,15 +42,15 @@ class TaskDetails extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.props.bindControls({
       save: this.save,
     });
-  }
+  };
 
-  componentWillUnmount() {
-    this.props.bindControls(null);
-  }
+  componentWillUnmount = () => {
+    this.props.bindControls({});
+  };
 
   save = () => {
     const { isFormInvalid, taskActions } = this.props;
