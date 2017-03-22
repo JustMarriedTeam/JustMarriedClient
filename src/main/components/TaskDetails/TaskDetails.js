@@ -16,6 +16,7 @@ import {
 import TaskDetailsForm from './TaskDetailsForm';
 import Image from '../Image';
 import { isInvalid } from 'redux-form';
+import pick from 'lodash/pick';
 
 const cx = classNames.bind(styles);
 
@@ -87,7 +88,7 @@ class TaskDetails extends Component {
             <Box sm={12} md={8}>
               <TaskDetailsForm
                 ref={(component) => { this.taskDetailsForm = component; }}
-                initialValues={task.toJS()}
+                initialValues={pick(task.toJS(), ['description'])}
                 disabled={!isEditable}
                 onSubmit={(values) => Promise.resolve(this.state.task.merge(values))}
               />

@@ -20,10 +20,10 @@ class TaskDetailsForm extends PureComponent {
   };
 
   render() {
-    const { disabled, onSubmit, handleSubmit } = this.props;
+    const { disabled } = this.props;
 
     return (
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form>
         <Flex wrap align="center" justify="space-around">
 
           <Box sm={12}>
