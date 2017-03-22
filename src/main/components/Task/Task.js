@@ -46,6 +46,14 @@ class Task extends PureComponent {
         );
       }
 
+      itemArray.push(
+        <MenuItem
+          key="delete"
+          onTouchTap={() => taskActions.removeTask(task)
+            .then(modalActions.closeModal)}
+          primaryText="Remove"/>
+      );
+
       return itemArray;
     };
 

@@ -12,4 +12,8 @@ function putTask(task) {
     .then((response) => response.data);
 }
 
-export { getTasks, putTask };
+function deleteTask(task) {
+  return Promise.resolve(server.delete(`/wedding/tasks/${task.id}`));
+}
+
+export { getTasks, putTask, deleteTask };
