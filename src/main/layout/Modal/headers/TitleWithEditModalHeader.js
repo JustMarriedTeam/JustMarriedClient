@@ -1,6 +1,8 @@
 import React, { PropTypes, PureComponent } from 'react';
 import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
 import FontIcon from 'material-ui/FontIcon';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as allModalActions from '../../../core/actions/modal.actions';
@@ -13,6 +15,7 @@ class TitleWithEditModalHeader extends PureComponent {
 
   static propTypes = {
     title: PropTypes.string.isRequired,
+    menuItems: PropTypes.arrayOf(PropTypes.element).isRequired,
     onEdit: PropTypes.func,
     onSave: PropTypes.func,
 
@@ -54,6 +57,13 @@ class TitleWithEditModalHeader extends PureComponent {
             className="material-icons"
           >{isEditable ? 'save' : 'edit'}</FontIcon>
         </IconButton></div>
+        <IconMenu
+          iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+          anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+          targetOrigin={{horizontal: 'right', vertical: 'top'}}
+        >
+          {this.props.menuItems}
+        </IconMenu>
       </div>
     );
   }

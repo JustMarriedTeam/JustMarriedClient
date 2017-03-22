@@ -1,6 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { Card, CardMedia, CardTitle } from 'material-ui/Card';
-import TaskModel from '../../core/models/task.model.js';
+import TaskModel, { TASK_STATUS } from '../../core/models/task.model.js';
+import MenuItem from 'material-ui/MenuItem';
 import { connect } from 'react-redux';
 import * as allModalActions from '../../core/actions/modal.actions';
 import TaskDetails from '../TaskDetails/TaskDetails';
@@ -18,17 +19,30 @@ class Task extends PureComponent {
   openDetails = () => {
     const { task, modalActions } = this.props;
 
+    const prepareMenu = () => {
+      const itemArray = [];
+
+      if (task.hasStatus(TASK_STATUS.PENDING)) {
+        itemArray.push(<MenuItem key="makeDone" primaryText="Make done" />);
+      } else if (task.hasStatus(TASK_STATUS.DONE)) {
+        itemArray.push(<MenuItem key="makePending" primaryText="Make pending" />);
+      }
+
+      return itemArray;
+    };
+
     modalActions.openModal({
       context: {
         isEditable: false,
       },
       header: <TitleWithEditModalHeader
         title={task.name}
+        menuItems={prepareMenu()}
         onSave={() => this.saveTaskDetails()}
       />,
       content: (ctx) => <TaskDetails
         task={task}
-        bindControls={({save}) => { this.saveTaskDetails = save; }}
+        bindControls={({ save }) => { this.saveTaskDetails = save; }}
         isEditable={ctx.isEditable}
       />,
       footer: (ctx) => <CloseModalFooter
