@@ -47,7 +47,7 @@ class RelatedTasks extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.addingTask) {
+    if (nextState.addingTask && nextState.isEditable) {
       this.taskSelector.focus();
     }
   }
