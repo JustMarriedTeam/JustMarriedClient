@@ -45,6 +45,7 @@ class TaskDetails extends Component {
   componentDidMount = () => {
     this.props.bindControls({
       save: this.save,
+      create: this.create,
     });
   };
 
@@ -52,15 +53,19 @@ class TaskDetails extends Component {
     this.props.bindControls({});
   };
 
-  save = () => {
-    const { isFormInvalid, taskActions } = this.props;
+  __doIfValid__ = (actionFn) => {
+    const { isFormInvalid } = this.props;
     if (isFormInvalid) {
       return Promise.reject('Invalid values in form');
     } else {
       return this.taskDetailsForm.submit()
-        .then((updatedTask) => taskActions.updateTask(updatedTask));
+        .then(actionFn);
     }
   };
+
+  create = () => this.__doIfValid__(this.props.taskActions.createTask);
+
+  save = () => this.__doIfValid__(this.props.taskActions.updateTask);
 
   refreshTask = (task) => {
     this.setState({
@@ -88,7 +93,7 @@ class TaskDetails extends Component {
             <Box sm={12} md={8}>
               <TaskDetailsForm
                 ref={(component) => { this.taskDetailsForm = component; }}
-                initialValues={pick(task.toJS(), ['description'])}
+                initialValues={pick(task.toJS(), ['name', 'status', 'description'])}
                 disabled={!isEditable}
                 onSubmit={(values) => Promise.resolve(this.state.task.merge(values))}
               />

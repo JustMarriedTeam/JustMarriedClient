@@ -14,7 +14,9 @@ import { Menu, MainButton, ChildButton } from 'react-mfb';
 import Immutable from 'immutable';
 import TitleModalHeader from '../../layout/Modal/headers/TitleModalHeader';
 import CreateOrCancelModalFooter from '../../layout/Modal/footers/CreateOrCancelModalFooter';
+import TaskDetails from '../../components/TaskDetails';
 import { TASK_STATUS } from '../../core/models/task.model';
+import { createTask } from '../../core/factories/task.factory';
 
 // better use selectors... they cache...
 const TABS = {
@@ -50,6 +52,8 @@ class TasksPage extends Component {
   handleAddingTask = () => {
     const { modalActions } = this.props;
 
+    const newTask = createTask();
+
     modalActions.openModal({
       context: {
         isEditable: false,
@@ -57,9 +61,15 @@ class TasksPage extends Component {
       header: <TitleModalHeader
         title="Add new task"
       />,
-      content: () => <div>Hello!</div>,
+      content: () => <TaskDetails
+        task={newTask}
+        isEditable
+        bindControls={({create}) => {
+          this.saveTaskDetails = create;
+        }}
+      />,
       footer: () => <CreateOrCancelModalFooter
-        onCreate={() => alert('create')}
+        onCreate={() => this.saveTaskDetails().then(modalActions.closeModal)}
       />,
     });
   };

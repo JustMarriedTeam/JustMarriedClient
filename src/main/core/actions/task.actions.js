@@ -1,5 +1,5 @@
 import { sendingRequest, notifyRequestFailed } from './server.actions';
-import { getTasks, putTask, deleteTask } from '../api/tasks.api';
+import { getTasks, postTask, putTask, deleteTask } from '../api/tasks.api';
 
 export const TASKS_FETCHED = 'TASKS_FETCHED';
 
@@ -30,5 +30,13 @@ const removeTask = (task) => (dispatch) => {
     .finally(() => dispatch(sendingRequest(false)));
 };
 
-export { fetchTasks, updateTask, changeStatus, removeTask };
+const createTask = (task) => (dispatch) => {
+  dispatch(sendingRequest(true));
+  return postTask(task)
+    .then(() => fetchTasks()(dispatch))
+    .catch((err) => dispatch(notifyRequestFailed(err)))
+    .finally(() => dispatch(sendingRequest(false)));
+};
+
+export { fetchTasks, createTask, updateTask, changeStatus, removeTask };
 
