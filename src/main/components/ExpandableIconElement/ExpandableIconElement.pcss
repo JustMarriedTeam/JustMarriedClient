@@ -1,0 +1,24 @@
+.expandable-icon-element {
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  &__icon {
+    flex-basis: content;
+  }
+
+  &__element {
+    flex-grow: 1;
+    display: none;
+  }
+
+  &--expanded {
+
+    .expandable-icon-element__element {
+      display: block;
+    }
+
+  }
+
+}

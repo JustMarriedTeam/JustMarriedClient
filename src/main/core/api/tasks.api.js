@@ -7,4 +7,18 @@ function getTasks(query) {
   })).then((response) => response.data);
 }
 
-export { getTasks };
+function putTask(task) {
+  return Promise.resolve(server.put(`/wedding/tasks/${task.id}`, task))
+    .then((response) => response.data);
+}
+
+function postTask(task) {
+  return Promise.resolve(server.post('/wedding/tasks', task))
+    .then((response) => response.data);
+}
+
+function deleteTask(task) {
+  return Promise.resolve(server.delete(`/wedding/tasks/${task.id}`));
+}
+
+export { getTasks, postTask, putTask, deleteTask };

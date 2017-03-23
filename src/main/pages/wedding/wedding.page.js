@@ -46,6 +46,10 @@ class WeddingPage extends Component {
     this.activateTab(TAB_KEYS.PARTICIPANTS);
   }
 
+  componentWillUnmount() {
+    this.props.actionBarActions.destroyContextMenu();
+  }
+
   onTabMount = (tabId) => ({ otherContextItems } = {}) => {
     this.state.tabs[tabId] = {
       menu: otherContextItems,

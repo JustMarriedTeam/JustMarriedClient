@@ -1,15 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
-import _ from 'lodash/fp';
 import Task from '../Task/Task';
 import { createGridCols, createGridBreakpoints, createLayouts } from '../../core/grid';
+import Immutable from 'immutable';
 
 const ResponsiveReactGridLayout = new WidthProvider(Responsive);
 
 export default class TaskGrid extends Component {
 
+  static generateGridMapping(tasks) {
+    return createLayouts(tasks.map((task) => task.id).toArray());
+  }
+
   static propTypes = {
-    tasks: PropTypes.array.isRequired,
+    tasks: PropTypes.instanceOf(Immutable.List).isRequired,
   };
 
   constructor() {
@@ -22,7 +26,7 @@ export default class TaskGrid extends Component {
   }
 
   componentWillReceiveProps(props) {
-    const layouts = createLayouts(_.times((i) => i)(props.tasks.length));
+    const layouts = TaskGrid.generateGridMapping(props.tasks);
     this.setState({
       layouts,
     });
@@ -34,18 +38,16 @@ export default class TaskGrid extends Component {
         breakpoints={this.state.breakpoints}
         cols={this.state.cols}
         margin={[15, 15]}
-        rowHeight={320}
+        rowHeight={365}
         isDraggable={false}
         isResizable={false}
         layouts={this.state.layouts}
       >
 
         {
-          _.map.convert({ cap: false })((task, idx) => (
-            <div key={`${idx}`}>
-              <Task name={task.name} />
-            </div>
-          ))(this.props.tasks)
+          this.props.tasks.map((task) => <div key={`${task.id}`}>
+            <Task task={task} />
+          </div>)
         }
 
       </ResponsiveReactGridLayout>
