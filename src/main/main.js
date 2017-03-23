@@ -9,7 +9,7 @@ import store from './core/store';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import ErrorPage from './pages/error/error';
-import HomePage from './pages/home/home';
+import HomePage from './pages/home/home.page';
 import WeddingPage from './pages/wedding/wedding.page';
 import DashboardPage from './pages/dashboard/dashboard';
 import Tasks from './pages/tasks/tasks.page';

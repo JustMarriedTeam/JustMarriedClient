@@ -47,7 +47,7 @@ class RegistrationForm extends PureComponent {
             icon={<FontIcon className="fa fa-facebook-square" />}
           />
 
-          <Spacer weight="xs" />
+          <Spacer weight="sm" />
 
           <RaisedButton
             onClick={this.props.signInViaGoogle}
