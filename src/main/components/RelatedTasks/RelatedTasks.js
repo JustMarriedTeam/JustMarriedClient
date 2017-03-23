@@ -15,7 +15,7 @@ const ICONS_BY_STATUS = {
   blocked: 'lock_outline',
 };
 
-const focusElement = (element) => {
+const focusElement = (element) => { // eslint-disable-line
   if (element) {
     element.focus();
   }
@@ -67,7 +67,7 @@ class RelatedTasks extends Component {
     const { isEditable, title, relatedTasks, unrelatedTasks } = this.props;
 
     const renderTaskListItems = () => {
-      const renderTaskRightIcon = (relatedTask) => isEditable
+      const renderTaskRightIcon = (relatedTask) => isEditable // eslint-disable-line
           ? <FontIcon
             onClick={() => this.props.onTaskRemoved(relatedTask)}
             className="material-icons"

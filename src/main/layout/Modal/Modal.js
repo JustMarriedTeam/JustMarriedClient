@@ -16,8 +16,8 @@ class Modal extends PureComponent {
     modalActions: PropTypes.object.isRequired,
   };
 
-  renderElement = (candidate) => React.isValidElement(candidate)
-      ? candidate : candidate(this.props.modal.context);
+  renderElement = (candidate) => React.isValidElement(candidate) // eslint-disable-line
+    ? candidate : candidate(this.props.modal.context);
 
   render() {
     const { modal, modalActions } = this.props;

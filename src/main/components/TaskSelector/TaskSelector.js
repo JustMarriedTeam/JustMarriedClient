@@ -1,10 +1,6 @@
 import React, { PureComponent, PropTypes } from 'react';
-import classNames from 'classnames/bind';
-import styles from './TaskSelector.pcss';
 import AutoComplete from 'material-ui/AutoComplete';
 import Immutable from 'immutable';
-
-const cx = classNames.bind(styles);
 
 export default class TaskSelector extends PureComponent {
 

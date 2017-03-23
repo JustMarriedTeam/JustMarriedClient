@@ -1,12 +1,12 @@
-import React, {PureComponent, PropTypes} from 'react';
-import {Card, CardMedia, CardTitle} from 'material-ui/Card';
-import TaskModel, {TASK_STATUS} from '../../core/models/task.model.js';
+import React, { PureComponent, PropTypes } from 'react';
+import { Card, CardMedia, CardTitle } from 'material-ui/Card';
+import TaskModel, { TASK_STATUS } from '../../core/models/task.model.js';
 import MenuItem from 'material-ui/MenuItem';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import * as allModalActions from '../../core/actions/modal.actions';
 import * as allTaskActions from '../../core/actions/task.actions';
 import TaskDetails from '../TaskDetails/TaskDetails';
-import {bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
 import CloseModalFooter from '../../layout/Modal/footers/CloseModalFooter';
 import TitleWithEditModalHeader from '../../layout/Modal/headers/TitleWithEditModalHeader';
 
@@ -23,7 +23,7 @@ class Task extends PureComponent {
   };
 
   openDetails = () => {
-    const {task, modalActions, taskActions} = this.props;
+    const { task, modalActions, taskActions } = this.props;
 
     const prepareMenu = () => {
       const itemArray = [];
@@ -34,7 +34,8 @@ class Task extends PureComponent {
             key="makeDone"
             onTouchTap={() => taskActions.changeStatus(task, TASK_STATUS.DONE)
               .then(modalActions.closeModal)}
-            primaryText="Make done"/>
+            primaryText="Make done"
+          />
         );
       } else if (task.hasStatus(TASK_STATUS.DONE)) {
         itemArray.push(
@@ -42,7 +43,8 @@ class Task extends PureComponent {
             key="makePending"
             onTouchTap={() => taskActions.changeStatus(task, TASK_STATUS.PENDING)
               .then(modalActions.closeModal)}
-            primaryText="Make pending"/>
+            primaryText="Make pending"
+          />
         );
       }
 
@@ -51,7 +53,8 @@ class Task extends PureComponent {
           key="delete"
           onTouchTap={() => taskActions.removeTask(task)
             .then(modalActions.closeModal)}
-          primaryText="Remove"/>
+          primaryText="Remove"
+        />
       );
 
       return itemArray;
@@ -68,7 +71,7 @@ class Task extends PureComponent {
       />,
       content: (ctx) => <TaskDetails
         task={task}
-        bindControls={({save}) => {
+        bindControls={({ save }) => {
           this.saveTaskDetails = save;
         }}
         isEditable={ctx.isEditable}
@@ -81,7 +84,7 @@ class Task extends PureComponent {
   };
 
   render() {
-    const {task} = this.props;
+    const { task } = this.props;
 
     return (
       <Card onTouchTap={this.openDetails}>
@@ -91,7 +94,7 @@ class Task extends PureComponent {
             subtitle={task.description}
           />}
         >
-          <img role="presentation" src="http://meetingking.com/wp-content/images/meetingking_tasks.png"/>
+          <img role="presentation" src="http://meetingking.com/wp-content/images/meetingking_tasks.png" />
         </CardMedia>
       </Card>
     );

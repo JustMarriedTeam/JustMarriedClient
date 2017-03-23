@@ -1,4 +1,4 @@
-import React, {PureComponent, PropTypes} from 'react';
+import React, { PureComponent, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import styles from './SectionHeader.pcss';
 
@@ -26,7 +26,7 @@ export default class SectionHeader extends PureComponent {
           <div className={cx('section-header__right-icon')}>{this.props.rightIcon}</div>
         </div>
         <div className={cx('section-header__row')}>
-          <div className={cx('section-header__underline')}/>
+          <div className={cx('section-header__underline')} />
         </div>
       </div>
     );

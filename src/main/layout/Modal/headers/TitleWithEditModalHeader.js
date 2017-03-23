@@ -59,8 +59,8 @@ class TitleWithEditModalHeader extends PureComponent {
         </IconButton></div>
         <IconMenu
           iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-          anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-          targetOrigin={{horizontal: 'right', vertical: 'top'}}
+          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+          targetOrigin={{ horizontal: 'right', vertical: 'top' }}
         >
           {this.props.menuItems}
         </IconMenu>

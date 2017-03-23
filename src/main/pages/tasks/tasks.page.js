@@ -64,7 +64,7 @@ class TasksPage extends Component {
       content: () => <TaskDetails
         task={newTask}
         isEditable
-        bindControls={({create}) => {
+        bindControls={({ create }) => {
           this.saveTaskDetails = create;
         }}
       />,
