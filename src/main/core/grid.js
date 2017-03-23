@@ -1,25 +1,21 @@
 import { transform } from 'lodash/fp/object';
 
-export const gridTypes = ['lg', 'md', 'sm', 'xs', 'xxs'];
+export const gridTypes = ['lg', 'md', 'sm', 'xs'];
 export const gridMeta = {
   lg: {
-    minWidth: 1200,
+    minWidth: 1200 - 1,
     cols: 6,
   },
   md: {
-    minWidth: 996,
+    minWidth: 996 - 1,
     cols: 4,
   },
   sm: {
-    minWidth: 768,
-    cols: 3,
-  },
-  xs: {
-    minWidth: 420,
+    minWidth: 768 - 1,
     cols: 2,
   },
-  xxs: {
-    minWidth: 320,
+  xs: {
+    minWidth: 420 - 1,
     cols: 1,
   },
 };
