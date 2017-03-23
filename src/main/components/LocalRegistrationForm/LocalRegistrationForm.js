@@ -65,6 +65,7 @@ class LocalRegistrationForm extends PureComponent {
         <RaisedButton
           primary
           disabled={submitting}
+          style={{ float: 'right' }}
           type="submit"
           label="Sign up"
         />

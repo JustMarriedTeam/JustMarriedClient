@@ -8,11 +8,12 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Spacer from '../../components/Spacer';
 import ContentSection from '../../components/ContentSection';
+import ResponsiveBox from '../../components/ResponsiveBox';
 import ParallaxContent from '../../components/ParallaxContent';
 import Carousel from '../../components/Carousel';
 import CarouselItem from '../../components/Carousel/CarouselItem';
 import Scroll from 'react-scroll';
-import styles from './home.pcss';
+import styles from './home.page.pcss';
 import whyNeedUs from '../../assets/whyneedus.jpg';
 import registrationBg from '../../assets/registrationbg.jpg';
 import { connect } from 'react-redux';
@@ -133,12 +134,15 @@ class HomePage extends React.Component {
             <ParallaxContent img={registrationBg}>
 
               <ScrollToElement name="registration">
-                <RegistrationForm
-                  style={{
-                    padding: '120px 0',
-                    textAlign: 'center',
-                  }}
-                />
+                <ResponsiveBox>
+                  <div
+                    style={{
+                      padding: '120px 30px',
+                    }}
+                  >
+                    <RegistrationForm />
+                  </div>
+                </ResponsiveBox>
               </ScrollToElement>
 
             </ParallaxContent>

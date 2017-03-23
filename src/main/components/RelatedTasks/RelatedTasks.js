@@ -46,8 +46,14 @@ class RelatedTasks extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.isEditable && this.state.addingTask) {
+      this.toggleAddTask();
+    }
+  }
+
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.addingTask) {
+    if (nextState.addingTask && nextState.isEditable) {
       this.taskSelector.focus();
     }
   }
