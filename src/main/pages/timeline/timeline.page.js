@@ -8,6 +8,7 @@ import * as actionBarActions from '../../core/actions/actionbar.actions';
 import * as allSelectionActions from '../../core/actions/selection.actions';
 import { selectTasks } from '../../core/selectors/tasks.selector';
 import Immutable from 'immutable';
+import DetailedContent from '../../components/DetailedContent';
 
 
 class TasksPage extends Component {
@@ -26,9 +27,18 @@ class TasksPage extends Component {
   componentWillMount = () => this.props.tasksActions.fetchTasks();
 
   render() {
+
+    const renderTaskDetails = () => {
+      return <div>asfaff</div>
+    };
+
     return (
       <Layout>
-        tasks
+
+        <DetailedContent showDetails={true} details={renderTaskDetails()}>
+          <div>task list</div>
+        </DetailedContent>
+
       </Layout>
     );
   }

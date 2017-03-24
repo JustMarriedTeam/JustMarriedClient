@@ -94,6 +94,7 @@
     "pixrem": "^3.0.1",
     "pleeease-filters": "^3.0.0",
     "postcss": "^5.1.1",
+    "postcss-bem": "0.4.1",
     "postcss-calc": "^5.3.0",
     "postcss-color-function": "^2.0.1",
     "postcss-conditionals": "^2.0.3",

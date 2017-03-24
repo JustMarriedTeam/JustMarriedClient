@@ -1,0 +1,6 @@
+{
+  "name": "DetailedContent",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./DetailedContent.js"
+}
