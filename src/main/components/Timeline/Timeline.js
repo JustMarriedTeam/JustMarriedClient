@@ -16,18 +16,22 @@ export default class Timeline extends PureComponent {
   getTimeBoxes = () => {
     console.log('converting');
     return this.props.elements
+      .filter(e => !!e.deadlineDate)
       .groupBy(e => e.deadlineDate)
-      .sortBy((v, k) => k, (k1, k2) => k1 ? k1.isBefore(k2) : -1)
-      .toKeyedSeq();
+      .sortBy((v, k) => k, (k1, k2) => k1.isBefore(k2))
+      .entrySeq();
   };
 
   render() {
-    const renderTimeBoxes = (elements, time) => <TimeBox
-      key={time ? time.unix() : -1}
-      time={time}
-      elements={elements}
-      materialize={this.props.materializeElement}
-    />;
+    const renderTimeBoxes = ([time, elements]) => {
+      console.log('x');
+      return <TimeBox
+        key={time ? time.unix() : -1}
+        time={time}
+        elements={elements}
+        materialize={this.props.materializeElement}
+      />;
+    };
 
     return (
       <div className={cx('timeline')}>
