@@ -9,6 +9,8 @@ import * as allSelectionActions from '../../core/actions/selection.actions';
 import { selectTasks } from '../../core/selectors/tasks.selector';
 import Immutable from 'immutable';
 import DetailedContent from '../../components/DetailedContent';
+import Timeline from '../../components/Timeline';
+import TaskIcon from '../../components/TaskIcon';
 
 
 class TasksPage extends Component {
@@ -29,14 +31,17 @@ class TasksPage extends Component {
   render() {
 
     const renderTaskDetails = () => {
-      return <div>asfaff</div>
+      return <div>asfaff</div>;
     };
 
     return (
       <Layout>
 
         <DetailedContent showDetails={true} details={renderTaskDetails()}>
-          <div>task list</div>
+          <Timeline
+            elements={this.props.tasks}
+            materializeElement={(task) => <TaskIcon task={task} />}
+          />
         </DetailedContent>
 
       </Layout>
