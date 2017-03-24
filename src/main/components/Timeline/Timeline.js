@@ -1,6 +1,10 @@
 import React, { PropTypes, PureComponent } from 'react';
+import classNames from 'classnames/bind';
+import styles from './Timeline.pcss';
 import Immutable from 'immutable';
 import TimeBox from './TimeBox';
+
+const cx = classNames.bind(styles);
 
 export default class Timeline extends PureComponent {
 
@@ -26,14 +30,12 @@ export default class Timeline extends PureComponent {
     />;
 
     return (
-      <div>
-        <ul>
+      <div className={cx('timeline')}>
 
           {
             this.getTimeBoxes().map(renderTimeBoxes)
           }
 
-        </ul>
       </div>
     );
   }
