@@ -14,7 +14,10 @@ import Timeline from '../../components/Timeline';
 import TimelineModel from '../../core/models/timeline.model';
 import TaskIcon from '../../components/TaskIcon';
 import { getCurrentTime } from '../../core/timer';
+import classNames from 'classnames/bind';
+import styles from './timeline.page.pcss';
 
+const cx = classNames.bind(styles);
 
 class TasksPage extends Component {
 
@@ -50,16 +53,18 @@ class TasksPage extends Component {
   render() {
     const { timeline } = this.props;
 
-    const renderTaskDetails = () => this.state.selectedTask ? <TaskDetails
-      task={this.state.selectedTask}
-      isEditable={false}
-      bindControls={({ save }) => {
-        this.saveTaskDetails = save;
-      }}
-    /> : <div />;
+    const renderTaskDetails = () => this.state.selectedTask ?
+      <TaskDetails
+        blockClass={cx('timeline__task-details')}
+        task={this.state.selectedTask}
+        isEditable={false}
+        bindControls={({ save }) => {
+          this.saveTaskDetails = save;
+        }}
+      /> : <div />;
 
     return (
-      <Layout>
+      <Layout className={cx('timeline')}>
 
         <DetailedContent
           showDetails={!!this.state.selectedTask}

@@ -26,6 +26,7 @@ class TaskDetails extends Component {
     task: PropTypes.instanceOf(Task).isRequired,
     isEditable: PropTypes.bool.isRequired,
     bindControls: PropTypes.func.isRequired,
+    blockClass: PropTypes.string,
 
     /**
      * Set internally by connect
@@ -78,7 +79,7 @@ class TaskDetails extends Component {
     const { task } = this.state;
 
     return (
-      <Flex wrap className={cx('task-details')} align="stretch" justify="space-around">
+      <Flex wrap className={cx('task-details', this.props.blockClass)} align="stretch" justify="space-around">
 
         <Box sm={12} mb={3}>
           <Flex wrap align="stretch" justify="space-around">
