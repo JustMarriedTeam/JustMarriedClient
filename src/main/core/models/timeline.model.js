@@ -55,11 +55,19 @@ class Timeline extends TimelineRecord {
     super({ tasks: groupByDate(tasks) });
   }
 
-  getTasksBefore = (selectedDate) => this.get('tasks').entrySeq()
-    .filter((element, date) => selectedDate.isAfter(date));
+  getTasksBefore = (selectedDate) => {
+    const tasks = this.get('tasks');
+    return tasks
+      .filter((taskList, date) => selectedDate.isAfter(date))
+      .entrySeq();
+  };
 
-  getTasksAfter = (selectedDate) => this.get('tasks').entrySeq()
-    .filter((element, date) => selectedDate.isBefore(date));
+  getTasksAfter = (selectedDate) => {
+    const tasks = this.get('tasks');
+    return tasks
+      .filter((taskList, date) => selectedDate.isBefore(date))
+      .entrySeq();
+  }
 
 }
 
