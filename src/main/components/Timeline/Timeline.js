@@ -44,7 +44,7 @@ export default class Timeline extends PureComponent {
           }
         </div>
 
-        <div className={cx('timeline__today')}>{atDate.format('L')}</div>
+        <div className={cx('timeline__today')}>Today ({atDate.format('L')})</div>
 
         <div className={cx('timeline__future')}>
           {
