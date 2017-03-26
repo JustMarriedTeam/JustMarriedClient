@@ -11,6 +11,7 @@ import Immutable from 'immutable';
 import DetailedContent from '../../components/DetailedContent';
 import Timeline from '../../components/Timeline';
 import TaskIcon from '../../components/TaskIcon';
+import { getCurrentTime } from '../../core/timer';
 
 
 class TasksPage extends Component {
@@ -39,6 +40,7 @@ class TasksPage extends Component {
 
         <DetailedContent showDetails={true} details={renderTaskDetails()}>
           <Timeline
+            currentTime={getCurrentTime()}
             elements={this.props.tasks}
             materializeElement={(task) => <TaskIcon task={task} />}
           />
