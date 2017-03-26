@@ -12,14 +12,16 @@ export default class DetailedContent extends PureComponent {
   };
 
   render() {
+    const { showDetails, details, children } = this.props;
+
     return (
       <div
         className={cx('detailed-content', {
-          'detailed-content--detailed': this.props.showDetails,
+          'detailed-content--detailed': showDetails,
         })}
       >
-        <div className={cx('detailed-content__main-pane')}>{this.props.children}</div>
-        <div className={cx('detailed-content__details-pane')}>{this.props.details}</div>
+        <div className={cx('detailed-content__main-pane')}>{children}</div>
+        <div className={cx('detailed-content__details-pane')}>{details}</div>
       </div>
     );
   }

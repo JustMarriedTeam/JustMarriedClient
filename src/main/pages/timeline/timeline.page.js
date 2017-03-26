@@ -9,6 +9,7 @@ import * as allSelectionActions from '../../core/actions/selection.actions';
 import { selectTasks, selectTimeline } from '../../core/selectors/tasks.selector';
 import Immutable from 'immutable';
 import DetailedContent from '../../components/DetailedContent';
+import TaskDetails from '../../components/TaskDetails';
 import Timeline from '../../components/Timeline';
 import TimelineModel from '../../core/models/timeline.model';
 import TaskIcon from '../../components/TaskIcon';
@@ -29,19 +30,41 @@ class TasksPage extends Component {
     modalActions: PropTypes.object.isRequired,
   };
 
+  constructor() {
+    super();
+    this.state = {
+      selectedTask: null,
+    };
+  }
+
   componentWillMount = () => this.props.tasksActions.fetchTasks();
+
+  componentWillReceiveProps(props) {
+    if (!props.tasks.isEmpty() && !this.state.selectedTask) {
+      this.setState({
+        selectedTask: props.tasks.get(0),
+      });
+    }
+  }
 
   render() {
     const { timeline } = this.props;
 
-    const renderTaskDetails = () => {
-      return <div>asfaff</div>;
-    };
+    const renderTaskDetails = () => this.state.selectedTask ? <TaskDetails
+      task={this.state.selectedTask}
+      isEditable={false}
+      bindControls={({ save }) => {
+        this.saveTaskDetails = save;
+      }}
+    /> : <div />;
 
     return (
       <Layout>
 
-        <DetailedContent showDetails={true} details={renderTaskDetails()}>
+        <DetailedContent
+          showDetails={!!this.state.selectedTask}
+          details={renderTaskDetails()}
+        >
           <Timeline
             atDate={getCurrentTime()}
             timeline={timeline}
