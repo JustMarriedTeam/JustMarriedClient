@@ -6,10 +6,11 @@ import * as allTasksActions from '../../core/actions/task.actions';
 import * as allModalActions from '../../core/actions/modal.actions';
 import * as actionBarActions from '../../core/actions/actionbar.actions';
 import * as allSelectionActions from '../../core/actions/selection.actions';
-import { selectTasks } from '../../core/selectors/tasks.selector';
+import { selectTasks, selectTimeline } from '../../core/selectors/tasks.selector';
 import Immutable from 'immutable';
 import DetailedContent from '../../components/DetailedContent';
 import Timeline from '../../components/Timeline';
+import TimelineModel from '../../core/models/timeline.model';
 import TaskIcon from '../../components/TaskIcon';
 import { getCurrentTime } from '../../core/timer';
 
@@ -21,6 +22,7 @@ class TasksPage extends Component {
      * Set internally via connect.
      */
     tasks: PropTypes.instanceOf(Immutable.List).isRequired,
+    timeline: PropTypes.instanceOf(TimelineModel).isRequired,
     tasksActions: PropTypes.object.isRequired,
     actionBarActions: PropTypes.object.isRequired,
     selectionActions: PropTypes.object.isRequired,
@@ -30,6 +32,7 @@ class TasksPage extends Component {
   componentWillMount = () => this.props.tasksActions.fetchTasks();
 
   render() {
+    const { timeline } = this.props;
 
     const renderTaskDetails = () => {
       return <div>asfaff</div>;
@@ -40,9 +43,10 @@ class TasksPage extends Component {
 
         <DetailedContent showDetails={true} details={renderTaskDetails()}>
           <Timeline
-            currentTime={getCurrentTime()}
-            elements={this.props.tasks}
-            materializeElement={(task) => <TaskIcon task={task} />}
+            atDate={getCurrentTime()}
+            timeline={timeline}
+            renderPastTask={(task) => <TaskIcon task={task} />}
+            renderFutureTask={(task) => <TaskIcon task={task} />}
           />
         </DetailedContent>
 
@@ -54,6 +58,7 @@ class TasksPage extends Component {
 
 export default connect((state) => ({
   tasks: selectTasks(state),
+  timeline: selectTimeline(state),
 }), (dispatch) => ({
   actionBarActions: bindActionCreators(actionBarActions, dispatch),
   tasksActions: bindActionCreators(allTasksActions, dispatch),
