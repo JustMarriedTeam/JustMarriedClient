@@ -1,22 +1,37 @@
-import React, {PropTypes, PureComponent} from 'react';
+import React, { PropTypes, PureComponent } from 'react';
 import Avatar from 'material-ui/Avatar';
 import classNames from 'classnames/bind';
 import styles from './TaskIcon.pcss';
 import Task from '../../core/models/task.model';
+import withRobox from 'robox';
+import pick from 'lodash/pick';
+import noop from 'lodash/noop';
 
 const cx = classNames.bind(styles);
 
-export default class TaskIcon extends PureComponent {
+class TaskIcon extends PureComponent {
 
   static propTypes = {
     task: PropTypes.instanceOf(Task).isRequired,
+    onSelect: PropTypes.func,
+    selected: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    onSelect: noop,
   };
 
   render() {
-    const {task} = this.props;
+    const { task, onSelect, selected } = this.props;
 
     return (
-      <div className={cx('task-icon')}>
+      <div
+        onClick={onSelect}
+        {...pick(this.props, ['style', 'onClick'])}
+        className={cx('task-icon', {
+          'task-icon--selected': selected,
+        })}
+      >
         <Avatar
           className={cx('task-icon__image')}
           src="https://placehold.it/128"
@@ -27,3 +42,5 @@ export default class TaskIcon extends PureComponent {
   }
 
 }
+
+export default withRobox(TaskIcon);

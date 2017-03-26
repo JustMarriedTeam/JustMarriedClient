@@ -50,6 +50,12 @@ class TaskDetails extends Component {
     });
   };
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.task !== this.props.task) {
+      this.refreshTask(newProps.task);
+    }
+  }
+
   componentWillUnmount = () => {
     this.props.bindControls({});
   };
@@ -79,7 +85,12 @@ class TaskDetails extends Component {
     const { task } = this.state;
 
     return (
-      <Flex wrap className={cx('task-details', this.props.blockClass)} align="stretch" justify="space-around">
+      <Flex
+        wrap
+        className={cx('task-details', this.props.blockClass)}
+        align="stretch"
+        justify="space-around"
+      >
 
         <Box sm={12} mb={3}>
           <Flex wrap align="stretch" justify="space-around">
@@ -93,7 +104,10 @@ class TaskDetails extends Component {
 
             <Box sm={12} md={8}>
               <TaskDetailsForm
-                ref={(component) => { this.taskDetailsForm = component; }}
+                ref={(component) => {
+                  this.taskDetailsForm = component;
+                }}
+                enableReinitialize
                 initialValues={pick(task.toJS(), ['name', 'status', 'description'])}
                 disabled={!isEditable}
                 onSubmit={(values) => Promise.resolve(this.state.task.merge(values))}

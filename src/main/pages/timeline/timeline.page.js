@@ -44,24 +44,39 @@ class TasksPage extends Component {
 
   componentWillReceiveProps(props) {
     if (!props.tasks.isEmpty() && !this.state.selectedTask) {
-      this.setState({
-        selectedTask: props.tasks.get(0),
-      });
+      this.selectTask(props.tasks.get(0));
     }
   }
 
+  selectTask = (task) => this.setState({ selectedTask: task });
+
   render() {
     const { timeline } = this.props;
+    const { selectedTask } = this.state;
 
-    const renderTaskDetails = () => this.state.selectedTask ?
+    const renderTaskDetails = () => selectedTask ?
       <TaskDetails
         blockClass={cx('timeline__task-details')}
-        task={this.state.selectedTask}
+        task={selectedTask}
         isEditable={false}
         bindControls={({ save }) => {
           this.saveTaskDetails = save;
         }}
       /> : <div />;
+
+    const renderPastTask = (task) => <TaskIcon
+      onSelect={() => this.selectTask(task)}
+      m={1}
+      selected={selectedTask === task}
+      task={task}
+    />;
+
+    const renderFutureTask = (task) => <TaskIcon
+      onSelect={() => this.selectTask(task)}
+      m={1}
+      selected={selectedTask === task}
+      task={task}
+    />;
 
     return (
       <Layout className={cx('timeline')}>
@@ -73,8 +88,8 @@ class TasksPage extends Component {
           <Timeline
             atDate={getCurrentTime()}
             timeline={timeline}
-            renderPastTask={(task) => <TaskIcon task={task} />}
-            renderFutureTask={(task) => <TaskIcon task={task} />}
+            renderPastTask={renderPastTask}
+            renderFutureTask={renderFutureTask}
           />
         </DetailedContent>
 
