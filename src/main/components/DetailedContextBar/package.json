@@ -1,0 +1,6 @@
+{
+  "name": "DetailedContextBar",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./DetailedContextBar.js"
+}
