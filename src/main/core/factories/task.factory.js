@@ -5,4 +5,9 @@ const createTask = () => (new Task({
   id: uniqueId('#task_'),
 }));
 
-export { createTask };
+const createNullTask = () => (new Task({
+  id: uniqueId('#task_'),
+  name: '',
+}));
+
+export { createTask, createNullTask };
