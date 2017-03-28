@@ -27,6 +27,7 @@ class TaskDetails extends Component {
     isEditable: PropTypes.bool.isRequired,
     bindControls: PropTypes.func.isRequired,
     blockClass: PropTypes.string,
+    onRelatedTaskSelected: PropTypes.func,
 
     /**
      * Set internally by connect
@@ -131,6 +132,7 @@ class TaskDetails extends Component {
               this.refreshTask(task.addDependency(requiredTask))}
             onTaskRemoved={(notRequiredTask) =>
               this.refreshTask(task.removeDependency(notRequiredTask))}
+            onTaskSelected={this.props.onRelatedTaskSelected}
           />
 
         </Box>
@@ -147,6 +149,7 @@ class TaskDetails extends Component {
               this.refreshTask(task.addRequirement(dependentTask))}
             onTaskRemoved={(notDependentTask) =>
               this.refreshTask(task.removeRequirement(notDependentTask))}
+            onTaskSelected={this.props.onRelatedTaskSelected}
           />
 
         </Box>

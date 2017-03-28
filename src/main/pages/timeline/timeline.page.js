@@ -88,6 +88,7 @@ class TasksPage extends Component {
         blockClass={cx('timeline__task-details')}
         task={selectedTask}
         isEditable={false}
+        onRelatedTaskSelected={(task) => this.selectTask(task)}
         bindControls={({ save }) => {
           this.saveTaskDetails = save;
         }}
