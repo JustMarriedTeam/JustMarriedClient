@@ -18,6 +18,7 @@ export default class TitledDetails extends PureComponent {
         <IconButton
           className={cx('titled-details__icon')}
           name="back"
+          onClick={this.props.onBack}
           iconClassName="ion-ios-arrow-back"
         />
         <div className={cx('title-details__title')}>{this.props.title}</div>

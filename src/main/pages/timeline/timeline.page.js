@@ -54,6 +54,7 @@ class TasksPage extends Component {
   componentWillReceiveProps(props) {
     if (!props.tasks.isEmpty() && !this.state.selectedTask) {
       this.selectTask(props.tasks.get(0));
+      this.setShowDetails(false);
     }
   }
 
@@ -109,7 +110,7 @@ class TasksPage extends Component {
     return (
       <Layout className={cx('timeline')}>
         <DetailedContextBar
-          showDetails
+          showDetails={this.state.showDetails}
           details={
             <TitledDetails
               title={this.state.selectedTask.name}
