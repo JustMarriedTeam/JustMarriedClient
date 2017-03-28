@@ -1,6 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 import SearchAction from 'material-ui/svg-icons/action/search';
+import debounce from 'lodash/debounce';
 import classnames from 'classnames/bind';
 import styles from './ContentFilter.pcss';
 
@@ -12,6 +13,8 @@ export default class ContentFilter extends PureComponent {
     onFilter: PropTypes.func.isRequired,
   };
 
+  debouncedFilter = debounce(this.props.onFilter, 300);
+
   render() {
     return (
       <div className={cx('content-filter')}>
@@ -19,7 +22,7 @@ export default class ContentFilter extends PureComponent {
         <TextField
           hintText="Filter"
           className={cx('content-filter__text')}
-          onChange={(evt, value) => this.props.onFilter(value)}
+          onChange={(evt, value) => this.debouncedFilter(value)}
         />
       </div>
     );
