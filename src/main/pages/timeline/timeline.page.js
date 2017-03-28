@@ -1,21 +1,24 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import Layout from '../../layout/Layout';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import * as allTasksActions from '../../core/actions/task.actions';
 import * as allModalActions from '../../core/actions/modal.actions';
 import * as actionBarActions from '../../core/actions/actionbar.actions';
 import * as allSelectionActions from '../../core/actions/selection.actions';
-import {selectTasks, selectTimeline} from '../../core/selectors/tasks.selector';
+import { selectTasks, selectTimeline } from '../../core/selectors/tasks.selector';
 import Immutable from 'immutable';
 import DetailedContent from '../../components/DetailedContent';
 import DetailedContextBar from '../../components/DetailedContextBar';
+import ContentFilter from '../../components/ContentFilter';
 import TaskDetails from '../../components/TaskDetails';
 import Timeline from '../../components/Timeline';
 import TimelineModel from '../../core/models/timeline.model';
 import TaskIcon from '../../components/TaskIcon';
 import ResponsiveBox from '../../components/ResponsiveBox';
-import {getCurrentTime} from '../../core/timer';
+import { getCurrentTime } from '../../core/timer';
+import toLower from 'lodash/toLower';
+import isEmpty from 'lodash/isEmpty';
 import classNames from 'classnames/bind';
 import styles from './timeline.page.pcss';
 
@@ -39,6 +42,7 @@ class TasksPage extends Component {
     super();
     this.state = {
       selectedTask: null,
+      taskNameQuery: null,
     };
   }
 
@@ -50,18 +54,30 @@ class TasksPage extends Component {
     }
   }
 
-  selectTask = (task) => this.setState({selectedTask: task});
+  selectTask = (task) => this.setState({ selectedTask: task });
+
+  filterTasks = (query) => {
+    this.setState({
+      taskNameQuery: query,
+    });
+  };
+
+  taskNameFilter = (task) => {
+    const { taskNameQuery } = this.state;
+    const containsSearchText = toLower(task.name).includes(taskNameQuery);
+    return isEmpty(taskNameQuery) || containsSearchText;
+  };
 
   render() {
-    const {timeline} = this.props;
-    const {selectedTask} = this.state;
+    const { timeline } = this.props;
+    const { selectedTask } = this.state;
 
     const renderTaskDetails = () => selectedTask ?
       <TaskDetails
         blockClass={cx('timeline__task-details')}
         task={selectedTask}
         isEditable={false}
-        bindControls={({save}) => {
+        bindControls={({ save }) => {
           this.saveTaskDetails = save;
         }}
       /> : <div />;
@@ -83,7 +99,7 @@ class TasksPage extends Component {
     return (
       <Layout className={cx('timeline')}>
         <DetailedContextBar showDetails details={<div>Or not to!</div>}>
-          <div>Search!</div>
+          <ContentFilter onFilter={(query) => this.filterTasks(query)} />
         </DetailedContextBar>
         <ResponsiveBox>
           <DetailedContent
@@ -92,7 +108,7 @@ class TasksPage extends Component {
           >
             <Timeline
               atDate={getCurrentTime()}
-              timeline={timeline}
+              timeline={timeline.filteredBy(this.taskNameFilter)}
               renderPastTask={renderPastTask}
               renderFutureTask={renderFutureTask}
             />

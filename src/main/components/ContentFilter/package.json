@@ -1,0 +1,6 @@
+{
+  "name": "ContentFilter",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./ContentFilter.js"
+}

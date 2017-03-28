@@ -47,24 +47,31 @@ const groupByDate = (tasks) => {
 
 const TimelineRecord = new Immutable.Record({
   tasks: [],
+  filter: () => true,
 });
 
 class Timeline extends TimelineRecord {
 
-  constructor({ tasks }) {
-    super({ tasks: groupByDate(tasks) });
+  constructor({ tasks, filter }) {
+    super({ tasks: groupByDate(tasks), filter });
   }
 
-  getTasksBefore = (selectedDate) => {
+  filteredBy(filter) {
+    return this.set('filter', filter);
+  }
+
+  getTasksBefore(selectedDate) {
     const tasks = this.get('tasks');
     return tasks
+      .map((taskList) => taskList.filter(this.filter))
       .filter((taskList, date) => selectedDate.isAfter(date))
       .entrySeq();
-  };
+  }
 
-  getTasksAfter = (selectedDate) => {
+  getTasksAfter(selectedDate) {
     const tasks = this.get('tasks');
     return tasks
+      .map((taskList) => taskList.filter(this.filter))
       .filter((taskList, date) => selectedDate.isBefore(date))
       .entrySeq();
   }
