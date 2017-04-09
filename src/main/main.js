@@ -12,6 +12,7 @@ import ErrorPage from './pages/error/error';
 import HomePage from './pages/home/home.page';
 import WeddingPage from './pages/wedding/wedding.page';
 import DashboardPage from './pages/dashboard/dashboard';
+import TimelinePage from './pages/timeline/timeline.page';
 import Tasks from './pages/tasks/tasks.page';
 import Task from './pages/task/task';
 import Theme from './theme/theme';
@@ -65,6 +66,7 @@ ReactDOM.render(
       <IndexRoute component={HomePage} />
       <Route path="/home" component={HomePage} />
       <Route path="/dashboard" component={secured(DashboardPage)} />
+      <Route path="/timeline" component={secured(TimelinePage)} />
       <Route path="/wedding" component={secured(WeddingPage)} />
       <Route path="/tasks" component={secured(Tasks)}>
         <Route path="/tasks/:taskId" component={Task} />

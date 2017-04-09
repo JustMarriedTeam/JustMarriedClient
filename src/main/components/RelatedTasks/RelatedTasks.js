@@ -8,6 +8,7 @@ import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import Task from '../../core/models/task.model';
 import ConditionalRenderer from '../../utils/ConditionalRenderer';
+import noop from 'lodash/noop';
 
 const ICONS_BY_STATUS = {
   done: 'done',
@@ -31,12 +32,17 @@ class RelatedTasks extends Component {
     unrelatedTasksSelector: PropTypes.func.isRequired,
     onTaskAdded: PropTypes.func.isRequired,
     onTaskRemoved: PropTypes.func.isRequired,
+    onTaskSelected: PropTypes.func,
 
     /**
      * Set internally by connect.
      */
     relatedTasks: PropTypes.instanceOf(Immutable.Seq).isRequired,
     unrelatedTasks: PropTypes.instanceOf(Immutable.Seq).isRequired,
+  };
+
+  static defaultProps = {
+    onTaskSelected: noop,
   };
 
   constructor() {
@@ -70,7 +76,8 @@ class RelatedTasks extends Component {
   };
 
   render() {
-    const { isEditable, title, relatedTasks, unrelatedTasks } = this.props;
+    const { isEditable, title, relatedTasks,
+      unrelatedTasks, onTaskSelected } = this.props;
 
     const renderTaskListItems = () => {
       const renderTaskRightIcon = (relatedTask) => isEditable // eslint-disable-line
@@ -85,6 +92,7 @@ class RelatedTasks extends Component {
       return relatedTasks.map(
         (relatedTask) => <div key={relatedTask.id}>
           <ListItem
+            onClick={() => onTaskSelected(relatedTask)}
             primaryText={relatedTask.name}
             rightIcon={renderTaskRightIcon(relatedTask)}
             leftIcon={<img

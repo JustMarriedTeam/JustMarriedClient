@@ -1,23 +1,25 @@
+@import "../../styles/media.pcss";
+
 .responsive-box {
 
   margin: 0 auto;
 
-  @media (min-width: map(layout, breakpoints, xs)) {
+  @media (--atLeastXs) {
     max-width: map(layout, breakpoints, xs);
     padding: 0 5px;
   }
 
-  @media (min-width: map(layout, breakpoints, sm)) {
+  @media (--atLeastSm) {
     max-width: map(layout, breakpoints, sm);
     padding: 0 10px;
   }
 
-  @media (min-width: map(layout, breakpoints, md)) {
+  @media (--atLeastMd) {
     max-width: map(layout, breakpoints, md);
     padding: 0 15px;
   }
 
-  @media (min-width: map(layout, breakpoints, lg)) {
+  @media (--atLeastLg) {
     max-width: map(layout, breakpoints, lg);
     padding: 0 30px;
   }

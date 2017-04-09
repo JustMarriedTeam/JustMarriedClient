@@ -1,0 +1,51 @@
+@import "../../styles/media.pcss";
+
+.detailed-content {
+
+  overflow: hidden;
+
+  @media (--lessThanMd) {
+    position: relative;
+
+    &__main-pane {
+
+    }
+
+    &__details-pane {
+      position: absolute;
+      right: -100%;
+    }
+
+    &--detailed {
+
+      .detailed-content__main-pane {
+        position: absolute;
+        left: -100%;
+      }
+
+      .detailed-content__details-pane {
+        position: relative;
+        left: 0;
+      }
+
+    }
+  }
+
+  @media (--atLeastMd) {
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    &__main-pane {
+      flex-basis: content;
+      min-width: 300px;
+    }
+
+    &__details-pane {
+      flex-grow: 1;
+    }
+
+  }
+
+}

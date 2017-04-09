@@ -11,24 +11,12 @@ module.exports = {
       // W3C variables, e.g. :root { --color: red; } div { background: var(--color); }
       // https://github.com/postcss/postcss-custom-properties
       require('postcss-custom-properties')(),
-      // W3C CSS Custom Media Queries, e.g. @custom-media --small-viewport (max-width: 30em);
-      // https://github.com/postcss/postcss-custom-media
-      require('postcss-custom-media')(),
-      // CSS4 Media Queries, e.g. @media screen and (width >= 500px) and (width <= 1200px) { }
-      // https://github.com/postcss/postcss-media-minmax
-      require('postcss-media-minmax')(),
       // W3C CSS Custom Selectors, e.g. @custom-selector :--heading h1, h2, h3, h4, h5, h6;
       // https://github.com/postcss/postcss-custom-selectors
       require('postcss-custom-selectors')(),
       // W3C calc() function, e.g. div { height: calc(100px - 2em); }
       // https://github.com/postcss/postcss-calc
       require('postcss-calc')(),
-      // Allows you to nest one style rule inside another
-      // https://github.com/postcss/postcss-nested
-      require('postcss-nested')(),
-      // W3C color() function, e.g. div { background: color(red alpha(90%)); }
-      // https://github.com/postcss/postcss-color-function
-      require('postcss-color-function')(),
       // Iterate through array values
       // https://github.com/outpunk/postcss-each
       require('postcss-each')(),
@@ -53,14 +41,26 @@ module.exports = {
       // Add vendor prefixes to CSS rules using values from caniuse.com
       // https://github.com/postcss/autoprefixer
       require('autoprefixer')(),
+      // Mixins
+      require('postcss-mixins')(),
       // Resolve variables to put in css
       // https://github.com/pascalduez/postcss-map
       require('postcss-map')({
         basePath: 'config/constants',
         maps: ['spacer.yaml', 'layout.yaml'],
       }),
-      // Mixins
-      require('postcss-mixins')(),
+      // W3C CSS Custom Media Queries, e.g. @custom-media --small-viewport (max-width: 30em);
+      // https://github.com/postcss/postcss-custom-media
+      require('postcss-custom-media')(),
+      // CSS4 Media Queries, e.g. @media screen and (width >= 500px) and (width <= 1200px) { }
+      // https://github.com/postcss/postcss-media-minmax
+      require('postcss-media-minmax')(),
+      // Allows you to nest one style rule inside another
+      // https://github.com/postcss/postcss-nested
+      require('postcss-nested')(),
+      // W3C color() function, e.g. div { background: color(red alpha(90%)); }
+      // https://github.com/postcss/postcss-color-function
+      require('postcss-color-function')(),
     ];
   },
 

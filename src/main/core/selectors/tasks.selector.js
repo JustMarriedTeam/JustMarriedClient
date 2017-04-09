@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import Timeline from '../models/timeline.model';
 
 export const selectTasks = state => state.entities.tasks.toList();
 
@@ -26,3 +27,5 @@ export const selectTasksUnrelatedTo = (task) => createSelector(
     return allTasksSeq.filterNot((filteredTask) => relatedTasksIds.contains(filteredTask.id));
   }
 );
+
+export const selectTimeline = createSelector([selectTasks], (tasks) => new Timeline({ tasks }));

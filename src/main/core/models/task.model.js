@@ -1,5 +1,6 @@
 import Immutable from 'immutable';
 import store from '../store';
+import moment from 'moment';
 
 export const TASK_STATUS = {
   PENDING: 'pending',
@@ -14,15 +15,20 @@ const TaskRecord = new Immutable.Record({
   status: '',
   requiredFor: [],
   dependingOn: [],
+  deadlineDate: null,
+  completionDate: null,
 });
 
 class Task extends TaskRecord {
 
-  constructor({ id, name, description, status, requiredFor, dependingOn }) {
+  constructor({ id, name, description, status, requiredFor,
+    dependingOn, deadlineDate, completionDate }) {
     super({
       id, name, description, status,
       requiredFor: new Immutable.Set(requiredFor),
       dependingOn: new Immutable.Set(dependingOn),
+      deadlineDate: deadlineDate ? moment(deadlineDate) : null,
+      completionDate: completionDate ? moment(completionDate) : null,
     });
   }
 
