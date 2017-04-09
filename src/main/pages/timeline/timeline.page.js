@@ -20,11 +20,7 @@ import ResponsiveBox from '../../components/ResponsiveBox';
 import { getCurrentTime } from '../../core/timer';
 import toLower from 'lodash/toLower';
 import isEmpty from 'lodash/isEmpty';
-import classNames from 'classnames/bind';
-import styles from './timeline.page.pcss';
 import { createNullTask } from '../../core/factories/task.factory';
-
-const cx = classNames.bind(styles);
 
 class TasksPage extends Component {
 
@@ -83,9 +79,8 @@ class TasksPage extends Component {
     const { timeline } = this.props;
     const { selectedTask } = this.state;
 
-    const renderTaskDetails = () => selectedTask ?
+    const renderTaskDetails = () => selectedTask ? // eslint-disable-line
       <TaskDetails
-        blockClass={cx('timeline__task-details')}
         task={selectedTask}
         isEditable={false}
         onRelatedTaskSelected={(task) => this.selectTask(task)}
@@ -109,7 +104,7 @@ class TasksPage extends Component {
     />;
 
     return (
-      <Layout className={cx('timeline')}>
+      <Layout>
         <DetailedContextBar
           showDetails={this.state.showDetails}
           details={

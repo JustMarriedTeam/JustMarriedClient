@@ -1,4 +1,4 @@
-import React, {PropTypes, PureComponent} from 'react';
+import React, { PropTypes, PureComponent } from 'react';
 import classNames from 'classnames/bind';
 import IconButton from 'material-ui/IconButton';
 import styles from './TitledDetails.pcss';

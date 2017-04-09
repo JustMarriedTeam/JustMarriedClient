@@ -18,7 +18,8 @@ export default class TimeBox extends PureComponent {
     const { materialize } = this.props;
 
     const renderElement = (element, index) =>
-      <div key={index}
+      <div
+        key={index}
         className={cx('time-box__list-item')}
       >{materialize(element)}</div>;
 
