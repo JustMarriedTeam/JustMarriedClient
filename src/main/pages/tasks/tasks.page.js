@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import Layout from '../../layout/Layout';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
-import AssignmentIcon from 'material-ui/svg-icons/action/assignment';
 import TaskGrid from '../../components/TaskGrid';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -78,7 +77,7 @@ class TasksPage extends Component {
 
   render() {
     const renderEmptyPlaceholder = () =>
-      <EmptyContentPlaceholder icon={<AssignmentIcon />}>No tasks yet. <a>Add from template</a> or <a>create one by
+      <EmptyContentPlaceholder><a>Add from template</a> or <a>create one by
         one</a></EmptyContentPlaceholder>;
 
     const renderTabs = () =>
