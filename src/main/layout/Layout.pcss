@@ -1,3 +1,5 @@
+@import '../styles/media.pcss';
+
 .layout {
 
   &__root {
@@ -5,7 +7,22 @@
   }
 
   &__content {
+    position: relative;
     padding-top: map(layout, appbar, height);
+    min-height: map(layout, content, minHeight, xs);
+
+    @media(--atLeastSm) {
+      min-height: map(layout, content, minHeight, sm);
+    }
+
+    @media(--atLeastMd) {
+      min-height: map(layout, content, minHeight, md);
+    }
+
+    @media(--atLeastLg) {
+      min-height: map(layout, content, minHeight, lg);
+    }
+
   }
 
 }
