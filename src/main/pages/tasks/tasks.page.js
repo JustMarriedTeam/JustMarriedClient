@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Layout from '../../layout/Layout';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
+import AssignmentIcon from 'material-ui/svg-icons/action/assignment';
 import TaskGrid from '../../components/TaskGrid';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -14,6 +15,7 @@ import { Menu, MainButton, ChildButton } from 'react-mfb';
 import Immutable from 'immutable';
 import TitleModalHeader from '../../layout/Modal/headers/TitleModalHeader';
 import CreateOrCancelModalFooter from '../../layout/Modal/footers/CreateOrCancelModalFooter';
+import EmptyContentPlaceholder from '../../components/EmptyContentPlaceholder';
 import TaskDetails from '../../components/TaskDetails';
 import { TASK_STATUS } from '../../core/models/task.model';
 import { createTask } from '../../core/factories/task.factory';
@@ -75,45 +77,57 @@ class TasksPage extends Component {
   };
 
   render() {
+    const renderEmptyPlaceholder = () =>
+      <EmptyContentPlaceholder icon={<AssignmentIcon />}>No tasks yet. <a>Add from template</a> or <a>create one by
+        one</a></EmptyContentPlaceholder>;
+
+    const renderTabs = () =>
+      <Tabs>
+        <Tab
+          icon={<FontIcon className="material-icons">schedule</FontIcon>}
+          label="Todo"
+          value={TABS.TODO.key}
+        >
+
+          <TaskGrid
+            tasks={TABS.TODO.filter(this.props.tasks)}
+          />
+
+        </Tab>
+
+        <Tab
+          icon={<FontIcon className="material-icons">lock_open</FontIcon>}
+          label="Upcoming"
+          value={TABS.UPCOMING.key}
+        >
+
+          <TaskGrid
+            tasks={TABS.UPCOMING.filter(this.props.tasks)}
+          />
+
+        </Tab>
+
+        <Tab
+          icon={<FontIcon className="material-icons">lock_outline</FontIcon>}
+          label="Done"
+          value={TABS.DONE.key}
+        >
+
+          <TaskGrid
+            tasks={TABS.DONE.filter(this.props.tasks)}
+          />
+
+        </Tab>
+      </Tabs>;
+
     return (
       <Layout>
-        <Tabs>
-          <Tab
-            icon={<FontIcon className="material-icons">schedule</FontIcon>}
-            label="Todo"
-            value={TABS.TODO.key}
-          >
 
-            <TaskGrid
-              tasks={TABS.TODO.filter(this.props.tasks)}
-            />
-
-          </Tab>
-
-          <Tab
-            icon={<FontIcon className="material-icons">lock_open</FontIcon>}
-            label="Upcoming"
-            value={TABS.UPCOMING.key}
-          >
-
-            <TaskGrid
-              tasks={TABS.UPCOMING.filter(this.props.tasks)}
-            />
-
-          </Tab>
-
-          <Tab
-            icon={<FontIcon className="material-icons">lock_outline</FontIcon>}
-            label="Done"
-            value={TABS.DONE.key}
-          >
-
-            <TaskGrid
-              tasks={TABS.DONE.filter(this.props.tasks)}
-            />
-
-          </Tab>
-        </Tabs>
+        {
+          this.props.tasks.isEmpty()
+            ? renderEmptyPlaceholder()
+            : renderTabs()
+        }
 
         <Menu effect="zoomin" method="click" position="br">
           <MainButton
