@@ -21,6 +21,9 @@ import editSaga from './sagas/edit.saga';
 import selectSaga from './sagas/select.saga';
 import assignmentSaga from './sagas/assignment.saga';
 
+// templates
+import { taskTemplatesReducer } from './reducers/entities/templates.reducer';
+
 // entities
 import guestsReducer from './reducers/entities/guests.reducer';
 import participantsReducer from './reducers/entities/participants.reducer';
@@ -41,6 +44,9 @@ export default createStore(
       participants: participantsReducer,
       tasks: tasksReducer,
       users: usersReducer,
+    }),
+    templates: combineReducers({
+      tasks: taskTemplatesReducer,
     }),
     wedding: weddingReducer,
     form: formReducer,

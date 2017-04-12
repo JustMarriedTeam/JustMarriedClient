@@ -1,0 +1,6 @@
+{
+  "name": "TemplateTaskSelector",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./TemplateTaskSelector.js"
+}

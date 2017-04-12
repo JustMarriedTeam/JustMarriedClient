@@ -15,6 +15,7 @@ import Immutable from 'immutable';
 import TitleModalHeader from '../../layout/Modal/headers/TitleModalHeader';
 import CreateOrCancelModalFooter from '../../layout/Modal/footers/CreateOrCancelModalFooter';
 import EmptyContentPlaceholder from '../../components/EmptyContentPlaceholder';
+import TemplateTasksSelector from '../../components/TemplateTasksSelector';
 import TaskDetails from '../../components/TaskDetails';
 import { TASK_STATUS } from '../../core/models/task.model';
 import { createTask } from '../../core/factories/task.factory';
@@ -69,6 +70,26 @@ class TasksPage extends Component {
           this.saveTaskDetails = create;
         }}
       />,
+      footer: () => <CreateOrCancelModalFooter
+        onCreate={() => this.saveTaskDetails().then(modalActions.closeModal)}
+      />,
+    });
+  };
+
+  handleAddingTaskFromTemplate = () => {
+    const { modalActions } = this.props;
+
+    modalActions.openModal({
+      context: {
+        isEditable: false,
+        handleTaskSelection() {
+
+        },
+      },
+      header: <TitleModalHeader
+        title="Add tasks from template"
+      />,
+      content: (ctx) => <TemplateTasksSelector onTaskSelection={ctx.handleTaskSelection} />,
       footer: () => <CreateOrCancelModalFooter
         onCreate={() => this.saveTaskDetails().then(modalActions.closeModal)}
       />,
@@ -137,6 +158,11 @@ class TasksPage extends Component {
             icon="ion-calendar"
             label="Add new task"
             onClick={() => this.handleAddingTask()}
+          />
+          <ChildButton
+            icon="ion-calendar"
+            label="Add tasks from template"
+            onClick={() => this.handleAddingTaskFromTemplate()}
           />
         </Menu>
 

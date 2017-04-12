@@ -38,5 +38,11 @@ const createTask = (task) => (dispatch) => {
     .finally(() => dispatch(sendingRequest(false)));
 };
 
-export { fetchTasks, createTask, updateTask, changeStatus, removeTask };
+export {
+  fetchTasks,
+  createTask,
+  updateTask,
+  changeStatus,
+  removeTask,
+};
 
