@@ -1,5 +1,6 @@
 import React, { PureComponent, PropTypes } from 'react';
 import ItemSelector from '../ItemSelector';
+import TextBox from '../TextBox';
 import Immutable from 'immutable';
 import { bindActionCreators } from 'redux';
 import * as allTemplateTasksActions from '../../core/actions/templates.actions';
@@ -45,11 +46,14 @@ export class TemplateTaskSelector extends PureComponent {
     const { templateTasks } = this.props;
 
     return (
-      <ItemSelector
-        allItems={templateTasks}
-        selectedItems={selectedTasks.toSetSeq()}
-        onSelectionChange={this.handleTaskSelectionChange}
-      />
+      <div>
+        <TextBox>Select tasks to add to your wedding from the list below:</TextBox>
+        <ItemSelector
+          allItems={templateTasks}
+          selectedItems={selectedTasks.toSetSeq()}
+          onSelectionChange={this.handleTaskSelectionChange}
+        />
+      </div>
     );
   }
 
