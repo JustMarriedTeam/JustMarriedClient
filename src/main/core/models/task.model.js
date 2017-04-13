@@ -60,15 +60,23 @@ class Task extends TaskRecord {
       requiredForList.remove(notDependentTask.id));
   }
 
-
+  /**
+   * @Deprecated As tasks are not only stored in entities but also templates
+   */
   getRequiredTasks() {
     return this.__getTasksFrom__('dependingOn').toSeq();
   }
 
+  /**
+   * @Deprecated As tasks are not only stored in entities but also templates
+   */
   getDependentTasks() {
     return this.__getTasksFrom__('requiredFor').toSeq();
   }
 
+  /**
+   * @Deprecated As tasks are not only stored in entities but also templates
+   */
   __getTasksFrom__(where) {
     const tasks = store.getState().entities.tasks;
     return this.get(where).map((taskId) => tasks.get(taskId));

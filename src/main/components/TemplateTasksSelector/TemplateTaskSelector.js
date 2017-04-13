@@ -3,6 +3,11 @@ import ItemSelector from '../ItemSelector';
 import TextBox from '../TextBox';
 import Immutable from 'immutable';
 import { bindActionCreators } from 'redux';
+import {
+  selectTasksImplicitlyRequiredFor,
+  selectTasksExplicitlyRequiredFor,
+  selectTasksNotRequiredForAnyOtherThanAmong,
+} from '../../core/services/task.service';
 import * as allTemplateTasksActions from '../../core/actions/templates.actions';
 import { connect } from 'react-redux';
 
@@ -32,11 +37,14 @@ export class TemplateTaskSelector extends PureComponent {
   handleTaskSelectionChange = (task, isSelected) => {
     if (isSelected) {
       this.setState((prevState) => ({
-        selectedTasks: prevState.selectedTasks.add(task),
+        selectedTasks: prevState.selectedTasks
+          .union(selectTasksImplicitlyRequiredFor(task)).add(task),
       }));
     } else {
       this.setState((prevState) => ({
-        selectedTasks: prevState.selectedTasks.delete(task),
+        selectedTasks: prevState.selectedTasks
+          .subtract(selectTasksNotRequiredForAnyOtherThanAmong(
+            task, prevState.selectedTasks).add(task)),
       }));
     }
   };
@@ -51,7 +59,9 @@ export class TemplateTaskSelector extends PureComponent {
         <ItemSelector
           allItems={templateTasks}
           selectedItems={selectedTasks.toSetSeq()}
+          disabledItems={templateTasks.filter((item) => item.requiredFor.isEmpty())}
           onSelectionChange={this.handleTaskSelectionChange}
+          selectNestedItemsFor={(item) => selectTasksExplicitlyRequiredFor(item)}
         />
       </div>
     );
