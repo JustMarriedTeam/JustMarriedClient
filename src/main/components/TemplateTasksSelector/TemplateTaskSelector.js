@@ -1,5 +1,5 @@
 import React, { PureComponent, PropTypes } from 'react';
-import ItemSelector from '../ItemSelector';
+import TaskSelector from '../TaskSelector';
 import TextBox from '../TextBox';
 import Immutable from 'immutable';
 import { bindActionCreators } from 'redux';
@@ -56,7 +56,7 @@ export class TemplateTaskSelector extends PureComponent {
     return (
       <div>
         <TextBox>Select tasks to add to your wedding from the list below:</TextBox>
-        <ItemSelector
+        <TaskSelector
           allItems={templateTasks}
           selectedItems={selectedTasks.toSetSeq()}
           onSelectionChange={this.handleTaskSelectionChange}
