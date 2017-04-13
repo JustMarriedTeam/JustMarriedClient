@@ -59,7 +59,6 @@ export class TemplateTaskSelector extends PureComponent {
         <ItemSelector
           allItems={templateTasks}
           selectedItems={selectedTasks.toSetSeq()}
-          disabledItems={templateTasks.filter((item) => item.requiredFor.isEmpty())}
           onSelectionChange={this.handleTaskSelectionChange}
           selectNestedItemsFor={(item) => selectTasksExplicitlyRequiredFor(item)}
         />
