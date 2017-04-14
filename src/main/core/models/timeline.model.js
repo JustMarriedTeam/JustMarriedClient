@@ -44,6 +44,9 @@ const groupByDate = (tasks) => {
     );
 };
 
+const groupByDateOrUseEmpty = (tasks) => !!tasks.find((task) => !isUndefined(task.deadlineDate))
+    ? groupByDate(tasks)
+    : new Immutable.List();
 
 const TimelineRecord = new Immutable.Record({
   tasks: [],
@@ -53,7 +56,11 @@ const TimelineRecord = new Immutable.Record({
 class Timeline extends TimelineRecord {
 
   constructor({ tasks, filter }) {
-    super({ tasks: groupByDate(tasks), filter });
+    super({ tasks: groupByDateOrUseEmpty(tasks), filter });
+  }
+
+  isAvailable() {
+    return !this.tasks.isEmpty();
   }
 
   filteredBy(filter) {

@@ -21,6 +21,7 @@ import { getCurrentTime } from '../../core/timer';
 import toLower from 'lodash/toLower';
 import isEmpty from 'lodash/isEmpty';
 import { createNullTask } from '../../core/factories/task.factory';
+import EmptyContentPlaceholder from '../../components/EmptyContentPlaceholder';
 
 class TasksPage extends Component {
 
@@ -103,32 +104,46 @@ class TasksPage extends Component {
       task={task}
     />;
 
+    const renderEmptyPlaceholder = () => <EmptyContentPlaceholder>You must schedule
+      at least one task to see time relations</EmptyContentPlaceholder>;
+
+    const renderContent = () => <div>
+      <DetailedContextBar
+        showDetails={this.state.showDetails}
+        details={
+          <TitledDetails
+            title={this.state.selectedTask.name}
+            onBack={() => this.setShowDetails(false)}
+          />
+        }
+      >
+        <ContentFilter onFilter={(query) => this.filterTasks(query)} />
+      </DetailedContextBar>
+      <ResponsiveBox>
+        <DetailedContent
+          showDetails={this.state.showDetails}
+          details={renderTaskDetails()}
+        >
+          <Timeline
+            atDate={getCurrentTime()}
+            timeline={timeline.filteredBy(this.taskNameFilter)}
+            renderPastTask={renderPastTask}
+            renderFutureTask={renderFutureTask}
+          />
+        </DetailedContent>
+      </ResponsiveBox>
+    </div>;
+
     return (
       <Layout>
-        <DetailedContextBar
-          showDetails={this.state.showDetails}
-          details={
-            <TitledDetails
-              title={this.state.selectedTask.name}
-              onBack={() => this.setShowDetails(false)}
-            />
-          }
-        >
-          <ContentFilter onFilter={(query) => this.filterTasks(query)} />
-        </DetailedContextBar>
-        <ResponsiveBox>
-          <DetailedContent
-            showDetails={this.state.showDetails}
-            details={renderTaskDetails()}
-          >
-            <Timeline
-              atDate={getCurrentTime()}
-              timeline={timeline.filteredBy(this.taskNameFilter)}
-              renderPastTask={renderPastTask}
-              renderFutureTask={renderFutureTask}
-            />
-          </DetailedContent>
-        </ResponsiveBox>
+
+        {
+          timeline.isAvailable()
+            ? renderContent()
+            : renderEmptyPlaceholder()
+        }
+
+
       </Layout>
     );
   }
