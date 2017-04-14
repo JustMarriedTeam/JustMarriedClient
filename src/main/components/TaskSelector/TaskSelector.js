@@ -30,6 +30,7 @@ export default class TaskSelector extends PureComponent {
           checked={isSelected}
           onCheck={(e, wasChecked) => onSelectionChange(item, !wasChecked)}
         />}
+        onNestedListToggle={() => setTimeout(() => window.dispatchEvent(new Event('resize')))}
         nestedItems={nestedItems.map(renderItem).toArray()}
         primaryText={item.name}
         secondaryText={item.description}
