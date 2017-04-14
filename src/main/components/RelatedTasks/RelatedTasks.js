@@ -73,6 +73,8 @@ class RelatedTasks extends Component {
   handleTaskAdded = (addedTask) => {
     this.props.onTaskAdded(addedTask);
     this.taskFinder.reset();
+    // necessary to allow modal windows adjust height
+    setTimeout(() => window.dispatchEvent(new Event('resize')));
   };
 
   render() {
