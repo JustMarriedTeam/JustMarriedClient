@@ -14,8 +14,8 @@ import { connect } from 'react-redux';
 export class TemplateTaskSelector extends PureComponent {
 
   static propTypes = {
+    bindControls: PropTypes.func.isRequired,
     templateTasks: PropTypes.instanceOf(Immutable.Seq.Set).isRequired,
-    onTaskSelection: PropTypes.func.isRequired,
 
     /**
      * Set internally via connect
@@ -32,6 +32,10 @@ export class TemplateTaskSelector extends PureComponent {
 
   componentWillMount() {
     this.props.templateTasksActions.fetchTemplateTasks();
+    this.props.bindControls({
+      cloneSelectedTasks: () => this.props.templateTasksActions
+        .cloneTemplateTasks(this.state.selectedTasks),
+    });
   }
 
   handleTaskSelectionChange = (task, isSelected) => {

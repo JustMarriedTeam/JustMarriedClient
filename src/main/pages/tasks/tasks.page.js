@@ -42,11 +42,11 @@ class TasksPage extends Component {
     /**
      * Set internally via connect.
      */
-    tasks: PropTypes.instanceOf(Immutable.List).isRequired,
-    tasksActions: PropTypes.object.isRequired,
-    actionBarActions: PropTypes.object.isRequired,
-    selectionActions: PropTypes.object.isRequired,
-    modalActions: PropTypes.object.isRequired,
+    tasks: PropTypes.instanceOf(Immutable.List),
+    tasksActions: PropTypes.object,
+    actionBarActions: PropTypes.object,
+    selectionActions: PropTypes.object,
+    modalActions: PropTypes.object,
   };
 
   componentWillMount = () => this.props.tasksActions.fetchTasks();
@@ -82,16 +82,17 @@ class TasksPage extends Component {
     modalActions.openModal({
       context: {
         isEditable: false,
-        handleTaskSelection() {
-
-        },
       },
       header: <TitleModalHeader
         title="Add tasks from template"
       />,
-      content: (ctx) => <TemplateTasksSelector onTaskSelection={ctx.handleTaskSelection} />,
+      content: () => <TemplateTasksSelector
+        bindControls={({ cloneSelectedTasks }) => {
+          this.cloneTasks = cloneSelectedTasks;
+        }}
+      />,
       footer: () => <CreateOrCancelModalFooter
-        onCreate={() => this.saveTaskDetails().then(modalActions.closeModal)}
+        onCreate={() => this.cloneTasks().then(modalActions.closeModal)}
       />,
     });
   };

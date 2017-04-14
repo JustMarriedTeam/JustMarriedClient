@@ -1,5 +1,5 @@
 import { USER_UPDATED } from './users.actions';
-import { normalizeParticipant } from '../normalization/wedding.normalizer';
+import { normalizeParticipant } from '../normalization/participant.normalizer';
 import merge from 'lodash/merge';
 import set from 'lodash/set';
 

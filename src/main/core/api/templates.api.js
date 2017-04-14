@@ -6,4 +6,9 @@ function getTemplateTasks() {
     .then((response) => response.data);
 }
 
-export { getTemplateTasks };
+function postCloneTemplateTasks(tasks) {
+  return Promise.resolve(server.post('/wedding/clone/tasks', tasks))
+    .then((response) => response.data);
+}
+
+export { getTemplateTasks, postCloneTemplateTasks };
