@@ -109,7 +109,8 @@ class TaskDetails extends Component {
                   this.taskDetailsForm = component;
                 }}
                 enableReinitialize
-                initialValues={pick(task.toJS(), ['name', 'status', 'description'])}
+                initialValues={pick(task.toJS(), ['name', 'status', 'description',
+                  'deadlineDate', 'completionDate'])}
                 disabled={!isEditable}
                 onSubmit={(values) => Promise.resolve(this.state.task.merge(values))}
               />
