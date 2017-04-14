@@ -49,8 +49,8 @@ class TasksPage extends Component {
 
   componentWillReceiveProps(props) {
     if (!props.tasks.isEmpty() && !this.state.selectedTask) {
-      this.selectTask(props.tasks.get(0));
-      this.setShowDetails(false);
+      // this.selectTask(props.tasks.get(0));
+      // this.setShowDetails(false);
     }
   }
 
