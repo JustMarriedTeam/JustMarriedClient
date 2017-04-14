@@ -67,7 +67,7 @@ class LoginForm extends PureComponent {
             target="_blank"
             backgroundColor="#27cbe0"
             fullWidth
-            label={this.props.account.isSignedIn() ? 'Bind google' : 'Continue with goole'}
+            label={this.props.account.isSignedIn() ? 'Bind google' : 'Continue with google'}
             icon={<FontIcon className="fa fa-google-plus-square" />}
           />
 
