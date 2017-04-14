@@ -44,9 +44,11 @@ const groupByDate = (tasks) => {
     );
 };
 
-const groupByDateOrUseEmpty = (tasks) => !!tasks.find((task) => !isUndefined(task.deadlineDate))
+const groupByDateOrUseEmpty = (tasks) => { // eslint-disable-line arrow-body-style
+  return !!tasks.find((task) => !!task.deadlineDate)
     ? groupByDate(tasks)
     : new Immutable.List();
+};
 
 const TimelineRecord = new Immutable.Record({
   tasks: [],
