@@ -21,10 +21,6 @@ class LayoutBar extends PureComponent {
     return (
       <AppBar
         className={cx('layout-bar')}
-        style={{
-          position: 'fixed',
-          top: 0,
-        }}
         onLeftIconButtonTouchTap={onMenuAction}
         iconElementRight={actionBarMenu}
         showMenuIconButton={account.isSignedIn()}
