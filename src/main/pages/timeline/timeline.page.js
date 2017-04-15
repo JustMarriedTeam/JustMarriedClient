@@ -22,6 +22,10 @@ import toLower from 'lodash/toLower';
 import isEmpty from 'lodash/isEmpty';
 import { createNullTask } from '../../core/factories/task.factory';
 import EmptyContentPlaceholder from '../../components/EmptyContentPlaceholder';
+import Scroll from 'react-scroll';
+
+const ScrollToElement = Scroll.Element;
+const scroller = Scroll.scroller;
 
 class TasksPage extends Component {
 
@@ -29,12 +33,13 @@ class TasksPage extends Component {
     /**
      * Set internally via connect.
      */
-    tasks: PropTypes.instanceOf(Immutable.List).isRequired,
-    timeline: PropTypes.instanceOf(TimelineModel).isRequired,
-    tasksActions: PropTypes.object.isRequired,
-    actionBarActions: PropTypes.object.isRequired,
-    selectionActions: PropTypes.object.isRequired,
-    modalActions: PropTypes.object.isRequired,
+    tasks: PropTypes.instanceOf(Immutable.List),
+    timeline: PropTypes.instanceOf(TimelineModel),
+    tasksActions: PropTypes.object,
+    actionBarActions: PropTypes.object,
+    selectionActions: PropTypes.object,
+    modalActions: PropTypes.object,
+    browser: PropTypes.object,
   };
 
   constructor() {
@@ -71,10 +76,21 @@ class TasksPage extends Component {
     return isEmpty(taskNameQuery) || containsSearchText;
   };
 
-  selectTask = (task) => this.setState({
-    selectedTask: task,
-    showDetails: true,
-  });
+  selectTask = (task) => {
+    this.setState({
+      selectedTask: task,
+      showDetails: true,
+    });
+
+    if (this.props.browser.greaterThan.sm) {
+      scroller.scrollTo(this.state.selectedTask.id, {
+        duration: 100,
+        delay: 10,
+        smooth: true,
+      });
+    }
+
+  };
 
   render() {
     const { timeline } = this.props;
@@ -90,19 +106,23 @@ class TasksPage extends Component {
         }}
       /> : <div />;
 
-    const renderPastTask = (task) => <TaskIcon
-      onSelect={() => this.selectTask(task)}
-      m={1}
-      selected={selectedTask === task}
-      task={task}
-    />;
+    const renderPastTask = (task) => <ScrollToElement name={task.id}>
+      <TaskIcon
+        onSelect={() => this.selectTask(task)}
+        m={1}
+        selected={selectedTask === task}
+        task={task}
+      />
+    </ScrollToElement>;
 
-    const renderFutureTask = (task) => <TaskIcon
-      onSelect={() => this.selectTask(task)}
-      m={1}
-      selected={selectedTask === task}
-      task={task}
-    />;
+    const renderFutureTask = (task) => <ScrollToElement name={task.id}>
+      <TaskIcon
+        onSelect={() => this.selectTask(task)}
+        m={1}
+        selected={selectedTask === task}
+        task={task}
+      />
+    </ScrollToElement>;
 
     const renderEmptyPlaceholder = () => <EmptyContentPlaceholder>You must schedule
       at least one task to see time relations</EmptyContentPlaceholder>;
@@ -153,6 +173,7 @@ class TasksPage extends Component {
 export default connect((state) => ({
   tasks: selectTasks(state),
   timeline: selectTimeline(state),
+  browser: state.browser,
 }), (dispatch) => ({
   actionBarActions: bindActionCreators(actionBarActions, dispatch),
   tasksActions: bindActionCreators(allTasksActions, dispatch),
