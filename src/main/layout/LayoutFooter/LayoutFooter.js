@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import classnames from 'classnames/bind';
-import styles from './LayoutFooter.css';
+import styles from './LayoutFooter.pcss';
 
 const cx = classnames.bind(styles);
 

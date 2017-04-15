@@ -81,14 +81,6 @@ class TasksPage extends Component {
       selectedTask: task,
       showDetails: true,
     });
-
-    if (this.props.browser.greaterThan.sm) {
-      scroller.scrollTo(this.state.selectedTask.id, {
-        duration: 100,
-        delay: 10,
-        smooth: true,
-      });
-    }
   };
 
   render() {
@@ -99,7 +91,19 @@ class TasksPage extends Component {
       <TaskDetails
         task={selectedTask}
         isEditable={false}
-        onRelatedTaskSelected={(task) => this.selectTask(task)}
+        onRelatedTaskSelected={(task) => {
+          this.selectTask(task);
+          if (this.props.browser.greaterThan.sm) {
+            setTimeout(() => {
+              scroller.scrollTo(this.state.selectedTask.id, {
+                duration: 1000,
+                delay: 0,
+                smooth: true,
+                offset: -200,
+              });
+            });
+          }
+        }}
         bindControls={({ save }) => {
           this.saveTaskDetails = save;
         }}
