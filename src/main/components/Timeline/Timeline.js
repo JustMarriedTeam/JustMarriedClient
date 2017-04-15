@@ -26,7 +26,15 @@ export default class Timeline extends PureComponent {
       ([firstId, firstDependingOn], [secondId, secondDependingOn]) => {
         if (secondDependingOn.includes(firstId)) return -1;
         else if (firstDependingOn.includes(secondId)) return 1;
-        else return firstDependingOn.count() >= secondDependingOn.count() ? 1 : -1;
+
+        const dependencyBurdenDiff = firstDependingOn.count() - secondDependingOn.count();
+        if (dependencyBurdenDiff < 0) {
+          return -1;
+        } else if (dependencyBurdenDiff > 0) {
+          return 1;
+        } else {
+          return firstId > secondId;
+        }
       });
 
     const renderPastTimeBoxes = ([time, elements]) => <TimeBox
