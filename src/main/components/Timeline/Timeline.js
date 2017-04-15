@@ -1,4 +1,4 @@
-import React, { PropTypes, PureComponent } from 'react';
+import React, {PropTypes, PureComponent} from 'react';
 import classNames from 'classnames/bind';
 import styles from './Timeline.pcss';
 import TimeBox from './TimeBox';
@@ -17,21 +17,29 @@ export default class Timeline extends PureComponent {
   };
 
   render() {
-    const { atDate, timeline, renderPastTask, renderFutureTask } = this.props;
+    const {atDate, timeline, renderPastTask, renderFutureTask} = this.props;
     const pastTasks = timeline.getTasksBefore(atDate);
     const futureTasks = timeline.getTasksAfter(atDate);
+
+    const sortedByDependencies = (elements) => elements.sortBy(
+      (element) => [element.id, element.dependingOn],
+      ([firstId, firstDependingOn], [secondId, secondDependingOn]) => {
+        if (secondDependingOn.includes(firstId)) return -1;
+        else if (firstDependingOn.includes(secondId)) return 1;
+        else return firstDependingOn.count() >= secondDependingOn.count() ? 1 : -1;
+      });
 
     const renderPastTimeBoxes = ([time, elements]) => <TimeBox
       key={time ? time.unix() : -1}
       time={time}
-      elements={elements}
+      elements={sortedByDependencies(elements.toSeq())}
       materialize={renderPastTask}
     />;
 
     const renderFutureTimeBoxes = ([time, elements]) => <TimeBox
       key={time ? time.unix() : -1}
       time={time}
-      elements={elements}
+      elements={sortedByDependencies(elements.toSeq())}
       materialize={renderFutureTask}
     />;
 
