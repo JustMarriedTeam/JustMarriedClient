@@ -1,4 +1,5 @@
 import React, { PropTypes, PureComponent } from 'react';
+import { StickyContainer, Sticky } from 'react-sticky';
 import classnames from 'classnames/bind';
 import styles from './DetailedContent.pcss';
 
@@ -20,22 +21,16 @@ export default class DetailedContent extends PureComponent {
     const { showDetails, details, fixDetails, children } = this.props;
 
     return (
-      <div
+      <StickyContainer
         className={cx('detailed-content', {
           'detailed-content--detailed': showDetails,
         })}
       >
         <div className={cx('detailed-content__main-pane')}>{children}</div>
         <div className={cx('detailed-content__details-pane')}>
-          <div
-            className={cx('detailed-content__details-holder', {
-              'detailed-content__details-holder--fixed': fixDetails,
-            })}
-          >
-            {details}
-          </div>
+          <Sticky isActive={fixDetails}>{details}</Sticky>
         </div>
-      </div>
+      </StickyContainer>
     );
   }
 
