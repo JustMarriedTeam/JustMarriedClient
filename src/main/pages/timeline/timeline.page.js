@@ -140,6 +140,7 @@ class TasksPage extends Component {
       >
         <ContentFilter onFilter={(query) => this.filterTasks(query)} />
       </DetailedContextBar>
+
       <ResponsiveBox>
         <DetailedContent
           showDetails={this.state.showDetails}

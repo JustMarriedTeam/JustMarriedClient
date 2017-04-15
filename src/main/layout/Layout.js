@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import LayoutBar from './LayoutBar/LayoutBar';
 import LayoutDrawer from './LayoutDrawer/LayoutDrawer';
@@ -9,8 +9,8 @@ import Modal from './Modal';
 import styles from './Layout.pcss';
 import ConditionalRenderer from '../utils/ConditionalRenderer';
 import Account from '../core/models/account.model';
-import {connect} from 'react-redux';
-import {StickyContainer, Sticky} from 'react-sticky';
+import { connect } from 'react-redux';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 const cx = classNames.bind(styles);
 
@@ -45,12 +45,12 @@ class Layout extends Component {
     return (
       <StickyContainer className={cx('layout__root')}>
 
-        <Sticky style={{zIndex: 100}}>
-          <LayoutBar onMenuAction={() => this.toggleDrawer()}/>
+        <Sticky style={{ zIndex: 100 }}>
+          <LayoutBar onMenuAction={() => this.toggleDrawer()} />
         </Sticky>
 
         <ConditionalRenderer show={this.props.account.isSignedIn()}>
-          <LayoutDrawer open={this.state.drawer.open} onToggle={this.toggleDrawer}/>
+          <LayoutDrawer open={this.state.drawer.open} onToggle={this.toggleDrawer} />
         </ConditionalRenderer>
 
         <main className={cx('layout__content')}>

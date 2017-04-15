@@ -28,7 +28,7 @@ export default class DetailedContent extends PureComponent {
       >
         <div className={cx('detailed-content__main-pane')}>{children}</div>
         <div className={cx('detailed-content__details-pane')}>
-          <Sticky isActive={fixDetails}>{details}</Sticky>
+          <Sticky isActive={fixDetails} style={{ zIndex: 0 }}>{details}</Sticky>
         </div>
       </StickyContainer>
     );
