@@ -89,7 +89,6 @@ class TasksPage extends Component {
         smooth: true,
       });
     }
-
   };
 
   render() {
@@ -106,23 +105,25 @@ class TasksPage extends Component {
         }}
       /> : <div />;
 
-    const renderPastTask = (task) => <ScrollToElement name={task.id}>
-      <TaskIcon
-        onSelect={() => this.selectTask(task)}
-        m={1}
-        selected={selectedTask === task}
-        task={task}
-      />
-    </ScrollToElement>;
+    const renderPastTask = (task) =>
+      <ScrollToElement name={task.id}>
+        <TaskIcon
+          onSelect={() => this.selectTask(task)}
+          m={1}
+          selected={selectedTask === task}
+          task={task}
+        />
+      </ScrollToElement>;
 
-    const renderFutureTask = (task) => <ScrollToElement name={task.id}>
-      <TaskIcon
-        onSelect={() => this.selectTask(task)}
-        m={1}
-        selected={selectedTask === task}
-        task={task}
-      />
-    </ScrollToElement>;
+    const renderFutureTask = (task) =>
+      <ScrollToElement name={task.id}>
+        <TaskIcon
+          onSelect={() => this.selectTask(task)}
+          m={1}
+          selected={selectedTask === task}
+          task={task}
+        />
+      </ScrollToElement>;
 
     const renderEmptyPlaceholder = () => <EmptyContentPlaceholder>You must schedule
       at least one task to see time relations</EmptyContentPlaceholder>;
