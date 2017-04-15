@@ -7,7 +7,7 @@ export default class EmptyContentPlaceholder extends PureComponent {
   render() {
     return (
       <ContentPlaceholder icon={<CreateIcon />}>
-        <h3>Nothing here yet!</h3>
+        <h3>Nothing here!</h3>
         <p>{this.props.children}</p>
       </ContentPlaceholder>
     );
