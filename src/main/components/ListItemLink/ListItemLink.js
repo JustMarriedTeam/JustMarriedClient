@@ -1,7 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { ListItem } from 'material-ui/List';
-import { active } from './ListItemLink.css';
+import { active } from './ListItemLink.pcss';
 
 
 export default class ListItemLink extends PureComponent {
