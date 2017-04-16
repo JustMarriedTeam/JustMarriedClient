@@ -85,6 +85,8 @@ class TaskDetails extends Component {
     const { isEditable } = this.props;
     const { task } = this.state;
 
+    const taskIconSrc = `/images/tasks/${task.icon}`;
+
     return (
       <Flex
         wrap
@@ -99,7 +101,7 @@ class TaskDetails extends Component {
             <Box sm={12} md={4} style={{ textAlign: 'center' }}>
               <Image
                 className={cx('task-details__image')}
-                src="http://meetingking.com/wp-content/images/meetingking_tasks.png"
+                src={taskIconSrc}
               />
             </Box>
 
