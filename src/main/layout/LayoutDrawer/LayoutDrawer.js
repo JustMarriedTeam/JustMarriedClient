@@ -1,7 +1,6 @@
 import React, { PureComponent, PropTypes } from 'react';
-import ListItemLink from '../../components/ListItemLink/ListItemLink';
 import Drawer from 'material-ui/Drawer';
-import { List } from 'material-ui/List';
+import DrawerLinkGroup, { DrawerLinkItem } from './DrawerLinkGroup';
 import Divider from 'material-ui/Divider';
 import Home from 'material-ui/svg-icons/action/home';
 import Dashboard from 'material-ui/svg-icons/action/dashboard';
@@ -30,41 +29,41 @@ export default class LayoutDrawer extends PureComponent {
 
         <AccountPanel />
 
-        <List>
+        <DrawerLinkGroup>
 
           <Divider />
 
-          <ListItemLink
+          <DrawerLinkItem
             to={'/home'}
             primaryText="Home"
             leftIcon={<Home />}
           />
 
-          <ListItemLink
+          <DrawerLinkItem
             to={'/dashboard'}
             primaryText="Dashboard"
             leftIcon={<Dashboard />}
           />
 
-          <ListItemLink
+          <DrawerLinkItem
             to={'/wedding'}
             primaryText="My wedding"
             leftIcon={<Cake />}
           />
 
-          <ListItemLink
+          <DrawerLinkItem
             to={'/tasks'}
             primaryText="Tasks"
             leftIcon={<Assignment />}
           />
 
-          <ListItemLink
+          <DrawerLinkItem
             to={'/timeline'}
             primaryText="Timeline"
             leftIcon={<Timeline />}
           />
 
-          <ListItemLink
+          <DrawerLinkItem
             to={'/expenses'}
             primaryText="Expenses"
             leftIcon={<Payment />}
@@ -72,7 +71,7 @@ export default class LayoutDrawer extends PureComponent {
 
           <Divider />
 
-        </List>
+        </DrawerLinkGroup>
       </Drawer>
     );
   }

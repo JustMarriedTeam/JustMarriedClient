@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Flex, Box } from 'reflexbox';
 import Image from '../../components/Image';
-import List from 'material-ui/List';
-import ListItemLink from '../../components/ListItemLink';
+import FooterLinkGroup, { FooterLinkItem } from './FooterLinkGroup';
 import classnames from 'classnames/bind';
 import styles from './LayoutFooter.pcss';
 
@@ -21,29 +20,29 @@ export default class LayoutFooter extends PureComponent {
 
         <Box p={2} sm={12} md={6}>
 
-          <List>
+          <FooterLinkGroup>
 
-            <ListItemLink
+            <FooterLinkItem
               to={'/home'}
               primaryText="Home"
             />
 
-            <ListItemLink
+            <FooterLinkItem
               to={'/wedding'}
               primaryText="Wedding"
             />
 
-            <ListItemLink
+            <FooterLinkItem
               to={'/tasks'}
               primaryText="Tasks"
             />
 
-            <ListItemLink
+            <FooterLinkItem
               to={'/timeline'}
               primaryText="Timeline"
             />
 
-          </List>
+          </FooterLinkGroup>
 
         </Box>
 
