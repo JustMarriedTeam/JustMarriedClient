@@ -1,16 +1,19 @@
 .task-icon {
 
+  display: flex;
   padding: 10px;
   border: 1px solid #E9E9E9;
   border-radius: 7px;
+  justify-content: space-around;
+  align-items: center;
 
-  &__avatar,
-  &__name {
-    display: inline-block;
+  &__avatar {
+    flex-basis: content;
   }
 
   &__name {
-    margin-left: 15px;
+    flex-grow: 1;
+    margin-left: 10px;
   }
 
   &--selected {
