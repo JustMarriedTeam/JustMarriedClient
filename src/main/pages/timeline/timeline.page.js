@@ -23,7 +23,10 @@ import isEmpty from 'lodash/isEmpty';
 import { createNullTask } from '../../core/factories/task.factory';
 import EmptyContentPlaceholder from '../../components/EmptyContentPlaceholder';
 import Scroll from 'react-scroll';
+import classNames from 'classnames/bind';
+import styles from './timeline.page.pcss';
 
+const cx = classNames.bind(styles);
 const ScrollToElement = Scroll.Element;
 const scroller = Scroll.scroller;
 
@@ -89,6 +92,7 @@ class TasksPage extends Component {
 
     const renderTaskDetails = () => selectedTask ? // eslint-disable-line
       <TaskDetails
+        blockClass={cx('timeline-page__task-details')}
         task={selectedTask}
         isEditable={false}
         onRelatedTaskSelected={(task) => {

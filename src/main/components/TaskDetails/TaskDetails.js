@@ -28,6 +28,7 @@ class TaskDetails extends Component {
     bindControls: PropTypes.func.isRequired,
     blockClass: PropTypes.string,
     onRelatedTaskSelected: PropTypes.func,
+    mainClass: PropTypes.string,
 
     /**
      * Set internally by connect
@@ -98,14 +99,14 @@ class TaskDetails extends Component {
         <Box sm={12} mb={3}>
           <Flex wrap align="stretch" justify="space-around">
 
-            <Box sm={12} md={4} style={{ textAlign: 'center' }}>
+            <Box sm={12} md={6} style={{ textAlign: 'center' }}>
               <Image
                 className={cx('task-details__image')}
                 src={taskIconSrc}
               />
             </Box>
 
-            <Box sm={12} md={8}>
+            <Box sm={12} md={6}>
               <TaskDetailsForm
                 ref={(component) => {
                   this.taskDetailsForm = component;
