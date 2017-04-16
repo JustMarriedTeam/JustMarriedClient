@@ -37,7 +37,7 @@ class TaskIcon extends PureComponent {
         <Avatar
           className={cx('task-icon__image')}
           size={60}
-          backgroundColor="#FFF"
+          backgroundColor="transparent"
           src={taskIconSrc}
         />
         <div className={cx('task-icon__name')}>{task.name}</div>
