@@ -7,7 +7,7 @@ breakpoints:
   lg: 1024px
 content:
   minHeight:
-    xs: 350px
+    xs: 450px
     sm: 500px
     md: 700px
     lg: 1000px
