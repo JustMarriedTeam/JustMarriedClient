@@ -54,14 +54,10 @@ class TasksPage extends Component {
     };
   }
 
-  componentWillMount = () => this.props.tasksActions.fetchTasks();
-
-  componentWillReceiveProps(props) {
-    if (!props.tasks.isEmpty() && !this.state.selectedTask) {
-      // this.selectTask(props.tasks.get(0));
-      // this.setShowDetails(false);
-    }
-  }
+  componentWillMount = () => this.props.tasksActions.fetchTasks().then(() => {
+    this.selectTask(this.props.tasks.get(0));
+    this.setShowDetails(false);
+  });
 
   setShowDetails = (showDetails) => {
     this.setState({ showDetails });
