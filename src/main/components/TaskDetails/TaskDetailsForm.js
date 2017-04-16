@@ -139,14 +139,3 @@ class TaskDetailsForm extends PureComponent {
 export default reduxForm({
   form: 'TaskDetails',
 })(TaskDetailsForm);
-
-// export default connect((state) => {
-//   const selector = formValueSelector('TaskDetails');
-//   return {
-//     currentValues: {
-//       status: selector(state, 'status'),
-//     },
-//   };
-// })(reduxForm({
-//   form: 'TaskDetails',
-// })(TaskDetailsForm));
