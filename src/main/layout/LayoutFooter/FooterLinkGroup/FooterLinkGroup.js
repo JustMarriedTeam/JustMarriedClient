@@ -1,6 +1,6 @@
-import React, { PureComponent, PropTypes } from 'react';
-import { Link } from 'react-router';
-import List, { ListItem } from 'material-ui/List';
+import React, {PureComponent, PropTypes} from 'react';
+import {Link} from 'react-router';
+import List, {ListItem} from 'material-ui/List';
 import classnames from 'classnames/bind';
 import styles from './FooterLinkGroup.pcss';
 
@@ -31,11 +31,18 @@ export class FooterLinkItem extends PureComponent {
 
 export default class FooterLinkGroup extends PureComponent {
 
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+  };
+
   render() {
     return (
-      <List>
-        {this.props.children}
-      </List>
+      <div>
+        <h4>{this.props.title}</h4>
+        <List>
+          {this.props.children}
+        </List>
+      </div>
     );
   }
 

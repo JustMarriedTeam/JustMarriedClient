@@ -12,15 +12,20 @@ export default class LayoutFooter extends PureComponent {
 
   render() {
     return (
-      <Flex className={cx('layout-footer')}>
+      <Flex
+        wrap
+        align="stretch"
+        justify="space-around"
+        className={cx('layout-footer')}
+      >
 
-        <Box p={2} sm={12} md={6}>
+        <Box p={4} sm={12} md={4}>
           <Image src={logo} />
         </Box>
 
-        <Box p={2} sm={12} md={6}>
+        <Box p={2} sm={12} md={4}>
 
-          <FooterLinkGroup>
+          <FooterLinkGroup title="Wedding">
 
             <FooterLinkItem
               to={'/home'}
@@ -46,11 +51,27 @@ export default class LayoutFooter extends PureComponent {
 
         </Box>
 
-        <Box p={2} sm={12} md={6}>
-          <a>DO this</a>
-          <a>DO that</a>
-          <a>DO this</a>
-          <a>DO that</a>
+        <Box p={2} sm={12} md={4}>
+
+          <FooterLinkGroup title="Business">
+
+            <FooterLinkItem
+              to={'/about'}
+              primaryText="About us"
+            />
+
+            <FooterLinkItem
+              to={'/business'}
+              primaryText="For business"
+            />
+
+            <FooterLinkItem
+              to={'/diary'}
+              primaryText="Our weddings"
+            />
+
+          </FooterLinkGroup>
+
         </Box>
 
       </Flex>
