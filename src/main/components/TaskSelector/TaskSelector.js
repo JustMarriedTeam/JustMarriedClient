@@ -24,11 +24,7 @@ export default class TaskSelector extends PureComponent {
         key={key}
         leftCheckbox={<Checkbox
           checked={isSelected}
-          onCheck={(e, wasChecked) => {
-            const x = 1;
-            alert(`elo elo ${x}`);
-            onSelectionChange(item, !wasChecked);
-          }}
+          onCheck={() => onSelectionChange(item, !isSelected)}
         />}
         onNestedListToggle={() => setTimeout(() => window.dispatchEvent(new Event('resize')))}
         nestedItems={nestedItems.map(renderItem).toArray()}
