@@ -1,6 +1,6 @@
 import React, { PropTypes, PureComponent } from 'react';
 import { Flex, Box } from 'reflexbox';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import MenuItem from 'material-ui/MenuItem';
 import {
   required,
@@ -12,8 +12,12 @@ import {
 import {
   TextField,
   SelectField,
+  DatePicker,
 } from 'redux-form-material-ui';
 import { TASK_STATUS } from '../../core/models/task.model';
+import { isMoment } from 'moment';
+import { getCurrentTime } from '../../core/timer';
+import store from '../../core/store';
 
 class TaskDetailsForm extends PureComponent {
 
@@ -23,8 +27,26 @@ class TaskDetailsForm extends PureComponent {
     onSubmit: PropTypes.func.isRequired,
   };
 
+  static isDone() {
+    const selector = formValueSelector('TaskDetails');
+    return selector(store.getState(), 'status') === TASK_STATUS.DONE;
+  }
+
   render() {
     const { disabled } = this.props;
+
+    const renderCompletionDate = () => TaskDetailsForm.isDone() // eslint-disable-line
+      ? <Box sm={12}>
+        <Field
+          name="completionDate"
+          label="Completion date"
+          fullWidth
+          format={(date) => isMoment(date) ? date.toDate() : date} // eslint-disable-line
+          floatingLabelText="Completion date"
+          disabled={disabled}
+          component={DatePicker}
+        />
+      </Box> : null;
 
     return (
       <form>
@@ -46,15 +68,50 @@ class TaskDetailsForm extends PureComponent {
             <Field
               name="status"
               label="Status"
+              ref={(component) => { this.statusField = component; }}
               fullWidth
               floatingLabelText="Status"
               disabled={disabled}
               component={SelectField}
             >
-              <MenuItem value={TASK_STATUS.PENDING} primaryText="Pending" />
-              <MenuItem value={TASK_STATUS.BLOCKED} primaryText="Blocked" />
-              <MenuItem value={TASK_STATUS.DONE} primaryText="Done" />
+              <MenuItem
+                value={TASK_STATUS.PENDING}
+                primaryText="Pending"
+                onClick={() => {
+                  this.props.change('completionDate', null);
+                }}
+              />
+              <MenuItem
+                value={TASK_STATUS.BLOCKED}
+                primaryText="Blocked"
+                onClick={() => {
+                  this.props.change('completionDate', null);
+                }}
+              />
+              <MenuItem
+                value={TASK_STATUS.DONE}
+                primaryText="Done"
+                onClick={() => {
+                  this.props.change('completionDate', getCurrentTime());
+                }}
+              />
             </Field>
+          </Box>
+
+          {
+            renderCompletionDate()
+          }
+
+          <Box sm={12}>
+            <Field
+              name="deadlineDate"
+              label="Deadline date"
+              fullWidth
+              format={(date) => isMoment(date) ? date.toDate() : date}  // eslint-disable-line
+              floatingLabelText="Deadline date"
+              disabled={disabled}
+              component={DatePicker}
+            />
           </Box>
 
           <Box sm={12}>

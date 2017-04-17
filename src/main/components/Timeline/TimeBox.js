@@ -10,7 +10,7 @@ export default class TimeBox extends PureComponent {
 
   static propTypes = {
     time: PropTypes.instanceOf(moment).isRequired,
-    elements: PropTypes.instanceOf(Immutable.Collection).isRequired,
+    elements: PropTypes.instanceOf(Immutable.Seq).isRequired,
     materialize: PropTypes.func.isRequired,
   };
 

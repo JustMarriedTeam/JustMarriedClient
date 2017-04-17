@@ -14,7 +14,6 @@ import WeddingPage from './pages/wedding/wedding.page';
 import DashboardPage from './pages/dashboard/dashboard';
 import TimelinePage from './pages/timeline/timeline.page';
 import Tasks from './pages/tasks/tasks.page';
-import Task from './pages/task/task';
 import Theme from './theme/theme';
 import { secured } from './components/SecuredComponent';
 import styles from './styles/main.css';
@@ -68,9 +67,7 @@ ReactDOM.render(
       <Route path="/dashboard" component={secured(DashboardPage)} />
       <Route path="/timeline" component={secured(TimelinePage)} />
       <Route path="/wedding" component={secured(WeddingPage)} />
-      <Route path="/tasks" component={secured(Tasks)}>
-        <Route path="/tasks/:taskId" component={Task} />
-      </Route>
+      <Route path="/tasks" component={secured(Tasks)} />
       <Route path="*" component={ErrorPage} />
     </Route>
   </Router>,

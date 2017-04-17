@@ -10,6 +10,7 @@ import styles from './Layout.pcss';
 import ConditionalRenderer from '../utils/ConditionalRenderer';
 import Account from '../core/models/account.model';
 import { connect } from 'react-redux';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 const cx = classNames.bind(styles);
 
@@ -42,16 +43,20 @@ class Layout extends Component {
 
   render() {
     return (
-      <div className={cx('layout__root')}>
+      <StickyContainer className={cx('layout__root')}>
 
-        <LayoutBar onMenuAction={() => this.toggleDrawer()} />
+        <Sticky style={{ zIndex: 100 }}>
+          <LayoutBar onMenuAction={() => this.toggleDrawer()} />
+        </Sticky>
 
         <ConditionalRenderer show={this.props.account.isSignedIn()}>
           <LayoutDrawer open={this.state.drawer.open} onToggle={this.toggleDrawer} />
         </ConditionalRenderer>
 
         <main className={cx('layout__content')}>
-          {this.props.children}
+          <StickyContainer>
+            {this.props.children}
+          </StickyContainer>
         </main>
 
         <LayoutFooter />
@@ -59,7 +64,7 @@ class Layout extends Component {
         <Popup />
         <Modal />
 
-      </div>
+      </StickyContainer>
     );
   }
 

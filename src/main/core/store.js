@@ -1,9 +1,14 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { browserHistory } from 'react-router';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
+import {
+  createResponsiveStateReducer,
+  responsiveStoreEnhancer,
+} from 'redux-responsive';
+
 
 // application only
 import actionReducer from './reducers/action.reducer';
@@ -20,6 +25,9 @@ import registerSaga from './sagas/register.saga';
 import editSaga from './sagas/edit.saga';
 import selectSaga from './sagas/select.saga';
 import assignmentSaga from './sagas/assignment.saga';
+
+// templates
+import { taskTemplatesReducer } from './reducers/entities/templates.reducer';
 
 // entities
 import guestsReducer from './reducers/entities/guests.reducer';
@@ -42,6 +50,9 @@ export default createStore(
       tasks: tasksReducer,
       users: usersReducer,
     }),
+    templates: combineReducers({
+      tasks: taskTemplatesReducer,
+    }),
     wedding: weddingReducer,
     form: formReducer,
     routing: routerReducer,
@@ -52,9 +63,18 @@ export default createStore(
     account: accountReducer,
     server: serverReducer,
     actionBar: actionBarReducer,
+    browser: createResponsiveStateReducer({
+      xs: 320,
+      sm: 425,
+      md: 768,
+      lg: 1024,
+    }),
   }),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), // eslint-disable-line
-  applyMiddleware(thunk, sagaMiddleware, routerMiddleware(browserHistory))
+  compose(
+    responsiveStoreEnhancer,
+    applyMiddleware(thunk, sagaMiddleware, routerMiddleware(browserHistory))
+  )
 );
 
 sagaMiddleware.run(loginSaga);

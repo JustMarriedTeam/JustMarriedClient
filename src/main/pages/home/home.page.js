@@ -113,7 +113,7 @@ class HomePage extends React.Component {
             >Want to do this all by yourself?</h2>
           </ParallaxContent>
 
-          <ContentSection alternate header={<h2>Hell no! Let us help you.</h2>}>
+          <ContentSection alternate header={<h2>You don't have to! Let us help you.</h2>}>
 
             <Carousel
               style={{

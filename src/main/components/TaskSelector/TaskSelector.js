@@ -1,39 +1,47 @@
-import React, { PureComponent, PropTypes } from 'react';
-import AutoComplete from 'material-ui/AutoComplete';
+import React, { PropTypes, PureComponent } from 'react';
+import { List, ListItem } from 'material-ui/List';
+import Checkbox from 'material-ui/Checkbox';
 import Immutable from 'immutable';
 
 export default class TaskSelector extends PureComponent {
 
   static propTypes = {
-    tasksToChooseFrom: PropTypes.instanceOf(Immutable.Seq).isRequired,
-    onTaskSelection: PropTypes.func.isRequired,
+    allItems: PropTypes.instanceOf(Immutable.Seq).isRequired,
+    selectedItems: PropTypes.instanceOf(Immutable.Seq).isRequired,
+    selectNestedItemsFor: PropTypes.func.isRequired,
+    onSelectionChange: PropTypes.func.isRequired,
   };
-
-  static dataSourceConfig = {
-    text: 'name',
-    value: 'id',
-  };
-
-  focus() {
-    setTimeout(() => this.textInput.focus(), 100);
-  }
-
-  reset() {
-    this.textInput.setState({ searchText: '' });
-  }
 
   render() {
-    const { tasksToChooseFrom, onTaskSelection } = this.props;
+    const { allItems, selectedItems,
+      onSelectionChange, selectNestedItemsFor } = this.props;
+
+    const renderItem = (item, key) => {
+      const nestedItems = selectNestedItemsFor(item);
+      const isSelected = selectedItems.contains(item);
+
+      return (<ListItem
+        key={key}
+        leftCheckbox={<Checkbox
+          checked={isSelected}
+          onCheck={(e, wasChecked) => onSelectionChange(item, !wasChecked)}
+        />}
+        onNestedListToggle={() => setTimeout(() => window.dispatchEvent(new Event('resize')))}
+        nestedItems={nestedItems.map(renderItem).toArray()}
+        primaryText={item.name}
+        secondaryText={item.description}
+      />);
+    };
 
     return (
-      <AutoComplete
-        hintText="Start typing"
-        ref={(element) => { this.textInput = element; }}
-        menuCloseDelay={50}
-        dataSource={tasksToChooseFrom.toArray()}
-        dataSourceConfig={TaskSelector.dataSourceConfig}
-        onNewRequest={onTaskSelection}
-      />
+      <List>
+
+        {
+          allItems.filter((item) => item.requiredFor.isEmpty())
+            .map((item, key) => renderItem(item, key))
+        }
+
+      </List>
     );
   }
 

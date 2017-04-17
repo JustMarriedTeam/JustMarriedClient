@@ -1,0 +1,6 @@
+{
+  "name": "EmptyContentPlaceholder",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./EmptyContentPlaceholder.js"
+}

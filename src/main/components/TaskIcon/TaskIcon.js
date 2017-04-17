@@ -24,6 +24,8 @@ class TaskIcon extends PureComponent {
   render() {
     const { task, onSelect, selected } = this.props;
 
+    const taskIconSrc = `/images/tasks/${task.icon}`;
+
     return (
       <div
         onClick={onSelect}
@@ -34,7 +36,9 @@ class TaskIcon extends PureComponent {
       >
         <Avatar
           className={cx('task-icon__image')}
-          src="https://placehold.it/128"
+          size={60}
+          backgroundColor="transparent"
+          src={taskIconSrc}
         />
         <div className={cx('task-icon__name')}>{task.name}</div>
       </div>

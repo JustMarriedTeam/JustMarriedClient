@@ -1,6 +1,10 @@
 import React, { PureComponent, PropTypes } from 'react';
 import { withReflex } from 'reflexbox';
 import withRobox from 'robox';
+import classnames from 'classnames/bind';
+import styles from './Image.pcss';
+
+const cx = classnames.bind(styles);
 
 class Image extends PureComponent {
 
@@ -10,7 +14,11 @@ class Image extends PureComponent {
 
   render() {
     return (
-      <img role="presentation" {...this.props} />
+      <img
+        role="presentation"
+        className={cx('image')}
+        {...this.props}
+      />
     );
   }
 

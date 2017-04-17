@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import Task from '../Task/Task';
 import { createGridCols, createGridBreakpoints, createLayouts } from '../../core/grid';
+import EmptyContentPlaceholder from '../EmptyContentPlaceholder';
 import Immutable from 'immutable';
 
 const ResponsiveReactGridLayout = new WidthProvider(Responsive);
@@ -33,25 +34,31 @@ export default class TaskGrid extends Component {
   }
 
   render() {
-    return (
-      <ResponsiveReactGridLayout
-        breakpoints={this.state.breakpoints}
-        cols={this.state.cols}
-        margin={[15, 15]}
-        rowHeight={365}
-        isDraggable={false}
-        isResizable={false}
-        layouts={this.state.layouts}
-      >
+    const { tasks } = this.props;
 
-        {
-          this.props.tasks.map((task) => <div key={`${task.id}`}>
-            <Task task={task} />
-          </div>)
-        }
 
-      </ResponsiveReactGridLayout>
-    );
+    const renderGrid = () => <ResponsiveReactGridLayout
+      breakpoints={this.state.breakpoints}
+      cols={this.state.cols}
+      margin={[15, 15]}
+      rowHeight={365}
+      isDraggable={false}
+      isResizable={false}
+      layouts={this.state.layouts}
+    >
+
+      {
+        tasks.map((task) => <div key={`${task.id}`}>
+          <Task task={task} />
+        </div>)
+      }
+
+    </ResponsiveReactGridLayout>;
+
+    const renderEmptyPlaceholder = () =>
+      <EmptyContentPlaceholder>No tasks to display at this time</EmptyContentPlaceholder>;
+
+    return tasks.isEmpty() ? renderEmptyPlaceholder() : renderGrid();
   }
 
 }

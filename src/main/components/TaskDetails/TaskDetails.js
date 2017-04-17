@@ -28,6 +28,7 @@ class TaskDetails extends Component {
     bindControls: PropTypes.func.isRequired,
     blockClass: PropTypes.string,
     onRelatedTaskSelected: PropTypes.func,
+    mainClass: PropTypes.string,
 
     /**
      * Set internally by connect
@@ -85,6 +86,8 @@ class TaskDetails extends Component {
     const { isEditable } = this.props;
     const { task } = this.state;
 
+    const taskIconSrc = `/images/tasks/${task.icon}`;
+
     return (
       <Flex
         wrap
@@ -96,20 +99,21 @@ class TaskDetails extends Component {
         <Box sm={12} mb={3}>
           <Flex wrap align="stretch" justify="space-around">
 
-            <Box sm={12} md={4} style={{ textAlign: 'center' }}>
+            <Box sm={12} md={6} style={{ textAlign: 'center' }}>
               <Image
                 className={cx('task-details__image')}
-                src="http://meetingking.com/wp-content/images/meetingking_tasks.png"
+                src={taskIconSrc}
               />
             </Box>
 
-            <Box sm={12} md={8}>
+            <Box sm={12} md={6}>
               <TaskDetailsForm
                 ref={(component) => {
                   this.taskDetailsForm = component;
                 }}
                 enableReinitialize
-                initialValues={pick(task.toJS(), ['name', 'status', 'description'])}
+                initialValues={pick(task.toJS(), ['name', 'status', 'description',
+                  'deadlineDate', 'completionDate'])}
                 disabled={!isEditable}
                 onSubmit={(values) => Promise.resolve(this.state.task.merge(values))}
               />

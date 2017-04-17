@@ -28,7 +28,7 @@ export default getMuiTheme({
     accent2Color: grey100,
     accent3Color: grey500,
     textColor: darkBlack,
-    secondaryTextColor: fade(white, 0.54),
+    secondaryTextColor: fade(darkBlack, 0.54),
     alternateTextColor: white,
     canvasColor: white,
     borderColor: grey300,

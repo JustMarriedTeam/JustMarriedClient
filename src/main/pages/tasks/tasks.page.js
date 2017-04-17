@@ -14,6 +14,8 @@ import { Menu, MainButton, ChildButton } from 'react-mfb';
 import Immutable from 'immutable';
 import TitleModalHeader from '../../layout/Modal/headers/TitleModalHeader';
 import CreateOrCancelModalFooter from '../../layout/Modal/footers/CreateOrCancelModalFooter';
+import EmptyContentPlaceholder from '../../components/EmptyContentPlaceholder';
+import TemplateTasksSelector from '../../components/TemplateTasksSelector';
 import TaskDetails from '../../components/TaskDetails';
 import { TASK_STATUS } from '../../core/models/task.model';
 import { createTask } from '../../core/factories/task.factory';
@@ -40,11 +42,11 @@ class TasksPage extends Component {
     /**
      * Set internally via connect.
      */
-    tasks: PropTypes.instanceOf(Immutable.List).isRequired,
-    tasksActions: PropTypes.object.isRequired,
-    actionBarActions: PropTypes.object.isRequired,
-    selectionActions: PropTypes.object.isRequired,
-    modalActions: PropTypes.object.isRequired,
+    tasks: PropTypes.instanceOf(Immutable.List),
+    tasksActions: PropTypes.object,
+    actionBarActions: PropTypes.object,
+    selectionActions: PropTypes.object,
+    modalActions: PropTypes.object,
   };
 
   componentWillMount = () => this.props.tasksActions.fetchTasks();
@@ -74,46 +76,80 @@ class TasksPage extends Component {
     });
   };
 
+  handleAddingTaskFromTemplate = () => {
+    const { modalActions } = this.props;
+
+    modalActions.openModal({
+      context: {
+        isEditable: false,
+      },
+      header: <TitleModalHeader
+        title="Add tasks from template"
+      />,
+      content: () => <TemplateTasksSelector
+        bindControls={({ cloneSelectedTasks }) => {
+          this.cloneTasks = cloneSelectedTasks;
+        }}
+      />,
+      footer: () => <CreateOrCancelModalFooter
+        onCreate={() => this.cloneTasks().then(modalActions.closeModal)}
+      />,
+    });
+  };
+
   render() {
+    const renderEmptyPlaceholder = () =>
+      <EmptyContentPlaceholder>
+        <a>Add from template</a> or <a>create one by one</a>
+      </EmptyContentPlaceholder>;
+
+    const renderTabs = () =>
+      <Tabs>
+        <Tab
+          icon={<FontIcon className="material-icons">schedule</FontIcon>}
+          label="Todo"
+          value={TABS.TODO.key}
+        >
+
+          <TaskGrid
+            tasks={TABS.TODO.filter(this.props.tasks)}
+          />
+
+        </Tab>
+
+        <Tab
+          icon={<FontIcon className="material-icons">lock_open</FontIcon>}
+          label="Upcoming"
+          value={TABS.UPCOMING.key}
+        >
+
+          <TaskGrid
+            tasks={TABS.UPCOMING.filter(this.props.tasks)}
+          />
+
+        </Tab>
+
+        <Tab
+          icon={<FontIcon className="material-icons">lock_outline</FontIcon>}
+          label="Done"
+          value={TABS.DONE.key}
+        >
+
+          <TaskGrid
+            tasks={TABS.DONE.filter(this.props.tasks)}
+          />
+
+        </Tab>
+      </Tabs>;
+
     return (
       <Layout>
-        <Tabs>
-          <Tab
-            icon={<FontIcon className="material-icons">schedule</FontIcon>}
-            label="Todo"
-            value={TABS.TODO.key}
-          >
 
-            <TaskGrid
-              tasks={TABS.TODO.filter(this.props.tasks)}
-            />
-
-          </Tab>
-
-          <Tab
-            icon={<FontIcon className="material-icons">lock_open</FontIcon>}
-            label="Upcoming"
-            value={TABS.UPCOMING.key}
-          >
-
-            <TaskGrid
-              tasks={TABS.UPCOMING.filter(this.props.tasks)}
-            />
-
-          </Tab>
-
-          <Tab
-            icon={<FontIcon className="material-icons">lock_outline</FontIcon>}
-            label="Done"
-            value={TABS.DONE.key}
-          >
-
-            <TaskGrid
-              tasks={TABS.DONE.filter(this.props.tasks)}
-            />
-
-          </Tab>
-        </Tabs>
+        {
+          this.props.tasks.isEmpty()
+            ? renderEmptyPlaceholder()
+            : renderTabs()
+        }
 
         <Menu effect="zoomin" method="click" position="br">
           <MainButton
@@ -124,6 +160,11 @@ class TasksPage extends Component {
             icon="ion-calendar"
             label="Add new task"
             onClick={() => this.handleAddingTask()}
+          />
+          <ChildButton
+            icon="ion-calendar"
+            label="Add tasks from template"
+            onClick={() => this.handleAddingTaskFromTemplate()}
           />
         </Menu>
 

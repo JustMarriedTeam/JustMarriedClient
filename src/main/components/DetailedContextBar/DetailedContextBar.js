@@ -1,5 +1,6 @@
 import React, { PropTypes, PureComponent } from 'react';
 import ResponsiveBox from '../ResponsiveBox';
+import { Sticky } from 'react-sticky';
 import classnames from 'classnames/bind';
 import styles from './DetailedContextBar.pcss';
 
@@ -16,7 +17,8 @@ export default class DetailedContextBar extends PureComponent {
     const { showDetails, details, children } = this.props;
 
     return (
-      <div
+      <Sticky
+        style={{ zIndex: 100 }}
         className={cx('detailed-context-bar', {
           'detailed-context-bar--detailed': showDetails,
         })}
@@ -29,7 +31,7 @@ export default class DetailedContextBar extends PureComponent {
           </div>
         </ResponsiveBox>
 
-      </div>
+      </Sticky>
     );
   }
 

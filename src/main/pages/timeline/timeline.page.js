@@ -21,6 +21,14 @@ import { getCurrentTime } from '../../core/timer';
 import toLower from 'lodash/toLower';
 import isEmpty from 'lodash/isEmpty';
 import { createNullTask } from '../../core/factories/task.factory';
+import EmptyContentPlaceholder from '../../components/EmptyContentPlaceholder';
+import Scroll from 'react-scroll';
+import classNames from 'classnames/bind';
+import styles from './timeline.page.pcss';
+
+const cx = classNames.bind(styles);
+const ScrollToElement = Scroll.Element;
+const scroller = Scroll.scroller;
 
 class TasksPage extends Component {
 
@@ -28,12 +36,13 @@ class TasksPage extends Component {
     /**
      * Set internally via connect.
      */
-    tasks: PropTypes.instanceOf(Immutable.List).isRequired,
-    timeline: PropTypes.instanceOf(TimelineModel).isRequired,
-    tasksActions: PropTypes.object.isRequired,
-    actionBarActions: PropTypes.object.isRequired,
-    selectionActions: PropTypes.object.isRequired,
-    modalActions: PropTypes.object.isRequired,
+    tasks: PropTypes.instanceOf(Immutable.List),
+    timeline: PropTypes.instanceOf(TimelineModel),
+    tasksActions: PropTypes.object,
+    actionBarActions: PropTypes.object,
+    selectionActions: PropTypes.object,
+    modalActions: PropTypes.object,
+    browser: PropTypes.object,
   };
 
   constructor() {
@@ -45,14 +54,10 @@ class TasksPage extends Component {
     };
   }
 
-  componentWillMount = () => this.props.tasksActions.fetchTasks();
-
-  componentWillReceiveProps(props) {
-    if (!props.tasks.isEmpty() && !this.state.selectedTask) {
-      this.selectTask(props.tasks.get(0));
-      this.setShowDetails(false);
-    }
-  }
+  componentWillMount = () => this.props.tasksActions.fetchTasks().then(() => {
+    this.selectTask(this.props.tasks.get(0));
+    this.setShowDetails(false);
+  });
 
   setShowDetails = (showDetails) => {
     this.setState({ showDetails });
@@ -70,10 +75,12 @@ class TasksPage extends Component {
     return isEmpty(taskNameQuery) || containsSearchText;
   };
 
-  selectTask = (task) => this.setState({
-    selectedTask: task,
-    showDetails: true,
-  });
+  selectTask = (task) => {
+    this.setState({
+      selectedTask: task,
+      showDetails: true,
+    });
+  };
 
   render() {
     const { timeline } = this.props;
@@ -81,54 +88,90 @@ class TasksPage extends Component {
 
     const renderTaskDetails = () => selectedTask ? // eslint-disable-line
       <TaskDetails
+        blockClass={cx('timeline-page__task-details')}
         task={selectedTask}
         isEditable={false}
-        onRelatedTaskSelected={(task) => this.selectTask(task)}
+        onRelatedTaskSelected={(task) => {
+          this.selectTask(task);
+          if (this.props.browser.greaterThan.sm) {
+            setTimeout(() => {
+              scroller.scrollTo(this.state.selectedTask.id, {
+                duration: 1000,
+                delay: 0,
+                smooth: true,
+                offset: -200,
+              });
+            });
+          }
+        }}
         bindControls={({ save }) => {
           this.saveTaskDetails = save;
         }}
       /> : <div />;
 
-    const renderPastTask = (task) => <TaskIcon
-      onSelect={() => this.selectTask(task)}
-      m={1}
-      selected={selectedTask === task}
-      task={task}
-    />;
+    const renderPastTask = (task) =>
+      <ScrollToElement name={task.id}>
+        <TaskIcon
+          onSelect={() => this.selectTask(task)}
+          m={1}
+          selected={selectedTask === task}
+          task={task}
+        />
+      </ScrollToElement>;
 
-    const renderFutureTask = (task) => <TaskIcon
-      onSelect={() => this.selectTask(task)}
-      m={1}
-      selected={selectedTask === task}
-      task={task}
-    />;
+    const renderFutureTask = (task) =>
+      <ScrollToElement name={task.id}>
+        <TaskIcon
+          onSelect={() => this.selectTask(task)}
+          m={1}
+          selected={selectedTask === task}
+          task={task}
+        />
+      </ScrollToElement>;
+
+    const renderEmptyPlaceholder = () =>
+      <EmptyContentPlaceholder>
+        You must schedule at least one task to see time relations
+      </EmptyContentPlaceholder>;
+
+    const renderContent = () => <div>
+      <DetailedContextBar
+        showDetails={this.state.showDetails}
+        details={
+          <TitledDetails
+            title={this.state.selectedTask.name}
+            onBack={() => this.setShowDetails(false)}
+          />
+        }
+      >
+        <ContentFilter onFilter={(query) => this.filterTasks(query)} />
+      </DetailedContextBar>
+
+      <ResponsiveBox>
+        <DetailedContent
+          showDetails={this.state.showDetails}
+          details={renderTaskDetails()}
+        >
+          <Timeline
+            atDate={getCurrentTime()}
+            timeline={timeline.filteredBy(this.taskNameFilter)}
+            renderPastTask={renderPastTask}
+            renderFutureTask={renderFutureTask}
+          />
+        </DetailedContent>
+      </ResponsiveBox>
+    </div>;
 
     return (
       <Layout>
-        <DetailedContextBar
-          showDetails={this.state.showDetails}
-          details={
-            <TitledDetails
-              title={this.state.selectedTask.name}
-              onBack={() => this.setShowDetails(false)}
-            />
-          }
-        >
-          <ContentFilter onFilter={(query) => this.filterTasks(query)} />
-        </DetailedContextBar>
-        <ResponsiveBox>
-          <DetailedContent
-            showDetails={this.state.showDetails}
-            details={renderTaskDetails()}
-          >
-            <Timeline
-              atDate={getCurrentTime()}
-              timeline={timeline.filteredBy(this.taskNameFilter)}
-              renderPastTask={renderPastTask}
-              renderFutureTask={renderFutureTask}
-            />
-          </DetailedContent>
-        </ResponsiveBox>
+
+        {
+          timeline.isAvailable()
+            ? renderContent()
+            : renderEmptyPlaceholder()
+        }
+
+
       </Layout>
     );
   }
@@ -138,6 +181,7 @@ class TasksPage extends Component {
 export default connect((state) => ({
   tasks: selectTasks(state),
   timeline: selectTimeline(state),
+  browser: state.browser,
 }), (dispatch) => ({
   actionBarActions: bindActionCreators(actionBarActions, dispatch),
   tasksActions: bindActionCreators(allTasksActions, dispatch),

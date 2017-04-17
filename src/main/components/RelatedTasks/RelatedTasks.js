@@ -3,7 +3,7 @@ import { List, ListItem } from 'material-ui/List';
 import FontIcon from 'material-ui/FontIcon';
 import SectionHeader from '../SectionHeader';
 import ExpandableIconElement from '../ExpandableIconElement';
-import TaskSelector from '../TaskSelector';
+import TaskFinder from '../TaskFinder';
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import Task from '../../core/models/task.model';
@@ -60,7 +60,7 @@ class RelatedTasks extends Component {
 
   componentWillUpdate(nextProps, nextState) {
     if (nextState.addingTask && nextState.isEditable) {
-      this.taskSelector.focus();
+      this.taskFinder.focus();
     }
   }
 
@@ -72,7 +72,9 @@ class RelatedTasks extends Component {
 
   handleTaskAdded = (addedTask) => {
     this.props.onTaskAdded(addedTask);
-    this.taskSelector.reset();
+    this.taskFinder.reset();
+    // necessary to allow modal windows adjust height
+    setTimeout(() => window.dispatchEvent(new Event('resize')));
   };
 
   render() {
@@ -113,8 +115,8 @@ class RelatedTasks extends Component {
             className="material-icons"
           >{this.state.addingTask ? 'cancel' : 'add'}</FontIcon>}
         >
-          <TaskSelector
-            ref={(taskSelector) => { this.taskSelector = taskSelector; }}
+          <TaskFinder
+            ref={(taskFinder) => { this.taskFinder = taskFinder; }}
             tasksToChooseFrom={unrelatedTasks}
             onTaskSelection={(task) => this.handleTaskAdded(task)}
           />

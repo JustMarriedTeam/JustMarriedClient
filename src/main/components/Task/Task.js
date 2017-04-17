@@ -86,6 +86,8 @@ class Task extends PureComponent {
   render() {
     const { task } = this.props;
 
+    const iconPath = `images/tasks/${task.icon}`;
+
     return (
       <Card onTouchTap={this.openDetails}>
         <CardMedia
@@ -94,7 +96,7 @@ class Task extends PureComponent {
             subtitle={task.description}
           />}
         >
-          <img role="presentation" src="http://meetingking.com/wp-content/images/meetingking_tasks.png" />
+          <img role="presentation" src={iconPath} />
         </CardMedia>
       </Card>
     );

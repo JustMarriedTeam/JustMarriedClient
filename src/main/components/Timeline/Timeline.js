@@ -21,17 +21,33 @@ export default class Timeline extends PureComponent {
     const pastTasks = timeline.getTasksBefore(atDate);
     const futureTasks = timeline.getTasksAfter(atDate);
 
+    const sortedByDependencies = (elements) => elements.sortBy(
+      (element) => [element.id, element.dependingOn],
+      ([firstId, firstDependingOn], [secondId, secondDependingOn]) => {
+        if (secondDependingOn.includes(firstId)) return -1;
+        else if (firstDependingOn.includes(secondId)) return 1;
+
+        const dependencyBurdenDiff = firstDependingOn.count() - secondDependingOn.count();
+        if (dependencyBurdenDiff < 0) {
+          return -1;
+        } else if (dependencyBurdenDiff > 0) {
+          return 1;
+        } else {
+          return firstId > secondId;
+        }
+      });
+
     const renderPastTimeBoxes = ([time, elements]) => <TimeBox
       key={time ? time.unix() : -1}
       time={time}
-      elements={elements}
+      elements={sortedByDependencies(elements.toSeq())}
       materialize={renderPastTask}
     />;
 
     const renderFutureTimeBoxes = ([time, elements]) => <TimeBox
       key={time ? time.unix() : -1}
       time={time}
-      elements={elements}
+      elements={sortedByDependencies(elements.toSeq())}
       materialize={renderFutureTask}
     />;
 

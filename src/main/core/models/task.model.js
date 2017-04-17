@@ -13,6 +13,7 @@ const TaskRecord = new Immutable.Record({
   name: '',
   description: '',
   status: '',
+  icon: 'http://placeholder.it/512',
   requiredFor: [],
   dependingOn: [],
   deadlineDate: null,
@@ -21,10 +22,10 @@ const TaskRecord = new Immutable.Record({
 
 class Task extends TaskRecord {
 
-  constructor({ id, name, description, status, requiredFor,
+  constructor({ id, name, description, icon, status, requiredFor,
     dependingOn, deadlineDate, completionDate }) {
     super({
-      id, name, description, status,
+      id, name, description, icon, status,
       requiredFor: new Immutable.Set(requiredFor),
       dependingOn: new Immutable.Set(dependingOn),
       deadlineDate: deadlineDate ? moment(deadlineDate) : null,
@@ -60,15 +61,23 @@ class Task extends TaskRecord {
       requiredForList.remove(notDependentTask.id));
   }
 
-
+  /**
+   * @Deprecated As tasks are not only stored in entities but also templates
+   */
   getRequiredTasks() {
     return this.__getTasksFrom__('dependingOn').toSeq();
   }
 
+  /**
+   * @Deprecated As tasks are not only stored in entities but also templates
+   */
   getDependentTasks() {
     return this.__getTasksFrom__('requiredFor').toSeq();
   }
 
+  /**
+   * @Deprecated As tasks are not only stored in entities but also templates
+   */
   __getTasksFrom__(where) {
     const tasks = store.getState().entities.tasks;
     return this.get(where).map((taskId) => tasks.get(taskId));

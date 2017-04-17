@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { browserHistory } from 'react-router';
 
 class Link extends React.Component {
 
@@ -31,7 +32,7 @@ class Link extends React.Component {
 
   render() {
     const { to, ...props } = this.props; // eslint-disable-line no-use-before-define
-    return <a href={history.createHref(to)} {...props} onClick={this.handleClick} />;
+    return <a href={browserHistory.createHref(to)} {...props} onClick={this.handleClick} />;
   }
 
 }
