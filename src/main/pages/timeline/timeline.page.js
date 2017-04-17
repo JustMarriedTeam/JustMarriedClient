@@ -129,8 +129,10 @@ class TasksPage extends Component {
         />
       </ScrollToElement>;
 
-    const renderEmptyPlaceholder = () => <EmptyContentPlaceholder>You must schedule
-      at least one task to see time relations</EmptyContentPlaceholder>;
+    const renderEmptyPlaceholder = () =>
+      <EmptyContentPlaceholder>
+        You must schedule at least one task to see time relations
+      </EmptyContentPlaceholder>;
 
     const renderContent = () => <div>
       <DetailedContextBar

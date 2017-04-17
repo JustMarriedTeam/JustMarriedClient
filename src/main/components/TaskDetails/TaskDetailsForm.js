@@ -41,7 +41,7 @@ class TaskDetailsForm extends PureComponent {
           name="completionDate"
           label="Completion date"
           fullWidth
-          format={(date) => isMoment(date) ? date.toDate() : date}
+          format={(date) => isMoment(date) ? date.toDate() : date} // eslint-disable-line
           floatingLabelText="Completion date"
           disabled={disabled}
           component={DatePicker}
@@ -107,7 +107,7 @@ class TaskDetailsForm extends PureComponent {
               name="deadlineDate"
               label="Deadline date"
               fullWidth
-              format={(date) => isMoment(date) ? date.toDate() : date}
+              format={(date) => isMoment(date) ? date.toDate() : date}  // eslint-disable-line
               floatingLabelText="Deadline date"
               disabled={disabled}
               component={DatePicker}

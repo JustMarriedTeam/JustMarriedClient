@@ -1,4 +1,4 @@
-import React, {PropTypes, PureComponent} from 'react';
+import React, { PropTypes, PureComponent } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Timeline.pcss';
 import TimeBox from './TimeBox';
@@ -17,7 +17,7 @@ export default class Timeline extends PureComponent {
   };
 
   render() {
-    const {atDate, timeline, renderPastTask, renderFutureTask} = this.props;
+    const { atDate, timeline, renderPastTask, renderFutureTask } = this.props;
     const pastTasks = timeline.getTasksBefore(atDate);
     const futureTasks = timeline.getTasksAfter(atDate);
 

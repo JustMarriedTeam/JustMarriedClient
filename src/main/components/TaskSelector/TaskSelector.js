@@ -2,10 +2,6 @@ import React, { PropTypes, PureComponent } from 'react';
 import { List, ListItem } from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 import Immutable from 'immutable';
-import classnames from 'classnames/bind';
-import styles from './TaskSelector.pcss';
-
-const cx = classnames.bind(styles);
 
 export default class TaskSelector extends PureComponent {
 
@@ -38,7 +34,7 @@ export default class TaskSelector extends PureComponent {
     };
 
     return (
-      <List className={cx('task-selector')}>
+      <List>
 
         {
           allItems.filter((item) => item.requiredFor.isEmpty())

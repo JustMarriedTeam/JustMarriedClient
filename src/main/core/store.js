@@ -4,7 +4,10 @@ import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
-import {createResponsiveStateReducer, responsiveStoreEnhancer} from 'redux-responsive';
+import {
+  createResponsiveStateReducer,
+  responsiveStoreEnhancer,
+} from 'redux-responsive';
 
 
 // application only

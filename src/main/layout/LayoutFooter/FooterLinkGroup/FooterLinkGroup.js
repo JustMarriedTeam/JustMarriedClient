@@ -1,6 +1,6 @@
-import React, {PureComponent, PropTypes} from 'react';
-import {Link} from 'react-router';
-import List, {ListItem} from 'material-ui/List';
+import React, { PureComponent, PropTypes } from 'react';
+import { Link } from 'react-router';
+import List, { ListItem } from 'material-ui/List';
 import classnames from 'classnames/bind';
 import styles from './FooterLinkGroup.pcss';
 

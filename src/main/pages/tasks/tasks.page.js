@@ -99,8 +99,9 @@ class TasksPage extends Component {
 
   render() {
     const renderEmptyPlaceholder = () =>
-      <EmptyContentPlaceholder><a>Add from template</a> or <a>create one by
-        one</a></EmptyContentPlaceholder>;
+      <EmptyContentPlaceholder>
+        <a>Add from template</a> or <a>create one by one</a>
+      </EmptyContentPlaceholder>;
 
     const renderTabs = () =>
       <Tabs>
