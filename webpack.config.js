@@ -14,6 +14,7 @@ const envDescriptorPath = path.join(__dirname, `config/environment/${envProfile}
 const envDescriptor = yaml.load(fs.readFileSync(envDescriptorPath, 'UTF-8'));
 const envBuildDescriptor = envDescriptor.build;
 const envPropertiesDescriptor = envDescriptor.environment;
+const depsPropertiesDescriptor = envDescriptor.dependencies;
 
 debug(`Using '${envProfile}' env build features:\n${JSON.stringify(envBuildDescriptor)}`);
 debug(`Using '${envProfile}' env properties:\n${JSON.stringify(envPropertiesDescriptor)}`);
@@ -52,7 +53,8 @@ const config = {
 
   plugins: [
     new webpack.DefinePlugin(merge({
-      'process.env.NODE_ENV': `'${process.env.NODE_ENV}'`,
+      'process.env.NODE_ENV': depsPropertiesDescriptor.production
+        ? 'production' : `'${envProfile}'`,
       __DEV__: envBuildDescriptor.debug,
     }, mapValues(envPropertiesDescriptor, (value) => (`'${value}'`)))),
     new AssetsPlugin({

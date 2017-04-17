@@ -21,5 +21,8 @@ build:
     cached: false
     cachedAssets: false
 
+dependencies:
+  production: true
+
 environment:
   process.env.serverApiUrl: 'https://just-married-sta-server.herokuapp.com/api'

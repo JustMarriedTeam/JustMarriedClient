@@ -21,5 +21,8 @@ build:
     cached: false
     cachedAssets: false
 
+dependencies:
+  production: false
+
 environment:
   process.env.serverApiUrl: 'http://localhost:2701/api'
