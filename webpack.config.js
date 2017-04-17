@@ -54,7 +54,7 @@ const config = {
   plugins: [
     new webpack.DefinePlugin(merge({
       'process.env.NODE_ENV': depsPropertiesDescriptor.production
-        ? 'production' : `'${envProfile}'`,
+        ? JSON.stringify('production') : JSON.stringify(envProfile),
       __DEV__: envBuildDescriptor.debug,
     }, mapValues(envPropertiesDescriptor, (value) => (`'${value}'`)))),
     new AssetsPlugin({
