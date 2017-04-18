@@ -1,12 +1,11 @@
 import Immutable from 'immutable';
-import isUndefined from 'lodash/isUndefined';
 
 const byDatesInOrder = (firstDate, secondDate) => firstDate.isAfter(secondDate);
 
 const tryToFindEarliestDeadlineAmong = (tasks) =>
   tasks
     .map(task => task.deadlineDate)
-    .filterNot(isUndefined)
+    .filter((date) => !!date)
     .sort(byDatesInOrder)
     .first();
 
@@ -16,7 +15,7 @@ const findEarliestDeadlineOf = (tasks) => {
     return firstDeadline;
   } else {
     return tasks.map((task) => findEarliestDeadlineOf(task.getDependentTasks()))
-      .filterNot(isUndefined)
+      .filter((date) => !!date)
       .sort(byDatesInOrder)
       .first();
   }
