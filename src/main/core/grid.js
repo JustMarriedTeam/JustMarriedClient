@@ -4,11 +4,11 @@ export const gridTypes = ['lg', 'md', 'sm', 'xs'];
 export const gridMeta = {
   lg: {
     minWidth: 1200 - 1,
-    cols: 4,
+    cols: 5,
   },
   md: {
     minWidth: 996 - 1,
-    cols: 3,
+    cols: 4,
   },
   sm: {
     minWidth: 768 - 1,
