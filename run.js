@@ -5,7 +5,6 @@ const del = require('del');
 const ejs = require('ejs');
 const webpack = require('webpack');
 
-// TODO: Update configuration settings
 const config = {
   title: 'JustWedding',
   url: 'http://www.justwedding.pl',
