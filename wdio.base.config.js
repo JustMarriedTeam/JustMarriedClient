@@ -1,17 +1,13 @@
 /* eslint-disable */
 
 exports.config = {
-  capabilities: [
-    { browserName: 'phantomjs' },
-  ],
-  services: ['phantomjs'],
   specs: [
     './src/test/e2e/**/*.js',
   ],
   exclude: [],
   maxInstances: 2,
   sync: true,
-  logLevel: 'error',
+  logLevel: 'debug',
   coloredLogs: true,
   waitforTimeout: 20000,
   connectionRetryTimeout: 90000,
@@ -20,6 +16,16 @@ exports.config = {
   reporters: ['spec'],
   mochaOpts: {
     ui: 'bdd',
+    compilers: ['js:babel-register'],
     timeout: 30000
+  },
+
+  onPrepare: function() {
+    console.log('let\'s go');
+  },
+
+  onComplete: function() {
+    console.log('that\'s it');
   }
+
 };

@@ -1,10 +1,21 @@
+/* eslint-disable */
+
 const base = require('./wdio.base.config')
 
 exports.config = Object.assign(base.config, {
   capabilities: [
-    { browserName: 'phantomjs' }
-    // If you want to use other browsers,
-    // you may need local Selenium standalone server.
+    // {
+    //   browserName: 'phantomjs'
+    // },
+    {
+      browserName: 'chrome'
+    }
   ],
-  services: ['phantomjs']
-})
+  services: ['phantomjs', 'selenium-standalone', 'static-server'],
+  baseUrl: 'http://localhost:4567',
+  staticServerLog: true,
+  staticServerPort: 4567,
+  staticServerFolders: [
+    { mount: '/', path: './public' }
+  ],
+});

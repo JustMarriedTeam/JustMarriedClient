@@ -6,7 +6,7 @@ const ejs = require('ejs');
 const webpack = require('webpack');
 
 const config = {
-  title: 'JustWedding',
+  title: 'JustMarried',
   url: 'http://www.justwedding.pl',
   project: 'justwedding-76fa3',
   trackingID: 'UA-XXXXX-Y',
