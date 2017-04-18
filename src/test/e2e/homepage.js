@@ -8,5 +8,9 @@ describe('Homepage', () => {
     expect(title).to.be.equal('JustMarried');
   });
 
+  it('Displays home page', () => {
+    browser.url('/').checkDocument();
+  });
+
 });
 
