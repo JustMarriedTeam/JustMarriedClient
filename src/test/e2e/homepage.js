@@ -1,7 +1,12 @@
 /* eslint-disable */
 import { expect } from 'chai';
+import HomePage from './pages/home.page';
 
 describe('Homepage', () => {
+
+  const homePage = new HomePage();
+
+  beforeEach(() => homePage.open());
 
   it('Page title is JustMarried', () => {
     const title = browser.url('/').getTitle();
@@ -9,7 +14,12 @@ describe('Homepage', () => {
   });
 
   it('Displays home page', () => {
-    browser.url('/').checkDocument();
+    browser.checkDocument();
+  });
+
+  it('Displays login form', () => {
+    homePage.signInButton.click();
+    browser.checkDocument();
   });
 
 });
