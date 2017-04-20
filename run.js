@@ -1,4 +1,5 @@
-/* eslint-disable no-console, global-require */
+/* eslint-disable */
+"use strict";
 
 const fs = require('fs');
 const del = require('del');
