@@ -1,3 +1,4 @@
+/* global browser */
 import Page from './base.page';
 
 export default class HomePage extends Page {
