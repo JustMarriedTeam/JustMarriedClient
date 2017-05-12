@@ -10,6 +10,6 @@ echo "Building artifact <${ARTIFACT_NAME}>"
 cd app
 npm install || exit_with_error "Could not install dependencies!"
 npm run build || exit_with_error "Could not build project!"
-tar -cvf ${OUTPUT_DIR}/${ARTIFACT_NAME}.tar -C public/* . || exit_with_error "Could not save artifact!"
+tar -cvf ${OUTPUT_DIR}/${ARTIFACT_NAME}.tar -C public . || exit_with_error "Could not save artifact!"
 
 echo "Successfully built and stored artifact <${ARTIFACT_NAME}>"
