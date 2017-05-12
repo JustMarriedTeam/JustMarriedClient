@@ -40,3 +40,5 @@ jspm_packages
 
 public/dist
 public/index.html
+
+artifacts
