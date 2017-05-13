@@ -2,8 +2,8 @@ build:
   debug: false
   compress: true
   secure: true
-  devtool: false,
-  cssSourceMaps: false
+  devtool: 'source-map'
+  cssSourceMaps: true
   cssLocalName: '[hash:base64:4]'
   verbose: false
   useHMR: false
@@ -23,6 +23,3 @@ build:
 
 dependencies:
   production: true
-
-environment:
-  process.env.serverApiUrl: 'http://localhost:2701/api'

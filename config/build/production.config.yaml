@@ -2,14 +2,14 @@ build:
   debug: false
   compress: true
   secure: true
-  devtool: false
+  devtool: false,
   cssSourceMaps: false
-  cssLocalName: '[name]_[local]_[hash:base64:3]'
+  cssLocalName: '[hash:base64:4]'
   verbose: false
   useHMR: false
   output:
-    filename: '[name].js?[hash]'
-    chunkFilename: '[id].js?[chunkhash]'
+    filename: '[name].[hash].js'
+    chunkFilename: '[id].[chunkhash].js'
   stats:
     colors: true
     reasons: true
@@ -22,7 +22,4 @@ build:
     cachedAssets: false
 
 dependencies:
-  production: false
-
-environment:
-  process.env.serverApiUrl: 'http://localhost:2701/api'
+  production: true

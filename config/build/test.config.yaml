@@ -2,14 +2,14 @@ build:
   debug: false
   compress: true
   secure: true
-  devtool: 'source-map'
-  cssSourceMaps: true
-  cssLocalName: '[hash:base64:4]'
+  devtool: false
+  cssSourceMaps: false
+  cssLocalName: '[name]_[local]_[hash:base64:3]'
   verbose: false
   useHMR: false
   output:
-    filename: '[name].[hash].js'
-    chunkFilename: '[id].[chunkhash].js'
+    filename: '[name].js?[hash]'
+    chunkFilename: '[id].js?[chunkhash]'
   stats:
     colors: true
     reasons: true
@@ -22,7 +22,4 @@ build:
     cachedAssets: false
 
 dependencies:
-  production: true
-
-environment:
-  process.env.serverApiUrl: 'https://just-married-sta-server.herokuapp.com/api'
+  production: false

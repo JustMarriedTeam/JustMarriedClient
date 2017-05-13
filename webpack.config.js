@@ -1,4 +1,4 @@
-/* eslint-disable global-require */
+/* global require, __dirname, process */
 
 const path = require('path');
 const fs = require('fs');
@@ -9,19 +9,22 @@ const merge = require('lodash/merge');
 const mapValues = require('lodash/mapValues');
 const debug = require('debug')('debug:webpack.config');
 
-const envProfile = process.env.NODE_ENV || 'development';
-const envDescriptorPath = path.join(__dirname, `config/environment/${envProfile}.config.yaml`);
-const envDescriptor = yaml.load(fs.readFileSync(envDescriptorPath, 'UTF-8'));
-const envBuildDescriptor = envDescriptor.build;
-const envPropertiesDescriptor = envDescriptor.environment;
-const depsPropertiesDescriptor = envDescriptor.dependencies;
+require('dotenv').config();
 
-debug(`Using '${envProfile}' env build features:\n${JSON.stringify(envBuildDescriptor)}`);
-debug(`Using '${envProfile}' env properties:\n${JSON.stringify(envPropertiesDescriptor)}`);
+const buildType = process.env.ENVIRONMENT;
+
+if(!buildType) {
+  throw "Build type (NODE_ENV) not specified";
+}
+
+const buildDescriptorPath = path.join(__dirname, `config/build/${buildType}.config.yaml`);
+const buildDescriptor = yaml.load(fs.readFileSync(buildDescriptorPath, 'UTF-8'));
+
+debug(`Using '${buildType}' env build features:\n${JSON.stringify(buildDescriptor.build)}`);
 
 const babelConfig = merge({}, JSON.parse(fs.readFileSync('.babelrc', 'utf8')), {
   babelrc: false, // needs to be dynamic
-  cacheDirectory: envBuildDescriptor.useHMR,
+  cacheDirectory: buildDescriptor.build.useHMR,
 });
 
 const config = {
@@ -42,21 +45,21 @@ const config = {
   output: {
     path: path.resolve(__dirname, './public/dist'),
     publicPath: '/dist/',
-    filename: envBuildDescriptor.output.filename,
-    chunkFilename: envBuildDescriptor.output.chunkFilename,
+    filename: buildDescriptor.build.output.filename,
+    chunkFilename: buildDescriptor.build.output.chunkFilename,
     sourcePrefix: '  ',
   },
 
-  debug: envBuildDescriptor.debug,
-  devtool: envBuildDescriptor.devtool,
-  stats: envBuildDescriptor.stats,
+  debug: buildDescriptor.build.debug,
+  devtool: buildDescriptor.build.devtool,
+  stats: buildDescriptor.build.stats,
 
   plugins: [
     new webpack.DefinePlugin(merge({
-      'process.env.NODE_ENV': depsPropertiesDescriptor.production
-        ? JSON.stringify('production') : JSON.stringify(envProfile),
-      __DEV__: envBuildDescriptor.debug,
-    }, mapValues(envPropertiesDescriptor, (value) => (`'${value}'`)))),
+      'process.env.NODE_ENV': buildDescriptor.dependencies.production
+        ? JSON.stringify('production') : JSON.stringify(buildType),
+      __DEV__: buildDescriptor.build.debug,
+    }, process.env)),
     new AssetsPlugin({
       path: path.resolve(__dirname, './public/dist'),
       filename: 'assets.json',
@@ -66,17 +69,17 @@ const config = {
 
 };
 
-if (envBuildDescriptor.compress) {
+if (buildDescriptor.build.compress) {
   config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
   config.plugins.push(new webpack.optimize.DedupePlugin());
   config.plugins.push(new webpack.optimize.AggressiveMergingPlugin());
 }
-if (envBuildDescriptor.secure) {
+if (buildDescriptor.build.secure) {
   config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-    compress: { warnings: envBuildDescriptor.verbose },
+    compress: { warnings: buildDescriptor.build.verbose },
   }));
 }
-if (envBuildDescriptor.useHMR) {
+if (buildDescriptor.build.useHMR) {
   babelConfig.plugins.unshift('react-hot-loader/babel');
   config.entry.unshift('react-hot-loader/patch', 'webpack-hot-middleware/client');
   config.plugins.push(new webpack.HotModuleReplacementPlugin());
@@ -86,9 +89,9 @@ if (envBuildDescriptor.useHMR) {
 module.exports = merge(config,
   require('./webpack.loaders.config')({
     babelConfig,
-    cssLocalName: envBuildDescriptor.cssLocalName,
-    minify: envBuildDescriptor.compress,
-    cssSourceMaps: envBuildDescriptor.cssSourceMaps,
+    cssLocalName: buildDescriptor.build.cssLocalName,
+    minify: buildDescriptor.build.compress,
+    cssSourceMaps: buildDescriptor.build.cssSourceMaps,
   }),
   require('./webpack.postcss.config')
 );
