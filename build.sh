@@ -5,9 +5,46 @@ function exit_with_error {
 	exit 1
 }
 
-VERSION=latest
+function print_header {
+  printf "\n\n
+    ===========================================================
+    $1
+    ===========================================================
+    \n\n";
+}
+
+ENVIRONMENT=${ENVIRONMENT:-production}
+VERSION=${VERSION:-latest}
+
+BUILD_NAME=${ENVIRONMENT}-${VERSION}
+BUILDER_IMAGE_NAME=jwclient-builder:${BUILD_NAME}
+APP_IMAGE_NAME=jwclient:${BUILD_NAME}
 
 mkdir -p artifacts
-docker build -f containers/build/Dockerfile -t jwclient-builder . || exit_with_error "Could not build build container"
-docker run -v $(pwd)/artifacts:/artifacts ${@} jwclient-builder || exit_with_error "Could not run build container"
-docker build -f containers/deploy/Dockerfile -t jwclient:${VERSION} . || exit_with_error "Could not dockerize application"
+
+print_header "Building container for building ${BUILD_NAME}"
+
+docker build \
+  -f containers/build/Dockerfile \
+  -t ${BUILDER_IMAGE_NAME} . \
+  --build-arg ENVIRONMENT=${ENVIRONMENT} \
+  --build-arg VERSION=${VERSION} \
+  || exit_with_error "Could not build container for building ${BUILD_NAME}"
+
+
+
+print_header "Running build container ${BUILDER_IMAGE_NAME}"
+
+docker run \
+  -v $(pwd)/artifacts:/artifacts \
+  ${BUILDER_IMAGE_NAME} \
+  || exit_with_error "Could not run build container ${BUILDER_IMAGE_NAME}"
+
+
+
+print_header "Dockerizing application built by ${BUILDER_IMAGE_NAME} into application image ${APP_IMAGE_NAME}"
+
+docker build \
+  -f containers/deploy/Dockerfile \
+  -t ${APP_IMAGE_NAME} . \
+  || exit_with_error "Could not dockerize application built by ${BUILDER_IMAGE_NAME} into ${APP_IMAGE_NAME}"
