@@ -7,6 +7,8 @@
     "npm": ">=3.8"
   },
   "scripts": {
+    "serve": "node run start",
+
     "postinstall": "node run build",
     "eslint": "eslint \"src/main/**/*.{js,jsx}\"",
     "stylelint": "stylelint \"src/main/**/*.pcss\"",
@@ -16,7 +18,6 @@
     "clean": "node run clean",
     "build": "node run build",
     "build:debug": "node run build --debug -- --verbose",
-    "serve": "node run start",
     "start": "echo 'Will not start as this application is pure static one. Serve content from public/ directory.'"
   },
   "dependencies": {
