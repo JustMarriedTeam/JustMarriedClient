@@ -100,6 +100,10 @@ tasks.set('start', () => {
     const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
       publicPath: webpackConfig.output.publicPath,
       stats: webpackConfig.stats,
+      watchOptions: {
+        aggregateTimeout: 300,
+        poll: 1000
+      }
     });
     compiler.plugin('done', stats => {
       // Generate index.html page
@@ -115,6 +119,7 @@ tasks.set('start', () => {
         bs.init({
           port: process.env.PORT || 3000,
           ui: {port: Number(process.env.PORT || 3000) + 1},
+          open: false,
           server: {
             baseDir: 'public',
             middleware: [
