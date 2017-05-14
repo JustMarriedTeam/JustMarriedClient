@@ -8,7 +8,7 @@ import { removeTransientIdentifiers } from './utils/conversion.utils';
 import isObject from 'lodash/isObject';
 
 const axiosInstance = axios.create({
-  baseURL: process.env.serverApiUrl,
+  baseURL: process.env.SERVER_API_URL,
 });
 
 axiosInstance.interceptors.request.use((config) => {

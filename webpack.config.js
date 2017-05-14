@@ -60,7 +60,7 @@ const config = {
         ? JSON.stringify('production') : JSON.stringify(buildType),
       __DEV__: buildDescriptor.build.debug,
     }, {
-      SERVER_API_URL: JSON.stringify(process.env.SERVER_API_URL)
+      'process.env.SERVER_API_URL': JSON.stringify(process.env.SERVER_API_URL)
     })),
     new AssetsPlugin({
       path: path.resolve(__dirname, './public/dist'),
