@@ -102,7 +102,7 @@ tasks.set('start', () => {
       stats: webpackConfig.stats,
       watchOptions: {
         aggregateTimeout: 300,
-        poll: 1000
+        poll: 5000
       }
     });
     compiler.plugin('done', stats => {
