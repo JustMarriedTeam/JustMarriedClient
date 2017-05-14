@@ -7,9 +7,7 @@
     "npm": ">=3.8"
   },
   "scripts": {
-    "serve": "node run start",
-
-    "postinstall": "node run build",
+    "serve": "ENVIRONMENT=development node run start",
     "eslint": "eslint \"src/main/**/*.{js,jsx}\"",
     "stylelint": "stylelint \"src/main/**/*.pcss\"",
     "lint": "npm run eslint && npm run stylelint",

@@ -59,7 +59,9 @@ const config = {
       'process.env.NODE_ENV': buildDescriptor.dependencies.production
         ? JSON.stringify('production') : JSON.stringify(buildType),
       __DEV__: buildDescriptor.build.debug,
-    }, process.env)),
+    }, {
+      SERVER_API_URL: JSON.stringify(process.env.SERVER_API_URL)
+    })),
     new AssetsPlugin({
       path: path.resolve(__dirname, './public/dist'),
       filename: 'assets.json',
