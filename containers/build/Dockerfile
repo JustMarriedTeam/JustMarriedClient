@@ -15,3 +15,4 @@ COPY / /app
 VOLUME ${OUTPUT_DIR}
 
 ENTRYPOINT ["/build.entrypoint.sh"]
+ONBUILD /build.entrypoint.sh
