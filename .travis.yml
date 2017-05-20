@@ -1,26 +1,31 @@
 language: node_js
 node_js:
-  - '6.9'
+- '6.9'
 sudo: required
 services:
-  - docker
-
-before_install:
-  - docker build
-
-before_script: npm run lint && npm run build
-script: npm run test
-
-
+- docker
+git:
+  submodules: true
+before_script:
+- docker-compose up -d client
+script:
+- ./run.build.sh
+- ./run.tests.sh
+after_script:
+- docker-compose down
+after_success:
+- ./build.sh
+- docker login -u ${DOCKER_REGISTRY_USERNAME} -p ${DOCKER_REGISTRY_PASSWORD}
+- if [ "$TRAVIS_BRANCH" == "master" ];
+    then docker tag just-married/jmclient:production-latest justmarried/just-married-client:latest;
+    docker push justmarried/just-married-client:latest;
+  else echo "Doing nothing for now"; fi
+- docker logout
 branches:
   only:
   - master
   - develop
-
-deploy:
-  provider: heroku
-  api_key:
-    secure: eI+/VEx3U1hiLpxTGI0caoPvfThfZjhRyjN0jp+ww681R+5QFlDpqZY9mgnuZUQgQGwtPVcc3xqZf/H6j3YNEL3aqfZh5omaZWl3hzlxYbfs7ZW+o9fB4pA7kAHaYLsAxRVyojWNO8a1HRbXRUDFYWfSgKok8xN60MjKuwA+3gFM3rqArHCXbTWikRqc8m6sTxOmLXTx/Bt1zV4uivzqIAsJS+jDWEG6ylbkKqNPPyQ7N8W4W6YcezgZ/ELhop/n3IWXktB04+itEzFa+9kl0f9Ecbw5wCMyrPPGhI7LCWdZ4v4C5g86larsyrt61R9ncMZgKLe8cR2pgH+9oqLL1LFHIi1yzJASVoTcyxcWEc1dil0WXw/97lBBpGW7ukuU5Ha17+/ts7jWTApHI4RUr6+CJziaafLD/EuS0BCfLrgU/y80IWkIhFCU1d88lWl073QS0QSfayTJYA+/M6oWHxFopQrRZnsvdmLrF75STLCi4nGjlnJASHIakPwfC9qgUbOBvijZ8NupIEttJnkW5+y8hduYW5P4UgCjUe1A4vXgqSlfPPtb5ShJgCtKWBMHcGng0ys7rm8wNrxv52XqUYYYt80ee5dPnobDauw8rJTwz/xdv/faNg1NwOp4OiI6NouV8kwuMSlpvl3ExyWRZBunqknBx2bL3S085s4wLRg=
-  app:
-    master: just-married-client
-    develop: just-married-sta-client
+env:
+  global:
+  - secure: vArgzkHm5J+EEwllFVHpDZBwEruCuEHeNRuZezzSMKzzygclALtotqOsvApwer6olUJMWnEH/rEDq0vNhQFyjL+maKxJUCbCq/i7uiG9yPZuHILjBJiOfO5NgoOxuXxkRT/5xPFThEkWhXi7OaOLPwpZ/FxhRZ37WaZQtTYYduNRK4RTkKMtM2UJbRCOKT2eymb/ChW52JqQfBMZrdOT96lyKybXRiXUJEP4Gdt+TDVq4pAjLBuZCryGlJ9h6189coiQstsOML/yMHmzc8A9HLoSROR/lNwYOBDogwn/rLdn1zwfRGLR0it1Xqll/6j425pWF8e4E3DAPZX60p3gqW3qDyqBIadxNELD3f0oB50elsGRL4g6dT2Xh3PA0Ni4KyuNnQ28TQMP8S8Fh7Rd+x9HWQovhhRmkBtYWBbXVG6Sl82FUVgEBlJJb79hLzxZaEgPZav9IkfEJdCzUtBv/I8FkW0qtR7YnPuAWUYxf6Ceoz7iE1rMFWvHZGek9OYg/kUoMry7ASee1f0tLSYca3F+WybH/p5cEwTmUBxO7tLzm80yFcduHqJSs1WIA+WXad68/HPWCth/nIrpubaKM85vvqUCH6pJ63JIcBhSslypwbq9w0IcSH+gBAwqBoTP948b952qYQelegRRTbL6PmyaC8apUMEUkolwwZ7VMQ0=
+  - secure: LV5I9FB8YJxE985ibUCO82Tv/vgyNaWBH9jrf97ydjN3MngrBxJn7FIa3XCQ1nYIddJwfCjD4IekHVA0pixs3FzBBtcbq+H13KUKt7Y+mjKyyZSSkp959eH1rO3CM3XfAolOx0wKwCXecRjSeDfOYTFRxjdLWRpy3YeyQdX7T5MHl79bdTCZKumO1NBwzytsyDjj0vMoz3n1JaF26JuBOqAkPJ0ztvR3UrOTtUk7c2PGFcxESa89Q+55PE0QvENZOA0FUFz8w4eBHkRSyh3bRgJTfPTP/Vm5dxVTKDXW4t5YgeJgf2GNJW7W8dU9/dmj80GaL836fwKF6FPBjP8X539t8gck3pKdJtiMms6uBgmVzNxQa7o/a3ZteBut7TDx8ZGmfWkDn10rLXDwq4RfrCq6pAztJF7Q3CiXyosLzfzgUnArsGGUky2lSz/YA/oHHxI10a7G0SFMj/Ajd4ZSl1+C/18IQE/eDzgvkYabHspDR0/ifRW4pZcN266Di+zr+XTFt6TxNQ3tvnHsMmwO8etysyu3Cy+8ObQibsjzI26sKZiXfU4OY204K+y78g+EJuYYLRRj3lTQ0iWr72U6wVYGZm+XFuHOBUrihlWJ0NmMsrUTejcmIWC29G8uc8q35hX4X4KSz6g6IBrS5MCcTWOub/n3KclAxFw6M6QmwIs=
