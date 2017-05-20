@@ -27,7 +27,7 @@ services:
         ipv4_address: 172.11.1.4
 
   server:
-    image: justmarried/jmserver:production-latest
+    image: justmarried/just-married-server
     labels:
       - jmserver
     depends_on:
