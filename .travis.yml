@@ -1,31 +1,32 @@
-language: node_js
-node_js:
-- '6.9'
+language: generic
 sudo: required
+install: true
 services:
 - docker
 git:
   submodules: true
-before_script:
-- docker-compose up -d client
-script:
-- ./run.build.sh
-- ./run.tests.sh
-after_script:
-- docker-compose down
-after_success:
-- ./build.sh
-- docker login -u ${DOCKER_REGISTRY_USERNAME} -p ${DOCKER_REGISTRY_PASSWORD}
-- if [ "$TRAVIS_BRANCH" == "master" ];
-    then docker tag just-married/jmclient:production-latest justmarried/just-married-client:latest;
-    docker push justmarried/just-married-client:latest;
-  else echo "Doing nothing for now"; fi
-- docker logout
+cache:
+  directories:
+  - node_modules
+jobs:
+  include:
+    - stage: test
+      script:
+        - ./run.tests.sh
+    - stage: publish
+      script:
+        - ./do.package.sh
+        - ./do.publish.sh
+      env:
+        - BRANCH=${TRAVIS_BRANCH}
+    - stage: deploy
+      script:
+        - ./do.deploy.sh
 branches:
   only:
   - master
   - develop
 env:
   global:
-  - secure: vArgzkHm5J+EEwllFVHpDZBwEruCuEHeNRuZezzSMKzzygclALtotqOsvApwer6olUJMWnEH/rEDq0vNhQFyjL+maKxJUCbCq/i7uiG9yPZuHILjBJiOfO5NgoOxuXxkRT/5xPFThEkWhXi7OaOLPwpZ/FxhRZ37WaZQtTYYduNRK4RTkKMtM2UJbRCOKT2eymb/ChW52JqQfBMZrdOT96lyKybXRiXUJEP4Gdt+TDVq4pAjLBuZCryGlJ9h6189coiQstsOML/yMHmzc8A9HLoSROR/lNwYOBDogwn/rLdn1zwfRGLR0it1Xqll/6j425pWF8e4E3DAPZX60p3gqW3qDyqBIadxNELD3f0oB50elsGRL4g6dT2Xh3PA0Ni4KyuNnQ28TQMP8S8Fh7Rd+x9HWQovhhRmkBtYWBbXVG6Sl82FUVgEBlJJb79hLzxZaEgPZav9IkfEJdCzUtBv/I8FkW0qtR7YnPuAWUYxf6Ceoz7iE1rMFWvHZGek9OYg/kUoMry7ASee1f0tLSYca3F+WybH/p5cEwTmUBxO7tLzm80yFcduHqJSs1WIA+WXad68/HPWCth/nIrpubaKM85vvqUCH6pJ63JIcBhSslypwbq9w0IcSH+gBAwqBoTP948b952qYQelegRRTbL6PmyaC8apUMEUkolwwZ7VMQ0=
-  - secure: LV5I9FB8YJxE985ibUCO82Tv/vgyNaWBH9jrf97ydjN3MngrBxJn7FIa3XCQ1nYIddJwfCjD4IekHVA0pixs3FzBBtcbq+H13KUKt7Y+mjKyyZSSkp959eH1rO3CM3XfAolOx0wKwCXecRjSeDfOYTFRxjdLWRpy3YeyQdX7T5MHl79bdTCZKumO1NBwzytsyDjj0vMoz3n1JaF26JuBOqAkPJ0ztvR3UrOTtUk7c2PGFcxESa89Q+55PE0QvENZOA0FUFz8w4eBHkRSyh3bRgJTfPTP/Vm5dxVTKDXW4t5YgeJgf2GNJW7W8dU9/dmj80GaL836fwKF6FPBjP8X539t8gck3pKdJtiMms6uBgmVzNxQa7o/a3ZteBut7TDx8ZGmfWkDn10rLXDwq4RfrCq6pAztJF7Q3CiXyosLzfzgUnArsGGUky2lSz/YA/oHHxI10a7G0SFMj/Ajd4ZSl1+C/18IQE/eDzgvkYabHspDR0/ifRW4pZcN266Di+zr+XTFt6TxNQ3tvnHsMmwO8etysyu3Cy+8ObQibsjzI26sKZiXfU4OY204K+y78g+EJuYYLRRj3lTQ0iWr72U6wVYGZm+XFuHOBUrihlWJ0NmMsrUTejcmIWC29G8uc8q35hX4X4KSz6g6IBrS5MCcTWOub/n3KclAxFw6M6QmwIs=
+    - secure: vArgzkHm5J+EEwllFVHpDZBwEruCuEHeNRuZezzSMKzzygclALtotqOsvApwer6olUJMWnEH/rEDq0vNhQFyjL+maKxJUCbCq/i7uiG9yPZuHILjBJiOfO5NgoOxuXxkRT/5xPFThEkWhXi7OaOLPwpZ/FxhRZ37WaZQtTYYduNRK4RTkKMtM2UJbRCOKT2eymb/ChW52JqQfBMZrdOT96lyKybXRiXUJEP4Gdt+TDVq4pAjLBuZCryGlJ9h6189coiQstsOML/yMHmzc8A9HLoSROR/lNwYOBDogwn/rLdn1zwfRGLR0it1Xqll/6j425pWF8e4E3DAPZX60p3gqW3qDyqBIadxNELD3f0oB50elsGRL4g6dT2Xh3PA0Ni4KyuNnQ28TQMP8S8Fh7Rd+x9HWQovhhRmkBtYWBbXVG6Sl82FUVgEBlJJb79hLzxZaEgPZav9IkfEJdCzUtBv/I8FkW0qtR7YnPuAWUYxf6Ceoz7iE1rMFWvHZGek9OYg/kUoMry7ASee1f0tLSYca3F+WybH/p5cEwTmUBxO7tLzm80yFcduHqJSs1WIA+WXad68/HPWCth/nIrpubaKM85vvqUCH6pJ63JIcBhSslypwbq9w0IcSH+gBAwqBoTP948b952qYQelegRRTbL6PmyaC8apUMEUkolwwZ7VMQ0=
+    - secure: LV5I9FB8YJxE985ibUCO82Tv/vgyNaWBH9jrf97ydjN3MngrBxJn7FIa3XCQ1nYIddJwfCjD4IekHVA0pixs3FzBBtcbq+H13KUKt7Y+mjKyyZSSkp959eH1rO3CM3XfAolOx0wKwCXecRjSeDfOYTFRxjdLWRpy3YeyQdX7T5MHl79bdTCZKumO1NBwzytsyDjj0vMoz3n1JaF26JuBOqAkPJ0ztvR3UrOTtUk7c2PGFcxESa89Q+55PE0QvENZOA0FUFz8w4eBHkRSyh3bRgJTfPTP/Vm5dxVTKDXW4t5YgeJgf2GNJW7W8dU9/dmj80GaL836fwKF6FPBjP8X539t8gck3pKdJtiMms6uBgmVzNxQa7o/a3ZteBut7TDx8ZGmfWkDn10rLXDwq4RfrCq6pAztJF7Q3CiXyosLzfzgUnArsGGUky2lSz/YA/oHHxI10a7G0SFMj/Ajd4ZSl1+C/18IQE/eDzgvkYabHspDR0/ifRW4pZcN266Di+zr+XTFt6TxNQ3tvnHsMmwO8etysyu3Cy+8ObQibsjzI26sKZiXfU4OY204K+y78g+EJuYYLRRj3lTQ0iWr72U6wVYGZm+XFuHOBUrihlWJ0NmMsrUTejcmIWC29G8uc8q35hX4X4KSz6g6IBrS5MCcTWOub/n3KclAxFw6M6QmwIs=

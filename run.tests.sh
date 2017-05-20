@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker-compose exec client npm run test
+docker-compose run client run test
