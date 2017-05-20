@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker-compose exec server npm run build
+docker-compose exec client npm run build
