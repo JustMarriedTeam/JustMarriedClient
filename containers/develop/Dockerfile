@@ -7,7 +7,7 @@ ENV ENVIRONMENT=development
 COPY containers/develop/develop.entrypoint.sh /develop.entrypoint.sh
 VOLUME /app
 
-ENTRYPOINT ["/develop.entrypoint.sh"]
-ONBUILD RUN /develop.entrypoint.sh
+WORKDIR /app
 
+ENTRYPOINT ["/develop.entrypoint.sh"]
 CMD ["run", "serve", "--no-hmr"]

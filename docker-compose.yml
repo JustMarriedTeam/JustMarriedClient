@@ -13,8 +13,8 @@ services:
       backnet:
         ipv4_address: 172.11.1.2
     volumes:
-      - ./database/data:/data
-      - ./database/dump:/dump
+      - ./.tmp/database/data:/data
+      - ./.tmp/database/dump:/dump
     ports:
       - 27017:27017
 
