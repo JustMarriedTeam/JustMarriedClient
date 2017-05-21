@@ -19,6 +19,7 @@ jobs:
         - ./do.publish.sh
       env:
         - BRANCH=${TRAVIS_BRANCH}
+        - SERVER_API_URL=server.justmarried.5bbcd122.svc.dockerapp.io:2701
     - stage: deploy
       script:
         - ./do.deploy.sh
