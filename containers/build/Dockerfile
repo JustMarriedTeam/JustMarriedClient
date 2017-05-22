@@ -10,6 +10,8 @@ ENV OUTPUT_DIR=${OUTPUT_DIR:-/artifacts}
 
 ENV ARTIFACT_NAME="jmclient-${ENVIRONMENT}-${VERSION}"
 
+ENV SERVER_API_URL=${SERVER_API_URL:-http://localhost:2701/api}
+
 COPY containers/build/build.entrypoint.sh /build.entrypoint.sh
 COPY / /app
 VOLUME ${OUTPUT_DIR}
