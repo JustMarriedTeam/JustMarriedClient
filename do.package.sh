@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-COMPONENT_NAME=jmclient bash -c "./JustMarriedTools/build.template.sh"
+COMPONENT_NAME=just-married-client bash -c "./JustMarriedTools/build.template.sh"
