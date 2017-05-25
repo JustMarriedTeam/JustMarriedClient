@@ -1,4 +1,3 @@
-# This file is using a simple trick http://bitjudo.com/blog/2014/03/13/building-efficient-dockerfiles-node-dot-js/ to speed up build times
 # This dockerfile creates a container the application is built in
 FROM node:6.10.3
 
@@ -11,9 +10,17 @@ ENV ARTIFACT_NAME=${ARTIFACT_NAME:-jmclient}
 # Client environment variables need to be preset during build
 ENV SERVER_API_URL=${SERVER_API_URL:-http://localhost:2701/api}
 
-COPY containers/build/build.entrypoint.sh /build.entrypoint.sh
+COPY containers/build/build.cmd.sh /build.cmd.sh
+RUN chmod +x /build.cmd.sh
+
+# Make a separate layer out of package.json to ensure dependencies are reinstalled only if package.json changes
+ADD package.json /tmp/package.json
+RUN cd /tmp && npm install
+RUN mkdir /app && cp -a /tmp/node_modules /app/
+
+WORKDIR /app
 COPY / /app
+
 VOLUME ${OUTPUT_DIR}
 
-ENTRYPOINT ["/build.entrypoint.sh"]
-ONBUILD /build.entrypoint.sh
+CMD ["/build.cmd.sh"]
