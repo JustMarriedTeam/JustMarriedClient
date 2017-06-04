@@ -1,7 +1,8 @@
+/* global process */
 import { openInPopup } from '../../utils/popupManager';
 import server from '../server';
 
-const apiUrl = process.env.serverApiUrl;
+const apiUrl = process.env.SERVER_API_URL;
 
 export const signUpViaLocal = (credentials) =>
   Promise.resolve(server.post('/accounts', credentials));

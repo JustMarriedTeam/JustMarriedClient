@@ -1,16 +1,33 @@
-language: node_js
-node_js:
-- '6.9'
-before_script: npm run lint && npm run build
-script: npm run test
+language: generic
+sudo: required
+install: true
+services:
+- docker
+git:
+  submodules: true
+cache:
+  directories:
+  - node_modules
+jobs:
+  include:
+  - stage: test
+    script:
+    - ./run.tests.sh
+  - stage: publish
+    script:
+    - ./do.package.sh
+    - ./do.publish.sh
+    env:
+    - BRANCH=${TRAVIS_BRANCH}
+  - stage: deploy
+    script:
+    - ./do.deploy.sh
 branches:
   only:
   - master
   - develop
-deploy:
-  provider: heroku
-  api_key:
-    secure: eI+/VEx3U1hiLpxTGI0caoPvfThfZjhRyjN0jp+ww681R+5QFlDpqZY9mgnuZUQgQGwtPVcc3xqZf/H6j3YNEL3aqfZh5omaZWl3hzlxYbfs7ZW+o9fB4pA7kAHaYLsAxRVyojWNO8a1HRbXRUDFYWfSgKok8xN60MjKuwA+3gFM3rqArHCXbTWikRqc8m6sTxOmLXTx/Bt1zV4uivzqIAsJS+jDWEG6ylbkKqNPPyQ7N8W4W6YcezgZ/ELhop/n3IWXktB04+itEzFa+9kl0f9Ecbw5wCMyrPPGhI7LCWdZ4v4C5g86larsyrt61R9ncMZgKLe8cR2pgH+9oqLL1LFHIi1yzJASVoTcyxcWEc1dil0WXw/97lBBpGW7ukuU5Ha17+/ts7jWTApHI4RUr6+CJziaafLD/EuS0BCfLrgU/y80IWkIhFCU1d88lWl073QS0QSfayTJYA+/M6oWHxFopQrRZnsvdmLrF75STLCi4nGjlnJASHIakPwfC9qgUbOBvijZ8NupIEttJnkW5+y8hduYW5P4UgCjUe1A4vXgqSlfPPtb5ShJgCtKWBMHcGng0ys7rm8wNrxv52XqUYYYt80ee5dPnobDauw8rJTwz/xdv/faNg1NwOp4OiI6NouV8kwuMSlpvl3ExyWRZBunqknBx2bL3S085s4wLRg=
-  app:
-    master: just-married-client
-    develop: just-married-sta-client
+env:
+  global:
+  - secure: vArgzkHm5J+EEwllFVHpDZBwEruCuEHeNRuZezzSMKzzygclALtotqOsvApwer6olUJMWnEH/rEDq0vNhQFyjL+maKxJUCbCq/i7uiG9yPZuHILjBJiOfO5NgoOxuXxkRT/5xPFThEkWhXi7OaOLPwpZ/FxhRZ37WaZQtTYYduNRK4RTkKMtM2UJbRCOKT2eymb/ChW52JqQfBMZrdOT96lyKybXRiXUJEP4Gdt+TDVq4pAjLBuZCryGlJ9h6189coiQstsOML/yMHmzc8A9HLoSROR/lNwYOBDogwn/rLdn1zwfRGLR0it1Xqll/6j425pWF8e4E3DAPZX60p3gqW3qDyqBIadxNELD3f0oB50elsGRL4g6dT2Xh3PA0Ni4KyuNnQ28TQMP8S8Fh7Rd+x9HWQovhhRmkBtYWBbXVG6Sl82FUVgEBlJJb79hLzxZaEgPZav9IkfEJdCzUtBv/I8FkW0qtR7YnPuAWUYxf6Ceoz7iE1rMFWvHZGek9OYg/kUoMry7ASee1f0tLSYca3F+WybH/p5cEwTmUBxO7tLzm80yFcduHqJSs1WIA+WXad68/HPWCth/nIrpubaKM85vvqUCH6pJ63JIcBhSslypwbq9w0IcSH+gBAwqBoTP948b952qYQelegRRTbL6PmyaC8apUMEUkolwwZ7VMQ0=
+  - secure: LV5I9FB8YJxE985ibUCO82Tv/vgyNaWBH9jrf97ydjN3MngrBxJn7FIa3XCQ1nYIddJwfCjD4IekHVA0pixs3FzBBtcbq+H13KUKt7Y+mjKyyZSSkp959eH1rO3CM3XfAolOx0wKwCXecRjSeDfOYTFRxjdLWRpy3YeyQdX7T5MHl79bdTCZKumO1NBwzytsyDjj0vMoz3n1JaF26JuBOqAkPJ0ztvR3UrOTtUk7c2PGFcxESa89Q+55PE0QvENZOA0FUFz8w4eBHkRSyh3bRgJTfPTP/Vm5dxVTKDXW4t5YgeJgf2GNJW7W8dU9/dmj80GaL836fwKF6FPBjP8X539t8gck3pKdJtiMms6uBgmVzNxQa7o/a3ZteBut7TDx8ZGmfWkDn10rLXDwq4RfrCq6pAztJF7Q3CiXyosLzfzgUnArsGGUky2lSz/YA/oHHxI10a7G0SFMj/Ajd4ZSl1+C/18IQE/eDzgvkYabHspDR0/ifRW4pZcN266Di+zr+XTFt6TxNQ3tvnHsMmwO8etysyu3Cy+8ObQibsjzI26sKZiXfU4OY204K+y78g+EJuYYLRRj3lTQ0iWr72U6wVYGZm+XFuHOBUrihlWJ0NmMsrUTejcmIWC29G8uc8q35hX4X4KSz6g6IBrS5MCcTWOub/n3KclAxFw6M6QmwIs=
+  - secure: RZc7gYqLtn3GuOCXCfAQ1FqH1QMDgwjyk+2/2Ds+BB4iyJN2Zq3qFRjkDjQaCozwch7/XjcvaaR7Z1xW7p6xsg1W2JSK/T2WyL8RzQuioVSD+mhm+jqZCsONcq4m+JoDQo4qT63hxYaIygQM/uUJhSC1S11hfnTi/OzC24BrrMVxNfcm2B1m/T2znQYqauVpK6NshrMSQ+TiHGV/PdZ1vUhHtdIfC/m1bUInSApKTobM965T3ozqkPrVDPmWhjCXuIkhTaxB0QNIQ/5JhJRX7FC+iYgrPBQdN41fEyYE6XkpwXDiVeT8cqFqlr5x7LfZ/09mStBO5xZFdSjFet4dUlUCDHXN3dlHO/Pi/xwULtRYfxpOMWyB9gfDPg70e3vCu0vMNMiyDPhWnjWOnygeBqaXQhHNLI8RgbDFJoRuVNKECUgF3fn6+zVhJhCbaQVt6f2xlaj/aXsk8Gc2nO5DVPmJ9ULZC2BY1/d0sLVsXi2KpVdPVNd2/GlrCqevalUpz3HJroG3ad+FQXc7QQ3HVi50VbNjHROPHfkEoW5PIlLwFhbWLUvPyj4M3icYuJRzYixxcNzrudMUbpYV41ODkIo2s9M46xeZAWOrMGxLJct9iQSfm+8PlrD75yjTT0Vj7U2+DnuT1QUjFv4QtmE4UDI0TnZ7aynf2j2vZhQbwRw=

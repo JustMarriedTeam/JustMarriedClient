@@ -23,6 +23,3 @@ build:
 
 dependencies:
   production: true
-
-environment:
-  process.env.serverApiUrl: 'http://localhost:2701/api'
