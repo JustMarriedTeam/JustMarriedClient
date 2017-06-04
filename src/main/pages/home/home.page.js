@@ -18,6 +18,7 @@ import * as allAccountActions from "../../core/actions/account.actions";
 import Account from "../../core/models/account.model";
 import ConditionalRenderer from "../../utils/ConditionalRenderer";
 import {Background, Parallax} from "react-parallax";
+import ContentSection from '../../components/ContentSection';
 import HorizontalButtonPanel from '../../components/HorizontalButtonPanel';
 import FeatureBoxContainer from '../../components/FeatureBoxContainer';
 import FeatureBox from '../../components/FeatureBox';
@@ -118,45 +119,52 @@ class HomePage extends React.Component {
           </Carousel>
 
         </div>
-        <ScrollToElement name="start">
-          <div className={cx('home__banner')}>
-            <div className={cx('home__banner-content')}>
 
-              <div className={cx('home__slogan')}>
-                <h1>Pomożemy Ci zaplanować wymarzone wesele!</h1>
-                <p>Doskonale wiemy, jak wielkim wysiłkiem dla młodej pary jest organizacja wesela. <br />
-                  Dlatego przedstawiamy Wam <b>bezpłatne</b> narzędzie, które poprowadzi Was przez wszystkie etapy tego
-                  procesu. <br /> Odpręż się bo, od teraz "Kreator weselny" ma wszystko pod kontrolą!</p>
-
-                <ConditionalRenderer show={!this.props.account.isSignedIn()}>
-
-                  <HorizontalButtonPanel buttons={[
-                    <RaisedButton
-                      label="Rejestracja"
-                      onClick={this.handleStart}
-                      primary
-                    />,
-                    <RaisedButton
-                      onClick={this.toggleLoginForm}
-                      disabled={this.state.loginForm.shown}
-                      label="Logowanie"
-                      href={'#continue'}
-                      secondary
-                    />
-                  ]}/>
-
-                </ConditionalRenderer>
-
-              </div>
-
-              <Spacer />
-
-              <LoginPane isVisible={this.state.loginForm.shown}/>
-
-            </div>
-          </div>
-        </ScrollToElement>
         <LayoutContainer>
+
+
+          <ScrollToElement name="start">
+
+            <ContentSection>
+
+                  <div className={cx('home__welcome')}>
+                    <h1>Pomożemy Ci zaplanować wymarzone wesele!</h1>
+                    <p>Doskonale wiemy, jak wielkim wysiłkiem dla młodej pary jest organizacja wesela. <br />
+                      Dlatego przedstawiamy Wam <b>bezpłatne</b> narzędzie, które poprowadzi Was przez wszystkie etapy tego
+                      procesu. <br /> Odpręż się bo, od teraz "Kreator weselny" ma wszystko pod kontrolą!</p>
+
+                    <ConditionalRenderer show={!this.props.account.isSignedIn()}>
+
+                      <HorizontalButtonPanel buttons={[
+                        <RaisedButton
+                          label="Rejestracja"
+                          onClick={this.handleStart}
+                          primary
+                        />,
+                        <RaisedButton
+                          onClick={this.toggleLoginForm}
+                          disabled={this.state.loginForm.shown}
+                          label="Logowanie"
+                          href={'#continue'}
+                          secondary
+                        />
+                      ]}/>
+
+                    </ConditionalRenderer>
+
+                  <Spacer />
+
+                  <LoginPane isVisible={this.state.loginForm.shown}/>
+
+                </div>
+
+            </ContentSection>
+
+          </ScrollToElement>
+
+
+
+
           <Parallax strength={300}>
             <Background>
               <img src="http://martaw.esy.es/images/work.jpg"/>
