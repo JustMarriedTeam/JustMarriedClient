@@ -1,5 +1,6 @@
 import {
     red300,
+  lightGreen200,
     cyan500,
     cyan700,
     pinkA200,
@@ -23,8 +24,8 @@ export default getMuiTheme({
   fontFamily: 'Roboto, sans-serif',
   palette: {
     primary1Color: red300,
-    primary2Color: red300,
-    primary3Color: red300,
+    primary2Color: lightGreen200,
+    primary3Color: lightGreen200,
     accent1Color: pinkA200,
     accent2Color: grey100,
     accent3Color: grey500,

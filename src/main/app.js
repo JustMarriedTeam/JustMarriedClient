@@ -5,7 +5,7 @@ import {Provider} from "react-redux";
 import store from "./core/store";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Theme from "./theme/theme";
-import styles from "./styles/main.css";
+import styles from "./styles/main.pcss";
 
 const cx = classNames.bind(styles);
 

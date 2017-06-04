@@ -1,0 +1,34 @@
+:root {
+  --feature-box-size: 200px;
+  --feature-title-color: #e57878;
+}
+
+.feature-box {
+
+  &__title {
+    text-align: center;
+    line-height: 2em;
+    font-size: 1.5em;
+    color: var(--feature-title-color);
+  }
+
+  &__image {
+    max-height: calc(var(--feature-box-size) - 75px);
+    max-width: calc(var(--feature-box-size) - 75px);
+    vertical-align: middle;
+  }
+
+  &__image-helper {
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+  }
+
+  &__paper {
+    height: var(--feature-box-size);
+    width: var(--feature-box-size);
+    white-space: nowrap;
+    text-align: center;
+  }
+
+}

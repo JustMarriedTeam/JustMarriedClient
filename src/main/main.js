@@ -1,7 +1,6 @@
 import "whatwg-fetch";
 import React from "react";
 import ReactDOM from "react-dom";
-import classNames from "classnames/bind";
 import {browserHistory, IndexRoute, Route, Router} from "react-router";
 import {syncHistoryWithStore} from "react-router-redux";
 import store from "./core/store";
@@ -13,10 +12,7 @@ import DashboardPage from "./pages/dashboard/dashboard";
 import TimelinePage from "./pages/timeline/timeline.page";
 import Tasks from "./pages/tasks/tasks.page";
 import {secured} from "./components/SecuredComponent";
-import styles from "./styles/main.css";
 import App from "./app";
-
-const cx = classNames.bind(styles);
 
 injectTapEventPlugin();
 

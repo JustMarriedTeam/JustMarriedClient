@@ -19,23 +19,13 @@ import Account from "../../core/models/account.model";
 import ConditionalRenderer from "../../utils/ConditionalRenderer";
 import {Background, Parallax} from "react-parallax";
 import HorizontalButtonPanel from '../../components/HorizontalButtonPanel';
+import FeatureBoxContainer from '../../components/FeatureBoxContainer';
+import FeatureBox from '../../components/FeatureBox';
+
 const cx = classnames.bind(styles);
 const ScrollToElement = Scroll.Element;
 const scroller = Scroll.scroller;
 
-let h4Style = {
-
-  color: '#e57878',
-  fontWeight: 300,
-  textAlign: 'center',
-};
-let h5Style = {
-
-  color: '#e57878',
-  fontSize: '15px',
-  fontWeight: 300,
-  marginBottom: '20px',
-};
 let buttonStyle = {
 
   backgroundColor: '#e57878',
@@ -133,11 +123,10 @@ class HomePage extends React.Component {
             <div className={cx('home__banner-content')}>
 
               <div className={cx('home__slogan')}>
-                <h2 style={h4Style}>Pomożemy Ci zaplanować wymarzone wesele!</h2>
-                <h5 style={h5Style}>Doskonale wiemy, jak wielkim wysiłkiem dla młodej pary jest organizacja wesela.
-                  Dlatego przedstawiamy Wam **bezpłatne** narzędzie, które poprowadzi Was przez wszystkie etapy tego
-                  procesu, czuwając nad tym, aby wszystko przebiegało zgodnie z planem. Od teraz możecie nazywać go
-                  Waszym własnym *Kreatorem Weselnym*.</h5>
+                <h1>Pomożemy Ci zaplanować wymarzone wesele!</h1>
+                <p>Doskonale wiemy, jak wielkim wysiłkiem dla młodej pary jest organizacja wesela. <br />
+                  Dlatego przedstawiamy Wam <b>bezpłatne</b> narzędzie, które poprowadzi Was przez wszystkie etapy tego
+                  procesu. <br /> Odpręż się bo, od teraz "Kreator weselny" ma wszystko pod kontrolą!</p>
 
                 <ConditionalRenderer show={!this.props.account.isSignedIn()}>
 
@@ -172,11 +161,48 @@ class HomePage extends React.Component {
             <Background>
               <img src="http://martaw.esy.es/images/work.jpg"/>
             </Background>
-            <h1 style={{color: "#6ed1d0", textAlign: 'center', padding: "130px 0",}}>Chesz zrobić wszystko sam? </h1>
+            <h2 style={{textAlign: 'center', padding: "130px 0"}}>Na prawdę chcesz robic to sam?</h2>
           </Parallax>
           <ScrollToElement name="more">
             <div className={cx('home__banner')}>
-              <h2 style={h4Style}>Nie musisz, przedstawiamy Ci nasze rozwiązanie!</h2>
+
+              <h1>Nie musisz! Za darmo otrzymujesz:</h1>
+
+
+              <FeatureBoxContainer
+                features={[
+                  <FeatureBox
+                    title="Wedding todos"
+                    icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                  />,
+
+                  <FeatureBox
+                  title="Timeline"
+                  icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                    />,
+
+                    <FeatureBox
+                  title="Manage guests"
+                  icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                    />,
+
+                    <FeatureBox
+                  title="Manage guests"
+                  icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                    />,
+
+                    <FeatureBox
+                  title="Manage guests"
+                  icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                    />,
+
+                    <FeatureBox
+                  title="Manage guests"
+                  icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                    />
+                ]}
+              />
+
             </div>
 
             <ConditionalRenderer show={!this.props.account.isSignedIn()}>

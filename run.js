@@ -120,6 +120,7 @@ tasks.set('start', () => {
           port: process.env.PORT || 80,
           ui: {port: Number(process.env.PORT || 80) + 1},
           open: false,
+          reloadOnRestart: true,
           server: {
             baseDir: 'public',
             middleware: [
