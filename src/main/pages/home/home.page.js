@@ -125,9 +125,8 @@ class HomePage extends React.Component {
 
           <ScrollToElement name="start">
 
-            <ContentSection>
+            <ContentSection centered>
 
-                  <div className={cx('home__welcome')}>
                     <h1>Pomożemy Ci zaplanować wymarzone wesele!</h1>
                     <p>Doskonale wiemy, jak wielkim wysiłkiem dla młodej pary jest organizacja wesela. <br />
                       Dlatego przedstawiamy Wam <b>bezpłatne</b> narzędzie, które poprowadzi Was przez wszystkie etapy tego
@@ -156,8 +155,6 @@ class HomePage extends React.Component {
 
                   <LoginPane isVisible={this.state.loginForm.shown}/>
 
-                </div>
-
             </ContentSection>
 
           </ScrollToElement>
@@ -171,11 +168,14 @@ class HomePage extends React.Component {
             </Background>
             <h2 style={{textAlign: 'center', padding: "130px 0"}}>Na prawdę chcesz robic to sam?</h2>
           </Parallax>
+
+
+
           <ScrollToElement name="more">
-            <div className={cx('home__banner')}>
+
+            <ContentSection centered>
 
               <h1>Nie musisz! Za darmo otrzymujesz:</h1>
-
 
               <FeatureBoxContainer
                 features={[
@@ -185,33 +185,33 @@ class HomePage extends React.Component {
                   />,
 
                   <FeatureBox
-                  title="Timeline"
-                  icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
-                    />,
+                    title="Timeline"
+                    icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                  />,
 
-                    <FeatureBox
-                  title="Manage guests"
-                  icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
-                    />,
+                  <FeatureBox
+                    title="Manage guests"
+                    icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                  />,
 
-                    <FeatureBox
-                  title="Manage guests"
-                  icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
-                    />,
+                  <FeatureBox
+                    title="Manage guests"
+                    icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                  />,
 
-                    <FeatureBox
-                  title="Manage guests"
-                  icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
-                    />,
+                  <FeatureBox
+                    title="Manage guests"
+                    icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                  />,
 
-                    <FeatureBox
-                  title="Manage guests"
-                  icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
-                    />
+                  <FeatureBox
+                    title="Manage guests"
+                    icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                  />
                 ]}
               />
 
-            </div>
+            </ContentSection>
 
             <ConditionalRenderer show={!this.props.account.isSignedIn()}>
               <ParallaxContent img={registrationBg}>

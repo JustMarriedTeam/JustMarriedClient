@@ -9,6 +9,7 @@ export default class ContentSection extends PureComponent {
   static propTypes = {
     alternate: PropTypes.bool,
     header: PropTypes.any,
+    centered: PropTypes.bool,
   };
 
   render() {
@@ -16,6 +17,7 @@ export default class ContentSection extends PureComponent {
       <div
         className={cx('content-section', {
           'content-section--alternate': this.props.alternate,
+          'content-section--centered': this.props.centered,
         })}
       >
         <div className={cx('content-section__header')}>{this.props.header}</div>
