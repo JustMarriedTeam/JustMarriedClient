@@ -13,8 +13,10 @@ export default class HorizontalButtonPanel extends PureComponent {
 
   render() {
 
+    let btnIndex = 0;
+
     const renderButton = (button) =>
-      <div className={cx('horizontal-button-panel__button-holder')}>
+      <div key={btnIndex++} className={cx('horizontal-button-panel__button-holder')}>
         {button}
       </div>;
 
