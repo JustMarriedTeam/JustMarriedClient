@@ -33,7 +33,6 @@ services:
       default:
         ipv4_address: 172.11.1.3
     environment:
-      - AUTH_REDIRECT_URL=http://localhost:3000/redirect.html?token=%s
       - PROTOCOL=http
       - HOST=localhost
       - PORT=2701
