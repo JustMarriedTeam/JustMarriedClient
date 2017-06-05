@@ -100,10 +100,6 @@ tasks.set('start', () => {
     const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
       publicPath: webpackConfig.output.publicPath,
       stats: webpackConfig.stats,
-      watchOptions: {
-        aggregateTimeout: 300,
-        poll: 5000
-      }
     });
     compiler.plugin('done', stats => {
       // Generate index.html page
