@@ -6,31 +6,9 @@ import classNames from 'classnames/bind';
 import Scroll from 'react-scroll';
 import styles from './LayoutBar.pcss';
 import Account from '../../core/models/account.model';
-import $ from 'jquery'; 
 
 const cx = classNames.bind(styles);
-const ScrollToElement = Scroll.Element;
 const scroller = Scroll.scroller;
-
-let myStyle = {
-    background: 'rgba(229,120,120,0.7)',
-    position: 'fixed',
-    height: '60px',
-     
-};
-$(window).scroll(function() {
-  if($(window).scrollTop() > 0 ) {
-            
-    $(".scrolling").css('height', '45px');
-    $(".scrolling-menu span").css('font-size', '16px');
-
-    }else {
-     
-   $(".scrolling").css('height', '60px');
-   $(".scrolling-menu span").css('font-size', '20px');
-        
-  }  
-});
 
 class LayoutBar extends PureComponent {
 
@@ -39,6 +17,7 @@ class LayoutBar extends PureComponent {
     onMenuAction: PropTypes.func.isRequired,
     account: PropTypes.instanceOf(Account).isRequired,
   };
+
   handleStart = () => {
     scroller.scrollTo('start', {
       duration: 1000,
@@ -46,7 +25,8 @@ class LayoutBar extends PureComponent {
       smooth: true,
     });
   };
-   handleMore = () => {
+
+  handleMore = () => {
     scroller.scrollTo('more', {
       duration: 1000,
       delay: 100,
@@ -58,21 +38,20 @@ class LayoutBar extends PureComponent {
     const { actionBarMenu, onMenuAction, account } = this.props;
     return (
       <AppBar
-       style={myStyle}
-        className={[cx('layout-bar') , 'scrolling'].join(' ')} 
+        className={cx('layout-bar')}
         onLeftIconButtonTouchTap={onMenuAction}
         iconElementRight={actionBarMenu}
         showMenuIconButton={account.isSignedIn()}
-        title=""
+        title="JustMarried"
         zDepth={0}
-        
+
       >
-      <div className={[cx('layout-bar-menu') , 'scrolling-menu'].join(' ')} >
+        <div className={cx('layout-bar-menu')}>
           <span onClick={this.handleStart}>start</span>
-          <span onClick={this.handleMore}>dowiedz się więcej</span>
+          <span onClick={this.handleMore}>odkryj</span>
           <span>działaj</span>
 
-      </div>
+        </div>
 
       </AppBar>
     );

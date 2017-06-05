@@ -35,7 +35,7 @@ services:
     environment:
       - PROTOCOL=http
       - HOST=localhost
-      - PORT=2701
+      - PORT=80
       - DOMAIN=false
       - JWT_SECRET=0a6b944d-d2fb-46fc-a85e-0295c986cd9f
       - MEMCACHED_SERVERS=172.11.1.4:11211

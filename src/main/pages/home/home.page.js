@@ -7,7 +7,6 @@ import RegistrationForm from '../../components/RegistrationForm';
 import RaisedButton from 'material-ui/RaisedButton';
 import Spacer from '../../components/Spacer';
 import ResponsiveBox from '../../components/ResponsiveBox';
-import ParallaxContent from '../../components/ParallaxContent';
 import Carousel from '../../components/Carousel';
 import CarouselItem from '../../components/Carousel/CarouselItem';
 import Scroll from 'react-scroll';
@@ -190,8 +189,10 @@ class HomePage extends React.Component {
             </ContentSection>
 
             <ConditionalRenderer show={!this.props.account.isSignedIn()}>
-              <ParallaxContent img={registrationBg}>
-
+              <Parallax>
+                <Background>
+                  <img role="presentation" src={registrationBg} />
+                </Background>
                 <ScrollToElement name="registration">
                   <ResponsiveBox>
                     <div
@@ -203,8 +204,7 @@ class HomePage extends React.Component {
                     </div>
                   </ResponsiveBox>
                 </ScrollToElement>
-
-              </ParallaxContent>
+              </Parallax>
             </ConditionalRenderer>
           </ScrollToElement>
         </LayoutContainer>
