@@ -11,7 +11,7 @@ services:
       default:
         ipv4_address: 172.11.1.2
     volumes:
-      - ./tmp/database/data:/data/db
+      - ./.tmp/database/data:/data/db
       - ./JustMarriedTools/database/dump:/dump
     ports:
       - 27017:27017
