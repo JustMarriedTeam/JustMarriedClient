@@ -41,8 +41,8 @@ class RegistrationForm extends PureComponent {
           <RaisedButton
             onClick={this.props.signInViaFacebook}
             target="_blank"
-            backgroundColor="#27cbe0"
             fullWidth
+            secondary
             label="Register with facebook"
             icon={<FontIcon className="fa fa-facebook-square" />}
           />
@@ -52,8 +52,8 @@ class RegistrationForm extends PureComponent {
           <RaisedButton
             onClick={this.props.signInViaGoogle}
             target="_blank"
-            backgroundColor="#27cbe0"
             fullWidth
+            secondary
             label="Register with google"
             icon={<FontIcon className="fa fa-google-plus-square" />}
           />

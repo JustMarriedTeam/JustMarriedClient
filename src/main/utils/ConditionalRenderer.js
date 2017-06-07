@@ -1,10 +1,12 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 
 class ConditionalRenderer extends PureComponent {
   render() {
     if (this.props.show) {
       return (
-        this.props.children
+        <div>
+          { this.props.children }
+        </div>
       );
     }
     return <div />;

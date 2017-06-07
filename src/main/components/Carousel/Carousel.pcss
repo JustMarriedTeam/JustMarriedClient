@@ -13,7 +13,66 @@
   :global {
 
     .slick-dots {
-      bottom: 10px;
+      bottom: 60px;
+
+      li {
+       width: 40px;
+          height: 30px;
+        button{
+         position: relative;
+          width: 40px;
+          height: 30px;
+           opacity: 0.4;
+
+
+           &:hover{
+           opacity: 1;
+           }
+
+        }
+        button:before,
+          button:after {
+              position: absolute;
+              content: "";
+              left: 20px;
+              top: 0;
+              opacity:1;
+              width: 20px;
+              height: 30px;
+              background: #6ed1d0;
+              -moz-border-radius: 20px 20px 0 0;
+              border-radius: 20px 20px 0 0;
+              -webkit-transform: rotate(-45deg);
+                 -moz-transform: rotate(-45deg);
+                  -ms-transform: rotate(-45deg);
+                   -o-transform: rotate(-45deg);
+                      transform: rotate(-45deg);
+              -webkit-transform-origin: 0 100%;
+                 -moz-transform-origin: 0 100%;
+                  -ms-transform-origin: 0 100%;
+                   -o-transform-origin: 0 100%;
+                      transform-origin: 0 100%;
+          }
+          button:after {
+              left: 0;
+              -webkit-transform: rotate(45deg);
+                 -moz-transform: rotate(45deg);
+                  -ms-transform: rotate(45deg);
+                   -o-transform: rotate(45deg);
+                      transform: rotate(45deg);
+              -webkit-transform-origin: 100% 100%;
+                 -moz-transform-origin: 100% 100%;
+                  -ms-transform-origin: 100% 100%;
+                   -o-transform-origin: 100% 100%;
+                      transform-origin :100% 100%;
+          }
+      }
+      .slick-active{
+      button{
+
+       opacity: 1;
+      }
+      }
     }
 
     .slick-prev {
@@ -27,3 +86,4 @@
   }
 
 }
+ 

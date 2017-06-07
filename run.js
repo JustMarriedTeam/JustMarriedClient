@@ -100,10 +100,6 @@ tasks.set('start', () => {
     const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
       publicPath: webpackConfig.output.publicPath,
       stats: webpackConfig.stats,
-      watchOptions: {
-        aggregateTimeout: 300,
-        poll: 5000
-      }
     });
     compiler.plugin('done', stats => {
       // Generate index.html page
@@ -117,9 +113,10 @@ tasks.set('start', () => {
       // For more information visit https://browsersync.io/docs/options
       if (++count === 1) {
         bs.init({
-          port: process.env.PORT || 3000,
-          ui: {port: Number(process.env.PORT || 3000) + 1},
+          port: process.env.PORT || 80,
+          ui: {port: Number(process.env.PORT || 80) + 1},
           open: false,
+          reloadOnRestart: true,
           server: {
             baseDir: 'public',
             middleware: [

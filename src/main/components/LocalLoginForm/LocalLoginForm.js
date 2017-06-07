@@ -1,6 +1,7 @@
 import React, { PureComponent, PropTypes } from 'react';
 import Account from '../../core/models/account.model';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import Spacer from '../Spacer/Spacer';
 import { Field, reduxForm } from 'redux-form';
@@ -16,7 +17,7 @@ const validate = values => {
   const requiredFields = ['login', 'password'];
   requiredFields.forEach(field => {
     if (!values[field]) {
-      errors[field] = 'Required';
+      errors[field] = 'Wymagane';
     }
   });
   return errors;
@@ -31,7 +32,14 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     {...custom}
   />
 );
-
+let buttonStyleBg = {
+    backgroundColor: '#6ed1d0',
+    color: 'white',
+    padding: '5px',
+    height: 'auto',
+    margin: '0 10px',
+    boxShadow: '0px 1px 6px rgba(0, 0, 0, 0.12), 0px 1px 4px rgba(0, 0, 0, 0.12)',
+}
 class LocalLoginForm extends PureComponent {
 
   static propTypes = {
@@ -63,17 +71,18 @@ class LocalLoginForm extends PureComponent {
         name="password"
         fullWidth
         component={renderTextField}
-        label="Password"
+        label="Hasło"
       />
 
       <Spacer weight="md" />
 
       <div className={cx('local-login-form__buttons-plh')}>
-        <RaisedButton
-          primary
+        <FlatButton
+         
+          style={buttonStyleBg}
           disabled={submitting}
           type="submit"
-          label="Sign in"
+          label="Zaloguj się"
         />
       </div>
     </form>);

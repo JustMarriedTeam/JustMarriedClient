@@ -5,21 +5,22 @@ import LayoutContainer from '../../layout/LayoutContainer';
 import LoginForm from '../../components/LoginForm';
 import RegistrationForm from '../../components/RegistrationForm';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import Spacer from '../../components/Spacer';
-import ContentSection from '../../components/ContentSection';
 import ResponsiveBox from '../../components/ResponsiveBox';
-import ParallaxContent from '../../components/ParallaxContent';
 import Carousel from '../../components/Carousel';
 import CarouselItem from '../../components/Carousel/CarouselItem';
 import Scroll from 'react-scroll';
 import styles from './home.page.pcss';
-import whyNeedUs from '../../assets/whyneedus.jpg';
-import registrationBg from '../../assets/registrationbg.jpg';
+import registrationBg from '../../assets/slide3.jpg';
 import { connect } from 'react-redux';
 import * as allAccountActions from '../../core/actions/account.actions';
 import Account from '../../core/models/account.model';
 import ConditionalRenderer from '../../utils/ConditionalRenderer';
+import { Background, Parallax } from 'react-parallax';
+import ContentSection from '../../components/ContentSection';
+import HorizontalButtonPanel from '../../components/HorizontalButtonPanel';
+import FeatureBoxContainer from '../../components/FeatureBoxContainer';
+import FeatureBox from '../../components/FeatureBox';
 
 const cx = classnames.bind(styles);
 const ScrollToElement = Scroll.Element;
@@ -65,89 +66,138 @@ class HomePage extends React.Component {
       return null;
     }
 
-
     return (
       <Layout>
-        <div className={cx('home__banner')}>
-          <div className={cx('home__banner-content')}>
-            <div className={cx('home__logo')} />
-            <div className={cx('home__slogan')}>
 
-              <h1>Just Married</h1>
-              <h4>Let's plan your wedding!</h4>
+        <div className={'top-slider'}>
 
-              <ConditionalRenderer show={!this.props.account.isSignedIn()}>
-                <div>
-                  <RaisedButton
-                    label="Start here"
-                    secondary
-                    onClick={this.handleStart}
-                  />
+          <Carousel
+            className={cx('home__banner')}
+          >
+            <CarouselItem key={1} img={'http://martaw.esy.es/images/slide1.jpg'}>
+             <h1>Let's plan your wedding</h1>
+            </CarouselItem>
+            <CarouselItem key={2} img={'http://martaw.esy.es/images/slide2.jpg'}>
+              <h1>Let's plan your wedding 2</h1>
+            </CarouselItem>
+            <CarouselItem key={3} img={'http://martaw.esy.es/images/slide3.jpg'}>
+              <h1>Let's plan your wedding 3</h1>
+            </CarouselItem>
+          </Carousel>
 
-                  <FlatButton
-                    onClick={this.toggleLoginForm}
-                    disabled={this.state.loginForm.shown}
-                    label="or sign in"
-                    href={'#continue'}
-                  />
-                </div>
-              </ConditionalRenderer>
-
-            </div>
-
-            <Spacer />
-
-            <LoginPane isVisible={this.state.loginForm.shown} />
-
-          </div>
         </div>
 
         <LayoutContainer>
 
-          <ParallaxContent img={whyNeedUs}>
-            <h2
-              style={{
-                padding: '120px 0',
-                textAlign: 'center',
-              }}
-            >Want to do this all by yourself?</h2>
-          </ParallaxContent>
 
-          <ContentSection alternate header={<h2>You don't have to! Let us help you.</h2>}>
+          <ScrollToElement name="start">
 
-            <Carousel
-              style={{
-                height: '600px',
-              }}
-            >
-              <CarouselItem key={1} img={'https://placeholdit.imgix.net/~text?txtsize=90&txt=960%C3%97500&w=960&h=500'}>
-                abc
-              </CarouselItem>
-              <CarouselItem key={2} img={'https://placeholdit.imgix.net/~text?txtsize=90&txt=960%C3%97500&w=960&h=500'}>
-                def
-              </CarouselItem>
-            </Carousel>
+            <ContentSection centered>
 
-          </ContentSection>
+              <h1>Pomożemy Ci zaplanować wymarzone wesele!</h1>
+              <p>Doskonale wiemy, jak wielkim wysiłkiem dla młodej pary jest organizacja wesela. <br />
+                Dlatego przedstawiamy Wam <b>bezpłatne</b> narzędzie, które poprowadzi Was przez wszystkie etapy tego
+                procesu. <br /> Odpręż się bo, od teraz "Kreator weselny" ma wszystko pod kontrolą!</p>
 
-          <ConditionalRenderer show={!this.props.account.isSignedIn()}>
-            <ParallaxContent img={registrationBg}>
+              <ConditionalRenderer show={!this.props.account.isSignedIn()}>
 
-              <ScrollToElement name="registration">
-                <ResponsiveBox>
-                  <div
-                    style={{
-                      padding: '120px 30px',
-                    }}
-                  >
-                    <RegistrationForm />
-                  </div>
-                </ResponsiveBox>
-              </ScrollToElement>
+                <HorizontalButtonPanel
+                  buttons={[
+                    <RaisedButton
+                      label="Rejestracja"
+                      onClick={this.handleStart}
+                      primary
+                    />,
+                    <RaisedButton
+                      onClick={this.toggleLoginForm}
+                      disabled={this.state.loginForm.shown}
+                      label="Logowanie"
+                      href={'#continue'}
+                      secondary
+                    />,
+                  ]}
+                />
 
-            </ParallaxContent>
-          </ConditionalRenderer>
+              </ConditionalRenderer>
 
+              <Spacer />
+
+              <LoginPane isVisible={this.state.loginForm.shown} />
+
+            </ContentSection>
+
+          </ScrollToElement>
+
+
+          <Parallax strength={300}>
+            <Background>
+              <img src="http://martaw.esy.es/images/work.jpg" />
+            </Background>
+            <h2 style={{ textAlign: 'center', padding: '130px 0' }}>Na prawdę chcesz robic to sam?</h2>
+          </Parallax>
+
+
+          <ScrollToElement name="more">
+
+            <ContentSection centered>
+
+              <h1>Nie musisz! Za darmo otrzymujesz:</h1>
+
+              <FeatureBoxContainer
+                features={[
+                  <FeatureBox
+                    title="Wedding todos"
+                    icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                  />,
+
+                  <FeatureBox
+                    title="Timeline"
+                    icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                  />,
+
+                  <FeatureBox
+                    title="Manage guests"
+                    icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                  />,
+
+                  <FeatureBox
+                    title="Manage guests"
+                    icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                  />,
+
+                  <FeatureBox
+                    title="Manage guests"
+                    icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                  />,
+
+                  <FeatureBox
+                    title="Manage guests"
+                    icon="https://image.freepik.com/free-icon/calendar-page-of-day-25_318-58109.jpg"
+                  />,
+                ]}
+              />
+
+            </ContentSection>
+
+            <ConditionalRenderer show={!this.props.account.isSignedIn()}>
+              <Parallax>
+                <Background>
+                  <img role="presentation" src={registrationBg} />
+                </Background>
+                <ScrollToElement name="registration">
+                  <ResponsiveBox>
+                    <div
+                      style={{
+                        padding: '120px 30px',
+                      }}
+                    >
+                      <RegistrationForm />
+                    </div>
+                  </ResponsiveBox>
+                </ScrollToElement>
+              </Parallax>
+            </ConditionalRenderer>
+          </ScrollToElement>
         </LayoutContainer>
 
 
@@ -161,3 +211,4 @@ class HomePage extends React.Component {
 export default connect((state) => ({
   account: state.account,
 }), allAccountActions)(HomePage);
+

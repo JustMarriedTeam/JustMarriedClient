@@ -19,6 +19,10 @@ export default class Carousel extends PureComponent {
       adaptiveHeight: false,
       variableWidth: false,
       centerPadding: '0',
+      fade: true,
+      arrows: false,
+      autoplay: true,
+      autoplaySpeed: 4000,
     };
 
     return (
@@ -28,7 +32,7 @@ export default class Carousel extends PureComponent {
           key={element.key}
           className={cx('carousel--item-wrapper')}
           style={{
-            height: '500px',
+            height: '400px',
           }}
         >{element}</div>)(this.props.children)}
 

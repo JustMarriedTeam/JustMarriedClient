@@ -11,8 +11,8 @@ services:
       default:
         ipv4_address: 172.11.1.2
     volumes:
-      - ./.tmp/database/data:/data
-      - ./.tmp/database/dump:/dump
+      - ./.tmp/database/data:/data/db
+      - ./JustMarriedTools/database/dump:/dump
     ports:
       - 27017:27017
 
@@ -28,14 +28,14 @@ services:
       - db
       - memcached
     ports:
-      - 2701:2701
+      - 2701:80
     networks:
       default:
         ipv4_address: 172.11.1.3
     environment:
       - PROTOCOL=http
       - HOST=localhost
-      - PORT=2701
+      - PORT=80
       - DOMAIN=false
       - JWT_SECRET=0a6b944d-d2fb-46fc-a85e-0295c986cd9f
       - MEMCACHED_SERVERS=172.11.1.4:11211
@@ -50,7 +50,7 @@ services:
       context: .
       dockerfile: containers/develop/Dockerfile
     ports:
-      - 3000:3000
+      - 80:80
     volumes:
       - ./:/app
     depends_on:
