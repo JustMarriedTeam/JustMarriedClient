@@ -11,8 +11,7 @@ services:
       default:
         ipv4_address: 172.11.1.2
     volumes:
-      - ./.tmp/database/data:/data
-      - ./.tmp/database/dump:/dump
+      - ./tmp/database/data:/data/db
     ports:
       - 27017:27017
 
