@@ -73,15 +73,6 @@ class HomePage extends React.Component {
 
           <Carousel
             className={cx('home__banner')}
-            {...{
-              autoplay: true,
-              autoplaySpeed: 5000,
-              dots: true,
-              fade: true,
-              pauseOnHover: true,
-              cssEase: 'linear',
-              speed: 1000,
-            }}
           >
             <CarouselItem key={1} img={'http://martaw.esy.es/images/slide1.jpg'}>
              <h1>Let's plan your wedding</h1>
